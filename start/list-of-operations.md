@@ -7,7 +7,7 @@ order: 30
 
 This is the canonical list of Bantu operations, which lists every Bantu operation along with parameters, error codes, and links to relevant documentation for key SDKs.
 
-For a description of how operations work in Stellar, see [Operations](../glossary/operations.md).
+For a description of how operations work in Bantu, see [Operations](../glossary/operations.md).
 
 For the protocol specification, see [stellar-transactions.x](https://github.com/stellar/stellar-core/blob/master/src/xdr/Stellar-transaction.x).
 
