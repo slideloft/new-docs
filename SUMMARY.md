@@ -3,7 +3,7 @@
 * [Welcome](README.md)
 * [Where to Start](start/README.md)
   * [Introduction](start/introduction.md)
-  * [list-of-operations](start/list-of-operations.md)
+  * [list of Operations](start/list-of-operations.md)
   * [stellar-stack](start/stellar-stack.md)
 * [Tutorials](tutorials/README.md)
   * [create-account](tutorials/create-account.md)

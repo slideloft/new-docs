@@ -3,11 +3,9 @@ title: List of Operations
 order: 30
 ---
 
-# list-of-operations
+# list of Operations
 
-import { CodeExample } from "components/CodeExample";
-
-This is the canonical list of Stellar operations, which lists every Stellar operation along with parameters, error codes, and links to relevant documentation for key SDKs.
+This is the canonical list of Bantu operations, which lists every Bantu operation along with parameters, error codes, and links to relevant documentation for key SDKs.
 
 For a description of how operations work in Stellar, see [Operations](../glossary/operations.md).
 
