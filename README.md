@@ -10,15 +10,11 @@ Welcome to the Bantu Developer's Documentation. It contains everything required 
 
 **Tutorials:**
 
-This section will show you how to do basic things like create an account and make payments.
-
-[Read More](https://bantu-foundation.gitbook.io/bantu-blockchain-foundation/tutorials)
+This section will show you how to do basic things like create an account and make payments. [Read More](https://bantu-foundation.gitbook.io/bantu-blockchain-foundation/tutorials)
 
 **Issue Assets:**
 
-You can issue assets easily on Bantu, and it can be done with few lines of code safely. You can also publish information about your asset for Wallets and consumers, control access to it by setting simple flags, and make it available for trade on the Bantu decentralized exchange
-
-[Read More](https://bantu-foundation.gitbook.io/bantu-blockchain-foundation/issuing-assets/index)
+You can issue assets easily on Bantu, and it can be done with few lines of code safely. You can also publish information about your asset for Wallets and consumers, control access to it by setting simple flags, and make it available for trade on the Bantu decentralized exchange. [Read More](https://bantu-foundation.gitbook.io/bantu-blockchain-foundation/issuing-assets/index)
 
 **Anchor Assets**
 
