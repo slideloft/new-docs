@@ -83,7 +83,7 @@ server
 
 What exactly happened there? Let’s break it down.
 
-1. Confirm that the account ID \(aka the _public key_\) you are sending to actually exists by loading the associated account data from the Bantu network. It's okay to skip this step, but it gives you an opportunity to avoid making a transaction that will inevitably fail.
+ Confirm that the account ID \(aka the _public key_\) you are sending to actually exists by loading the associated account data from the Bantu network. It's okay to skip this step, but it gives you an opportunity to avoid making a transaction that will inevitably fail.
 
 ```text
 server.loadAccount(destinationId).then(function (account) {
@@ -91,7 +91,7 @@ server.loadAccount(destinationId).then(function (account) {
 });
 ```
 
-2. Load data for the account you are sending from. An account can only perform one transaction at a time and has something called a [sequence number](../glossary/accounts.md#sequence-number), which helps Bantu verify the order of transactions. A transaction’s sequence number needs to match the account’s sequence number, so you need to get the account’s current sequence number from the network.
+ Load data for the account you are sending from. An account can only perform one transaction at a time and has something called a [sequence number](../glossary/accounts.md#sequence-number), which helps Bantu verify the order of transactions. A transaction’s sequence number needs to match the account’s sequence number, so you need to get the account’s current sequence number from the network.
 
 ```text
 .then(function() {
