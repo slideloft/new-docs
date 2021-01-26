@@ -69,5 +69,5 @@ account.balances.forEach(function (balance) {
 
 ```
 
-Now that you’ve got an account, you can [start sending and receiving payments](send-and-receive-payments.md), or, if you're ready to hunker down, you can skip ahead and [build a wallet](../building-apps/index.md) or [issue a Stellar-network asset](../issuing-assets/index.md).
+Now that you’ve got an account, you can [start sending and receiving payments](send-and-receive-payments.md), or, if you're ready to hunker down, you can skip ahead and [build a wallet](../building-apps/index.md) or [issue a Bantu-network asset](../issuing-assets/index.md).
 
