@@ -101,13 +101,13 @@ return server.loadAccount(sourceKeys.publicKey());
 
 The SDK will automatically increment the account’s sequence number when you build a transaction, so you won’t need to retrieve this information again if you want to perform a second transaction.
 
-1. Start building a transaction. This requires an account object, not just an account ID, because it will increment the account’s sequence number.
+Start building a transaction. This requires an account object, not just an account ID, because it will increment the account’s sequence number.
 
 ```text
 var transaction = new StellarSdk.TransactionBuilder(sourceAccount);
 ```
 
-1. Add the payment operation to the account. Note that you need to specify the type of asset you are sending: Stellar’s network currency is the [XBN](https://www.stellar.org/XBN), but you can send any asset issued on the network. We'll cover sending non-XBN assets [below](send-and-receive-payments.md#transacting-in-other-currencies). For now, though, we’ll stick to XBN, which are called “native” assets in the SDK:
+Add the payment operation to the account. Note that you need to specify the type of asset you are sending: Stellar’s network currency is the [XBN](https://www.stellar.org/XBN), but you can send any asset issued on the network. We'll cover sending non-XBN assets [below](send-and-receive-payments.md#transacting-in-other-currencies). For now, though, we’ll stick to XBN, which are called “native” assets in the SDK:
 
 ```text
 .addOperation(StellarSdk.Operation.payment({
@@ -119,19 +119,19 @@ var transaction = new StellarSdk.TransactionBuilder(sourceAccount);
 
 You should also note that the amount is a string rather than a number. When working with extremely small fractions or large values, [floating point math can introduce small inaccuracies](https://en.wikipedia.org/wiki/Floating_point#Accuracy_problems). Since not all systems have a native way to accurately represent extremely small or large decimals, Bantu uses strings as a reliable way to represent the exact amount across any system.
 
-1. Optionally, you can add your own metadata, called a [memo](../glossary/transactions.md#memo), to a transaction. Bantu doesn’t do anything with this data, but you can use it for any purpose you’d like. Many exchanges require memos for incoming transactions because they use a single Bantu account for all their users and rely on the memo to differentiate between internal user accounts.
+Optionally, you can add your own metadata, called a [memo](../glossary/transactions.md#memo), to a transaction. Bantu doesn’t do anything with this data, but you can use it for any purpose you’d like. Many exchanges require memos for incoming transactions because they use a single Bantu account for all their users and rely on the memo to differentiate between internal user accounts.
 
 ```text
 .addMemo(StellarSdk.Memo.text('Test Transaction'))
 ```
 
-1. Now that the transaction has all the data it needs, you have to cryptographically sign it using your secret key. This proves that the data actually came from you and not someone impersonating you.
+Now that the transaction has all the data it needs, you have to cryptographically sign it using your secret key. This proves that the data actually came from you and not someone impersonating you.
 
 ```text
 transaction.sign(sourceKeys);
 ```
 
-1. And finally, submit it to the Bantu network!
+And finally, submit it to the Bantu network!
 
 ```text
 server.submitTransaction(transaction);
