@@ -9,8 +9,6 @@ This is the canonical list of Bantu operations, which lists every Bantu operatio
 
 For a description of how operations work in Bantu, see [Operations](../glossary/operations.md).
 
-For the protocol specification, see [stellar-transactions.x](https://github.com/stellar/stellar-core/blob/master/src/xdr/Stellar-transaction.x).
-
 * [Create Account](list-of-operations.md#create-account)
 * [Payment](list-of-operations.md#payment)
 * [Path Payment Strict Send](list-of-operations.md#path-payment-strict-send)
