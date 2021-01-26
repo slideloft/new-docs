@@ -5,11 +5,11 @@ order: 10
 
 # Create Account
 
-import { CodeExample } from "components/CodeExample";
 
-_Before we get started with working with Stellar in code, consider going through the following examples using the_ [_Stellar Laboratory_](https://www.stellar.org/laboratory/)_. The lab allows you create accounts, fund accounts on the Stellar test network, build transactions, run any operation, and inspect responses from Horizon via the Endpoint Explorer._
 
-[Accounts](../glossary/accounts.md) are a fundamental building block of Stellar: they hold all your balances, allow you to send and receive payments, and let you place offers to buy and sell assets. Since pretty much everything on Stellar is in some way tied to an account, the first thing you generally need to do when you start developing is create one. This beginner-level tutorial will show you how to do that.
+Before we get started with working with Bantu in code, consider going through the following examples using the [Bantu Laboratory](https://laboratory.bantu.network/). The lab allows you create accounts, fund accounts on the Bantu test network, build transactions, run any operation, and inspect responses from Expansion via the Endpoint Explorer. 
+
+Accounts are a fundamental building block of Bantu: they hold all your balances, allow you to send and receive payments, and let you place offers to buy and sell assets. Since pretty much everything on Bantu is in some way tied to an account, the first thing you generally need to do when you start developing is create one. This beginner-level tutorial will show you how to do that.
 
 ## Create a Keypair
 
