@@ -2,7 +2,7 @@
 
 * [Welcome](README.md)
 * [Where to Start](start/README.md)
-  * [introduction](start/introduction.md)
+  * [Introduction](start/introduction.md)
   * [list-of-operations](start/list-of-operations.md)
   * [stellar-stack](start/stellar-stack.md)
 * [Tutorials](tutorials/README.md)
