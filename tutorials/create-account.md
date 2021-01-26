@@ -13,11 +13,18 @@ Accounts are a fundamental building block of Bantu: they hold all your balances,
 
 ## Create a Keypair
 
-Stellar uses public key cryptography to ensure that every transaction is secure: every Stellar account has a keypair consisting of a **public key** and a **secret key**. The public key is always safe to share — other people need it to identify your account and verify that you authorized a transaction. It's like an email address. The secret key, however, is private information that proves you own — and gives you access to — your account. It's like a password, and you should never share it with anyone.
+Bantu uses public key cryptography to ensure that every transaction is secure: every Bantu account has a keypair consisting of a public key and a secret key. The public key is always safe to share — other people need it to identify your account and verify that you authorized a transaction. It's like an email address. The secret key, however, is private information that proves you own — and gives you access to — your account. It's like a password, and you should never share it with anyone.
 
 Before creating an account, you need to generate your own keypair:
 
- \`\`\`js // create a completely new and unique pair of keys // see more about KeyPair objects: https://stellar.github.io/js-stellar-sdk/Keypair.html const pair = StellarSdk.Keypair.random\(\); pair.secret\(\); // SAV76USXIJOBMEQXPANUOQM6F5LIOTLPDIDVRJBFFE2MDJXG24TAPUU7 pair.publicKey\(\); // GCFXHS4GXL6BVUCXBWXGTITROWLVYXQKQLF4YH5O5JT3YZXCYPAFBJZB \`\`\` \`\`\`java // create a completely new and unique pair of keys. // see more about KeyPair objects: https://stellar.github.io/java-stellar-sdk/org/stellar/sdk/KeyPair.html import org.stellar.sdk.KeyPair; KeyPair pair = KeyPair.random\(\); System.out.println\(new String\(pair.getSecretSeed\(\)\)\); // SAV76USXIJOBMEQXPANUOQM6F5LIOTLPDIDVRJBFFE2MDJXG24TAPUU7 System.out.println\(pair.getAccountId\(\)\); // GCFXHS4GXL6BVUCXBWXGTITROWLVYXQKQLF4YH5O5JT3YZXCYPAFBJZB \`\`\` \`\`\`go package main import \( "log" "github.com/stellar/go/keypair" \) func main\(\) { pair, err := keypair.Random\(\) if err != nil { log.Fatal\(err\) } log.Println\(pair.Seed\(\)\) // SAV76USXIJOBMEQXPANUOQM6F5LIOTLPDIDVRJBFFE2MDJXG24TAPUU7 log.Println\(pair.Address\(\)\) // GCFXHS4GXL6BVUCXBWXGTITROWLVYXQKQLF4YH5O5JT3YZXCYPAFBJZB } \`\`\` \`\`\`python \# stellar-sdk &gt;= 2.0.0 required \# create a completely new and unique pair of keys \# see more about KeyPair objects: https://stellar-sdk.readthedocs.io/en/latest/api.html\#keypair from stellar\_sdk.keypair import Keypair pair = Keypair.random\(\) print\(f"Secret: {pair.secret}"\) \# Secret: SCMDRX7A7OVRPAGXLUVRNIYTWBLCS54OV7UH2TF5URSG4B4JQMUADCYU print\(f"Public Key: {pair.public\_key}"\) \# Public Key: GAG7SXULMNWCW6LX42JKZOZRA2JJXQT23LYY32OXA6XECUQG7RZTQJHO \`\`\`
+```text
+const pair = StellarSdk.Keypair.random();
+
+pair.secret();
+// SAV76USXIJOBMEQXPANUOQM6F5LIOTLPDIDVRJBFFE2MDJXG24TAPUU7
+pair.publicKey();
+// GCFXHS4GXL6BVUCXBWXGTITROWLVYXQKQLF4YH5O5JT3YZXCYPAFBJZB
+```
 
 ## Create Account
 
