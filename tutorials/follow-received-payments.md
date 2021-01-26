@@ -5,9 +5,7 @@ order: 30
 
 # Follow Received Payments
 
-import { CodeExample } from "components/CodeExample";
-
-This tutorial shows how easy it is to use Horizon to watch for incoming payments on an [account](../glossary/accounts.md) using JavaScript and `EventSource`. We will eschew using [`js-stellar-sdk`](https://github.com/stellar/js-stellar-sdk), the high-level helper library, to show that it is possible for you to perform this task on your own with whatever programming language you would like to use.
+This tutorial shows how easy it is to use Expansion to watch for incoming payments on an [account](../glossary/accounts.md) using JavaScript and `EventSource`. We will eschew using [`js-stellar-sdk`](https://github.com/stellar/js-stellar-sdk), the high-level helper library, to show that it is possible for you to perform this task on your own with whatever programming language you would like to use.
 
 This tutorial assumes that you:
 
@@ -88,7 +86,7 @@ We now know how to get a stream of transactions to an account. Let's check if ou
 
 We use the `create_account` operation because we are sending payment to a new, unfunded account. If we were sending payment to an account that is already funded, we would use the [`payment` operation](../start/list-of-operations.md#payment).
 
-First, let's check our account sequence number so we can create a payment transaction. To do this we send a request to horizon:
+First, let's check our account sequence number so we can create a payment transaction. To do this we send a request to Expansion:
 
  \`\`\`bash $ curl "https://horizon-testnet.stellar.org/accounts/GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3" \`\`\`
 
@@ -98,9 +96,9 @@ Now, create `make_payment.js` file and paste the following code into it, replaci
 
  \`\`\`js var StellarBase = require\("stellar-base"\); StellarBase.Network.useTestNetwork\(\); var keypair = StellarBase.Keypair.fromSecret\( "SCU36VV2OYTUMDSSU4EIVX4UUHY3XC7N44VL4IJ26IOG6HVNC7DY5UJO", \); var account = new StellarBase.Account\(keypair.publicKey\(\), "713226564141056"\); var amount = "100"; var transaction = new StellarBase.TransactionBuilder\(account\) .addOperation\( StellarBase.Operation.createAccount\({ destination: StellarBase.Keypair.random\(\).publicKey\(\), startingBalance: amount, }\), \) .build\(\); transaction.sign\(keypair\); console.log\(transaction.toEnvelope\(\).toXDR\(\).toString\("base64"\)\); \`\`\`
 
-After running this script you should see a signed transaction blob. To submit this transaction we send it to horizon or stellar-core. But before we do, let's open a new console and start our previous script by `node stream_payments.js`.
+After running this script you should see a signed transaction blob. To submit this transaction we send it to Expansion or Bantu-core. But before we do, let's open a new console and start our previous script by `node stream_payments.js`.
 
-Now to send a transaction just use horizon:
+Now to send a transaction just use Expansion:
 
  \`\`\`bash curl -H "Content-Type: application/json" -X POST -d '{"tx":"AAAAAH6Sq76F4cHVMWvGG4AtNtFVIvayUxSgR401rPY9ej3TAAAD6AACiK0AAAABAAAAAAAAAAAAAAABAAAAAAAAAAEAAAAAKc1j3y10+nI+sxuXlmFz71JS35mp/RcPCP45Gw0obdAAAAAAAAAAAAExLQAAAAAAAAAAAT16PdMAAABAsJTBC5N5B9Q/9+ZKS7qkMd/wZHWlP6uCCFLzeD+JWT60/VgGFCpzQhZmMg2k4Vg+AwKJTwko3d7Jt3Y6WhjLCg=="}' "https://horizon-testnet.stellar.org/transactions" \`\`\`
 
