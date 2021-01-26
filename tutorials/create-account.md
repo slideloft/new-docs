@@ -28,13 +28,34 @@ pair.publicKey();
 
 ## Create Account
 
-A valid keypair, however, does not an account make: in order to prevent unused accounts from bloating the ledger, Stellar requires accounts to hold a [minumum balance](../glossary/minimum-balance.md) of 1 XLM before they actually exist. Until it gets a bit of funding, your keypair doesn't warrant space on the ledger.
+A valid keypair, however, does not an account make: in order to prevent unused accounts from bloating the ledger, Bantu requires accounts to hold a [minumum balance](../glossary/minimum-balance.md) of 1 XBN before they actually exist. Until it gets a bit of funding, your keypair doesn't warrant space on the ledger.
 
-On the [public network](../glossary/network-passphrase.md), where live users make live transactions, your next step would be to acquire XLM, which you can do by consulting our [lumen buying guide](https://www.stellar.org/lumens/exchanges). Because this tutorial runs on the [test network](../glossary/testnet.md), you can get 10,000 test XLM from Friendbot, which is a friendly account funding tool.
+On the [public network](../glossary/network-passphrase.md), where live users make live transactions, your next step would be to acquire XBN. Because this tutorial runs on the [test network](../glossary/testnet.md), you can get 10,000 test XLM from Friendbot, which is a friendly account funding tool.
 
 To do that, send Friendbot the public key you created. It’ll create and fund a new account using that public key as the account ID.
 
- \`\`\`js // The SDK does not have tools for creating test accounts, so you'll have to // make your own HTTP request. // if you're trying this on Node, install the \`node-fetch\` library and // uncomment the next line: // const fetch = require\('node-fetch'\); \(async function main\(\) { try { const response = await fetch\( \`https://friendbot.stellar.org?addr=${encodeURIComponent\( pair.publicKey\(\), \)}\`, \); const responseJSON = await response.json\(\); console.log\("SUCCESS! You have a new account :\)\n", responseJSON\); } catch \(e\) { console.error\("ERROR!", e\); } }\)\(\); \`\`\` \`\`\`java // The SDK does not have tools for creating test accounts, so you'll have to // make your own HTTP request. import java.net.\*; import java.io.\*; import java.util.\*; String friendbotUrl = String.format\( "https://friendbot.stellar.org/?addr=%s", pair.getAccountId\(\)\); InputStream response = new URL\(friendbotUrl\).openStream\(\); String body = new Scanner\(response, "UTF-8"\).useDelimiter\("\\A"\).next\(\); System.out.println\("SUCCESS! You have a new account :\)\n" + body\); \`\`\` \`\`\`go package main import \( "net/http" "io/ioutil" "log" "fmt" \) func main\(\) { // pair is the pair that was generated from previous example, or create a pair based on // existing keys. address := pair.Address\(\) resp, err := http.Get\("https://friendbot.stellar.org/?addr=" + address\) if err != nil { log.Fatal\(err\) } defer resp.Body.Close\(\) body, err := ioutil.ReadAll\(resp.Body\) if err != nil { log.Fatal\(err\) } fmt.Println\(string\(body\)\) } \`\`\` \`\`\`python \# The SDK does not have tools for creating test accounts, so you'll have to \# make your own HTTP request. \# if you're trying this on Python, install the \`requests\` library. import requests public\_key = "GD4NB2FLQAN5JO7PKPGZJMNBDYQXVSNVC7DEIZMOL5WSNSBLEBUTEF5Q" response = requests.get\(f"https://friendbot.stellar.org?addr={public\_key}"\) if response.status\_code == 200: print\(f"SUCCESS! You have a new account :\)\n{response.text}"\) else: print\(f"ERROR! Response: \n{response.text}"\) \`\`\`
+```text
+// The SDK does not have tools for creating test accounts, so you'll have to
+// make your own HTTP request.
+
+// if you're trying this on Node, install the `node-fetch` library and
+// uncomment the next line:
+// const fetch = require('node-fetch');
+
+(async function main() {
+  try {
+    const response = await fetch(
+      `https://friendbot.dev.bantu.network?addr=${encodeURIComponent(
+        pair.publicKey(),
+      )}`,
+    );
+    const responseJSON = await response.json();
+    console.log("SUCCESS! You have a new account :)\n", responseJSON);
+  } catch (e) {
+    console.error("ERROR!", e);
+  }
+})();
+```
 
 Now for the last step: getting the account’s details and checking its balance. Accounts can carry multiple balances — one for each type of currency they hold.
 
