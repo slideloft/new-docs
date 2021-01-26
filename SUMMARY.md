@@ -1,14 +1,14 @@
 # Table of contents
 
 * [Welcome](README.md)
-* [tutorials](tutorials/README.md)
+* [Tutorials](tutorials/README.md)
   * [create-account](tutorials/create-account.md)
   * [follow-received-payments](tutorials/follow-received-payments.md)
   * [send-and-receive-payments](tutorials/send-and-receive-payments.md)
   * [securing-projects](tutorials/securing-projects.md)
-* [issuing-assets](issuing-assets/README.md)
-  * [publishing-asset-info](issuing-assets/publishing-asset-info.md)
+* [Issue Assets](issuing-assets/README.md)
   * [index](issuing-assets/index.md)
+  * [publishing-asset-info](issuing-assets/publishing-asset-info.md)
   * [anatomy-of-an-asset](issuing-assets/anatomy-of-an-asset.md)
   * [how-to-issue-an-asset](issuing-assets/how-to-issue-an-asset.md)
   * [control-asset-access](issuing-assets/control-asset-access.md)
