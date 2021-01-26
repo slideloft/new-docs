@@ -3,7 +3,7 @@ title: Create an Account
 order: 10
 ---
 
-# create-account
+# Create Account
 
 import { CodeExample } from "components/CodeExample";
 

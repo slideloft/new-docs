@@ -6,7 +6,7 @@
   * [list of Operations](start/list-of-operations.md)
   * [Bantu Stack](start/bantu-stack.md)
 * [Tutorials](tutorials/README.md)
-  * [create-account](tutorials/create-account.md)
+  * [Create Account](tutorials/create-account.md)
   * [follow-received-payments](tutorials/follow-received-payments.md)
   * [send-and-receive-payments](tutorials/send-and-receive-payments.md)
   * [securing-projects](tutorials/securing-projects.md)
