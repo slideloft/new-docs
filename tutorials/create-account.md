@@ -42,7 +42,7 @@ To do that, send Friendbot the public key you created. It’ll create and fund a
 // uncomment the next line:
 // const fetch = require('node-fetch');
 
-(async function main() {
+<span style="color:blue">(async function </span> main() {
   try {
     const response = await fetch(
       `https://friendbot.dev.bantu.network?addr=${encodeURIComponent(
