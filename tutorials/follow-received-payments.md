@@ -3,7 +3,7 @@ title: Follow Received Payments
 order: 30
 ---
 
-# follow-received-payments
+# Follow Received Payments
 
 import { CodeExample } from "components/CodeExample";
 

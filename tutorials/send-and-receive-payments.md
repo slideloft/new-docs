@@ -3,7 +3,7 @@ title: Send and Receive Payments
 order: 20
 ---
 
-# send-and-receive-payments
+# Send and Receive Payments
 
 import { CodeExample } from "components/CodeExample";
 
