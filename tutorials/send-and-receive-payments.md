@@ -54,7 +54,7 @@ server
         StellarSdk.Operation.payment({
           destination: destinationId,
           // Because Bantu allows transaction in many currencies, you must
-          // specify the asset type. The special "native" asset represents Lumens.
+          // specify the asset type. The special "native" asset represents XBN.
           asset: StellarSdk.Asset.native(),
           amount: "10",
         }),
@@ -107,7 +107,7 @@ Start building a transaction. This requires an account object, not just an accou
 var transaction = new StellarSdk.TransactionBuilder(sourceAccount);
 ```
 
-Add the payment operation to the account. Note that you need to specify the type of asset you are sending: Stellar’s network currency is the [XBN](https://www.stellar.org/XBN), but you can send any asset issued on the network. We'll cover sending non-XBN assets [below](send-and-receive-payments.md#transacting-in-other-currencies). For now, though, we’ll stick to XBN, which are called “native” assets in the SDK:
+Add the payment operation to the account. Note that you need to specify the type of asset you are sending: Bantu’s network currency is the [XBN](https://www.stellar.org/XBN), but you can send any asset issued on the network. We'll cover sending non-XBN assets [below](send-and-receive-payments.md#transacting-in-other-currencies). For now, though, we’ll stick to XBN, which are called “native” assets in the SDK:
 
 ```text
 .addOperation(StellarSdk.Operation.payment({
@@ -148,7 +148,7 @@ However, you may want to keep an eye out for incoming payments. A simple program
 ```text
 var StellarSdk = require("stellar-sdk");
 
-var server = new StellarSdk.Server("https://horizon-testnet.stellar.org");
+var server = new StellarSdk.Server("https://expansion-testnet.bantu.network");
 var accountId = "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF";
 
 // Create an API call to query payments involving the account.
@@ -174,11 +174,11 @@ payments.stream({
       return;
     }
 
-    // In Stellar’s API, Lumens are referred to as the “native” type. Other
+    // In Bantu’s API, XBN are referred to as the “native” type. Other
     // asset types have more detailed information.
     var asset;
     if (payment.asset_type === "native") {
-      asset = "lumens";
+      asset = "XBN";
     } else {
       asset = payment.asset_code + ":" + payment.asset_issuer;
     }
