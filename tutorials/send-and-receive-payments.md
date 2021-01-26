@@ -83,11 +83,15 @@ server
 
 What exactly happened there? Let’s break it down.
 
-1. Confirm that the account ID \(aka the _public key_\) you are sending to actually exists by loading the associated account data from the Bantunetwork. It's okay to skip this step, but it gives you an opportunity to avoid making a transaction that will inevitably fail.
+1. Confirm that the account ID \(aka the _public key_\) you are sending to actually exists by loading the associated account data from the Bantu network. It's okay to skip this step, but it gives you an opportunity to avoid making a transaction that will inevitably fail.
 
-   \`\`\`js server.loadAccount\(destinationId\).then\(function \(account\) { /\* validate the account \*/ }\); \`\`\` \`\`\`java server.accounts\(\).account\(destination.getAccountId\(\)\); \`\`\` \`\`\`go destAccountRequest := Expansionclient.AccountRequest{AccountID: destination} destinationAccount, err := client.AccountDetail\(destAccountRequest\) if err != nil { panic\(err\) } \`\`\` \`\`\`python server.load\_account\(destination\_id\) \`\`\`
+```text
+server.loadAccount(destinationId).then(function (account) {
+  /* validate the account */
+});
+```
 
-2. Load data for the account you are sending from. An account can only perform one transaction at a time and has something called a [sequence number](../glossary/accounts.md#sequence-number), which helps Bantuverify the order of transactions. A transaction’s sequence number needs to match the account’s sequence number, so you need to get the account’s current sequence number from the network.
+1. Load data for the account you are sending from. An account can only perform one transaction at a time and has something called a [sequence number](../glossary/accounts.md#sequence-number), which helps Bantuverify the order of transactions. A transaction’s sequence number needs to match the account’s sequence number, so you need to get the account’s current sequence number from the network.
 
    \`\`\`js .then\(function\(\) { return server.loadAccount\(sourceKeys.publicKey\(\)\); }\) \`\`\` \`\`\`java AccountResponse sourceAccount = server.accounts\(\).account\(source.getAccountId\(\)\); \`\`\` \`\`\`go sourceKP := keypair.MustParseFull\(source\) sourceAccountRequest := Expansionclient.AccountRequest{AccountID: sourceKP.Address\(\)} sourceAccount, err := client.AccountDetail\(sourceAccountRequest\) if err != nil { panic\(err\) } \`\`\` \`\`\`python source\_account = server.load\_account\(source\_key.public\_key\) \`\`\`
 
