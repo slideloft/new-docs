@@ -24,11 +24,18 @@ In this tutorial we will learn:
 
 Let's get started by building our project skeleton:
 
- \`\`\`bash $ mkdir follow\_tutorial $ cd follow\_tutorial $ npm install --save stellar-base $ npm install --save eventsource \`\`\`
+```bash
+$ mkdir follow_tutorial
+$ cd follow_tutorial
+$ npm install --save stellar-base
+$ npm install --save eventsource
+```
 
 This should have created a `package.json` in the `follow_tutorial` directory. You can check that everything went well by running the following command:
 
- \`\`\`bash $ node -e "require\('stellar-base'\)" \`\`\`
+```bash
+$ node -e "require('stellar-base')"
+```
 
 Everything was successful if no output was generated from the above command. Now let's write a script to create a new account.
 
@@ -36,11 +43,25 @@ Everything was successful if no output was generated from the above command. Now
 
 Create a new file named `make_account.js` and paste the following text into it:
 
- \`\`\`javascript var Keypair = require\("stellar-base"\).Keypair; var newAccount = Keypair.random\(\); console.log\("New key pair created!"\); console.log\(" Account ID: " + newAccount.publicKey\(\)\); console.log\(" Secret: " + newAccount.secret\(\)\); \`\`\`
+```javascript
+var Keypair = require("stellar-base").Keypair;
+
+var newAccount = Keypair.random();
+
+console.log("New key pair created!");
+console.log("  Account ID: " + newAccount.publicKey());
+console.log("  Secret: " + newAccount.secret());
+```
 
 Save the file and run it:
 
- \`\`\`bash $ node make\_account.js New key pair created! Account ID: GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3 Secret: SCU36VV2OYTUMDSSU4EIVX4UUHY3XC7N44VL4IJ26IOG6HVNC7DY5UJO $ \`\`\`
+```bash
+$ node make_account.js
+New key pair created!
+  Account ID: GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3
+  Secret: SCU36VV2OYTUMDSSU4EIVX4UUHY3XC7N44VL4IJ26IOG6HVNC7DY5UJO
+$
+```
 
 Before our account can do anything it must be funded. Indeed, before an account is funded it does not truly exist!
 
@@ -48,11 +69,19 @@ Before our account can do anything it must be funded. Indeed, before an account 
 
 The Stellar test network provides the Friendbot, a tool that developers can use to get testnet lumens for testing purposes. To fund your account, simply execute the following curl command:
 
- \`\`\`bash $ curl "https://friendbot.stellar.org/?addr=GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3" \`\`\`
+```bash
+$ curl "https://friendbot.stellar.org/?addr=GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3"
+```
 
 Don't forget to replace the account id above with your own. If the request succeeds, you should see a response like:
 
- \`\`\`json { "hash": "ed9e96e136915103f5d8978cbb2036628e811f2c59c4c3d88534444cf504e360", "result": "received", "submission\_result": "000000000000000a0000000000000001000000000000000000000000" } \`\`\`
+```javascript
+{
+  "hash": "ed9e96e136915103f5d8978cbb2036628e811f2c59c4c3d88534444cf504e360",
+  "result": "received",
+  "submission_result": "000000000000000a0000000000000001000000000000000000000000"
+}
+```
 
 After a few seconds, the Stellar network will perform consensus, close the ledger, and your account will have been created. Next up we will write a command that watches for new payments to your account and outputs a message to the terminal.
 
@@ -60,11 +89,31 @@ After a few seconds, the Stellar network will perform consensus, close the ledge
 
 To follow new payments connected to your account you simply need to send the `Accept: text/event-stream` header to the [/payments](../api/resources/operations/object/payment.md) endpoint.
 
- \`\`\`bash $ curl -H "Accept: text/event-stream" "https://horizon-testnet.stellar.org/accounts/GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3/payments" \`\`\`
+```bash
+$ curl -H "Accept: text/event-stream" "https://horizon-testnet.stellar.org/accounts/GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3/payments"
+```
 
 As a result you will see something like:
 
- \`\`\`bash retry: 1000 event: open data: "hello" id: 713226564145153 data: {"\_links":{"effects":{"href":"/operations/713226564145153/effects/{?cursor,limit,order}","templated":true}, "precedes":{"href":"/operations?cursor=713226564145153\u0026order=asc"}, "self":{"href":"/operations/713226564145153"}, "succeeds":{"href":"/operations?cursor=713226564145153\u0026order=desc"}, "transactions":{"href":"/transactions/713226564145152"}}, "account":"GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3", "funder":"GBS43BF24ENNS3KPACUZVKK2VYPOZVBQO2CISGZ777RYGOPYC2FT6S3K", "id":713226564145153, "paging\_token":"713226564145153", "starting\_balance":"10000", "type\_i":0, "type":"create\_account"} \`\`\`
+```bash
+retry: 1000
+event: open
+data: "hello"
+
+id: 713226564145153
+data: {"_links":{"effects":{"href":"/operations/713226564145153/effects/{?cursor,limit,order}","templated":true},
+       "precedes":{"href":"/operations?cursor=713226564145153\u0026order=asc"},
+       "self":{"href":"/operations/713226564145153"},
+       "succeeds":{"href":"/operations?cursor=713226564145153\u0026order=desc"},
+       "transactions":{"href":"/transactions/713226564145152"}},
+       "account":"GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3",
+       "funder":"GBS43BF24ENNS3KPACUZVKK2VYPOZVBQO2CISGZ777RYGOPYC2FT6S3K",
+       "id":713226564145153,
+       "paging_token":"713226564145153",
+       "starting_balance":"10000",
+       "type_i":0,
+       "type":"create_account"}
+```
 
 Every time you receive a new payment you will get a new row of data. Payments is not the only endpoint that supports streaming. You can also stream transactions [/transactions](../api/resources/transactions/index.md) and operations [/operations](../api/resources/operations/index.md).
 
@@ -74,7 +123,20 @@ Every time you receive a new payment you will get a new row of data. Payments is
 
 Another way to follow payments is writing a simple JS script that will stream payments and print them to console. Create `stream_payments.js` file and paste the following code into it:
 
- \`\`\`js var EventSource = require\("eventsource"\); var es = new EventSource\( "https://horizon-testnet.stellar.org/accounts/GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3/payments", \); es.onmessage = function \(message\) { var result = message.data ? JSON.parse\(message.data\) : message; console.log\("New payment:"\); console.log\(result\); }; es.onerror = function \(error\) { console.log\("An error occurred!"\); }; \`\`\`
+```javascript
+var EventSource = require("eventsource");
+var es = new EventSource(
+  "https://expansion-testnet.bantu.network/accounts/GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3/payments",
+);
+es.onmessage = function (message) {
+  var result = message.data ? JSON.parse(message.data) : message;
+  console.log("New payment:");
+  console.log(result);
+};
+es.onerror = function (error) {
+  console.log("An error occurred!");
+};
+```
 
 Now, run our script: `node stream_payments.js`. You should see following output:
 
