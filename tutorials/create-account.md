@@ -5,9 +5,7 @@ order: 10
 
 # Create Account
 
-
-
-Before we get started with working with Bantu in code, consider going through the following examples using the [Bantu Laboratory](https://laboratory.bantu.network/). The lab allows you create accounts, fund accounts on the Bantu test network, build transactions, run any operation, and inspect responses from Expansion via the Endpoint Explorer. 
+Before we get started with working with Bantu in code, consider going through the following examples using the [Bantu Laboratory](https://laboratory.bantu.network/). The lab allows you create accounts, fund accounts on the Bantu test network, build transactions, run any operation, and inspect responses from Expansion via the Endpoint Explorer.
 
 Accounts are a fundamental building block of Bantu: they hold all your balances, allow you to send and receive payments, and let you place offers to buy and sell assets. Since pretty much everything on Bantu is in some way tied to an account, the first thing you generally need to do when you start developing is create one. This beginner-level tutorial will show you how to do that.
 
@@ -30,7 +28,7 @@ pair.publicKey();
 
 A valid keypair, however, does not an account make: in order to prevent unused accounts from bloating the ledger, Bantu requires accounts to hold a [minumum balance](../glossary/minimum-balance.md) of 1 XBN before they actually exist. Until it gets a bit of funding, your keypair doesn't warrant space on the ledger.
 
-On the [public network](../glossary/network-passphrase.md), where live users make live transactions, your next step would be to acquire XBN. Because this tutorial runs on the [test network](../glossary/testnet.md), you can get 10,000 test XLM from Friendbot, which is a friendly account funding tool.
+On the [public network](../glossary/network-passphrase.md), where live users make live transactions, your next step would be to acquire XBN. Because this tutorial runs on the [test network](../glossary/testnet.md), you can get 10,000 test XBN from Friendbot, which is a friendly account funding tool.
 
 To do that, send Friendbot the public key you created. It’ll create and fund a new account using that public key as the account ID.
 
@@ -59,7 +57,17 @@ To do that, send Friendbot the public key you created. It’ll create and fund a
 
 Now for the last step: getting the account’s details and checking its balance. Accounts can carry multiple balances — one for each type of currency they hold.
 
- \`\`\`js const server = new StellarSdk.Server\("https://horizon-testnet.stellar.org"\); // the JS SDK uses promises for most actions, such as retrieving an account const account = await server.loadAccount\(pair.publicKey\(\)\); console.log\("Balances for account: " + pair.publicKey\(\)\); account.balances.forEach\(function \(balance\) { console.log\("Type:", balance.asset\_type, ", Balance:", balance.balance\); }\); \`\`\` \`\`\`java import org.stellar.sdk.Server; import org.stellar.sdk.responses.AccountResponse; Server server = new Server\("https://horizon-testnet.stellar.org"\); AccountResponse account = server.accounts\(\).account\(pair.getAccountId\(\)\); System.out.println\("Balances for account " + pair.getAccountId\(\)\); for \(AccountResponse.Balance balance : account.getBalances\(\)\) { System.out.printf\( "Type: %s, Code: %s, Balance: %s%n", balance.getAssetType\(\), balance.getAssetCode\(\), balance.getBalance\(\) \); } \`\`\` \`\`\`go package main import \( "log" "github.com/stellar/go/clients/horizonclient" \) func main\(\) { // Replace this with the output from earlier, or use pair.Address\(\) address := "GCFXHS4GXL6BVUCXBWXGTITROWLVYXQKQLF4YH5O5JT3YZXCYPAFBJZB" request := horizonclient.AccountRequest{AccountID: address} account, err := horizonclient.DefaultTestNetClient.AccountDetail\(request\) if err != nil { log.Fatal\(err\) } log.Println\("Balances for account:", address\) for \_, balance := range account.Balances { log.Println\(balance\) } } \`\`\` \`\`\`python from stellar\_sdk.server import Server server = Server\("https://horizon-testnet.stellar.org"\) public\_key = "GD4NB2FLQAN5JO7PKPGZJMNBDYQXVSNVC7DEIZMOL5WSNSBLEBUTEF5Q" account = server.accounts\(\).account\_id\(public\_key\).call\(\) for balance in account\['balances'\]: print\(f"Type: {balance\['asset\_type'\]}, Balance: {balance\['balance'\]}"\) \`\`\`
+```text
+const server = new StellarSdk.Server("https://expansion-testnet.bantu.network");
+
+// the JS SDK uses promises for most actions, such as retrieving an account
+const account = await server.loadAccount(pair.publicKey());
+console.log("Balances for account: " + pair.publicKey());
+account.balances.forEach(function (balance) {
+  console.log("Type:", balance.asset_type, ", Balance:", balance.balance);
+});
+
+```
 
 Now that you’ve got an account, you can [start sending and receiving payments](send-and-receive-payments.md), or, if you're ready to hunker down, you can skip ahead and [build a wallet](../building-apps/index.md) or [issue a Stellar-network asset](../issuing-assets/index.md).
 
