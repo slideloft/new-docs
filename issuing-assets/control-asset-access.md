@@ -11,13 +11,13 @@ When you issue an asset on Stellar, anyone can hold it by default. In general, t
 
 However, if you need to control access to an asset to comply with regulations \(or for any other reason\), you can easily do so by enabling flags on your issuing account.
 
-Flags are created on the _account level_ using a [`set_options`](../content/docs/start/list-of-operations.md#set-options) operation. They can be set at any time in the life cycle of an asset, not just when you issue it:
+Flags are created on the _account level_ using a [`set_options`](../docs/start/list-of-operations.md#set-options) operation. They can be set at any time in the life cycle of an asset, not just when you issue it:
 
 ## Authorization Required
 
 When `AUTHORIZATION REQUIRED` is enabled, an issuer must approve an account before that account can hold its asset. This setting allows issuers to vet potential token holders using whatever means they see fit, and to approve trustlines if and only if the holders pass muster.
 
-To allow access, the user creates a trustline, and the issuer approves it by changing the `AUTHORIZE` flag with the [`allow_trust`](../content/docs/start/list-of-operations.md#allow-trust) operation.
+To allow access, the user creates a trustline, and the issuer approves it by changing the `AUTHORIZE` flag with the [`allow_trust`](../docs/start/list-of-operations.md#allow-trust) operation.
 
 There are two levels of authorization an asset issuer can grant using the `allow_trust` operation:
 
@@ -30,7 +30,7 @@ When `AUTHORIZATION_REVOCABLE` is enabled, an issuer can revoke an existing trus
 
 `AUTHORIZATION_REVOCABLE` also allows an issuer to reduce authorization from complete to limited, which prevents the account from transferring or trading the asset, but does not cancel the account's open orders for the asset. This setting is useful for issuers of regulated assets who need to authorize transactions on a case-by-case basis to ensure each conforms to certain requirements.
 
-All changes to asset authorization are performed with the [`allow_trust`](../content/docs/start/list-of-operations.md#allow-trust) operation.
+All changes to asset authorization are performed with the [`allow_trust`](../docs/start/list-of-operations.md#allow-trust) operation.
 
 To use this setting, `AUTHORIZATION REQUIRED` must also be enabled.
 
@@ -46,7 +46,7 @@ If the issuer wants to approve transactions on a case-by-base basis while allowi
 
 To intitiate a new operation, the holding account requests that the issuer approve and sign a transaction. Once the issuer inspects the operation and decides to approve it, they sandwich it between a set of operations, first granting authorization, then reducing it.
 
-Here's a payment from A to B sandwiched between [`allow_trust`](../content/docs/start/list-of-operations.md#allow-trust) operations:
+Here's a payment from A to B sandwiched between [`allow_trust`](../docs/start/list-of-operations.md#allow-trust) operations:
 
 * Operation 1: Issuer uses `AllowTrust` to fully authorize account A, asset X
 * Operation 2: Issuer uses `AllowTrust` to fully authorize account B, asset X

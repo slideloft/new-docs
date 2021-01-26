@@ -25,7 +25,7 @@ The `stellar.toml` file is a common place where the Internet can find informatio
 
 That way, everyone knows where to find it, anyone can look it up, and it _proves_ that the owner of the HTTPS domain hosting the stellar.toml claims _responsibility_ for the accounts and assets listed in it.
 
-Using a [`set_options`](../content/docs/start/list-of-operations.md#set-options) operation, you can link your Stellar account to the domain that hosts your `stellar.toml`, thereby creating a definitive on-chain connection between this information and that account.
+Using a [`set_options`](../docs/start/list-of-operations.md#set-options) operation, you can link your Stellar account to the domain that hosts your `stellar.toml`, thereby creating a definitive on-chain connection between this information and that account.
 
 ## How to complete your stellar.toml
 

@@ -7,7 +7,7 @@ order: 20
 
 import { CodeExample } from "components/CodeExample"; import { Alert } from "components/Alert";
 
-There is no dedicated operation to create an asset on Stellar. Instead, assets are created with a [payment operation](../content/docs/start/list-of-operations.md#payment): an issuing account makes a payment using the asset it’s issuing, and that payment actually creates the asset on the network.
+There is no dedicated operation to create an asset on Stellar. Instead, assets are created with a [payment operation](../docs/start/list-of-operations.md#payment): an issuing account makes a payment using the asset it’s issuing, and that payment actually creates the asset on the network.
 
 It’s a pretty simple process that requires four operations: one to create an issuing account, one to create a distribution account, one to establish a trustline, and one to make a payment.
 
