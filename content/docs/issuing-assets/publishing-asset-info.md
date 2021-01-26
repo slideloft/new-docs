@@ -1,0 +1,139 @@
+---
+title: Publish Information About an Asset
+order: 40
+---
+
+# publishing-asset-info
+
+import { CodeExample } from "components/CodeExample"; import { Alert } from "components/Alert";
+
+When you issue an asset, it’s crucial to provide clear information about it represents. On Stellar, you do that by linking your issuing account to a home domain, publishing a `stellar.toml` file on that domain, and making sure that file is complete.
+
+The most successful asset issuers give exchanges, wallets, and potential buyers lots of information about themselves in order to establish trust. More information in your `stellar.toml` will mean:
+
+* Your asset gets _more_ exposure, and is listed on _more_ exchanges
+* Your asset holders are _more_ confident in you and the assets you issue.
+* Your project will most likely be _more_ successful!
+
+The Stellar ticker, which is the source of market data for sites like CoinMarketCap, only includes assets with valid `stellar.toml` files. Trading interfaces like StellarX, Stellarport, and StellarTerm and wallets like Lobstr and Solar use `stellar.toml` files to populate their listings, and to decide if and how to present assets to their users. Any and all ecosystem integrations that allow for interoperability — from federation to in-app deposit and withdrawal — rely on information in your `stellar.toml` detailing your Stellar setup.
+
+Completing your `stellar.toml` is not a step you can skip.
+
+## What is a stellar.toml?
+
+The `stellar.toml` file is a common place where the Internet can find information about your organization’s Stellar integration. You write it in TOML, a simple and widely used configuration file format designed to be readable by both humans and machines, and publish it at `https://YOUR_DOMAIN/.well-known/stellar.toml`.
+
+That way, everyone knows where to find it, anyone can look it up, and it _proves_ that the owner of the HTTPS domain hosting the stellar.toml claims _responsibility_ for the accounts and assets listed in it.
+
+Using a [`set_options`](../start/list-of-operations.md#set-options) operation, you can link your Stellar account to the domain that hosts your `stellar.toml`, thereby creating a definitive on-chain connection between this information and that account.
+
+## How to complete your stellar.toml
+
+Stellar Ecosystem Proposals are open protocols for building on top of Stellar, and the very first SEP, aptly named [SEP-1](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md), specifies everything you could ever want to include in a `stellar.toml` file. This guide, which is targeted toward asset issuers, won’t cover the `Validator Information` section \(that’s covered in the [Run a Core Node section](../run-core-node/index.md)\), and may omit some details relevant to your use case.
+
+The goal here is to walk through the sections of [SEP-1](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md) that directly relate to asset issuers, so you should use this guide in conjunction with that SEP to make sure you complete your `stellar.toml` correctly. The four sections we’ll cover:
+
+* General Information
+* Organization Documentation
+* Point of Contact Documentation
+* Currency Documentation
+
+For each of those sections, we’ll let you know which fields are **required**, meaning all asset issuers _must_ include them to be listed by exchanges and wallets, and which fields are **suggested**. Completing suggested fields is a good way to make your asset stand out.
+
+ Note: it's a good idea to keep the sections in the order presented in \[SEP-1\]\(https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md\), which is also the order they're presented here. TOML requires arrays to be at the end, so if you move scramble the order, you may cause errors for TOML parsers
+
+### General Information
+
+There is one field in the General Information section required for _all_ token issuers:
+
+* `ACCOUNTS`: A list of **public keys** for all the Stellar accounts associated with your asset.
+
+Listing your public keys lets users confirm that you, in fact, own them. For example, when [https://google.com](https://google.com) hosts a stellar.toml file, users can be sure that _only_ the accounts listed on it belong to Google. If someone then says, "You need to pay your Google bill this month, send payment to address GIAMGOOGLEIPROMISE", but that key is not listed on Google's stellar.toml, then users know to not trust it.
+
+In addition, there are several fields where you list information about your Stellar integration to aid in discoverability. If you are an anchor service, and you have [set up infrastructure](../anchoring-assets/enabling-deposit-and-withdrawal/index.md) to interoperate with wallets and allow for in-app deposit and withdrawal of assets, make sure to include the locations of your servers on your stellar.toml file so those wallets know where to find relevant endpoints to query. In particular, list your:
+
+* `TRANSFER_SERVER_SEP0024`, which is where wallets find endpoints to initiate interactive deposit and withdrawal based on the [SEP-24](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0024.md) spec
+* `WEB_AUTH_ENDPOINT`, which is where wallets initiate user authentication sessions based on the [SEP-10](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0010.md) spec
+
+If you support other Stellar Ecosystem Proposals — such as federation or delegated signing — or host a public Horizon instance that other people can use to query the ledger, you should also add the location of those resources to [General Information](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md#general-information) so they're discoverable.
+
+### Organization Documentation
+
+Basic information about your organization goes into a TOML **table** called `[DOCUMENTATION]`. Organization Documentation is your chance to inform exchanges and buyers about your business, and to demonstrate that your business is legitimate and trustworthy.
+
+#### Required
+
+* `ORG_NAME` The legal name of your organization, and if your business has one, its official `ORG_DBA`.
+* `ORG_URL` The HTTPS URL of your organization's official website. In order to prove the website is yours, _you must host your stellar.toml on the same domain you list here._ That way, exchanges and buyers can view the SSL certificate on your website, and feel reasonably confident that you are who you say you are.
+* `ORG_LOGO` A URL to a company logo, which will show up next to your organization on exchanges. This image should be a square aspect ratio transparent PNG, ideally of size 128x128. If you fail to provide a logo, the icon next to your organization will appear blank on many exchanges.
+* `ORG_PHYSICAL_ADDRESS` The physical address of your organization. We understand you might want to keep your work address private. At the very least, you should put the _city_ and _country_ in which you operate. A street address is ideal and provides a higher level of trust and transparency to your potential asset holders.
+* `ORG_OFFICIAL_EMAIL` The best contact email address for you organization. This should be hosted at the same domain as your official website.
+
+#### Suggested
+
+* `ORG_GITHUB` Your organization's official Github account.
+* `ORG_KEYBASE` Your organization's official Keybase account. Your Keybase account should contain proof of ownership of any public online accounts you list here, including your organization's domain.
+* `ORG_TWITTER` Your organization's official Twitter handle.
+* `ORG_DESCRIPTION` A description of your organization. This is fairly open-ended, and you can write as much as you want. It's a great place to distinguish yourself by describing what it is that you do.
+
+Issuers that list verified information including phone/address attestations and Keybase verifications are prioritized by Stellar clients.
+
+### Point of Contact Documentation
+
+Information about the primary point\(s\) of contact for your organization goes into a TOML [array of tables](https://github.com/toml-lang/toml#array-of-tables) called `[[PRINCIPALS]]`. You need to put contact information for _at least one person_ at your organization. If you don't, exchanges can't verify your offering, and it is unlikely that buyers will be interested. Multiple principals can be added with additional `[[PRINCIPALS]]` entries.
+
+#### Required
+
+* `name` The name of the primary contact.
+* `email` The primary contact's official email address. This should be hosted at the same domain as your organization's official website.
+
+#### Suggested
+
+* `github` The personal Github account of the point of contact.
+* `twitter` The personal Twitter handle of the point of contact.
+* `keybase` The personal Keybase account for the point of contact. This account should contain proof of ownership of any public online accounts listed here and may contain proof of ownership of your organization's domain.
+
+### Currency Documentation
+
+Information about the asset\(s\) you issue goes into a TOML [array of tables](https://github.com/toml-lang/toml#array-of-tables) called `[[CURRENCIES]]`. If you issue multiple assets, you can include them all in one stellar.toml. Each asset should have its own `[[CURRENCIES]]` entry.
+
+#### Required
+
+* `code` The asset code. This is one of two key pieces of information that identify your token. Without it, your token cannot be listed anywhere.
+* `issuer` The Stellar public key of the issuing account. This is the second key piece of information that identifies your token. Without it, your token cannot be listed anywhere.
+* `is_asset_anchored` An indication of whether your token is anchored or native: `true` if your token can be redeemed for an asset outside the Stellar network, `false` if it can’t. Exchanges use this information to sort tokens by type in listings. If you fail to provide it, your token is unlikely to show up in filtered market views.
+
+If you're issuing anchored \(tethered, stablecoin, asset-backed\) tokens, there are several additional **required** fields:
+
+* `anchor_asset_type` The type of asset your token represents. The possible categories are `fiat`, `crypto`, `stock`, `bond`, `commodity`, `realestate`, and `other`.
+* `anchor_asset` The name of the asset that serves as the anchor for your token.
+* `redemption_instructions` Instructions to redeem your token for the underlying asset.
+
+#### Suggested
+
+* `desc` A description of your token and what it represents. This is a good place to clarify what your token does, and why someone might want to own it.
+* `conditions` Any conditions you place on the redemption of your token.
+* `image` A URL to a PNG or GIF image with a transparent background representing your token. Without it, your token will appear blank on many exchanges.
+
+## How to publish your stellar.toml
+
+After you've followed the steps above to complete your stellar.toml, post it at the following location:
+
+`https://YOUR_DOMAIN/.well-known/stellar.toml`
+
+Enable [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) so people can access this file from other sites, and set the following header for an HTTP response for a `/.well-known/stellar.toml` file request.
+
+`Access-Control-Allow-Origin: *`
+
+Set a `text/plain` content type so that browsers render the contents, rather than prompting for a download. ‘content-type: text/plain’
+
+You should also use the `set_options` operation to set the home domain on your issueing account.
+
+## Sample code to set the home domain of your issuing account
+
+ \`\`\`js var StellarSdk = require\("stellar-sdk"\); var server = new StellarSdk.Server\("https://horizon-testnet.stellar.org"\); // Keys for issuing account var issuingKeys = StellarSdk.Keypair.fromSecret\( "SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4", \); server .loadAccount\(issuingKeys.publicKey\(\)\) .then\(function \(issuer\) { var transaction = new StellarSdk.TransactionBuilder\(issuer, { fee: 100, networkPassphrase: StellarSdk.Networks.TESTNET, }\) .addOperation\( StellarSdk.Operation.setOptions\({ homeDomain: "yourdomain.com", }\), \) // setTimeout is required for a transaction .setTimeout\(100\) .build\(\); transaction.sign\(issuingKeys\); return server.submitTransaction\(transaction\); }\) .then\(console.log\) .catch\(function \(error\) { console.error\("Error!", error\); }\); \`\`\` \`\`\`java Server server = new Server\("https://horizon-testnet.stellar.org"\); // Keys for issuing account KeyPair issuingKeys = KeyPair .fromSecretSeed\("SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4"\); AccountResponse sourceAccount = server.accounts\(\).account\(issuingKeys.getAccountId\(\)\); Transaction setHomeDomain = new Transaction.Builder\(sourceAccount, Network.TESTNET\) .addOperation\(new SetOptionsOperation.Builder\(\) .setHomeDomain\("yourdomain.com"\).build\(\)\) .build\(\); setHomeDomain.sign\(issuingKeys\); server.submitTransaction\(setHomeDomain\); \`\`\` \`\`\`python from stellar\_sdk import Keypair, Network, Server, TransactionBuilder from stellar\_sdk.exceptions import BaseHorizonError \# Configure Stellar SDK to talk to the horizon instance hosted by Stellar.org \# To use the live network, set the hostname to 'https://horizon.stellar.org' server = Server\(horizon\_url="https://horizon-testnet.stellar.org"\) \# Use the test network, if you want to use the live network, please set it to \`Network.PUBLIC\_NETWORK\_PASSPHRASE\` network\_passphrase = Network.TESTNET\_NETWORK\_PASSPHRASE \# Keys for accounts to issue and receive the new asset issuing\_keypair = Keypair.from\_secret\( "SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4" \) issuing\_public = issuing\_keypair.public\_key \# Transactions require a valid sequence number that is specific to this account. \# We can fetch the current sequence number for the source account from Horizon. issuing\_account = server.load\_account\(issuing\_public\) transaction = \( TransactionBuilder\( source\_account=issuing\_account, network\_passphrase=network\_passphrase, base\_fee=100, \) .append\_set\_options\_op\( home\_domain="yourdomain.com" \) .build\(\) \) transaction.sign\(issuing\_keypair\) try: transaction\_resp = server.submit\_transaction\(transaction\) print\(f"Transaction Resp:\n{transaction\_resp}"\) except BaseHorizonError as e: print\(f"Error: {e}"\) \`\`\`
+
+## Sample stellar.toml
+
+ \`\`\`toml NETWORK\_PASSPHRASE="Public Global Stellar Network ; September 2015" FEDERATION\_SERVER="https://api.domain.com/federation" AUTH\_SERVER="https://api.domain.com/auth" TRANSFER\_SERVER="https://api.domain.com" SIGNING\_KEY="GBBHQ7H4V6RRORKYLHTCAWP6MOHNORRFJSDPXDFYDGJB2LPZUFPXUEW3" HORIZON\_URL="https://horizon.domain.com" ACCOUNTS=\[ "GD5DJQDDBKGAYNEAXU562HYGOOSYAEOO6AS53PZXBOZGCP5M2OPGMZV3", "GAENZLGHJGJRCMX5VCHOLHQXU3EMCU5XWDNU4BGGJFNLI2EL354IVBK7", "GAOO3LWBC4XF6VWRP5ESJ6IBHAISVJMSBTALHOQM2EZG7Q477UWA6L7U" \] VERSION="2.0.0" \[DOCUMENTATION\] ORG\_NAME="Organization Name" ORG\_DBA="Organization DBA" ORG\_URL="https://www.domain.com" ORG\_LOGO="https://www.domain.com/awesomelogo.png" ORG\_DESCRIPTION="Description of issuer" ORG\_PHYSICAL\_ADDRESS="123 Sesame Street, New York, NY 12345, United States" ORG\_PHYSICAL\_ADDRESS\_ATTESTATION="https://www.domain.com/address\_attestation.jpg" ORG\_PHONE\_NUMBER="1 \(123\)-456-7890" ORG\_PHONE\_NUMBER\_ATTESTATION="https://www.domain.com/phone\_attestation.jpg" ORG\_KEYBASE="accountname" ORG\_TWITTER="orgtweet" ORG\_GITHUB="orgcode" ORG\_OFFICIAL\_EMAIL="support@domain.com" \[\[PRINCIPALS\]\] name="Jane Jedidiah Johnson" email="jane@domain.com" keybase="crypto\_jane" twitter="crypto\_jane" github="crypto\_jane" id\_photo\_hash="be688838ca8686e5c90689bf2ab585cef1137c999b48c70b92f67a5c34dc15697b5d11c982ed6d71be1e1e7f7b4e0733884aa97c3f7a339a8ed03577cf74be09" verification\_photo\_hash="016ba8c4cfde65af99cb5fa8b8a37e2eb73f481b3ae34991666df2e04feb6c038666ebd1ec2b6f623967756033c702dde5f423f7d47ab6ed1827ff53783731f7" \[\[CURRENCIES\]\] code="USD" issuer="GCZJM35NKGVK47BB4SPBDV25477PZYIYPVVG453LPYFNXLS3FGHDXOCM" display\_decimals=2 \[\[CURRENCIES\]\] code="BTC" issuer="GAOO3LWBC4XF6VWRP5ESJ6IBHAISVJMSBTALHOQM2EZG7Q477UWA6L7U" display\_decimals=7 anchor\_asset\_type="crypto" anchor\_asset="BTC" redemption\_instructions="Use SEP6 with our federation server" collateral\_addresses=\["2C1mCx3ukix1KfegAY5zgQJV7sanAciZpv"\] collateral\_address\_signatures=\["304502206e21798a42fae0e854281abd38bacd1aeed3ee3738d9e1446618c4571d10"\] \# asset with meta info \[\[CURRENCIES\]\] code="GOAT" issuer="GD5T6IPRNCKFOHQWT264YPKOZAWUMMZOLZBJ6BNQMUGPWGRLBK3U7ZNP" display\_decimals=2 name="goat share" desc="1 GOAT token entitles you to a share of revenue from Elkins Goat Farm." conditions="There will only ever be 10,000 GOAT tokens in existence. We will distribute the revenue share annually on Jan. 15th" image="https://static.thenounproject.com/png/2292360-200.png" fixed\_number=10000 \`\`\`
+

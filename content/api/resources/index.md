@@ -1,0 +1,13 @@
+---
+title: Resources
+order: 0
+---
+
+# index
+
+import { MethodTable } from "components/MethodTable";
+
+Data on the Stellar ledger is organized according to resources. Each resource has several different endpoints.
+
+ \| \| \| \| --------------------------------------------------- \| --- \| \| \[Ledgers\]\(./ledgers/index.mdx\) \| \| \| \[Transactions\]\(./transactions/index.mdx\) \| \| \| \[Operations\]\(./operations/index.mdx\) \| \| \| \[Effects\]\(./effects/index.mdx\) \| \| \| \[Accounts\]\(./accounts/index.mdx\) \| \| \| \[Offers\]\(./offers/index.mdx\) \| \| \| \[Claimable Balances\]\(./claimablebalances/index.mdx\) \| \| \| \[Trades\]\(./trades/index.mdx\) \| \| \| \[Assets\]\(./assets/index.mdx\) \| \|
+
