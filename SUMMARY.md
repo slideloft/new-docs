@@ -4,7 +4,7 @@
 * [Where to Start](start/README.md)
   * [Introduction](start/introduction.md)
   * [list of Operations](start/list-of-operations.md)
-  * [stellar-stack](start/stellar-stack.md)
+  * [Bantu Stack](start/bantu-stack.md)
 * [Tutorials](tutorials/README.md)
   * [create-account](tutorials/create-account.md)
   * [follow-received-payments](tutorials/follow-received-payments.md)
