@@ -1,2 +1,2 @@
-# anchoring-assets
+# Anchoring Assets
 

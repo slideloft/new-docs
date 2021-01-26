@@ -1,2 +1,2 @@
-# building-apps
+# Building Apps
 

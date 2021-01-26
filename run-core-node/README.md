@@ -1,2 +1,2 @@
-# run-core-node
+# Run a Core Node
 
