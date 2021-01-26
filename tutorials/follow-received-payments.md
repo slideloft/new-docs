@@ -140,7 +140,24 @@ es.onerror = function (error) {
 
 Now, run our script: `node stream_payments.js`. You should see following output:
 
- \`\`\`bash New payment: { \_links: { effects: { href: '/operations/713226564145153/effects/{?cursor,limit,order}', templated: true }, precedes: { href: '/operations?cursor=713226564145153&order=asc' }, self: { href: '/operations/713226564145153' }, succeeds: { href: '/operations?cursor=713226564145153&order=desc' }, transactions: { href: '/transactions/713226564145152' } }, account: 'GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3', funder: 'GBS43BF24ENNS3KPACUZVKK2VYPOZVBQO2CISGZ777RYGOPYC2FT6S3K', id: 713226564145153, paging\_token: '713226564145153', starting\_balance: '10000', type\_i: 0, type: 'create\_account' } \`\`\`
+```bash
+New payment:
+{ _links:
+   { effects:
+      { href: '/operations/713226564145153/effects/{?cursor,limit,order}',
+        templated: true },
+     precedes: { href: '/operations?cursor=713226564145153&order=asc' },
+     self: { href: '/operations/713226564145153' },
+     succeeds: { href: '/operations?cursor=713226564145153&order=desc' },
+     transactions: { href: '/transactions/713226564145152' } },
+  account: 'GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3',
+  funder: 'GBS43BF24ENNS3KPACUZVKK2VYPOZVBQO2CISGZ777RYGOPYC2FT6S3K',
+  id: 713226564145153,
+  paging_token: '713226564145153',
+  starting_balance: '10000',
+  type_i: 0,
+  type: 'create_account' }
+```
 
 ## Testing it out
 
@@ -150,19 +167,45 @@ We use the `create_account` operation because we are sending payment to a new, u
 
 First, let's check our account sequence number so we can create a payment transaction. To do this we send a request to Expansion:
 
- \`\`\`bash $ curl "https://horizon-testnet.stellar.org/accounts/GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3" \`\`\`
+```bash
+$ curl "https://expansion-testnet.bantu.network/accounts/GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3"
+```
 
 Sequence number can be found under the `sequence` field. For our example, the current sequence number is `713226564141056`. Save your value somewhere.
 
 Now, create `make_payment.js` file and paste the following code into it, replacing the sequence number accordingly:
 
- \`\`\`js var StellarBase = require\("stellar-base"\); StellarBase.Network.useTestNetwork\(\); var keypair = StellarBase.Keypair.fromSecret\( "SCU36VV2OYTUMDSSU4EIVX4UUHY3XC7N44VL4IJ26IOG6HVNC7DY5UJO", \); var account = new StellarBase.Account\(keypair.publicKey\(\), "713226564141056"\); var amount = "100"; var transaction = new StellarBase.TransactionBuilder\(account\) .addOperation\( StellarBase.Operation.createAccount\({ destination: StellarBase.Keypair.random\(\).publicKey\(\), startingBalance: amount, }\), \) .build\(\); transaction.sign\(keypair\); console.log\(transaction.toEnvelope\(\).toXDR\(\).toString\("base64"\)\); \`\`\`
+```javascript
+var StellarBase = require("stellar-base");
+StellarBase.Network.useTestNetwork();
+
+var keypair = StellarBase.Keypair.fromSecret(
+  "SCU36VV2OYTUMDSSU4EIVX4UUHY3XC7N44VL4IJ26IOG6HVNC7DY5UJO",
+);
+var account = new StellarBase.Account(keypair.publicKey(), "713226564141056");
+
+var amount = "100";
+var transaction = new StellarBase.TransactionBuilder(account)
+  .addOperation(
+    StellarBase.Operation.createAccount({
+      destination: StellarBase.Keypair.random().publicKey(),
+      startingBalance: amount,
+    }),
+  )
+  .build();
+
+transaction.sign(keypair);
+
+console.log(transaction.toEnvelope().toXDR().toString("base64"));
+```
 
 After running this script you should see a signed transaction blob. To submit this transaction we send it to Expansion or Bantu-core. But before we do, let's open a new console and start our previous script by `node stream_payments.js`.
 
-Now to send a transaction just use Expansion:
+Now to send a transaction just use Expansion
 
- \`\`\`bash curl -H "Content-Type: application/json" -X POST -d '{"tx":"AAAAAH6Sq76F4cHVMWvGG4AtNtFVIvayUxSgR401rPY9ej3TAAAD6AACiK0AAAABAAAAAAAAAAAAAAABAAAAAAAAAAEAAAAAKc1j3y10+nI+sxuXlmFz71JS35mp/RcPCP45Gw0obdAAAAAAAAAAAAExLQAAAAAAAAAAAT16PdMAAABAsJTBC5N5B9Q/9+ZKS7qkMd/wZHWlP6uCCFLzeD+JWT60/VgGFCpzQhZmMg2k4Vg+AwKJTwko3d7Jt3Y6WhjLCg=="}' "https://horizon-testnet.stellar.org/transactions" \`\`\`
+```bash
+curl -H "Content-Type: application/json" -X POST -d '{"tx":"AAAAAH6Sq76F4cHVMWvGG4AtNtFVIvayUxSgR401rPY9ej3TAAAD6AACiK0AAAABAAAAAAAAAAAAAAABAAAAAAAAAAEAAAAAKc1j3y10+nI+sxuXlmFz71JS35mp/RcPCP45Gw0obdAAAAAAAAAAAAExLQAAAAAAAAAAAT16PdMAAABAsJTBC5N5B9Q/9+ZKS7qkMd/wZHWlP6uCCFLzeD+JWT60/VgGFCpzQhZmMg2k4Vg+AwKJTwko3d7Jt3Y6WhjLCg=="}' "https://expansion-testnet.bantu.network/transactions"
+```
 
-You should see a new payment in a window running `stream_payments.js` script.
+
 
