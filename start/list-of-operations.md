@@ -30,7 +30,7 @@ For a description of how operations work in Bantu, see [Operations](../glossary/
 
 ## Create Account
 
-[JavaScript](http://stellar.github.io/js-stellar-sdk/Operation.html#.createAccount) \| [Java](http://stellar.github.io/java-stellar-sdk/org/stellar/sdk/CreateAccountOperation.Builder.html) \| [Go](https://godoc.org/github.com/stellar/go/txnbuild#CreateAccount)
+[JavaScript](http://stellar.github.io/js-stellar-sdk/Operation.html#.createAccount) \| [Java](http://XBN.github.io/java-stellar-sdk/org/stellar/sdk/CreateAccountOperation.Builder.html) \| [Go](https://godoc.org/github.com/stellar/go/txnbuild#CreateAccount)
 
 Creates and funds a new account with the specified starting balance.
 
@@ -129,7 +129,7 @@ Possible errors:
 | PATH\_PAYMENT\_STRICT\_SEND\_NOT\_AUTHORIZED | -7 | The destination account is not authorized by the asset's issuer to hold the asset. |
 | PATH\_PAYMENT\_STRICT\_SEND\_LINE\_FULL | -8 | The destination account does not have sufficient limits to receive `destination amount` and still satisfy its buying liabilities. |
 | PATH\_PAYMENT\_STRICT\_SEND\_NO\_ISSUER | -9 | The issuer of one of the assets is missing. |
-| PATH\_PAYMENT\_STRICT\_SEND\_TOO\_FEW\_OFFERS | -10 | There is no path of offers connecting the `send asset` and `destination asset`. Stellar only considers paths of length 5 or shorter. |
+| PATH\_PAYMENT\_STRICT\_SEND\_TOO\_FEW\_OFFERS | -10 | There is no path of offers connecting the `send asset` and `destination asset`. Bantu only considers paths of length 5 or shorter. |
 | PATH\_PAYMENT\_STRICT\_SEND\_OFFER\_CROSS\_SELF | -11 | The payment would cross one of its own offers. |
 | PATH\_PAYMENT\_STRICT\_SEND\_UNDER\_DESTMIN | -12 | The paths that could send `destination amount` of `destination asset` would fall short of `destination min`. |
 
@@ -176,7 +176,7 @@ Possible errors:
 | PATH\_PAYMENT\_STRICT\_RECEIVE\_NOT\_AUTHORIZED | -7 | The destination account is not authorized by the asset's issuer to hold the asset. |
 | PATH\_PAYMENT\_STRICT\_RECEIVE\_LINE\_FULL | -8 | The destination account does not have sufficient limits to receive `destination amount` and still satisfy its buying liabilities. |
 | PATH\_PAYMENT\_STRICT\_RECEIVE\_NO\_ISSUER | -9 | The issuer of one the of assets is missing. |
-| PATH\_PAYMENT\_STRICT\_RECEIVE\_TOO\_FEW\_OFFERS | -10 | There is no path of offers connecting the `send asset` and `destination asset`. Stellar only considers paths of length 5 or shorter. |
+| PATH\_PAYMENT\_STRICT\_RECEIVE\_TOO\_FEW\_OFFERS | -10 | There is no path of offers connecting the `send asset` and `destination asset`. Bantu only considers paths of length 5 or shorter. |
 | PATH\_PAYMENT\_STRICT\_RECEIVE\_OFFER\_CROSS\_SELF | -11 | The payment would cross one of its own offers. |
 | PATH\_PAYMENT\_STRICT\_RECEIVE\_OVER\_SENDMAX | -12 | The paths that could send `destination amount` of `destination asset` would exceed `send max`. |
 
@@ -443,7 +443,7 @@ Sets, modifies, or deletes a data entry \(name/value pair\) that is attached to 
 
 An account can have a large amount of data entries attached to it \(subject to sub-entry limits for an account\). Each data entry increases the minimum balance \(via the base reserve\) needed to be held by the account.
 
-Data entries can be used for storing application-specific data on the Stellar Network. They are not used by the core Stellar Protocol.
+Data entries can be used for storing application-specific data on the Bantu Network. They are not used by the core Bantu Protocol.
 
 Threshold: Medium
 
