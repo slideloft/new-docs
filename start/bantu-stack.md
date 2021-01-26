@@ -5,7 +5,7 @@ order: 10
 
 # Bantu Stack
 
-import { CodeExample } from "components/CodeExample";
+
 
 Fundamentally, Stellar is a collection of Stellar Core nodes, which are computers that keep a common ledger of accounts and balances, listen for incoming transactions, and, using the Stellar Consensus Protocol, agree to apply a valid set of those transactions to update the ledger. Each transaction applied to the ledger incurs a small fee — which is necessary to prevent bad actors from spamming the network — and the ledger is generally updated every 3-5 seconds.
 
