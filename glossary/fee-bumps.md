@@ -55,13 +55,13 @@ A fee-bump transaction is essentially a wrapper around a transaction that has be
 
 ## Result Codes
 
-Fee-bump transactions share result codes with regular transactions. They're listed in a table below. Error reference for operations can be found in [List of Operations](../docs/start/list-of-operations.md) doc.
+Fee-bump transactions share result codes with regular transactions. They're listed in a table below. Error reference for operations can be found in [List of Operations](../start/list-of-operations.md) doc.
 
 | Result | Code | Description |
 | :--- | :--- | :--- |
 | FEE\_BUMP\_INNNER\_SUCCESS | 1 | The inner transaction contained in the fee bump succeeded. |
 | SUCCESS | 0 | All operations contained in the transaction succeeded. |
-| FAILED | -1 | One of the operations failed \(check [List of operations](../docs/start/list-of-operations.md) for errors\). |
+| FAILED | -1 | One of the operations failed \(check [List of operations](../start/list-of-operations.md) for errors\). |
 | TOO\_EARLY | -2 | Ledger `closeTime` before `minTime` value in the transaction. |
 | TOO\_LATE | -3 | Ledger `closeTime` after `maxTime` value in the transaction. |
 | MISSING\_OPERATION | -4 | No operation was specified. |

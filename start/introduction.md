@@ -5,13 +5,7 @@ order: 0
 
 # introduction
 
-import { CodeExample } from "components/CodeExample";
-
-Stellar is designed to make it easy for developers to issue digital assets and build applications that take advantage of a public distributed ledger that allows for near-instant payments and universal currency conversion. The goal of these docs is to explain key concepts and offer practical examples so developers can roll up their sleeves and get building on Stellar. Ideally, they answer crucial developer questions, and are thorough enough to guide a project from conception to production.
-
-Like the Stellar codebase, these docs are open source and constantly evolving, so if you can't find what you're looking for or have ideas for improvements, please contribute by filing a Github issue or pull request in this repository.
-
-This section outlines some of the basic concepts and channels for developers, so if you're already familiar with Stellar, you may want to skip ahead to whatever section applies to your product or use case. You can use the left-side menu of the docs to navigate to various sections, and the right-side menu to navigate to different parts of a given page. For a quick summary of each section, please visit the [Welcome page](../index.md)
+ The goal of these docs is to explain key concepts and offer practical examples so developers can roll up their sleeves and get building on Bantu. Ideally, they answer crucial developer questions, and are thorough enough to guide a project from conception to production. Like the Bantu codebase, these docs are open source and constantly evolving, so if you can't find what you're looking for or have ideas for improvements, please contribute by filing a Github issue or pull request in this repository. This section outlines some of the basic concepts and channels for developers, so if you're already familiar with Bantu, you may want to skip ahead to whatever section applies to your product or use case. You can use the left-side menu of the docs to navigate to various sections, and the right-side menu to navigate to different parts of a given page. For a quick summary of each section, please visit the [Welcome page](../docs/index.md)
 
 ## Background Reading
 
@@ -27,7 +21,7 @@ If you're new to Stellar, you may want to start by getting a high-level understa
 
 Once you have a high-level understanding of Stellar, you can start building right away, and the subsequent sections of these docs will focus on how to do that. You don't have to run your own Stellar Core node to develop on Stellar — several organizations including the Stellar Development Foundation offer public-access API endpoints that allow you to submit transactions and query the ledger — so you can focus on building your product before committing to setting up network infrastructure.
 
-If you are new, you may want to start with the early [Tutorials](../../tutorials/create-account.md) to familiarize yourself with some of the building blocks of Stellar. You should also investigate the [SDKs](../../software-and-sdks/index.md) designed to make developing in your language of choice easy, and familiarize yourself with the canonical [List of Operations](list-of-operations.md), which documents everything you can do with Stellar — along with parameters and error codes — and links to the relevant documentation for key SDKs. Finally, you may want to explore the [API Reference](../../api/introduction/index.md) documentation, which details every resource, aggregation, and error provided by Horizon, the Stellar API.
+If you are new, you may want to start with the early [Tutorials](../tutorials/create-account.md) to familiarize yourself with some of the building blocks of Stellar. You should also investigate the [SDKs](../software-and-sdks/index.md) designed to make developing in your language of choice easy, and familiarize yourself with the canonical [List of Operations](list-of-operations.md), which documents everything you can do with Stellar — along with parameters and error codes — and links to the relevant documentation for key SDKs. Finally, you may want to explore the [API Reference](../api/introduction/index.md) documentation, which details every resource, aggregation, and error provided by Horizon, the Stellar API.
 
 ## Developer Channels
 

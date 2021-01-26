@@ -9,7 +9,7 @@ In addition to supporting the issuing and movement of [assets](assets.md), the S
 
 ## Orders
 
-An account can create orders to buy or sell assets using the [Manage Buy Offer](../docs/start/list-of-operations.md#manage-buy-offer) or [Manage Sell Offer](../docs/start/list-of-operations.md#manage-sell-offer) operation. In order to initiate an order, the account must hold the asset it wants to use to buy \(exchange for\) the desired asset to be purchased. The account must also trust the issuer of the asset it's trying to buy.
+An account can create orders to buy or sell assets using the [Manage Buy Offer](../start/list-of-operations.md#manage-buy-offer) or [Manage Sell Offer](../start/list-of-operations.md#manage-sell-offer) operation. In order to initiate an order, the account must hold the asset it wants to use to buy \(exchange for\) the desired asset to be purchased. The account must also trust the issuer of the asset it's trying to buy.
 
 Orders in Stellar behave like limit orders in traditional markets. When an account initiates an order, it is checked against the existing orderbook for that asset pair. If the submitted order is a marketable order \(for a marketable buy limit order, the limit price is at or above the ask price; for a marketable sell limit order, the limit price is at or below the bid price\), it is filled at the existing order price for the available quantity at that price. If the order is not marketable \(i.e. does not cross an existing order\), the order is saved on the orderbook until it is either consumed by another order, consumed by a path payment, or canceled by the account that created the order.
 
@@ -23,9 +23,9 @@ Each order in Stellar is quoted with an associated price, and is represented as 
 
 Prices are specified as a `{numerator, denominator}` pair with both components of the fraction represented as 32 bit signed integers. The numerator is considered the base asset, and the denominator is considered the quote asset. When expressing a price of "Asset A in terms of Asset B", the amount of B is denominator \(and therefore the quote asset\), and A is the numerator \(and therefore the base asset\). As a good rule of thumb, it's generally correct to be thinking about the base asset that is being bought/sold \(in terms of the quote asset\). \(see comments below\)
 
-When creating a "buy"/"bid" order in Stellar via the [Manage Buy Offer](../docs/start/list-of-operations.md#manage-buy-offer) operation, the price is specified as 1 unit of the base currency \(the asset being bought\), in terms of the quote asset \(the asset that is being sold\). For example, if you're _buying_ 100 XLM in exchange for 20 USD, you would specify the price as `{20, 100}`, which would be the equivalent of 5 XLM for 1 USD \(or $.20 per XLM\).
+When creating a "buy"/"bid" order in Stellar via the [Manage Buy Offer](../start/list-of-operations.md#manage-buy-offer) operation, the price is specified as 1 unit of the base currency \(the asset being bought\), in terms of the quote asset \(the asset that is being sold\). For example, if you're _buying_ 100 XLM in exchange for 20 USD, you would specify the price as `{20, 100}`, which would be the equivalent of 5 XLM for 1 USD \(or $.20 per XLM\).
 
-When creating a "sell"/"offer"/"ask" order in Stellar via the [Manage Sell Offer](../docs/start/list-of-operations.md#manage-sell-offer) operation, the price is specified as 1 unit of base currency \(the asset being sold\), in terms of the quote asset \(the asset that is being bought\). For example, if you're _selling_ 100 XLM in exchange for 40 USD, you would specify the price as `{40, 100}`, which would be the equivalent of 2.5 XLM for 1 USD \(or $.40 per XLM\) \(_nice profit_\).
+When creating a "sell"/"offer"/"ask" order in Stellar via the [Manage Sell Offer](../start/list-of-operations.md#manage-sell-offer) operation, the price is specified as 1 unit of base currency \(the asset being sold\), in terms of the quote asset \(the asset that is being bought\). For example, if you're _selling_ 100 XLM in exchange for 40 USD, you would specify the price as `{40, 100}`, which would be the equivalent of 2.5 XLM for 1 USD \(or $.40 per XLM\) \(_nice profit_\).
 
 #### Fees
 
@@ -39,7 +39,7 @@ For more information, take a look at [our guide on fees in Stellar](fees.md).
 
 A passive order is an order that does not execute against a marketable counter order with the same price. It will only fill if the prices are not equal. For example, if the best order to buy BTC for XLM has a price of 100XLM/BTC, and you make a passive offer to sell BTC at 100XLM/BTC, your passive offer _does not_ take that existing offer. If you instead make a passive offer to sell BTC at 99XLM/BTC it would cross the existing offer and fill at 100XLM/BTC. \(i have some questions here...why does it not execute at a locked market \(i.e. equal price\) but at a crossed market it will execute?
 
-An account can place a passive sell order via the [Create Passive Sell Offer](../docs/start/list-of-operations.md#create-passive-sell-offer) operation.
+An account can place a passive sell order via the [Create Passive Sell Offer](../start/list-of-operations.md#create-passive-sell-offer) operation.
 
 ## Orderbook
 

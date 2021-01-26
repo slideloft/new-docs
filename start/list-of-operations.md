@@ -9,7 +9,7 @@ import { CodeExample } from "components/CodeExample";
 
 This is the canonical list of Stellar operations, which lists every Stellar operation along with parameters, error codes, and links to relevant documentation for key SDKs.
 
-For a description of how operations work in Stellar, see [Operations](../../glossary/operations.md).
+For a description of how operations work in Stellar, see [Operations](../glossary/operations.md).
 
 For the protocol specification, see [stellar-transactions.x](https://github.com/stellar/stellar-core/blob/master/src/xdr/Stellar-transaction.x).
 
@@ -85,7 +85,7 @@ Possible errors:
 | PAYMENT\_SRC\_NO\_TRUST | -3 | The source account does not trust the issuer of the asset it is trying to send. |
 | PAYMENT\_SRC\_NOT\_AUTHORIZED | -4 | The source account is not authorized to send this payment. |
 | PAYMENT\_NO\_DESTINATION | -5 | The receiving account does not exist. |
-| PAYMENT\_NO\_TRUST | -6 | The receiver does not trust the issuer of the asset being sent. For more information, see the [assets doc](../../glossary/assets.md). |
+| PAYMENT\_NO\_TRUST | -6 | The receiver does not trust the issuer of the asset being sent. For more information, see the [assets doc](../glossary/assets.md). |
 | PAYMENT\_NOT\_AUTHORIZED | -7 | The destination account is not authorized by the asset's issuer to hold the asset. |
 | PAYMENT\_LINE\_FULL | -8 | The destination account \(receiver\) does not have sufficient limits to receive `amount` and still satisfy its buying liabilities. |
 | PAYMENT\_NO\_ISSUER | -9 | The issuer of the asset does not exist. |
@@ -129,7 +129,7 @@ Possible errors:
 | PATH\_PAYMENT\_STRICT\_SEND\_SRC\_NO\_TRUST | -3 | The source account does not trust the issuer of the asset it is trying to send. |
 | PATH\_PAYMENT\_STRICT\_SEND\_SRC\_NOT\_AUTHORIZED | -4 | The source account is not authorized to send this payment. |
 | PATH\_PAYMENT\_STRICT\_SEND\_NO\_DESTINATION | -5 | The destination account does not exist. |
-| PATH\_PAYMENT\_STRICT\_SEND\_NO\_TRUST | -6 | The destination account does not trust the issuer of the asset being sent. For more, see the [assets doc](../../glossary/assets.md). |
+| PATH\_PAYMENT\_STRICT\_SEND\_NO\_TRUST | -6 | The destination account does not trust the issuer of the asset being sent. For more, see the [assets doc](../glossary/assets.md). |
 | PATH\_PAYMENT\_STRICT\_SEND\_NOT\_AUTHORIZED | -7 | The destination account is not authorized by the asset's issuer to hold the asset. |
 | PATH\_PAYMENT\_STRICT\_SEND\_LINE\_FULL | -8 | The destination account does not have sufficient limits to receive `destination amount` and still satisfy its buying liabilities. |
 | PATH\_PAYMENT\_STRICT\_SEND\_NO\_ISSUER | -9 | The issuer of one of the assets is missing. |
@@ -176,7 +176,7 @@ Possible errors:
 | PATH\_PAYMENT\_STRICT\_RECEIVE\_SRC\_NO\_TRUST | -3 | The source account does not trust the issuer of the asset it is trying to send. |
 | PATH\_PAYMENT\_STRICT\_RECEIVE\_SRC\_NOT\_AUTHORIZED | -4 | The source account is not authorized to send this payment. |
 | PATH\_PAYMENT\_STRICT\_RECEIVE\_NO\_DESTINATION | -5 | The destination account does not exist. |
-| PATH\_PAYMENT\_STRICT\_RECEIVE\_NO\_TRUST | -6 | The destination account does not trust the issuer of the asset being sent. For more, see the [assets doc](../../glossary/assets.md). |
+| PATH\_PAYMENT\_STRICT\_RECEIVE\_NO\_TRUST | -6 | The destination account does not trust the issuer of the asset being sent. For more, see the [assets doc](../glossary/assets.md). |
 | PATH\_PAYMENT\_STRICT\_RECEIVE\_NOT\_AUTHORIZED | -7 | The destination account is not authorized by the asset's issuer to hold the asset. |
 | PATH\_PAYMENT\_STRICT\_RECEIVE\_LINE\_FULL | -8 | The destination account does not have sufficient limits to receive `destination amount` and still satisfy its buying liabilities. |
 | PATH\_PAYMENT\_STRICT\_RECEIVE\_NO\_ISSUER | -9 | The issuer of one the of assets is missing. |
@@ -316,7 +316,7 @@ Sets options for an account, such as setting the inflation destination or adding
 
 Allows you to set multiple options on an account in a single operation, such as changing an operation threshold and setting the flags on an account at the same time.
 
-For more information on the options related to signing, see our docs on [multi-sig](../../glossary/multisig.md).
+For more information on the options related to signing, see our docs on [multi-sig](../glossary/multisig.md).
 
 When updating signers or other thresholds, the threshold of this operation is High.
 
@@ -329,13 +329,13 @@ Parameters:
 | Parameters | Type | Description |
 | :--- | :--- | :--- |
 | Inflation Destination | account ID | Account of the inflation destination. |
-| Clear flags | integer | Indicates which flags to clear. For details about the flags, please refer to the [accounts doc](../../glossary/accounts.md). The bit mask integer subtracts from the existing flags of the account. This allows for setting specific bits without knowledge of existing flags. |
-| Set flags | integer | Indicates which flags to set. For details about the flags, please refer to the [accounts doc](../../glossary/accounts.md). The bit mask integer adds onto the existing flags of the account. This allows for setting specific bits without knowledge of existing flags. |
+| Clear flags | integer | Indicates which flags to clear. For details about the flags, please refer to the [accounts doc](../glossary/accounts.md). The bit mask integer subtracts from the existing flags of the account. This allows for setting specific bits without knowledge of existing flags. |
+| Set flags | integer | Indicates which flags to set. For details about the flags, please refer to the [accounts doc](../glossary/accounts.md). The bit mask integer adds onto the existing flags of the account. This allows for setting specific bits without knowledge of existing flags. |
 | Master weight | integer | A number from 0-255 \(inclusive\) representing the weight of the master key. If the weight of the master key is updated to 0, it is effectively disabled. |
-| Low threshold | integer | A number from 0-255 \(inclusive\) representing the threshold this account sets on all operations it performs that have [a low threshold](../../glossary/multisig.md). |
-| Medium threshold | integer | A number from 0-255 \(inclusive\) representing the threshold this account sets on all operations it performs that have [a medium threshold](../../glossary/multisig.md). |
-| High threshold | integer | A number from 0-255 \(inclusive\) representing the threshold this account sets on all operations it performs that have [a high threshold](../../glossary/multisig.md). |
-| Home domain | string | Sets the home domain of an account. See [Federation](../../glossary/federation.md). |
+| Low threshold | integer | A number from 0-255 \(inclusive\) representing the threshold this account sets on all operations it performs that have [a low threshold](../glossary/multisig.md). |
+| Medium threshold | integer | A number from 0-255 \(inclusive\) representing the threshold this account sets on all operations it performs that have [a medium threshold](../glossary/multisig.md). |
+| High threshold | integer | A number from 0-255 \(inclusive\) representing the threshold this account sets on all operations it performs that have [a high threshold](../glossary/multisig.md). |
+| Home domain | string | Sets the home domain of an account. See [Federation](../glossary/federation.md). |
 | Signer | {Public Key, weight} | Add, update, or remove a signer from an account. Signer weight is a number from 0-255 \(inclusive\). The signer is deleted if the weight is 0. |
 
 Possible errors:
@@ -356,7 +356,7 @@ Possible errors:
 
 [JavaScript](http://stellar.github.io/js-stellar-sdk/Operation.html#.changeTrust) \| [Java](http://stellar.github.io/java-stellar-sdk/org/stellar/sdk/ChangeTrustOperation.Builder.html) \| [Go](https://godoc.org/github.com/stellar/go/txnbuild#ChangeTrust)
 
-Creates, updates, or deletes a trustline. For more on trustlines, please refer to the [assets documentation](../../glossary/assets.md).
+Creates, updates, or deletes a trustline. For more on trustlines, please refer to the [assets documentation](../glossary/assets.md).
 
 To delete an existing trustline, set Line to the asset of the trustline, and Limit to `0`.
 
@@ -385,11 +385,11 @@ Possible errors:
 
 Updates the `authorized` flag of an existing trustline.
 
-This can only be called by the issuer of a trustline's [asset](../../glossary/assets.md), and only when `AUTHORIZATION REQUIRED` has been set on the issuer's account.
+This can only be called by the issuer of a trustline's [asset](../glossary/assets.md), and only when `AUTHORIZATION REQUIRED` has been set on the issuer's account.
 
 There are two different kinds of asset authorization: complete authorization, which allows an account to transact with an asset \(by making payments, creating offers, etc.\) and limited authorization, which allows an account to maintain and reduce current offers, but not to perform other operations with the asset.
 
-The issuer can only change a flag from complete to limited authorization or clear the `authorized` flag if the issuer has the `AUTH_REVOCABLE_FLAG` set. Otherwise, the issuer can only set the `authorized` flag. For more on what toggling between authorization states allows an issuer to do, see the [Control Access to an Asset](../../issuing-assets/control-asset-access.md) doc.
+The issuer can only change a flag from complete to limited authorization or clear the `authorized` flag if the issuer has the `AUTH_REVOCABLE_FLAG` set. Otherwise, the issuer can only set the `authorized` flag. For more on what toggling between authorization states allows an issuer to do, see the [Control Access to an Asset](../issuing-assets/control-asset-access.md) doc.
 
 If the issuer clears the `authorized` flag, all offers owned by the `trustor` that are either selling `type` or buying `type` will be deleted.
 
@@ -493,7 +493,7 @@ Possible errors:
 
 ## Create Claimable Balance
 
-Creates a ClaimableBalanceEntry. See [Claimable Balance](../../glossary/claimable-balance.md) for more information on parameters and usage.
+Creates a ClaimableBalanceEntry. See [Claimable Balance](../glossary/claimable-balance.md) for more information on parameters and usage.
 
 Threshold: Medium
 
@@ -525,7 +525,7 @@ Result: `ClaimClaimableBalanceResult`
 
 | Parameters | Type | Description |
 | :--- | :--- | :--- |
-| BalanceID | claimableBalanceID | BalanceID on the ClaimableBalanceEntry that the source account is claiming. The balanceID can be retrieved from a succesful `CreateClaimableBalanceResult`. See [ClaimableBalanceID](../../glossary/miscellaneous-core-objects.md#ClaimableBalanceID) for more information. |
+| BalanceID | claimableBalanceID | BalanceID on the ClaimableBalanceEntry that the source account is claiming. The balanceID can be retrieved from a succesful `CreateClaimableBalanceResult`. See [ClaimableBalanceID](../glossary/miscellaneous-core-objects.md#ClaimableBalanceID) for more information. |
 
 Possible errors:
 
@@ -539,7 +539,7 @@ Possible errors:
 
 ## Begin Sponsoring Future Reserves
 
-Establishes the is-sponsoring-future-reserves-for relationship between the source account and sponsoredID. See [Sponsored Reserves](../../glossary/sponsored-reserves.md) for more information.
+Establishes the is-sponsoring-future-reserves-for relationship between the source account and sponsoredID. See [Sponsored Reserves](../glossary/sponsored-reserves.md) for more information.
 
 There must be a corresponding [end sponsoring future reserves](list-of-operations.md#end-sponsoring-future-reserves) operation in the same transaction to end the is-sponsoring-future-reserves-for relationship. The transaction will fail with `txBAD_SPONSORSHIP` otherwise.
 
@@ -585,7 +585,7 @@ This operation is a union with **two** possible types -
 
 | Union Type | Parameters | Type | Description |
 | :--- | :--- | :--- | :--- |
-| REVOKE\_SPONSORSHIP\_LEDGER\_ENTRY | LedgerKey | ledgerKey | Ledger key that holds information to identify a specific ledgerEntry that may have it's sponsorship modified. See [LedgerKey](../../glossary/miscellaneous-core-objects.md#LedgerKey) for more information. |
+| REVOKE\_SPONSORSHIP\_LEDGER\_ENTRY | LedgerKey | ledgerKey | Ledger key that holds information to identify a specific ledgerEntry that may have it's sponsorship modified. See [LedgerKey](../glossary/miscellaneous-core-objects.md#LedgerKey) for more information. |
 
 Or
 

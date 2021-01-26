@@ -96,12 +96,12 @@ To determine if a transaction is valid, many checks take place over the course o
 
 ## Result Codes
 
-Transactions return a result code listed in a table below. Error reference for operations can be found in [List of Operations](../docs/start/list-of-operations.md) doc.
+Transactions return a result code listed in a table below. Error reference for operations can be found in [List of Operations](../start/list-of-operations.md) doc.
 
 | Result | Code | Description |
 | :--- | :--- | :--- |
 | SUCCESS | 0 | All operations contained in the transaction succeeded. |
-| FAILED | -1 | One of the operations failed \(check [List of operations](../docs/start/list-of-operations.md) for errors\). |
+| FAILED | -1 | One of the operations failed \(check [List of operations](../start/list-of-operations.md) for errors\). |
 | TOO\_EARLY | -2 | Ledger `closeTime` before `minTime` value in the transaction. |
 | TOO\_LATE | -3 | Ledger `closeTime` after `maxTime` value in the transaction. |
 | MISSING\_OPERATION | -4 | No operation was specified. |

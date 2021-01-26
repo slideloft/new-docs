@@ -1,6 +1,10 @@
 # Table of contents
 
 * [Welcome](README.md)
+* [Where to Start](start/README.md)
+  * [introduction](start/introduction.md)
+  * [list-of-operations](start/list-of-operations.md)
+  * [stellar-stack](start/stellar-stack.md)
 * [Tutorials](tutorials/README.md)
   * [create-account](tutorials/create-account.md)
   * [follow-received-payments](tutorials/follow-received-payments.md)
@@ -84,10 +88,6 @@
   * [multisig](glossary/multisig.md)
 * [docs](docs/README.md)
   * [index](docs/index.md)
-  * [start](docs/start/README.md)
-    * [list-of-operations](docs/start/list-of-operations.md)
-    * [stellar-stack](docs/start/stellar-stack.md)
-    * [introduction](docs/start/introduction.md)
 * [api](api/README.md)
   * [resources](api/resources/README.md)
     * [transactions](api/resources/transactions/README.md)

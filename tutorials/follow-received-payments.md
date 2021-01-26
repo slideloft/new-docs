@@ -84,9 +84,9 @@ Now, run our script: `node stream_payments.js`. You should see following output:
 
 ## Testing it out
 
-We now know how to get a stream of transactions to an account. Let's check if our solution actually works and if new payments appear. Let's watch as we send a payment \([`create_account` operation](../docs/start/list-of-operations.md#create-account)\) from our account to another account.
+We now know how to get a stream of transactions to an account. Let's check if our solution actually works and if new payments appear. Let's watch as we send a payment \([`create_account` operation](../start/list-of-operations.md#create-account)\) from our account to another account.
 
-We use the `create_account` operation because we are sending payment to a new, unfunded account. If we were sending payment to an account that is already funded, we would use the [`payment` operation](../docs/start/list-of-operations.md#payment).
+We use the `create_account` operation because we are sending payment to a new, unfunded account. If we were sending payment to an account that is already funded, we would use the [`payment` operation](../start/list-of-operations.md#payment).
 
 First, let's check our account sequence number so we can create a payment transaction. To do this we send a request to horizon:
 

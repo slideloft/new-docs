@@ -9,7 +9,7 @@ Operations are the bread and butter of Stellar: they’re the individual command
 
 Network capacity, which is determined by validator vote, is measured in terms of operations/ledger. Currently, it’s set to 1,000.
 
-There are thirteen possible operation types, each of which is detailed along with parameters, errors, and links to SDK docs in the [List of Operations](../docs/start/list-of-operations.md).
+There are thirteen possible operation types, each of which is detailed along with parameters, errors, and links to SDK docs in the [List of Operations](../start/list-of-operations.md).
 
 Operations are executed on behalf of the source account specified in the transaction, unless there is an override defined for the operation.
 

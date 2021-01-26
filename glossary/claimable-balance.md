@@ -7,7 +7,7 @@ order: null
 
 import { CodeExample } from "components/CodeExample";
 
-Claimable Balances can be used to "split up" a payment into two parts, which allows the sending to only depend on the sending account, and the receipt to only depend on the receiving account. An account can initiate the "send" by creating a ClaimableBalanceEntry with [Create Claimable Balance](../docs/start/list-of-operations.md#create-claimable-balance), and then that entry can be claimed by the claimants specified on the ClaimableBalanceEntry at a later time with [Claim Claimable Balance](../docs/start/list-of-operations.md#claim-claimable-balance).
+Claimable Balances can be used to "split up" a payment into two parts, which allows the sending to only depend on the sending account, and the receipt to only depend on the receiving account. An account can initiate the "send" by creating a ClaimableBalanceEntry with [Create Claimable Balance](../start/list-of-operations.md#create-claimable-balance), and then that entry can be claimed by the claimants specified on the ClaimableBalanceEntry at a later time with [Claim Claimable Balance](../start/list-of-operations.md#claim-claimable-balance).
 
 ## Relevant operations
 

@@ -7,7 +7,7 @@ order: null
 
 import { CodeExample } from "components/CodeExample";
 
-Protocol 15 introduces operations that allow an account to pay the base reserves for another account. This is done by using the [Begin Sponsoring Future Reserves](../docs/start/list-of-operations.md#begin-sponsoring-future-reserves) and [End Sponsoring Future Reserves](../docs/start/list-of-operations.md#end-sponsoring-future-reserves) operations.
+Protocol 15 introduces operations that allow an account to pay the base reserves for another account. This is done by using the [Begin Sponsoring Future Reserves](../start/list-of-operations.md#begin-sponsoring-future-reserves) and [End Sponsoring Future Reserves](../start/list-of-operations.md#end-sponsoring-future-reserves) operations.
 
 The sponsoring account establishes the is-sponsoring-future-reserves-for relationship, and the sponsored account terminates it. While this relationship exists, reserve requirements that would normally accumulate on the sponsored account will now accumulate on the sponsoring account. Both operations must appear in a single transaction, which guarantees that both the sponsoring and sponsored accounts agree to every sponsorship.
 
@@ -31,17 +31,17 @@ Anything that increases the minimum balance can be sponsored \(Accounts, Offers,
 
 ### Begin and end sponsorships
 
-[Begin Sponsoring Future Reserves](../docs/start/list-of-operations.md#begin-sponsoring-future-reserves) will establish the is-sponsoring-future-reserves-for relationship where the sponsoring account is the source account of the operation, and the account specified in the operation is the sponsored account.
+[Begin Sponsoring Future Reserves](../start/list-of-operations.md#begin-sponsoring-future-reserves) will establish the is-sponsoring-future-reserves-for relationship where the sponsoring account is the source account of the operation, and the account specified in the operation is the sponsored account.
 
-[End Sponsoring Future Reserves](../docs/start/list-of-operations.md#end-sponsoring-future-reserves) will end the current is-sponsoring-future-reserves-for relationship for the source account of the operation.
+[End Sponsoring Future Reserves](../start/list-of-operations.md#end-sponsoring-future-reserves) will end the current is-sponsoring-future-reserves-for relationship for the source account of the operation.
 
 At the end of any transaction, there must be no ongoing is-sponsoring-future-reserves-for relationships. This is why these two operations must be used together in a single transaction.
 
 ### Revoke Sponsorship
 
-[Revoke Sponsorship](../docs/start/list-of-operations.md#revoke-sponsorship) is the third and final operation relevant to sponsorships. It allows the sponsoring account to remove/transfer sponsorships of existing ledgerEntries and signers. If the ledgerEntry/signer is not sponsored, the owner of the ledgerEntry/signer can establish a sponsorship if it is the beneficiary of a is-sponsoring-future-reserves-for relationship.
+[Revoke Sponsorship](../start/list-of-operations.md#revoke-sponsorship) is the third and final operation relevant to sponsorships. It allows the sponsoring account to remove/transfer sponsorships of existing ledgerEntries and signers. If the ledgerEntry/signer is not sponsored, the owner of the ledgerEntry/signer can establish a sponsorship if it is the beneficiary of a is-sponsoring-future-reserves-for relationship.
 
-See [Revoke Sponsorship](../docs/start/list-of-operations.md#revoke-sponsorship) for more information about the structure of this operation object.
+See [Revoke Sponsorship](../start/list-of-operations.md#revoke-sponsorship) for more information about the structure of this operation object.
 
 #### Operation logic
 
@@ -58,7 +58,7 @@ See [Revoke Sponsorship](../docs/start/list-of-operations.md#revoke-sponsorship)
 
 #### Errors
 
-The logic above does not detail any of the error cases, which are specified [here](../docs/start/list-of-operations.md#revoke-sponsorship).
+The logic above does not detail any of the error cases, which are specified [here](../start/list-of-operations.md#revoke-sponsorship).
 
 ## Examples
 
