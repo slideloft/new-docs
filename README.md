@@ -8,3 +8,11 @@ Welcome to the Bantu Developer's Documentation. It contains everything required 
 
 **Quick rundown of whats here:**
 
+**Tutorials:**
+
+This section will show you how to do basic things like create an account and make payments.
+
+**Issue Assets:**
+
+You can issue assets easily on Bantu, and it can be done quickly, safely
+
