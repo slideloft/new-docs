@@ -91,7 +91,7 @@ server.loadAccount(destinationId).then(function (account) {
 });
 ```
 
-1. Load data for the account you are sending from. An account can only perform one transaction at a time and has something called a [sequence number](../glossary/accounts.md#sequence-number), which helps Bantuverify the order of transactions. A transaction’s sequence number needs to match the account’s sequence number, so you need to get the account’s current sequence number from the network.
+2. Load data for the account you are sending from. An account can only perform one transaction at a time and has something called a [sequence number](../glossary/accounts.md#sequence-number), which helps Bantuverify the order of transactions. A transaction’s sequence number needs to match the account’s sequence number, so you need to get the account’s current sequence number from the network.
 
    \`\`\`js .then\(function\(\) { return server.loadAccount\(sourceKeys.publicKey\(\)\); }\) \`\`\` \`\`\`java AccountResponse sourceAccount = server.accounts\(\).account\(source.getAccountId\(\)\); \`\`\` \`\`\`go sourceKP := keypair.MustParseFull\(source\) sourceAccountRequest := Expansionclient.AccountRequest{AccountID: sourceKP.Address\(\)} sourceAccount, err := client.AccountDetail\(sourceAccountRequest\) if err != nil { panic\(err\) } \`\`\` \`\`\`python source\_account = server.load\_account\(source\_key.public\_key\) \`\`\`
 
