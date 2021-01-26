@@ -7,7 +7,7 @@ order: 0
 
 ## Software
 
-There are two key pieces of network software: Stellar Core, which tracks and adds transaction sets to the ledger, and Horizon, an API that allows programmatic access to submit transactions and query network data. To find out more about how they work together, visit the description of the [Stellar Stack](../start/stellar-stack.md).
+There are two key pieces of network software: Stellar Core, which tracks and adds transaction sets to the ledger, and Horizon, an API that allows programmatic access to submit transactions and query network data. To find out more about how they work together, visit the description of the [Stellar Stack](../start/bantu-stack.md).
 
 You do not have to run a Stellar Core node or Horizon instance to build on Stellar: you can start developing in your language of choice by installing one of the [Stellar SDKs](index.md#sdks) below, and interacting with a public Horizon instance. To find out more about how to interact with Horizon, check out the [API Reference](../api/introduction/index.md) section, which chronicles every Horizon endpoint, resource, aggregation, and error.
 
