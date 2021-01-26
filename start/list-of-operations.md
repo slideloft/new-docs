@@ -43,15 +43,15 @@ Parameters:
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
 | Destination | account ID | Account address that is created and funded. |
-| Starting Balance | integer | Amount of XLM to send to the newly created account. This XLM comes from the source account. |
+| Starting Balance | integer | Amount of XBN to send to the newly created account. This XBN comes from the source account. |
 
 Possible errors:
 
 | Error | Code | Description |
 | :--- | :--- | :--- |
 | CREATE\_ACCOUNT\_MALFORMED | -1 | The `destination` is invalid. |
-| CREATE\_ACCOUNT\_UNDERFUNDED | -2 | The source account performing the command does not have enough funds to give `destination` the `starting balance` amount of XLM and still maintain its minimum XLM reserve plus satisfy its XLM selling liabilities. |
-| CREATE\_ACCOUNT\_LOW\_RESERVE | -3 | This operation would create an account with fewer than the minimum number of XLM an account must hold. |
+| CREATE\_ACCOUNT\_UNDERFUNDED | -2 | The source account performing the command does not have enough funds to give `destination` the `starting balance` amount of XBN and still maintain its minimum XBN reserve plus satisfy its XBN selling liabilities. |
+| CREATE\_ACCOUNT\_LOW\_RESERVE | -3 | This operation would create an account with fewer than the minimum number of XBN an account must hold. |
 | CREATE\_ACCOUNT\_ALREADY\_EXIST | -4 | The `destination` account already exists. |
 
 ## Payment
@@ -77,7 +77,7 @@ Possible errors:
 | Error | Code | Description |
 | :--- | :--- | :--- |
 | PAYMENT\_MALFORMED | -1 | The input to the payment is invalid. |
-| PAYMENT\_UNDERFUNDED | -2 | The source account \(sender\) does not have enough funds to send `amount` and still satisfy its selling liabilities. Note that if sending XLM then the sender must additionally maintain its minimum XLM reserve. |
+| PAYMENT\_UNDERFUNDED | -2 | The source account \(sender\) does not have enough funds to send `amount` and still satisfy its selling liabilities. Note that if sending XBN then the sender must additionally maintain its minimum XBN reserve. |
 | PAYMENT\_SRC\_NO\_TRUST | -3 | The source account does not trust the issuer of the asset it is trying to send. |
 | PAYMENT\_SRC\_NOT\_AUTHORIZED | -4 | The source account is not authorized to send this payment. |
 | PAYMENT\_NO\_DESTINATION | -5 | The receiving account does not exist. |
@@ -90,7 +90,7 @@ Possible errors:
 
 [JavaScript](http://stellar.github.io/js-stellar-sdk/Operation.html#.pathPaymentStrictSend) \| [Java](http://stellar.github.io/java-stellar-sdk/org/stellar/sdk/PathPaymentStrictSendOperation.Builder.html) \| [Go](https://godoc.org/github.com/stellar/go/txnbuild#PathPaymentStrictSend)
 
-A path payment sends an amount of a specific asset to a destination account through a path of offers. Since the asset sent \(e.g., 450 XLM\) can be different from the asset received \(e.g, 6 BTC\), path payments allow for the simultaneous transfer and conversion of currencies.
+A path payment sends an amount of a specific asset to a destination account through a path of offers. Since the asset sent \(e.g., 450 XBN\) can be different from the asset received \(e.g, 6 BTC\), path payments allow for the simultaneous transfer and conversion of currencies.
 
 A Path Payment Strict Send allows a user to specify the _amount of the asset to send_. The amount received will vary based on offers in the order books. If you would like to instead specify the amount received, use the [Path Payment Strict Receive](list-of-operations.md#path-payment-strict-receive) operation.
 
@@ -114,14 +114,14 @@ Parameters:
 | Destination | account ID | Account ID of the recipient. |
 | Destination asset | asset | The asset the destination account receives. |
 | Destination min | integer | The minimum amount of `destination asset` the destination account can receive. |
-| Path | list of assets | The assets \(other than `send asset` and `destination asset`\) involved in the offers the path takes. For example, if you can only find a path from USD to EUR through XLM and BTC, the path would be USD -&gt; XLM -&gt; BTC -&gt; EUR and the `path` field would contain XLM and BTC. |
+| Path | list of assets | The assets \(other than `send asset` and `destination asset`\) involved in the offers the path takes. For example, if you can only find a path from USD to EUR through XBN and BTC, the path would be USD -&gt; XBN -&gt; BTC -&gt; EUR and the `path` field would contain XBN and BTC. |
 
 Possible errors:
 
 | Error | Code | Description |
 | :--- | :--- | :--- |
 | PATH\_PAYMENT\_STRICT\_SEND\_MALFORMED | -1 | The input to this path payment is invalid. |
-| PATH\_PAYMENT\_STRICT\_SEND\_UNDERFUNDED | -2 | The source account \(sender\) does not have enough funds to send and still satisfy its selling liabilities. Note that if sending XLM then the sender must additionally maintain its minimum XLM reserve. |
+| PATH\_PAYMENT\_STRICT\_SEND\_UNDERFUNDED | -2 | The source account \(sender\) does not have enough funds to send and still satisfy its selling liabilities. Note that if sending XBN then the sender must additionally maintain its minimum XBN reserve. |
 | PATH\_PAYMENT\_STRICT\_SEND\_SRC\_NO\_TRUST | -3 | The source account does not trust the issuer of the asset it is trying to send. |
 | PATH\_PAYMENT\_STRICT\_SEND\_SRC\_NOT\_AUTHORIZED | -4 | The source account is not authorized to send this payment. |
 | PATH\_PAYMENT\_STRICT\_SEND\_NO\_DESTINATION | -5 | The destination account does not exist. |
@@ -137,7 +137,7 @@ Possible errors:
 
 [JavaScript](https://stellar.github.io/js-stellar-sdk/Operation.html#.pathPaymentStrictReceive) \| [Java](https://stellar.github.io/java-stellar-sdk/org/stellar/sdk/PathPaymentStrictReceiveOperation.Builder.html) \| [Go](https://godoc.org/github.com/stellar/go/txnbuild#PathPaymentStrictReceive)
 
-A path payment sends an amount of a specific asset to a destination account through a path of offers. Since the asset sent \(e.g., 450 XLM\) can be different from the asset received \(e.g, 6 BTC\), path payments allow for the simultaneous transfer and conversion of currencies.
+A path payment sends an amount of a specific asset to a destination account through a path of offers. Since the asset sent \(e.g., 450 XBN\) can be different from the asset received \(e.g, 6 BTC\), path payments allow for the simultaneous transfer and conversion of currencies.
 
 A Path Payment Strict Receive allows a user to specify the _amount of the asset received_. The amount sent varies based on offers in the order books. If you would like to instead specify the amount sent, use the [Path Payment Strict Send](list-of-operations.md#path-payment-strict-send) operation.
 
@@ -161,14 +161,14 @@ Parameters:
 | Destination | account ID | Account ID of the recipient. |
 | Destination asset | asset | The asset the destination account receives. |
 | Destination amount | integer | The amount of `destination asset` the destination account receives. |
-| Path | list of assets | The assets \(other than `send asset` and `destination asset`\) involved in the offers the path takes. For example, if you can only find a path from USD to EUR through XLM and BTC, the path would be USD -&gt; XLM -&gt; BTC -&gt; EUR and the `path` field would contain XLM and BTC. |
+| Path | list of assets | The assets \(other than `send asset` and `destination asset`\) involved in the offers the path takes. For example, if you can only find a path from USD to EUR through XBN and BTC, the path would be USD -&gt; XBN -&gt; BTC -&gt; EUR and the `path` field would contain XBN and BTC. |
 
 Possible errors:
 
 | Error | Code | Description |
 | :--- | :--- | :--- |
 | PATH\_PAYMENT\_STRICT\_RECEIVE\_MALFORMED | -1 | The input to this path payment is invalid. |
-| PATH\_PAYMENT\_STRICT\_RECEIVE\_UNDERFUNDED | -2 | The source account \(sender\) does not have enough funds to send and still satisfy its selling liabilities. Note that if sending XLM then the sender must additionally maintain its minimum XLM reserve. |
+| PATH\_PAYMENT\_STRICT\_RECEIVE\_UNDERFUNDED | -2 | The source account \(sender\) does not have enough funds to send and still satisfy its selling liabilities. Note that if sending XBN then the sender must additionally maintain its minimum XBN reserve. |
 | PATH\_PAYMENT\_STRICT\_RECEIVE\_SRC\_NO\_TRUST | -3 | The source account does not trust the issuer of the asset it is trying to send. |
 | PATH\_PAYMENT\_STRICT\_RECEIVE\_SRC\_NOT\_AUTHORIZED | -4 | The source account is not authorized to send this payment. |
 | PATH\_PAYMENT\_STRICT\_RECEIVE\_NO\_DESTINATION | -5 | The destination account does not exist. |
@@ -201,7 +201,7 @@ Result: `ManageBuyOfferResult`
 | Selling | asset | Asset the offer creator is selling. |
 | Buying | asset | Asset the offer creator is buying. |
 | Amount | integer | Amount of `buying` being bought. Set to `0` if you want to delete an existing offer. |
-| Price | {numerator, denominator} | Price of 1 unit of `buying` in terms of `selling`. For example, if you wanted to buy 30 XLM and sell 5 BTC, the price would be {5,30}. |
+| Price | {numerator, denominator} | Price of 1 unit of `buying` in terms of `selling`. For example, if you wanted to buy 30 XBN and sell 5 BTC, the price would be {5,30}. |
 | Offer ID | unsigned integer | The ID of the offer. `0` for new offer. Set to existing offer ID to update or delete. |
 
 Possible errors:
@@ -214,12 +214,12 @@ Possible errors:
 | MANAGE\_BUY\_OFFER\_BUY\_NOT\_AUTHORIZED | -4 | The account creating the offer is not authorized to sell this asset. |
 | MANAGE\_BUY\_OFFER\_SELL\_NOT\_AUTHORIZED | -5 | The account creating the offer is not authorized to buy this asset. |
 | MANAGE\_BUY\_OFFER\_LINE\_FULL | -6 | The account creating the offer does not have sufficient limits to receive `buying` and still satisfy its buying liabilities. |
-| MANAGE\_BUY\_OFFER\_UNDERFUNDED | -7 | The account creating the offer does not have sufficient limits to send `selling` and still satisfy its selling liabilities. Note that if selling XLM then the account must additionally maintain its minimum XLM reserve, which is calculated assuming this offer will not completely execute immediately. |
+| MANAGE\_BUY\_OFFER\_UNDERFUNDED | -7 | The account creating the offer does not have sufficient limits to send `selling` and still satisfy its selling liabilities. Note that if selling XBN then the account must additionally maintain its minimum XBN reserve, which is calculated assuming this offer will not completely execute immediately. |
 | MANAGE\_BUY\_OFFER\_CROSS\_SELF | -8 | The account has opposite offer of equal or lesser price active, so the account creating this offer would immediately cross itself. |
 | MANAGE\_BUY\_OFFER\_SELL\_NO\_ISSUER | -9 | The issuer of selling asset does not exist. |
 | MANAGE\_BUY\_OFFER\_BUY\_NO\_ISSUER | -10 | The issuer of buying asset does not exist. |
 | MANAGE\_BUY\_OFFER\_NOT\_FOUND | -11 | An offer with that `offerID` cannot be found. |
-| MANAGE\_BUY\_OFFER\_LOW\_RESERVE | -12 | The account creating this offer does not have enough XLM to satisfy the minimum XLM reserve increase caused by adding a subentry and still satisfy its XLM selling liabilities. For every offer an account creates, the minimum amount of XLM that account must hold will increase. |
+| MANAGE\_BUY\_OFFER\_LOW\_RESERVE | -12 | The account creating this offer does not have enough XBN to satisfy the minimum XBN reserve increase caused by adding a subentry and still satisfy its XBN selling liabilities. For every offer an account creates, the minimum amount of XBN that account must hold will increase. |
 
 ## Manage Sell Offer
 
@@ -242,7 +242,7 @@ Result: `ManageSellOfferResult`
 | Selling | asset | Asset the offer creator is selling. |
 | Buying | asset | Asset the offer creator is buying. |
 | Amount | integer | Amount of `selling` being sold. Set to `0` if you want to delete an existing offer. |
-| Price | {numerator, denominator} | Price of 1 unit of `selling` in terms of `buying`. For example, if you wanted to sell 30 XLM and buy 5 BTC, the price would be {5,30}. |
+| Price | {numerator, denominator} | Price of 1 unit of `selling` in terms of `buying`. For example, if you wanted to sell 30 XBN and buy 5 BTC, the price would be {5,30}. |
 | Offer ID | unsigned integer | The ID of the offer. `0` for new offer. Set to existing offer ID to update or delete. |
 
 Possible errors:
@@ -255,12 +255,12 @@ Possible errors:
 | MANAGE\_SELL\_OFFER\_SELL\_NOT\_AUTHORIZED | -4 | The account creating the offer is not authorized to sell this asset. |
 | MANAGE\_SELL\_OFFER\_BUY\_NOT\_AUTHORIZED | -5 | The account creating the offer is not authorized to buy this asset. |
 | MANAGE\_SELL\_OFFER\_LINE\_FULL | -6 | The account creating the offer does not have sufficient limits to receive `buying` and still satisfy its buying liabilities. |
-| MANAGE\_SELL\_OFFER\_UNDERFUNDED | -7 | The account creating the offer does not have sufficient limits to send `selling` and still satisfy its selling liabilities. Note that if selling XLM then the account must additionally maintain its minimum XLM reserve, which is calculated assuming this offer will not completely execute immediately. |
+| MANAGE\_SELL\_OFFER\_UNDERFUNDED | -7 | The account creating the offer does not have sufficient limits to send `selling` and still satisfy its selling liabilities. Note that if selling XBN then the account must additionally maintain its minimum XBN reserve, which is calculated assuming this offer will not completely execute immediately. |
 | MANAGE\_SELL\_OFFER\_CROSS\_SELF | -8 | The account has opposite offer of equal or lesser price active, so the account creating this offer would immediately cross itself. |
 | MANAGE\_SELL\_OFFER\_SELL\_NO\_ISSUER | -9 | The issuer of selling asset does not exist. |
 | MANAGE\_SELL\_OFFER\_BUY\_NO\_ISSUER | -10 | The issuer of buying asset does not exist. |
 | MANAGE\_SELL\_OFFER\_NOT\_FOUND | -11 | An offer with that `offerID` cannot be found. |
-| MANAGE\_SELL\_OFFER\_LOW\_RESERVE | -12 | The account creating this offer does not have enough XLM to satisfy the minimum XLM reserve increase caused by adding a subentry and still satisfy its XLM selling liabilities. For every offer an account creates, the minimum amount of XLM that account must hold will increase. |
+| MANAGE\_SELL\_OFFER\_LOW\_RESERVE | -12 | The account creating this offer does not have enough XBN to satisfy the minimum XBN reserve increase caused by adding a subentry and still satisfy its XBN selling liabilities. For every offer an account creates, the minimum amount of XBN that account must hold will increase. |
 
 ## Create Passive Sell Offer
 
@@ -268,7 +268,7 @@ Possible errors:
 
 Creates, updates, or deletes an offer to sell one asset for another, otherwise known as a "ask" order or "offer" on a traditional orderbook, _without taking a reverse offer of equal price_.
 
-A passive sell offer is an offer that does not act on and take a reverse offer of equal price. Instead, they only take offers of lesser price. For example, if an offer exists to buy 5 BTC for 30 XLM, and you make a passive offer to buy 30 XLM for 5 BTC, your passive offer _does not_ take the first offer. Passive offers in Stellar are always expressed as "ask" or "offer" orders in a traditional orderbook.
+A passive sell offer is an offer that does not act on and take a reverse offer of equal price. Instead, they only take offers of lesser price. For example, if an offer exists to buy 5 BTC for 30 XBN, and you make a passive offer to buy 30 XBN for 5 BTC, your passive offer _does not_ take the first offer. Passive offers in Stellar are always expressed as "ask" or "offer" orders in a traditional orderbook.
 
 Note that regular offers made later than your passive offer can act on and take your passive offer, even if the regular offer is of the same price as your passive offer.
 
@@ -285,7 +285,7 @@ Result: `ManageSellOfferResult`
 | Selling | asset | Asset the offer creator is selling. |
 | Buying | asset | Asset the offer creator is buying. |
 | Amount | integer | Amount of `selling` being sold. Set to `0` if you want to delete an existing offer. |
-| Price | {numerator, denominator} | Price of 1 unit of `selling` in terms of `buying`. For example, if you wanted to sell 30 XLM and buy 5 BTC, the price would be {5,30}. |
+| Price | {numerator, denominator} | Price of 1 unit of `selling` in terms of `buying`. For example, if you wanted to sell 30 XBN and buy 5 BTC, the price would be {5,30}. |
 
 Possible errors:
 
@@ -297,12 +297,12 @@ Possible errors:
 | MANAGE\_SELL\_OFFER\_SELL\_NOT\_AUTHORIZED | -4 | The account creating the offer is not authorized to sell this asset. |
 | MANAGE\_SELL\_OFFER\_BUY\_NOT\_AUTHORIZED | -5 | The account creating the offer is not authorized to buy this asset. |
 | MANAGE\_SELL\_OFFER\_LINE\_FULL | -6 | The account creating the offer does not have sufficient limits to receive `buying` and still satisfy its buying liabilities. |
-| MANAGE\_SELL\_OFFER\_UNDERFUNDED | -7 | The account creating the offer does not have sufficient limits to send `selling` and still satisfy its selling liabilities. Note that if selling XLM then the account must additionally maintain its minimum XLM reserve, which is calculated assuming this offer will not completely execute immediately. |
+| MANAGE\_SELL\_OFFER\_UNDERFUNDED | -7 | The account creating the offer does not have sufficient limits to send `selling` and still satisfy its selling liabilities. Note that if selling XBN then the account must additionally maintain its minimum XBN reserve, which is calculated assuming this offer will not completely execute immediately. |
 | MANAGE\_SELL\_OFFER\_CROSS\_SELF | -8 | The account has opposite offer of equal or lesser price active, so the account creating this offer would immediately cross itself. |
 | MANAGE\_SELL\_OFFER\_SELL\_NO\_ISSUER | -9 | The issuer of selling asset does not exist. |
 | MANAGE\_SELL\_OFFER\_BUY\_NO\_ISSUER | -10 | The issuer of buying asset does not exist. |
 | MANAGE\_SELL\_OFFER\_NOT\_FOUND | -11 | An offer with that `offerID` cannot be found. |
-| MANAGE\_SELL\_OFFER\_LOW\_RESERVE | -12 | The account creating this offer does not have enough XLM to satisfy the minimum XLM reserve increase caused by adding a subentry and still satisfy its XLM selling liabilities. For every offer an account creates, the minimum amount of XLM that account must hold will increase. |
+| MANAGE\_SELL\_OFFER\_LOW\_RESERVE | -12 | The account creating this offer does not have enough XBN to satisfy the minimum XBN reserve increase caused by adding a subentry and still satisfy its XBN selling liabilities. For every offer an account creates, the minimum amount of XBN that account must hold will increase. |
 
 ## Set Options
 
@@ -338,7 +338,7 @@ Possible errors:
 
 | Error | Code | Description |
 | :--- | :--- | :--- |
-| SET\_OPTIONS\_LOW\_RESERVE | -1 | This account does not have enough XLM to satisfy the minimum XLM reserve increase caused by adding a subentry and still satisfy its XLM selling liabilities. For every new signer added to an account, the minimum reserve of XLM that account must hold increases. |
+| SET\_OPTIONS\_LOW\_RESERVE | -1 | This account does not have enough XBN to satisfy the minimum XBN reserve increase caused by adding a subentry and still satisfy its XBN selling liabilities. For every new signer added to an account, the minimum reserve of XBN that account must hold increases. |
 | SET\_OPTIONS\_TOO\_MANY\_SIGNERS | -2 | 20 is the maximum number of signers an account can have, and adding another signer would exceed that. |
 | SET\_OPTIONS\_BAD\_FLAGS | -3 | The flags set and/or cleared are invalid by themselves or in combination. |
 | SET\_OPTIONS\_INVALID\_INFLATION | -4 | The destination account set in the `inflation` field does not exist. |
@@ -372,7 +372,7 @@ Possible errors:
 | CHANGE\_TRUST\_MALFORMED | -1 | The input to this operation is invalid. |
 | CHANGE\_TRUST\_NO\_ISSUER | -2 | The issuer of the asset cannot be found. |
 | CHANGE\_TRUST\_INVALID\_LIMIT | -3 | The `limit` is not sufficient to hold the current balance of the trustline and still satisfy its buying liabilities. |
-| CHANGE\_TRUST\_LOW\_RESERVE | -4 | This account does not have enough XLM to satisfy the minimum XLM reserve increase caused by adding a subentry and still satisfy its XLM selling liabilities. For every new trustline added to an account, the minimum reserve of XLM that account must hold increases. |
+| CHANGE\_TRUST\_LOW\_RESERVE | -4 | This account does not have enough XBN to satisfy the minimum XBN reserve increase caused by adding a subentry and still satisfy its XBN selling liabilities. For every new trustline added to an account, the minimum reserve of XBN that account must hold increases. |
 | CHANGE\_TRUST\_SELF\_NOT\_ALLOWED | -5 | The source account attempted to create a trustline for itself, which is not allowed. |
 
 ## Allow Trust
@@ -413,7 +413,7 @@ Possible errors:
 
 [JavaScript](http://stellar.github.io/js-stellar-sdk/Operation.html#.accountMerge) \| [Java](http://stellar.github.io/java-stellar-sdk/org/stellar/sdk/AccountMergeOperation.Builder.html) \| [Go](https://godoc.org/github.com/stellar/go/txnbuild#AccountMerge)
 
-Transfers the native balance \(the amount of XLM an account holds\) to another account and removes the source account from the ledger.
+Transfers the native balance \(the amount of XBN an account holds\) to another account and removes the source account from the ledger.
 
 Threshold: High
 
@@ -421,7 +421,7 @@ Result: `AccountMergeResult`
 
 | Parameters | Type | Description |
 | :--- | :--- | :--- |
-| Destination | account ID | The account that receives the remaining XLM balance of the source account. |
+| Destination | account ID | The account that receives the remaining XBN balance of the source account. |
 
 Possible errors:
 
@@ -460,7 +460,7 @@ Possible errors:
 | :--- | :--- | :--- |
 | MANAGE\_DATA\_NOT\_SUPPORTED\_YET | -1 | The network hasn't moved to this protocol change yet. This failure means the network doesn't support this feature yet. |
 | MANAGE\_DATA\_NAME\_NOT\_FOUND | -2 | Trying to remove a Data Entry that isn't there. This will happen if Name is set \(and Value isn't\) but the Account doesn't have a DataEntry with that Name. |
-| MANAGE\_DATA\_LOW\_RESERVE | -3 | This account does not have enough XLM to satisfy the minimum XLM reserve increase caused by adding a subentry and still satisfy its XLM selling liabilities. For every new DataEntry added to an account, the minimum reserve of XLM that account must hold increases. |
+| MANAGE\_DATA\_LOW\_RESERVE | -3 | This account does not have enough XBN to satisfy the minimum XBN reserve increase caused by adding a subentry and still satisfy its XBN selling liabilities. For every new DataEntry added to an account, the minimum reserve of XBN that account must hold increases. |
 | MANAGE\_DATA\_INVALID\_NAME | -4 | Name not a valid string. |
 
 ## Bump Sequence
@@ -497,7 +497,7 @@ Result: `CreateClaimableBalanceResult`
 
 | Parameters | Type | Description |
 | :--- | :--- | :--- |
-| Asset | asset | Asset that will be held in the ClaimableBalanceEntry in the form `asset_code:issuing_address` or `native` \(XLM\). |
+| Asset | asset | Asset that will be held in the ClaimableBalanceEntry in the form `asset_code:issuing_address` or `native` \(XBN\). |
 | Amount | integer | Amount of `asset` stored in the ClaimableBalanceEntry. |
 | Claimants | list of claimants | List of Claimants \(account address and ClaimPredicate pair\) that can claim this ClaimableBalanceEntry. |
 
@@ -506,7 +506,7 @@ Possible errors:
 | Error | Code | Description |
 | :--- | :--- | :--- |
 | CREATE\_CLAIMABLE\_BALANCE\_MALFORMED | -1 | The input to this operation is invalid. |
-| CREATE\_CLAIMABLE\_BALANCE\_LOW\_RESERVE | -2 | The account creating this entry does not have enough XLM to satisfy the minimum XLM reserve increase caused by adding a ClaimableBalanceEntry. For every claimant in the list, the minimum amount of XLM this account must hold will increase by baseReserve. |
+| CREATE\_CLAIMABLE\_BALANCE\_LOW\_RESERVE | -2 | The account creating this entry does not have enough XBN to satisfy the minimum XBN reserve increase caused by adding a ClaimableBalanceEntry. For every claimant in the list, the minimum amount of XBN this account must hold will increase by baseReserve. |
 | CREATE\_CLAIMABLE\_BALANCE\_NO\_TRUST | -3 | The source account does not trust the issuer of the asset it is trying to include in the ClaimableBalanceEntry. |
 | CREATE\_CLAIMABLE\_BALANCE\_NOT\_AUTHORIZED | -4 | The source account is not authorized to transfer this asset. |
 | CREATE\_CLAIMABLE\_BALANCE\_UNDERFUNDED | -5 | The source account does not have enough funds to transfer `amount` of this asset to the ClaimableBalanceEntry. |
@@ -595,6 +595,6 @@ Possible errors:
 | :--- | :--- | :--- |
 | REVOKE\_SPONSORSHIP\_DOES\_NOT\_EXIST | -1 | The ledgerEntry for LedgerKey doesn't exist, the account ID on signer doesn't exist, or the Signer Key doesn't exist on account ID's account. |
 | REVOKE\_SPONSORSHIP\_NOT\_SPONSOR | -2 | If the ledgerEntry/signer is sponsored, then the source account must be the sponsor. If the ledgerEntry/signer is not sponsored, the source account must be the owner. This error will be thrown otherwise. |
-| REVOKE\_SPONSORSHIP\_LOW\_RESERVE | -3 | The sponsored account does not have enough XLM to satisfy the minimum balance increase caused by revoking sponsorship on a ledgerEntry/signer it owns, or the sponsor of the source account doesn't have enough XLM to satisfy the minimum balance increase caused by sponsoring a transfered ledgerEntry/signer. |
+| REVOKE\_SPONSORSHIP\_LOW\_RESERVE | -3 | The sponsored account does not have enough XBN to satisfy the minimum balance increase caused by revoking sponsorship on a ledgerEntry/signer it owns, or the sponsor of the source account doesn't have enough XBN to satisfy the minimum balance increase caused by sponsoring a transfered ledgerEntry/signer. |
 | REVOKE\_SPONSORSHIP\_ONLY\_TRANSFERABLE | -4 | Sponsorship cannot be removed from this ledgerEntry. This error will happen if the user tries to remove the sponsorship from a ClaimableBalanceEntry. |
 
