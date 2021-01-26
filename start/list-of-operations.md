@@ -268,7 +268,7 @@ Possible errors:
 
 Creates, updates, or deletes an offer to sell one asset for another, otherwise known as a "ask" order or "offer" on a traditional orderbook, _without taking a reverse offer of equal price_.
 
-A passive sell offer is an offer that does not act on and take a reverse offer of equal price. Instead, they only take offers of lesser price. For example, if an offer exists to buy 5 BTC for 30 XBN, and you make a passive offer to buy 30 XBN for 5 BTC, your passive offer _does not_ take the first offer. Passive offers in Stellar are always expressed as "ask" or "offer" orders in a traditional orderbook.
+A passive sell offer is an offer that does not act on and take a reverse offer of equal price. Instead, they only take offers of lesser price. For example, if an offer exists to buy 5 BTC for 30 XBN, and you make a passive offer to buy 30 XBN for 5 BTC, your passive offer _does not_ take the first offer. Passive offers in Bantu are always expressed as "ask" or "offer" orders in a traditional orderbook.
 
 Note that regular offers made later than your passive offer can act on and take your passive offer, even if the regular offer is of the same price as your passive offer.
 
