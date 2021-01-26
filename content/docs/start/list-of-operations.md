@@ -389,7 +389,7 @@ This can only be called by the issuer of a trustline's [asset](../glossary/asset
 
 There are two different kinds of asset authorization: complete authorization, which allows an account to transact with an asset \(by making payments, creating offers, etc.\) and limited authorization, which allows an account to maintain and reduce current offers, but not to perform other operations with the asset.
 
-The issuer can only change a flag from complete to limited authorization or clear the `authorized` flag if the issuer has the `AUTH_REVOCABLE_FLAG` set. Otherwise, the issuer can only set the `authorized` flag. For more on what toggling between authorization states allows an issuer to do, see the [Control Access to an Asset](../issuing-assets/control-asset-access.md) doc.
+The issuer can only change a flag from complete to limited authorization or clear the `authorized` flag if the issuer has the `AUTH_REVOCABLE_FLAG` set. Otherwise, the issuer can only set the `authorized` flag. For more on what toggling between authorization states allows an issuer to do, see the [Control Access to an Asset](../../../issuing-assets/control-asset-access.md) doc.
 
 If the issuer clears the `authorized` flag, all offers owned by the `trustor` that are either selling `type` or buying `type` will be deleted.
 

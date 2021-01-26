@@ -13,11 +13,11 @@ You do not have to run a Stellar Core node or Horizon instance to build on Stell
 
 ### Stellar Core
 
-Stellar Core is the backbone of the Stellar network and does the hard work of validating and agreeing on the status of every transaction with other instances of Core through the Stellar Consensus Protocol. The processes for installing, configuring, and maintaining a Stellar Core node are covered in great detail in the [Run a Core Node](../run-core-node/index.md) section of the docs.
+Stellar Core is the backbone of the Stellar network and does the hard work of validating and agreeing on the status of every transaction with other instances of Core through the Stellar Consensus Protocol. The processes for installing, configuring, and maintaining a Stellar Core node are covered in great detail in the [Run a Core Node](../../../run-core-node/index.md) section of the docs.
 
 ### Horizon
 
-Horizon is the client-facing API server for the Stellar ecosystem. It acts as the interface between Stellar Core and applications that want to access the Stellar network. If you're running Stellar Core, you will probably also want to run Horizon. For more information on how to set up and operate a Horizon instance, see the [Run an API Server](../run-api-server/index.md) section of the docs.
+Horizon is the client-facing API server for the Stellar ecosystem. It acts as the interface between Stellar Core and applications that want to access the Stellar network. If you're running Stellar Core, you will probably also want to run Horizon. For more information on how to set up and operate a Horizon instance, see the [Run an API Server](../../../run-api-server/index.md) section of the docs.
 
 ## SDKs
 
@@ -112,7 +112,7 @@ There is also a small [suite of tools](https://github.com/stellar/go/tree/master
 
 The Stellar Development Foundation maintains reference implementations of some [Stellar Ecosystem Proposals](https://github.com/stellar/stellar-protocol/tree/master/ecosystem) to jumpstart the process of building infrastructure on top of Stellar in a way that maximizes interoperability among ecosystem participants.
 
-* [Polaris](https://github.com/stellar/django-polaris) is an extendable django app that makes it easy for anchors to [facilitate cross-border payments and enable deposits and withdrawals](../anchoring-assets/index.md). Using Polaris, you can run a web server supporting any combination of SEP-1, 6, 10, 12, and 24.
+* [Polaris](https://github.com/stellar/django-polaris) is an extendable django app that makes it easy for anchors to [facilitate cross-border payments and enable deposits and withdrawals](../../../anchoring-assets/index.md). Using Polaris, you can run a web server supporting any combination of SEP-1, 6, 10, 12, and 24.
 * The [SEP-24 demo client](https://github.com/stellar/sep24-demo-client) makes it easy for anchors to test their deposit and withdrawal flows by implementing the client side of a Stellar SEP24 interactive flow.
 * The [Federation Server](https://github.com/stellar/go/tree/master/services/federation) is a Go implementation of the federation protocol described in [SEP-2](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0002.md). It's designed to be dropped into your existing infrastructure.
 

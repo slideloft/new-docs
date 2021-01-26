@@ -17,13 +17,13 @@ SDKs make it easy to craft code and handle network queries and transaction submi
 
 ## API: Horizon
 
-[Horizon](../run-api-server/index.md) is a RESTful HTTP API server that provides a straightforward way to submit transactions, check accounts, and subscribe to events. Because it’s HTTP, you can communicate with Horizon using an SDK, but you can also use your web browser, or simple command line tools like cURL. Everything there is to know about Horizon is documented in the [API Reference](../../api/introduction/index.md) section of the docs.
+[Horizon](../../../run-api-server/index.md) is a RESTful HTTP API server that provides a straightforward way to submit transactions, check accounts, and subscribe to events. Because it’s HTTP, you can communicate with Horizon using an SDK, but you can also use your web browser, or simple command line tools like cURL. Everything there is to know about Horizon is documented in the [API Reference](../../api/introduction/index.md) section of the docs.
 
 At the moment, Horizon requires access to Stellar Core's database to function properly — so every Horizon instance connects to a Stellar Core node — but we are increasing its independence from Stellar Core, and soon developers will be able deploy the API without having to run their own node.
 
 ## Network Backbone: Stellar Core
 
-The Stellar Core software does the hard work of validating and agreeing with other instances of Core on the status of every transaction through the [Stellar Consensus Protocol](../glossary/scp.md) \(SCP\). The ledger, transactions, results, history, and even the messages passed between computers running Stellar Core are encoded using XDR, which is incredibly efficient, but not human readable. Stellar Core nodes make up the network — and running a node is crucial if you want to ensure constant access or contribute to the health and decentralization of the network — but most developers don't work directly with Stellar Core. For more on how to set up a node, consult the [Run a Core Node](../run-core-node/index.md) section.
+The Stellar Core software does the hard work of validating and agreeing with other instances of Core on the status of every transaction through the [Stellar Consensus Protocol](../glossary/scp.md) \(SCP\). The ledger, transactions, results, history, and even the messages passed between computers running Stellar Core are encoded using XDR, which is incredibly efficient, but not human readable. Stellar Core nodes make up the network — and running a node is crucial if you want to ensure constant access or contribute to the health and decentralization of the network — but most developers don't work directly with Stellar Core. For more on how to set up a node, consult the [Run a Core Node](../../../run-core-node/index.md) section.
 
 ## The Public Network and the Test Network
 

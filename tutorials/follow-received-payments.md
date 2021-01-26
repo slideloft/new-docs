@@ -7,7 +7,7 @@ order: 30
 
 import { CodeExample } from "components/CodeExample";
 
-This tutorial shows how easy it is to use Horizon to watch for incoming payments on an [account](../glossary/accounts.md) using JavaScript and `EventSource`. We will eschew using [`js-stellar-sdk`](https://github.com/stellar/js-stellar-sdk), the high-level helper library, to show that it is possible for you to perform this task on your own with whatever programming language you would like to use.
+This tutorial shows how easy it is to use Horizon to watch for incoming payments on an [account](../content/docs/glossary/accounts.md) using JavaScript and `EventSource`. We will eschew using [`js-stellar-sdk`](https://github.com/stellar/js-stellar-sdk), the high-level helper library, to show that it is possible for you to perform this task on your own with whatever programming language you would like to use.
 
 This tutorial assumes that you:
 
@@ -60,7 +60,7 @@ After a few seconds, the Stellar network will perform consensus, close the ledge
 
 ## Following payments using `curl`
 
-To follow new payments connected to your account you simply need to send the `Accept: text/event-stream` header to the [/payments](../../api/resources/operations/object/payment.md) endpoint.
+To follow new payments connected to your account you simply need to send the `Accept: text/event-stream` header to the [/payments](../content/api/resources/operations/object/payment.md) endpoint.
 
  \`\`\`bash $ curl -H "Accept: text/event-stream" "https://horizon-testnet.stellar.org/accounts/GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3/payments" \`\`\`
 
@@ -68,7 +68,7 @@ As a result you will see something like:
 
  \`\`\`bash retry: 1000 event: open data: "hello" id: 713226564145153 data: {"\_links":{"effects":{"href":"/operations/713226564145153/effects/{?cursor,limit,order}","templated":true}, "precedes":{"href":"/operations?cursor=713226564145153\u0026order=asc"}, "self":{"href":"/operations/713226564145153"}, "succeeds":{"href":"/operations?cursor=713226564145153\u0026order=desc"}, "transactions":{"href":"/transactions/713226564145152"}}, "account":"GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3", "funder":"GBS43BF24ENNS3KPACUZVKK2VYPOZVBQO2CISGZ777RYGOPYC2FT6S3K", "id":713226564145153, "paging\_token":"713226564145153", "starting\_balance":"10000", "type\_i":0, "type":"create\_account"} \`\`\`
 
-Every time you receive a new payment you will get a new row of data. Payments is not the only endpoint that supports streaming. You can also stream transactions [/transactions](../../api/resources/transactions/index.md) and operations [/operations](../../api/resources/operations/index.md).
+Every time you receive a new payment you will get a new row of data. Payments is not the only endpoint that supports streaming. You can also stream transactions [/transactions](../content/api/resources/transactions/index.md) and operations [/operations](../content/api/resources/operations/index.md).
 
 ## Following payments using `EventStream`
 
@@ -84,9 +84,9 @@ Now, run our script: `node stream_payments.js`. You should see following output:
 
 ## Testing it out
 
-We now know how to get a stream of transactions to an account. Let's check if our solution actually works and if new payments appear. Let's watch as we send a payment \([`create_account` operation](../start/list-of-operations.md#create-account)\) from our account to another account.
+We now know how to get a stream of transactions to an account. Let's check if our solution actually works and if new payments appear. Let's watch as we send a payment \([`create_account` operation](../content/docs/start/list-of-operations.md#create-account)\) from our account to another account.
 
-We use the `create_account` operation because we are sending payment to a new, unfunded account. If we were sending payment to an account that is already funded, we would use the [`payment` operation](../start/list-of-operations.md#payment).
+We use the `create_account` operation because we are sending payment to a new, unfunded account. If we were sending payment to an account that is already funded, we would use the [`payment` operation](../content/docs/start/list-of-operations.md#payment).
 
 First, let's check our account sequence number so we can create a payment transaction. To do this we send a request to horizon:
 

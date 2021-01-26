@@ -5,7 +5,7 @@ order: 10
 
 # index
 
-Supporting deposits and withdrawals of an asset on and off the Stellar network requires cooperation between wallet \(client\) and anchor \(server\) applications. In this section, we'll only go over the steps necessary for building a SEP-24 server, but we also have documentation for [building a wallet](../../building-apps/index.md).
+Supporting deposits and withdrawals of an asset on and off the Stellar network requires cooperation between wallet \(client\) and anchor \(server\) applications. In this section, we'll only go over the steps necessary for building a SEP-24 server, but we also have documentation for [building a wallet](../../content/docs/building-apps/index.md).
 
 Specifically, we will go over SDF's [Tools and References](reference-implementations.md) as well as all three stages of the development process:
 

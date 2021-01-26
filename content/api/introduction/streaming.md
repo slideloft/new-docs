@@ -11,7 +11,7 @@ Horizon provides a streaming mechanism for receiving events in near real time. I
 
 This reduces requests that return no data and allows near instantaneous updates client-side.
 
-All attributes for the endpoints that allow streaming are the same as regular responses. A caller can initiate streaming by setting ‘Accept: text/event-stream’ in the HTTP header when making the request. Study an example of using streaming in the [Follow Received Payments tutorial](../../docs/tutorials/follow-received-payments.md).
+All attributes for the endpoints that allow streaming are the same as regular responses. A caller can initiate streaming by setting ‘Accept: text/event-stream’ in the HTTP header when making the request. Study an example of using streaming in the [Follow Received Payments tutorial](../../../tutorials/follow-received-payments.md).
 
  \| \| \| ------------------------------------------------------- \| \| \[Ledgers\]\(../resources/ledgers/index.mdx\) \| \| \[Transactions\]\(../resources/transactions/index.mdx\) \| \| \[Operations\]\(../resources/operations/index.mdx\) \| \| \[Payments\]\(../resources/operations/object/payment.mdx\) \| \| \[Effects\]\(../resources/effects/index.mdx\) \| \| \[Accounts\]\(../resources/accounts/index.mdx\) \| \| \[Offers\]\(../resources/offers/index.mdx\) \| \| \[Trades\]\(../resources/trades/index.mdx\) \| \| \[Order Books\]\(../aggregations/order-books/index.mdx\) \|
 

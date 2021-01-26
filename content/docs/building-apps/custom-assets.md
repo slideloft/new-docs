@@ -13,7 +13,7 @@ import { CodeExample } from "components/CodeExample"; import { Alert } from "com
 
 ## What's a Custom Asset?
 
-Stellar allows anyone to easily issue an asset, and all assets can be held, transferred, and traded just like XLM, the network token. Every asset _other_ than XLM exists on the network in the form of trustlines: an asset holder explicitly agrees to allow a balance of a specific token issued by a specific issuing account by creating a persistent ledger entry tied to the holding account. You can find out more in the guide to [creating custom assets](../issuing-assets/index.md).
+Stellar allows anyone to easily issue an asset, and all assets can be held, transferred, and traded just like XLM, the network token. Every asset _other_ than XLM exists on the network in the form of trustlines: an asset holder explicitly agrees to allow a balance of a specific token issued by a specific issuing account by creating a persistent ledger entry tied to the holding account. You can find out more in the guide to [creating custom assets](../../../issuing-assets/index.md).
 
 Each trustline increases the user's [base reserve](../glossary/minimum-balance.md) by 0.5 XLM, and in this tutorial, we'll go over how to set up your wallet to create trustlines and manage the base reserve on behalf of a user.
 

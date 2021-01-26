@@ -32,7 +32,7 @@ The public key of the issuing account is linked on the ledger to the asset itsel
 
 Before an account can hold an asset another account issues, it has to establish something called a trustline, which is a persistent account-level ledger entry created with a `change_trust` operation.
 
-A trustline is an explicit opt-in to hold a particular token, so it specifies both asset code and issuer. Each trustline increases an account’s minimum lumen balance by one [base reserve](../glossary/minimum-balance.md) — currently 0.5 XLM — and tracks the balance of the asset the account holds. Trustlines can also limit the amount of an asset an account can hold, though more often than not, account holders don’t set that limit: they simply turn the trustline on, which by default allows the maximum.
+A trustline is an explicit opt-in to hold a particular token, so it specifies both asset code and issuer. Each trustline increases an account’s minimum lumen balance by one [base reserve](../content/docs/glossary/minimum-balance.md) — currently 0.5 XLM — and tracks the balance of the asset the account holds. Trustlines can also limit the amount of an asset an account can hold, though more often than not, account holders don’t set that limit: they simply turn the trustline on, which by default allows the maximum.
 
 A trustline also tracks liabilities. Buying liabilities equal the total amount of the asset offered to buy aggregated over all offers owned by an account, and selling liabilities equal the total amount of the asset offered to sell aggregated over all offers owned by an account. A trustline must always have balance sufficiently large to satisfy its selling liabilities, and a balance sufficiently below its limit to accommodate its buying liabilities.
 
@@ -48,7 +48,7 @@ In the Stellar SDKs, they’re represented with the `Asset` class:
 
 ## Amount Precision
 
-Each asset amount is encoded as a signed 64-bit integer in the [XDR structures](../glossary/xdr.md) that Stellar uses to encode transactions. The asset amount unit seen by end users is scaled down by a factor of ten million \(10,000,000\) to arrive at the native 64-bit integer representation.
+Each asset amount is encoded as a signed 64-bit integer in the [XDR structures](../content/docs/glossary/xdr.md) that Stellar uses to encode transactions. The asset amount unit seen by end users is scaled down by a factor of ten million \(10,000,000\) to arrive at the native 64-bit integer representation.
 
 For example, the integer amount value `25,123,456` equals `2.5123456` units of the asset. This scaling allows for seven decimal places of precision in human-friendly amount units.
 
@@ -62,5 +62,5 @@ In Horizon and client-side libraries such as `js-stellar-sdk`, the integer encod
 
 ## Lumens \(XLM\)
 
-Lumens \(XLM\) are the native currency of the Stellar network, and are the only asset that doesn't require an issuer or a trustline. Every account is required to hold a [minimum lumen balance](../glossary/minimum-balance.md), and all [transaction fees](../glossary/fees.md) are paid in lumens. The smallest unit of a lumen is a stroop, which is one ten-millionth of a lumen. For more on lumens, check out the [Stellar.org explainer](https://www.stellar.org/lumens).
+Lumens \(XLM\) are the native currency of the Stellar network, and are the only asset that doesn't require an issuer or a trustline. Every account is required to hold a [minimum lumen balance](../content/docs/glossary/minimum-balance.md), and all [transaction fees](../content/docs/glossary/fees.md) are paid in lumens. The smallest unit of a lumen is a stroop, which is one ten-millionth of a lumen. For more on lumens, check out the [Stellar.org explainer](https://www.stellar.org/lumens).
 

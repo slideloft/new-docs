@@ -7,7 +7,7 @@ order: 30
 
 import { CodeExample } from "components/CodeExample"; import { Alert } from "components/Alert";
 
-Before setting up a server that connects to live banking rails and real money, you should build out a test rig connected to the [Stellar test network](../../glossary/testnet.md). The testnet works just like the main Stellar network, but it uses test data and allows you to fund test accounts for free using a tool called [Friendbot](../../glossary/testnet.md#friendbot).
+Before setting up a server that connects to live banking rails and real money, you should build out a test rig connected to the [Stellar test network](../../content/docs/glossary/testnet.md). The testnet works just like the main Stellar network, but it uses test data and allows you to fund test accounts for free using a tool called [Friendbot](../../content/docs/glossary/testnet.md#friendbot).
 
  Note: the testnet is reset every three months, so when building on it, make sure you have a plan to recreate necessary accounts and other data. For more info, check out the \[best practices for using the testnet\]\(../../glossary/testnet.mdx\#best-practices-for-using-testnet\).
 
@@ -57,7 +57,7 @@ The only information needed to request a challenge is the client's public key, p
 
 ### Exchanging the Signed Challenge
 
-Once the client signs the challenge transaction on behalf of the user using standard [Stellar SDK tools](../../software-and-sdks/index.md), it sends the signed transaction back to the provider. Using those same Stellar SDKs, the provider then checks to see if the transaction is properly signed, and if it is, offers the client a JWT.
+Once the client signs the challenge transaction on behalf of the user using standard [Stellar SDK tools](../../content/docs/software-and-sdks/index.md), it sends the signed transaction back to the provider. Using those same Stellar SDKs, the provider then checks to see if the transaction is properly signed, and if it is, offers the client a JWT.
 
 This JWT should be created with the claims that are appropriate given the account that signed the challenge. It can be created with any existing JWT library.
 
@@ -137,7 +137,7 @@ Wallets poll the `/transaction` endpoint when waiting for a transaction’s stat
 
 Wallets need access to the transactions associated with the user’s account for displaying history or past activity. This can be accomplished with a `/transactions` endpoint. Wallets may also use this endpoint after making a POST request to `/transactions/deposit/interactive` to make sure a transaction was successfully created.
 
-![Status Diagram of SEP-24 transactions](../../../../.gitbook/assets/SEP24-state-diagram.png)
+![Status Diagram of SEP-24 transactions](../../.gitbook/assets/SEP24-state-diagram.png)
 
 ### Transactions History Endpoint
 

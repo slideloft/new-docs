@@ -15,7 +15,7 @@ There is also a [Horizon instance](https://horizon-testnet.stellar.org/) that ca
 
 ## What is the Stellar testnet good for?
 
-* [Creating test accounts](../tutorials/create-account.md) \(with funding thanks to Friendbot\).
+* [Creating test accounts](../../../tutorials/create-account.md) \(with funding thanks to Friendbot\).
 * Developing applications and exploring tutorials on Stellar without the potential to lose any valuable [assets](assets.md).
 * Testing existing applications against new releases or release candidates of [Stellar Core](https://github.com/stellar/stellar-core/releases) and [Horizon](https://github.com/stellar/go/releases).
 * Performing data analysis on a smaller, non-trivial data set compared to the public network.
@@ -69,7 +69,7 @@ For example, you may want to:
 
 As a maintainer of an application, you will want to think about creating a data set that is representative enough to test your primary use cases, and allow for robust testing even when testnet is not available.
 
-A script can automate this entire process by [creating an account with Friendbot](../tutorials/create-account.md), and submitting a set of transactions that are predefined as a part of your testing infrastructure.
+A script can automate this entire process by [creating an account with Friendbot](../../../tutorials/create-account.md), and submitting a set of transactions that are predefined as a part of your testing infrastructure.
 
 For additional questions we recommend heading over to [Stellar's Stack Exchange](https://stellar.stackexchange.com/).
 

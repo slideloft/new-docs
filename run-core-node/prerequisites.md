@@ -5,7 +5,7 @@ order: 20
 
 # prerequisites
 
-You can install Stellar Core a [number of different ways](installation.md), and once you do, you can [configure](configuring.md) it to participate in the network on a several [different levels](index.md#types-of-nodes): it can be a Watcher, a Basic Validator, or a Full Validator. No matter how you install Stellar Core or what kind of node you run, however, you need to set up to connect to the peer-to-peer network, store the state of the ledger in a SQL [database](configuring.md#database), and most likely connect to [Horizon](../../api/introduction/index.md), the Stellar API.
+You can install Stellar Core a [number of different ways](installation.md), and once you do, you can [configure](configuring.md) it to participate in the network on a several [different levels](index.md#types-of-nodes): it can be a Watcher, a Basic Validator, or a Full Validator. No matter how you install Stellar Core or what kind of node you run, however, you need to set up to connect to the peer-to-peer network, store the state of the ledger in a SQL [database](configuring.md#database), and most likely connect to [Horizon](../content/api/introduction/index.md), the Stellar API.
 
 ## Compute Requirements
 

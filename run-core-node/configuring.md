@@ -44,16 +44,16 @@ This command initializes the database and bucket directories, and then exits. Yo
 
 ## Network Passphrase
 
-Use the `NETWORK_PASSPHRASE` field to specify whether your node connects to the [testnet](../glossary/testnet.md) or the public network. Your choices:
+Use the `NETWORK_PASSPHRASE` field to specify whether your node connects to the [testnet](../content/docs/glossary/testnet.md) or the public network. Your choices:
 
 * `NETWORK_PASSPHRASE="Test SDF Network ; September 2015"`
 * `NETWORK_PASSPHRASE="Public Global Stellar Network ; September 2015"`
 
-For more about the Network Passphrase and how it works, check out the [glossary entry](../glossary/network-passphrase.md).
+For more about the Network Passphrase and how it works, check out the [glossary entry](../content/docs/glossary/network-passphrase.md).
 
 ## Validating
 
-By default, Stellar Core isn't set up to validate. If you want your node to be a [Basic Validator](index.md#basic-validator) or a [Full Validator](index.md#full-validator), you need to configure it to do so, which means preparing it to take part in [SCP](../glossary/scp.md) and sign messages pledging that the network agrees to a particular transaction set.
+By default, Stellar Core isn't set up to validate. If you want your node to be a [Basic Validator](index.md#basic-validator) or a [Full Validator](index.md#full-validator), you need to configure it to do so, which means preparing it to take part in [SCP](../content/docs/glossary/scp.md) and sign messages pledging that the network agrees to a particular transaction set.
 
 Configuring a node to participate in SCP and sign messages is a three step process:
 
