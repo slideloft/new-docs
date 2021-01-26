@@ -30,7 +30,7 @@ The Bantu Core software does the hard work of validating and agreeing with other
 There are two different versions of the Bantu network: one for testing and one for real-world deployments. The Bantu Development Foundation provides a free public Expansion instance for each, which you can use to submit transactions or query network data.
 
 * [https://expansion.bantu.network/](https://expansion.bantu.network/) is for interacting with the public network
-* [https://expansion-testnet.bantu.network//](https://expansion-testnet.bantu.network/) is for interacting with the testnet
+* [https://expansion-testnet.bantu.network/](https://expansion-testnet.bantu.network/) is for interacting with the testnet
 
 Assets on the testnet don't represent anything in the real world, and when you're developing on the testnet, you can get free test XLM from a tool called Friendbot. On the testnet, you're free to experiment, create, and troubleshoot without risking the loss of funds. It generally upgrades a month before the public network — so if you're using it, you need to keep an eye out for major protocol releases — and unlike the public network — where data persists forever — the testnet gets reset every quarter. Additionally, it has a lower ledger limit than the public network: currently, the testnet tops out at 100 operations/ledger; the public network at 1,000 operations/ledger.
 
