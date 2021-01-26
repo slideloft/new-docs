@@ -77,7 +77,7 @@ Possible errors:
 | Error | Code | Description |
 | :--- | :--- | :--- |
 | PAYMENT\_MALFORMED | -1 | The input to the payment is invalid. |
-| PAYMENT\_UNDERFUNDED | -2 | The source account \(sender\) does not have enough funds to send `amount` and still satisfy its selling liabilities. Note that if seding XBN then the sender must additionally maintain its minimum XBN reserve. |
+| PAYMENT\_UNDERFUNDED | -2 | The source account \(sender\) does not have enough funds to send `amount` and still satisfy its selling liabilities. Note that if sending XBN then the sender must additionally maintain its minimum XBN reserve. |
 | PAYMENT\_SRC\_NO\_TRUST | -3 | The source account does not trust the issuer of the asset it is trying to send. |
 | PAYMENT\_SRC\_NOT\_AUTHORIZED | -4 | The source account is not authorized to send this payment. |
 | PAYMENT\_NO\_DESTINATION | -5 | The receiving account does not exist. |
