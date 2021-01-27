@@ -73,5 +73,5 @@ In Expansion and client-side libraries such as `js-stellar-sdk`, the integer enc
 
 ## XBN
 
-XBN are the native currency of the Bantu network, and are the only asset that doesn't require an issuer or a trustline. Every account is required to hold a [minimum lumen balance](../glossary/minimum-balance.md), and all [transaction fees](../glossary/fees.md) are paid in XBN. The smallest unit of a XBN is a spirit, which is one ten-millionth of a XBN. 
+XBN are the native currency of the Bantu network, and are the only asset that doesn't require an issuer or a trustline. Every account is required to hold a [minimum XBN balance](../glossary/minimum-balance.md), and all [transaction fees](../glossary/fees.md) are paid in XBN. The smallest unit of a XBN is a spirit, which is one ten-millionth of a XBN. 
 
