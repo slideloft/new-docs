@@ -24,7 +24,7 @@ There are two levels of authorization an asset issuer can grant using the `allow
 
 ## Authorization Revocable
 
-When `AUTHORIZATION_REVOCABLE` is enabled, an issuer can revoke an existing trustline's authorization, thereby freezing the asset held by an account. Doing so prevents that account from transfering or trading the asset, and cancels the account’s open orders for the asset.
+When `AUTHORIZATION_REVOCABLE` is enabled, an issuer can revoke an existing trustline's authorization, thereby freezing the asset held by an account. Doing so prevents that account from transfer or trading the asset, and cancels the account’s open orders for the asset.
 
 `AUTHORIZATION_REVOCABLE` also allows an issuer to reduce authorization from complete to limited, which prevents the account from transferring or trading the asset, but does not cancel the account's open orders for the asset. This setting is useful for issuers of regulated assets who need to authorize transactions on a case-by-case basis to ensure each conforms to certain requirements.
 
@@ -34,7 +34,7 @@ To use this setting, `AUTHORIZATION REQUIRED` must also be enabled.
 
 ## Authorization Immutable
 
-With this setting, neither of the other authorization flags can be set, and the issuing account can’t be merged. You set this flag to signal to potential token holders that your issuing account and its assets will persist on ledger in an open and accessible state.
+With this setting, neither of the other authorization flags can be set, and the issuing account can’t be merged. You set this flag to signal to potential token holders that your are issuing account and its assets will persist on ledger in an open and accessible state.
 
 ## Example flow
 
@@ -42,7 +42,7 @@ To get a sense of how authorization flags work, let's look at how an issuer of a
 
 If the issuer wants to approve transactions on a case-by-base basis while allowing accounts to maintain offers, they can leave an account in the `AUTHORIZED_TO_MAINTAIN_LIABILITIES` state. That account can own offers, but cannot otherwise do anything with the asset.
 
-To intitiate a new operation, the holding account requests that the issuer approve and sign a transaction. Once the issuer inspects the operation and decides to approve it, they sandwich it between a set of operations, first granting authorization, then reducing it.
+To initiate a new operation, the holding account requests that the issuer approve and sign a transaction. Once the issuer inspects the operation and decides to approve it, they sandwich it between a set of operations, first granting authorization, then reducing it.
 
 Here's a payment from A to B sandwiched between [`allow_trust`](../start/list-of-operations.md#allow-trust) operations:
 
@@ -52,11 +52,42 @@ Here's a payment from A to B sandwiched between [`allow_trust`](../start/list-of
 * Operation 4: Issuer uses `AllowTrust` to set account B, asset X to `AUTHORIZED_TO_MAINTAIN_LIABILITIES_FLAG` state
 * Operation 5: Issuer uses `AllowTrust` to set account A, asset X to `AUTHORIZED_TO_MAINTAIN_LIABILITIES_FLAG` state
 
-The authorization sandwich allows the issuer to inspect the specifc payment, and to grant authorization for it and it alone. Since operations bundled in a transaction are simultaneous, A and B are only authorized for the specific, pre-approved payment operation. Complete authorization does not extend beyond the specific transaction.
+The authorization sandwich allows the issuer to inspect the specific payment, and to grant authorization for it and it alone. Since operations bundled in a transaction are simultaneous, A and B are only authorized for the specific, pre-approved payment operation. Complete authorization does not extend beyond the specific transaction.
 
 ## Sample code
 
 The following example sets authorization to be both required and revocable:
 
- \`\`\`js var StellarSdk = require\("stellar-sdk"\); var server = new StellarSdk.Server\("https://horizon-testnet.stellar.org"\); // Keys for issuing account var issuingKeys = StellarSdk.Keypair.fromSecret\( "SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4", \); server .loadAccount\(issuingKeys.publicKey\(\)\) .then\(function \(issuer\) { var transaction = new StellarSdk.TransactionBuilder\(issuer, { fee: 100, networkPassphrase: StellarSdk.Networks.TESTNET, }\) .addOperation\( StellarSdk.Operation.setOptions\({ setFlags: StellarSdk.AuthRevocableFlag \| StellarSdk.AuthRequiredFlag, }\), \) // setTimeout is required for a transaction .setTimeout\(100\) .build\(\); transaction.sign\(issuingKeys\); return server.submitTransaction\(transaction\); }\) .then\(console.log\) .catch\(function \(error\) { console.error\("Error!", error\); }\); \`\`\` \`\`\`java import org.stellar.sdk.\*; import org.stellar.sdk.Network; import org.stellar.sdk.responses.AccountResponse; Server server = new Server\("https://horizon-testnet.stellar.org"\); // Keys for issuing account KeyPair issuingKeys = KeyPair .fromSecretSeed\("SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4"\); AccountResponse sourceAccount = server.accounts\(\).account\(issuingKeys.getAccountId\(\)\); Transaction setAuthorization = new Transaction.Builder\(sourceAccount, Network.TESTNET\) .addOperation\(new SetOptionsOperation.Builder\(\) .setSetFlags\( AccountFlag.AUTH\_REQUIRED\_FLAG.getValue\(\) \| AccountFlag.AUTH\_REVOCABLE\_FLAG.getValue\(\)\) .build\(\)\) .build\(\); setAuthorization.sign\(issuingKeys\); server.submitTransaction\(setAuthorization\); \`\`\` \`\`\`python from stellar\_sdk import Keypair, Network, Server, TransactionBuilder from stellar\_sdk.operation.set\_options import Flag as AuthFlag from stellar\_sdk.exceptions import BaseHorizonError \# Configure Stellar SDK to talk to the horizon instance hosted by Stellar.org \# To use the live network, set the hostname to 'https://horizon.stellar.org' server = Server\(horizon\_url="https://horizon-testnet.stellar.org"\) \# Use the test network, if you want to use the live network, please set it to \`Network.PUBLIC\_NETWORK\_PASSPHRASE\` network\_passphrase = Network.TESTNET\_NETWORK\_PASSPHRASE \# Keys for accounts to issue and receive the new asset issuing\_keypair = Keypair.from\_secret\( "SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4" \) issuing\_public = issuing\_keypair.public\_key \# Transactions require a valid sequence number that is specific to this account. \# We can fetch the current sequence number for the source account from Horizon. issuing\_account = server.load\_account\(issuing\_public\) transaction = \( TransactionBuilder\( source\_account=issuing\_account, network\_passphrase=network\_passphrase, base\_fee=100, \) .append\_set\_options\_op\( set\_flags=AuthFlag.AUTHORIZATION\_REVOCABLE \| AuthFlag.AUTHORIZATION\_REQUIRED \) .build\(\) \) transaction.sign\(issuing\_keypair\) try: transaction\_resp = server.submit\_transaction\(transaction\) print\(f"Transaction Resp:\n{transaction\_resp}"\) except BaseHorizonError as e: print\(f"Error: {e}"\) \`\`\`
+```javascript
+var StellarSdk = require("stellar-sdk");
+var server = new StellarSdk.Server("https://expansion-testnet.bantu.network");
+
+// Keys for issuing account
+var issuingKeys = StellarSdk.Keypair.fromSecret(
+  "SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4",
+);
+
+server
+  .loadAccount(issuingKeys.publicKey())
+  .then(function (issuer) {
+    var transaction = new StellarSdk.TransactionBuilder(issuer, {
+      fee: 100,
+      networkPassphrase: StellarSdk.Networks.TESTNET,
+    })
+      .addOperation(
+        StellarSdk.Operation.setOptions({
+          setFlags: StellarSdk.AuthRevocableFlag | StellarSdk.AuthRequiredFlag,
+        }),
+      )
+      // setTimeout is required for a transaction
+      .setTimeout(100)
+      .build();
+    transaction.sign(issuingKeys);
+    return server.submitTransaction(transaction);
+  })
+  .then(console.log)
+  .catch(function (error) {
+    console.error("Error!", error);
+  });
+```
 
