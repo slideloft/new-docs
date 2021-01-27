@@ -3,9 +3,7 @@ title: Issue an Asset
 order: 20
 ---
 
-# how-to-issue-an-asset
-
-import { CodeExample } from "components/CodeExample"; import { Alert } from "components/Alert";
+# Issue an Asset
 
 There is no dedicated operation to create an asset on Stellar. Instead, assets are created with a [payment operation](../start/list-of-operations.md#payment): an issuing account makes a payment using the asset it’s issuing, and that payment actually creates the asset on the network.
 

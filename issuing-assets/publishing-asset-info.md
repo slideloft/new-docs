@@ -3,9 +3,7 @@ title: Publish Information About an Asset
 order: 40
 ---
 
-# publishing-asset-info
-
-import { CodeExample } from "components/CodeExample"; import { Alert } from "components/Alert";
+# Publish Information About an Asset
 
 When you issue an asset, it’s crucial to provide clear information about it represents. On Stellar, you do that by linking your issuing account to a home domain, publishing a `stellar.toml` file on that domain, and making sure that file is complete.
 
