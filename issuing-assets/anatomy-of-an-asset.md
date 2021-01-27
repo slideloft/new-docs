@@ -3,9 +3,9 @@ title: Anatomy of an Asset
 order: 15
 ---
 
-# anatomy-of-an-asset
+# Anatomy of an Asset
 
-import { CodeExample } from "components/CodeExample";
+
 
 Each Stellar asset has two characteristics: the asset code and the issuer. When you look up or interact with an asset on Stellar, you always use both to identify it.
 
