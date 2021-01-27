@@ -15,7 +15,7 @@
   * [Anatomy of an Asset](issuing-assets/anatomy-of-an-asset.md)
   * [Issue an Asset](issuing-assets/how-to-issue-an-asset.md)
   * [Publish Information About an Asset](issuing-assets/publishing-asset-info.md)
-  * [control-asset-access](issuing-assets/control-asset-access.md)
+  * [Control Access to an Asset](issuing-assets/control-asset-access.md)
 * [Anchoring Assets](anchoring-assets/README.md)
   * [enabling-cross-border-payments](anchoring-assets/enabling-cross-border-payments/README.md)
     * [setting-up-production-server](anchoring-assets/enabling-cross-border-payments/setting-up-production-server.md)
