@@ -3,8 +3,7 @@ title: Publish Information About an Asset
 order: 40
 ---
 
-# publishing-asset-info
-
+# Publish Information About an Asset
 
 When you issue an asset, it’s crucial to provide clear information about it represents. On Bantu, you do that by linking your issuing account to a home domain, publishing a `bantu.toml` file on that domain, and making sure that file is complete.
 
@@ -14,7 +13,7 @@ The most successful asset issuers give exchanges, wallets, and potential buyers 
 * Your asset holders are _more_ confident in you and the assets you issue.
 * Your project will most likely be _more_ successful!
 
-The Bantu ticker, which is the source of market data for sites like CoinMarketCap, only includes assets with valid `bantu.toml` files. Trading interfaces  use `bantu.toml` files to populate their listings, and to decide if and how to present assets to their users. Any and all ecosystem integrations that allow for interoperability — from federation to in-app deposit and withdrawal — rely on information in your `bantu.toml` detailing your Bantu setup.
+The Bantu ticker, which is the source of market data for sites like CoinMarketCap, only includes assets with valid `bantu.toml` files. Trading interfaces use `bantu.toml` files to populate their listings, and to decide if and how to present assets to their users. Any and all ecosystem integrations that allow for interoperability — from federation to in-app deposit and withdrawal — rely on information in your `bantu.toml` detailing your Bantu setup.
 
 Completing your `bantu.toml` is not a step you can skip.
 
@@ -39,7 +38,7 @@ The goal here is to walk through the sections of [SEP-1](https://github.com/Bant
 
 For each of those sections, we’ll let you know which fields are **required**, meaning all asset issuers _must_ include them to be listed by exchanges and wallets, and which fields are **suggested**. Completing suggested fields is a good way to make your asset stand out.
 
- Note: it's a good idea to keep the sections in the order presented in \[SEP-1\]\(https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0001.md\), which is also the order they're presented here. TOML requires arrays to be at the end, so if you move scramble the order, you may cause errors for TOML parsers
+Note: it's a good idea to keep the sections in the order presented in \[SEP-1\]\([https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0001.md\](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0001.md\)\), which is also the order they're presented here. TOML requires arrays to be at the end, so if you move scramble the order, you may cause errors for TOML parsers
 
 ### General Information
 
@@ -130,9 +129,40 @@ You should also use the `set_options` operation to set the home domain on your i
 
 ## Sample code to set the home domain of your issuing account
 
- \`\`\`js var BantuSdk = require\("Bantu-sdk"\); var server = new BantuSdk.Server\("https://horizon-testnet.Bantu.org"\); // Keys for issuing account var issuingKeys = BantuSdk.Keypair.fromSecret\( "SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4", \); server .loadAccount\(issuingKeys.publicKey\(\)\) .then\(function \(issuer\) { var transaction = new BantuSdk.TransactionBuilder\(issuer, { fee: 100, networkPassphrase: BantuSdk.Networks.TESTNET, }\) .addOperation\( BantuSdk.Operation.setOptions\({ homeDomain: "yourdomain.com", }\), \) // setTimeout is required for a transaction .setTimeout\(100\) .build\(\); transaction.sign\(issuingKeys\); return server.submitTransaction\(transaction\); }\) .then\(console.log\) .catch\(function \(error\) { console.error\("Error!", error\); }\); \`\`\` \`\`\`java Server server = new Server\("https://horizon-testnet.Bantu.org"\); // Keys for issuing account KeyPair issuingKeys = KeyPair .fromSecretSeed\("SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4"\); AccountResponse sourceAccount = server.accounts\(\).account\(issuingKeys.getAccountId\(\)\); Transaction setHomeDomain = new Transaction.Builder\(sourceAccount, Network.TESTNET\) .addOperation\(new SetOptionsOperation.Builder\(\) .setHomeDomain\("yourdomain.com"\).build\(\)\) .build\(\); setHomeDomain.sign\(issuingKeys\); server.submitTransaction\(setHomeDomain\); \`\`\` \`\`\`python from Bantu\_sdk import Keypair, Network, Server, TransactionBuilder from Bantu\_sdk.exceptions import BaseHorizonError \# Configure Bantu SDK to talk to the horizon instance hosted by Bantu.org \# To use the live network, set the hostname to 'https://horizon.Bantu.org' server = Server\(horizon\_url="https://horizon-testnet.Bantu.org"\) \# Use the test network, if you want to use the live network, please set it to \`Network.PUBLIC\_NETWORK\_PASSPHRASE\` network\_passphrase = Network.TESTNET\_NETWORK\_PASSPHRASE \# Keys for accounts to issue and receive the new asset issuing\_keypair = Keypair.from\_secret\( "SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4" \) issuing\_public = issuing\_keypair.public\_key \# Transactions require a valid sequence number that is specific to this account. \# We can fetch the current sequence number for the source account from Horizon. issuing\_account = server.load\_account\(issuing\_public\) transaction = \( TransactionBuilder\( source\_account=issuing\_account, network\_passphrase=network\_passphrase, base\_fee=100, \) .append\_set\_options\_op\( home\_domain="yourdomain.com" \) .build\(\) \) transaction.sign\(issuing\_keypair\) try: transaction\_resp = server.submit\_transaction\(transaction\) print\(f"Transaction Resp:\n{transaction\_resp}"\) except BaseHorizonError as e: print\(f"Error: {e}"\) \`\`\`
+```javascript
+var StellarSdk = require("stellar-sdk");
+var server = new StellarSdk.Server("https://expansion-testnet.bantu.network");
+
+// Keys for issuing account
+var issuingKeys = StellarSdk.Keypair.fromSecret(
+  "SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4",
+);
+
+server
+  .loadAccount(issuingKeys.publicKey())
+  .then(function (issuer) {
+    var transaction = new StellarSdk.TransactionBuilder(issuer, {
+      fee: 100,
+      networkPassphrase: StellarSdk.Networks.TESTNET,
+    })
+      .addOperation(
+        StellarSdk.Operation.setOptions({
+          homeDomain: "yourdomain.com",
+        }),
+      )
+      // setTimeout is required for a transaction
+      .setTimeout(100)
+      .build();
+    transaction.sign(issuingKeys);
+    return server.submitTransaction(transaction);
+  })
+  .then(console.log)
+  .catch(function (error) {
+    console.error("Error!", error);
+  });
+```
 
 ## Sample bantu.toml
 
- \`\`\`toml NETWORK\_PASSPHRASE="Public Global Bantu Network ; September 2015" FEDERATION\_SERVER="https://api.domain.com/federation" AUTH\_SERVER="https://api.domain.com/auth" TRANSFER\_SERVER="https://api.domain.com" SIGNING\_KEY="GBBHQ7H4V6RRORKYLHTCAWP6MOHNORRFJSDPXDFYDGJB2LPZUFPXUEW3" HORIZON\_URL="https://horizon.domain.com" ACCOUNTS=\[ "GD5DJQDDBKGAYNEAXU562HYGOOSYAEOO6AS53PZXBOZGCP5M2OPGMZV3", "GAENZLGHJGJRCMX5VCHOLHQXU3EMCU5XWDNU4BGGJFNLI2EL354IVBK7", "GAOO3LWBC4XF6VWRP5ESJ6IBHAISVJMSBTALHOQM2EZG7Q477UWA6L7U" \] VERSION="2.0.0" \[DOCUMENTATION\] ORG\_NAME="Organization Name" ORG\_DBA="Organization DBA" ORG\_URL="https://www.domain.com" ORG\_LOGO="https://www.domain.com/awesomelogo.png" ORG\_DESCRIPTION="Description of issuer" ORG\_PHYSICAL\_ADDRESS="123 Sesame Street, New York, NY 12345, United States" ORG\_PHYSICAL\_ADDRESS\_ATTESTATION="https://www.domain.com/address\_attestation.jpg" ORG\_PHONE\_NUMBER="1 \(123\)-456-7890" ORG\_PHONE\_NUMBER\_ATTESTATION="https://www.domain.com/phone\_attestation.jpg" ORG\_KEYBASE="accountname" ORG\_TWITTER="orgtweet" ORG\_GITHUB="orgcode" ORG\_OFFICIAL\_EMAIL="support@domain.com" \[\[PRINCIPALS\]\] name="Jane Jedidiah Johnson" email="jane@domain.com" keybase="crypto\_jane" twitter="crypto\_jane" github="crypto\_jane" id\_photo\_hash="be688838ca8686e5c90689bf2ab585cef1137c999b48c70b92f67a5c34dc15697b5d11c982ed6d71be1e1e7f7b4e0733884aa97c3f7a339a8ed03577cf74be09" verification\_photo\_hash="016ba8c4cfde65af99cb5fa8b8a37e2eb73f481b3ae34991666df2e04feb6c038666ebd1ec2b6f623967756033c702dde5f423f7d47ab6ed1827ff53783731f7" \[\[CURRENCIES\]\] code="USD" issuer="GCZJM35NKGVK47BB4SPBDV25477PZYIYPVVG453LPYFNXLS3FGHDXOCM" display\_decimals=2 \[\[CURRENCIES\]\] code="BTC" issuer="GAOO3LWBC4XF6VWRP5ESJ6IBHAISVJMSBTALHOQM2EZG7Q477UWA6L7U" display\_decimals=7 anchor\_asset\_type="crypto" anchor\_asset="BTC" redemption\_instructions="Use SEP6 with our federation server" collateral\_addresses=\["2C1mCx3ukix1KfegAY5zgQJV7sanAciZpv"\] collateral\_address\_signatures=\["304502206e21798a42fae0e854281abd38bacd1aeed3ee3738d9e1446618c4571d10"\] \# asset with meta info \[\[CURRENCIES\]\] code="GOAT" issuer="GD5T6IPRNCKFOHQWT264YPKOZAWUMMZOLZBJ6BNQMUGPWGRLBK3U7ZNP" display\_decimals=2 name="goat share" desc="1 GOAT token entitles you to a share of revenue from Elkins Goat Farm." conditions="There will only ever be 10,000 GOAT tokens in existence. We will distribute the revenue share annually on Jan. 15th" image="https://static.thenounproject.com/png/2292360-200.png" fixed\_number=10000 \`\`\`
+\`\`\`toml NETWORK\_PASSPHRASE="Public Global Bantu Network ; September 2015" FEDERATION\_SERVER="[https://api.domain.com/federation](https://api.domain.com/federation)" AUTH\_SERVER="[https://api.domain.com/auth](https://api.domain.com/auth)" TRANSFER\_SERVER="[https://api.domain.com](https://api.domain.com)" SIGNING\_KEY="GBBHQ7H4V6RRORKYLHTCAWP6MOHNORRFJSDPXDFYDGJB2LPZUFPXUEW3" HORIZON\_URL="[https://horizon.domain.com](https://horizon.domain.com)" ACCOUNTS=\[ "GD5DJQDDBKGAYNEAXU562HYGOOSYAEOO6AS53PZXBOZGCP5M2OPGMZV3", "GAENZLGHJGJRCMX5VCHOLHQXU3EMCU5XWDNU4BGGJFNLI2EL354IVBK7", "GAOO3LWBC4XF6VWRP5ESJ6IBHAISVJMSBTALHOQM2EZG7Q477UWA6L7U" \] VERSION="2.0.0" \[DOCUMENTATION\] ORG\_NAME="Organization Name" ORG\_DBA="Organization DBA" ORG\_URL="[https://www.domain.com](https://www.domain.com)" ORG\_LOGO="[https://www.domain.com/awesomelogo.png](https://www.domain.com/awesomelogo.png)" ORG\_DESCRIPTION="Description of issuer" ORG\_PHYSICAL\_ADDRESS="123 Sesame Street, New York, NY 12345, United States" ORG\_PHYSICAL\_ADDRESS\_ATTESTATION="[https://www.domain.com/address\_attestation.jpg](https://www.domain.com/address_attestation.jpg)" ORG\_PHONE\_NUMBER="1 \(123\)-456-7890" ORG\_PHONE\_NUMBER\_ATTESTATION="[https://www.domain.com/phone\_attestation.jpg](https://www.domain.com/phone_attestation.jpg)" ORG\_KEYBASE="accountname" ORG\_TWITTER="orgtweet" ORG\_GITHUB="orgcode" ORG\_OFFICIAL\_EMAIL="support@domain.com" \[\[PRINCIPALS\]\] name="Jane Jedidiah Johnson" email="jane@domain.com" keybase="crypto\_jane" twitter="crypto\_jane" github="crypto\_jane" id\_photo\_hash="be688838ca8686e5c90689bf2ab585cef1137c999b48c70b92f67a5c34dc15697b5d11c982ed6d71be1e1e7f7b4e0733884aa97c3f7a339a8ed03577cf74be09" verification\_photo\_hash="016ba8c4cfde65af99cb5fa8b8a37e2eb73f481b3ae34991666df2e04feb6c038666ebd1ec2b6f623967756033c702dde5f423f7d47ab6ed1827ff53783731f7" \[\[CURRENCIES\]\] code="USD" issuer="GCZJM35NKGVK47BB4SPBDV25477PZYIYPVVG453LPYFNXLS3FGHDXOCM" display\_decimals=2 \[\[CURRENCIES\]\] code="BTC" issuer="GAOO3LWBC4XF6VWRP5ESJ6IBHAISVJMSBTALHOQM2EZG7Q477UWA6L7U" display\_decimals=7 anchor\_asset\_type="crypto" anchor\_asset="BTC" redemption\_instructions="Use SEP6 with our federation server" collateral\_addresses=\["2C1mCx3ukix1KfegAY5zgQJV7sanAciZpv"\] collateral\_address\_signatures=\["304502206e21798a42fae0e854281abd38bacd1aeed3ee3738d9e1446618c4571d10"\] \# asset with meta info \[\[CURRENCIES\]\] code="GOAT" issuer="GD5T6IPRNCKFOHQWT264YPKOZAWUMMZOLZBJ6BNQMUGPWGRLBK3U7ZNP" display\_decimals=2 name="goat share" desc="1 GOAT token entitles you to a share of revenue from Elkins Goat Farm." conditions="There will only ever be 10,000 GOAT tokens in existence. We will distribute the revenue share annually on Jan. 15th" image="[https://static.thenounproject.com/png/2292360-200.png](https://static.thenounproject.com/png/2292360-200.png)" fixed\_number=10000 \`\`\`
 
