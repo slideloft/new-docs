@@ -7,9 +7,9 @@ order: 15
 
 
 
-Each Stellar asset has two characteristics: the asset code and the issuer. When you look up or interact with an asset on Stellar, you always use both to identify it.
+Each Bantu asset has two characteristics: the asset code and the issuer. When you look up or interact with an asset on Bantu, you always use both to identify it.
 
-Many Stellar tokens represent credits that can be redeemed for something outside the network—often fiat currency, but also bonds, carbon credits, gold, etc.—and since more than one organization can issue a credit representing the same underlying asset, asset codes often overlap. More than one company offers a USD token on Stellar, for instance.
+Many Bantu tokens represent credits that can be redeemed for something outside the network—often fiat currency, but also bonds, carbon credits, gold, etc.—and since more than one organization can issue a credit representing the same underlying asset, asset codes often overlap. More than one company offers a USD token on Bantu, for instance.
 
 However, the combination of asset code and issuer allows each asset to be uniquely identified: each USD token is offered by, and redeemable with, one specific issuer.
 
@@ -20,11 +20,11 @@ When you issue an asset, the first thing you do is choose an identifying code. C
 * **Alphanumeric 4-character maximum**: Any characters from the set \[a-z\]\[A-Z\]\[0-9\] are allowed. The code can be shorter than 4 characters, but the trailing characters must all be empty.
 * **Alphanumeric 12-character maximum**: Any characters from the set \[a-z\]\[A-Z\]\[0-9\] are allowed. The code can be any number of characters from 5 to 12, but the trailing characters must all be empty.
 
-Provided it falls into one of those two buckets, you can choose any asset code you like. That said, if you’re issuing a currency, you should use the appropriate [ISO 4217 code](https://en.wikipedia.org/wiki/ISO_4217), and if you’re issuing a stock or bond, the appropriate [ISIN number](https://en.wikipedia.org/wiki/International_Securities_Identification_Number). Doing so makes it easier for Stellar interfaces to properly display and sort your token in their listings, and allows potential token holders to understand, at a glance, what your token represents.
+Provided it falls into one of those two buckets, you can choose any asset code you like. That said, if you’re issuing a currency, you should use the appropriate [ISO 4217 code](https://en.wikipedia.org/wiki/ISO_4217), and if you’re issuing a stock or bond, the appropriate [ISIN number](https://en.wikipedia.org/wiki/International_Securities_Identification_Number). Doing so makes it easier for Bantu interfaces to properly display and sort your token in their listings, and allows potential token holders to understand, at a glance, what your token represents.
 
 ## Issuer
 
-There is no dedicated operation to create an asset on Stellar. Instead, assets are created with a payment operation: an issuing account makes a payment using the asset it’s issuing, and that payment actually creates the asset on the network.
+There is no dedicated operation to create an asset on Bantu. Instead, assets are created with a payment operation: an issuing account makes a payment using the asset it’s issuing, and that payment actually creates the asset on the network.
 
 The public key of the issuing account is linked on the ledger to the asset itself. Responsibility for and control over an asset resides with the issuing account, and since settings are stored at the account level on the ledger, the issuing account is where you use `set_options` operations to link to meta-information about an asset and set authorization flags.
 
@@ -38,17 +38,17 @@ A trustline also tracks liabilities. Buying liabilities equal the total amount o
 
 ## Representation
 
-In Horizon, assets are represented in a JSON object:
+In Expansion, assets are represented in a JSON object:
 
- \`\`\`json { "asset\_code": "AstroDollar", "asset\_issuer": "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF", // \`asset\_type\` is used to determine how asset data is stored. // It can be \`native\` \(lumens\), \`credit\_alphanum4\`, or \`credit\_alphanum12\`. "asset\_type": "credit\_alphanum12" } \`\`\`
+ \`\`\`json { "asset\_code": "AstroDollar", "asset\_issuer": "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF", // \`asset\_type\` is used to determine how asset data is stored. // It can be \`native\` \(XBN\), \`credit\_alphanum4\`, or \`credit\_alphanum12\`. "asset\_type": "credit\_alphanum12" } \`\`\`
 
-In the Stellar SDKs, they’re represented with the `Asset` class:
+In the Bantu SDKs, they’re represented with the `Asset` class:
 
- \`\`\`js var astroDollar = new StellarSdk.Asset\( "AstroDollar", "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF", \); \`\`\` \`\`\`java KeyPair issuer = KeyPair.fromAccountId\("GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF"\); Asset astroDollar = Asset.createNonNativeAsset\("AstroDollar", issuer.getAccountId\(\)\); \`\`\` \`\`\`python from stellar\_sdk.asset import Asset astro\_dollar = Asset\("AstroDollar", "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF"\) \`\`\`
+ \`\`\`js var astroDollar = new BantuSdk.Asset\( "AstroDollar", "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF", \); \`\`\` \`\`\`java KeyPair issuer = KeyPair.fromAccountId\("GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF"\); Asset astroDollar = Asset.createNonNativeAsset\("AstroDollar", issuer.getAccountId\(\)\); \`\`\` \`\`\`python from Bantu\_sdk.asset import Asset astro\_dollar = Asset\("AstroDollar", "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF"\) \`\`\`
 
 ## Amount Precision
 
-Each asset amount is encoded as a signed 64-bit integer in the [XDR structures](../glossary/xdr.md) that Stellar uses to encode transactions. The asset amount unit seen by end users is scaled down by a factor of ten million \(10,000,000\) to arrive at the native 64-bit integer representation.
+Each asset amount is encoded as a signed 64-bit integer in the [XDR structures](../glossary/xdr.md) that Bantu uses to encode transactions. The asset amount unit seen by end users is scaled down by a factor of ten million \(10,000,000\) to arrive at the native 64-bit integer representation.
 
 For example, the integer amount value `25,123,456` equals `2.5123456` units of the asset. This scaling allows for seven decimal places of precision in human-friendly amount units.
 
@@ -56,11 +56,11 @@ The smallest non-zero amount unit is `0.0000001` \(one ten-millionth\) represent
 
 The numbers are represented as `int64`s. Amount values are stored as only signed integers to avoid bugs that arise from mixing signed and unsigned integers.
 
-## Relevance in Horizon and Stellar Client Libraries
+## Relevance in Expansion and Bantu Client Libraries
 
-In Horizon and client-side libraries such as `js-stellar-sdk`, the integer encoded value is abstracted away. Many APIs expect an amount in unit value \(the scaled-up amount displayed to end users\). Some programming languages \(such as JavaScript\) have problems with maintaining precision on a number amount. It is recommended to use "big number" libraries that can record arbitrary precision decimal numbers without a loss of precision.
+In Expansion and client-side libraries such as `js-stellar-sdk`, the integer encoded value is abstracted away. Many APIs expect an amount in unit value \(the scaled-up amount displayed to end users\). Some programming languages \(such as JavaScript\) have problems with maintaining precision on a number amount. It is recommended to use "big number" libraries that can record arbitrary precision decimal numbers without a loss of precision.
 
-## Lumens \(XLM\)
+## XBN 
 
-Lumens \(XLM\) are the native currency of the Stellar network, and are the only asset that doesn't require an issuer or a trustline. Every account is required to hold a [minimum lumen balance](../glossary/minimum-balance.md), and all [transaction fees](../glossary/fees.md) are paid in lumens. The smallest unit of a lumen is a stroop, which is one ten-millionth of a lumen. For more on lumens, check out the [Stellar.org explainer](https://www.stellar.org/lumens).
+XBN are the native currency of the Bantu network, and are the only asset that doesn't require an issuer or a trustline. Every account is required to hold a [minimum lumen balance](../glossary/minimum-balance.md), and all [transaction fees](../glossary/fees.md) are paid in XBN. The smallest unit of a lumen is a stroop, which is one ten-millionth of a lumen. For more on XBN, check out the [Bantu.org explainer](https://www.Bantu.org/XBN).
 
