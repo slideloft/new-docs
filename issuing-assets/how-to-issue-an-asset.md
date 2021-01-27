@@ -9,7 +9,7 @@ There is no dedicated operation to create an asset on Bantu. Instead, assets are
 
 It’s a pretty simple process that requires four operations: one to create an issuing account, one to create a distribution account, one to establish a trustline, and one to make a payment.
 
- Note: you don't actually have to issue assets to a dedicated distribution account: you can issue them to any account with the requisite trustline. However, using a distribution account is the recommended practice, and it makes the process a lot easier to explain. So that's how we'll do it in this guide.
+Note: you don't actually have to issue assets to a dedicated distribution account: you can issue them to any account with the requisite trustline. However, using a distribution account is the recommended practice, and it makes the process a lot easier to explain. So that's how we'll do it in this guide.
 
 The code to create those operations and submit them as transactions is below. Here, we’ll walk through each step so that the process makes sense. You can breeze through to get a general understanding, or you can use the [Bantu laboratory](https://laboratory.bantu.network/), which is an interface that allows you to create and submit transactions, to actually follow along and issue a token right here right now.
 
