@@ -5,7 +5,7 @@ order: 20
 
 # deposit-anchored-assets
 
-import { CodeExample } from "components/CodeExample"; import { Alert } from "components/Alert";
+
 
  This section of the tutorial takes the \[basic wallet\]\(../basic-wallet.mdx\) with \[trustlines\]\(../custom-assets.mdx\) and \[anchor connections\]\(./setup-for-anchored-assets.mdx\) enabled and adds the ability to initiate in-app deposits with an Anchor. If you have all that ready, and the stellar.toml file is loaded into a \`@Prop\` on your component, you’re ready to begin the initial deposit of their asset into our wallet.
 
@@ -49,7 +49,7 @@ Once our account is setup, it’s time to start asking the Anchor some questions
 
  \`\`\`ts const auth = await axios .get\(\`${this.toml.WEB\_AUTH\_ENDPOINT}\`, { params: { account: this.account.publicKey, }, }\) .then\(async \({ data: { transaction, network\_passphrase } }\) =&gt; { const txn: any = new Transaction\(transaction, network\_passphrase\); this.error = null; this.loading = { ...this.loading, withdraw: true }; txn.sign\(keypair\); return txn.toXDR\(\); }\) .then\(\(transaction\) =&gt; axios.post\( \`${this.toml.WEB\_AUTH\_ENDPOINT}\`, { transaction }, { headers: { "Content-Type": "application/json" } }, \), \) .then\(\({ data: { token } }\) =&gt; token\); console.log\(auth\); \`\`\`
 
-This call is actually a part of [SEP-0010](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0010.md), which allows us to verify ownership of a user's public key so the Anchor knows the deposit request is coming from a valid entity. You don’t want someone else issuing deposit requests on your account, so to prove you control the Stellar account request the deposit, you sign a dummy authentication transaction and send it to the Anchor's web auth server. The server responds with a JWT token, which will be used to verify all further API calls to the anchor. For more info on how this works, check out the user authetication from an [Anchor's point of view](../../anchoring-assets/enabling-deposit-and-withdrawal/setting-up-test-server.md#authentication).
+This call is actually a part of [SEP-0010](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0010.md), which allows us to verify ownership of a user's public key so the Anchor knows the deposit request is coming from a valid entity. You don’t want someone else issuing deposit requests on your account, so to prove you control the Stellar account request the deposit, you sign a dummy authentication transaction and send it to the Anchor's web auth server. The server responds with a JWT token, which will be used to verify all further API calls to the anchor. For more info on how this works, check out the user authetication from an [Anchor's point of view]().
 
 The endpoint for creating an authenticated user session is specified the `WEB_AUTH_ENDPOINT` on an Anchor's stellar.toml file. The first thing our wallet does is make a GET request with a public `account` param which will send back an unsigned Stellar transaction for that account that has in invalide sequence number, so it doesn't actually _do_ anything when submitted to the network. In response you’ll sign that transaction on behalf of the user and POST it back. If the signature checks out, the success response will contain an Authorization Bearer header JWT which you’ll want to store and use for all future interactions with the Anchor.
 

@@ -38,7 +38,7 @@ The goal here is to walk through the sections of [SEP-1](https://github.com/Bant
 
 For each of those sections, we’ll let you know which fields are **required**, meaning all asset issuers _must_ include them to be listed by exchanges and wallets, and which fields are **suggested**. Completing suggested fields is a good way to make your asset stand out.
 
-Note: it's a good idea to keep the sections in the order presented in \[SEP-1\]\([https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0001.md\](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0001.md\)\), which is also the order they're presented here. TOML requires arrays to be at the end, so if you move scramble the order, you may cause errors for TOML parsers
+Note: it's a good idea to keep the sections in the order presented in \[SEP-1\]\([https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0001.md\](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0001.md%29\), which is also the order they're presented here. TOML requires arrays to be at the end, so if you move scramble the order, you may cause errors for TOML parsers
 
 ### General Information
 
@@ -48,7 +48,7 @@ There is one field in the General Information section required for _all_ token i
 
 Listing your public keys lets users confirm that you, in fact, own them. For example, when [https://google.com](https://google.com) hosts a bantu.toml file, users can be sure that _only_ the accounts listed on it belong to Google. If someone then says, "You need to pay your Google bill this month, send payment to address GIAMGOOGLEIPROMISE", but that key is not listed on Google's bantu.toml, then users know to not trust it.
 
-In addition, there are several fields where you list information about your Bantu integration to aid in discoverability. If you are an anchor service, and you have [set up infrastructure](../anchoring-assets/enabling-deposit-and-withdrawal/index.md) to interoperate with wallets and allow for in-app deposit and withdrawal of assets, make sure to include the locations of your servers on your bantu.toml file so those wallets know where to find relevant endpoints to query. In particular, list your:
+In addition, there are several fields where you list information about your Bantu integration to aid in discoverability. If you are an anchor service, and you have [set up infrastructure]() to interoperate with wallets and allow for in-app deposit and withdrawal of assets, make sure to include the locations of your servers on your bantu.toml file so those wallets know where to find relevant endpoints to query. In particular, list your:
 
 * `TRANSFER_SERVER_SEP0024`, which is where wallets find endpoints to initiate interactive deposit and withdrawal based on the [SEP-24](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0024.md) spec
 * `WEB_AUTH_ENDPOINT`, which is where wallets initiate user authentication sessions based on the [SEP-10](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0010.md) spec
@@ -227,6 +227,5 @@ desc="1 GOAT token entitles you to a share of revenue from Elkins Goat Farm."
 conditions="There will only ever be 10,000 GOAT tokens in existence. We will distribute the revenue share annually on Jan. 15th"
 image="https://static.thenounproject.com/png/2292360-200.png"
 fixed_number=10000
-
 ```
 

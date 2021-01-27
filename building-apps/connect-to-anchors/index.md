@@ -5,7 +5,7 @@ order: 0
 
 # index
 
-Stellar makes it easy to issue assets and to connect them to existing banking rails so that users can move value onto — and off of — the network. The services that create those connections are called **anchors**, and you can read all about how they work and what they do in [Enable Deposit and Withdrawal](../../anchoring-assets/enabling-deposit-and-withdrawal/index.md).
+Stellar makes it easy to issue assets and to connect them to existing banking rails so that users can move value onto — and off of — the network. The services that create those connections are called **anchors**, and you can read all about how they work and what they do in [Enable Deposit and Withdrawal]().
 
 Most Anchors set up infrastructure to enable wallets to offer in-app deposits and withdrawals by following best practices specified in Stellar Ecosystem Proposals. SEPs are publicly created, open-source documents that live in a [Github repository](https://github.com/stellar/stellar-protocol/tree/master/ecosystem#stellar-ecosystem-proposals-seps). They define how different institutions \(such as asset issuers, wallets, exchanges, and service providers\) should interact and interoperate. If you're building an app, you can implement the client side of some key SEPs and immediately give your users access to a whole world of local fiat currencies
 
