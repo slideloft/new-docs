@@ -3,7 +3,7 @@ title: Overview
 order: 10
 ---
 
-# index
+# Overview
 
 The ability to issue assets is a core feature of Stellar. In a few simple operations, you can create Stellar-network tokens, and this section of the docs will show you how.
 
