@@ -5,8 +5,6 @@ order: 15
 
 # Anatomy of an Asset
 
-
-
 Each Bantu asset has two characteristics: the asset code and the issuer. When you look up or interact with an asset on Bantu, you always use both to identify it.
 
 Many Bantu tokens represent credits that can be redeemed for something outside the network—often fiat currency, but also bonds, carbon credits, gold, etc.—and since more than one organization can issue a credit representing the same underlying asset, asset codes often overlap. More than one company offers a USD token on Bantu, for instance.
@@ -40,11 +38,24 @@ A trustline also tracks liabilities. Buying liabilities equal the total amount o
 
 In Expansion, assets are represented in a JSON object:
 
- \`\`\`json { "asset\_code": "AstroDollar", "asset\_issuer": "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF", // \`asset\_type\` is used to determine how asset data is stored. // It can be \`native\` \(XBN\), \`credit\_alphanum4\`, or \`credit\_alphanum12\`. "asset\_type": "credit\_alphanum12" } \`\`\`
+```javascript
+{
+  "asset_code": "AstroDollar",
+  "asset_issuer": "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF",
+  // `asset_type` is used to determine how asset data is stored.
+  // It can be `native` (lumens), `credit_alphanum4`, or `credit_alphanum12`.
+  "asset_type": "credit_alphanum12"
+}
+```
 
 In the Bantu SDKs, they’re represented with the `Asset` class:
 
- \`\`\`js var astroDollar = new BantuSdk.Asset\( "AstroDollar", "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF", \); \`\`\` \`\`\`java KeyPair issuer = KeyPair.fromAccountId\("GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF"\); Asset astroDollar = Asset.createNonNativeAsset\("AstroDollar", issuer.getAccountId\(\)\); \`\`\` \`\`\`python from Bantu\_sdk.asset import Asset astro\_dollar = Asset\("AstroDollar", "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF"\) \`\`\`
+```javascript
+var astroDollar = new StellarSdk.Asset(
+  "AstroDollar",
+  "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF",
+);
+```
 
 ## Amount Precision
 
@@ -60,7 +71,7 @@ The numbers are represented as `int64`s. Amount values are stored as only signed
 
 In Expansion and client-side libraries such as `js-stellar-sdk`, the integer encoded value is abstracted away. Many APIs expect an amount in unit value \(the scaled-up amount displayed to end users\). Some programming languages \(such as JavaScript\) have problems with maintaining precision on a number amount. It is recommended to use "big number" libraries that can record arbitrary precision decimal numbers without a loss of precision.
 
-## XBN 
+## XBN
 
-XBN are the native currency of the Bantu network, and are the only asset that doesn't require an issuer or a trustline. Every account is required to hold a [minimum lumen balance](../glossary/minimum-balance.md), and all [transaction fees](../glossary/fees.md) are paid in XBN. The smallest unit of a lumen is a stroop, which is one ten-millionth of a lumen. For more on XBN, check out the [Bantu.org explainer](https://www.Bantu.org/XBN).
+XBN are the native currency of the Bantu network, and are the only asset that doesn't require an issuer or a trustline. Every account is required to hold a [minimum lumen balance](../glossary/minimum-balance.md), and all [transaction fees](../glossary/fees.md) are paid in XBN. The smallest unit of a XBN is a spirit, which is one ten-millionth of a XBN. 
 
