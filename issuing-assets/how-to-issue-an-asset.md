@@ -13,7 +13,7 @@ It’s a pretty simple process that requires four operations: one to create an i
 
 The code to create those operations and submit them as transactions is below. Here, we’ll walk through each step so that the process makes sense. You can breeze through to get a general understanding, or you can use the [Bantu laboratory](https://laboratory.bantu.network/), which is an interface that allows you to create and submit transactions, to actually follow along and issue a token right here right now.
 
-One caveat: if you are creating a token on the public network, there is an additional prerequisite. You need a funded account to provide the XLM necessary to create the issuing and distribution accounts.
+One caveat: if you are creating a token on the public network, there is an additional prerequisite. You need a funded account to provide the XBN necessary to create the issuing and distribution accounts.
 
 ## Create the Issuing and Distribution Accounts
 
@@ -24,11 +24,11 @@ There are two steps to account creation:
 1. Generate a keypair
 2. Fund the account using a `create_account` operation
 
-You can generate a keypair for free, but an account doesn’t exist on the Bantu ledger until it is funded with XLM to cover the minimum balance.
+You can generate a keypair for free, but an account doesn’t exist on the Bantu ledger until it is funded with XBN to cover the minimum balance.
 
-If you’re issuing an asset on the testnet, you can fund your accounts by getting free test XLM from Friendbot. If you’re issuing an asset in production, you will need to use an existing account to send enough live XLM to cover the minimum balance, transaction fees, and, in the case of the distribution account, a trustline.
+If you’re issuing an asset on the testnet, you can fund your accounts by getting free test XBN from Friendbot. If you’re issuing an asset in production, you will need to use an existing account to send enough live XBN to cover the minimum balance, transaction fees, and, in the case of the distribution account, a trustline.
 
-Rule of thumb for production: don’t skirt too close to the minimum network balance. If you do, you may not have enough XLM to do what you need to do. Since the network minimum balance and transaction fees are low, it doesn’t require much to get started. 5 XLM should be sufficient. 100 XLM is even better.
+Rule of thumb for production: don’t skirt too close to the minimum network balance. If you do, you may not have enough XBN to do what you need to do. Since the network minimum balance and transaction fees are low, it doesn’t require much to get started. 5 XBN should be sufficient. 100 XBN is even better.
 
 ### Why Have Separate Accounts for Issuing and Distribution?
 
@@ -141,5 +141,5 @@ server
   });
 ```
 
-Naturally, the balances for the distributor's account will now hold both XLM and our new Astrodollars.
+Naturally, the balances for the distributor's account will now hold both XBN and our new Astrodollars.
 
