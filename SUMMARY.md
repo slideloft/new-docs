@@ -9,7 +9,7 @@
   * [Create Account](tutorials/create-account.md)
   * [Send and Receive Payments](tutorials/send-and-receive-payments.md)
   * [Follow Received Payments](tutorials/follow-received-payments.md)
-  * [securing-projects](tutorials/securing-projects.md)
+  * [Securing Web-based Projects](tutorials/securing-projects.md)
 * [Issue Assets](issuing-assets/README.md)
   * [index](issuing-assets/index.md)
   * [publishing-asset-info](issuing-assets/publishing-asset-info.md)

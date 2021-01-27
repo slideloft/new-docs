@@ -15,7 +15,7 @@ Bantu uses public key cryptography to ensure that every transaction is secure: e
 
 Before creating an account, you need to generate your own keypair:
 
-```javascript
+```text
 const pair = StellarSdk.Keypair.random();
 
 pair.secret();
@@ -32,7 +32,7 @@ On the [public network](../glossary/network-passphrase.md), where live users mak
 
 To do that, send Friendbot the public key you created. It’ll create and fund a new account using that public key as the account ID.
 
-```javascript
+```text
 // The SDK does not have tools for creating test accounts, so you'll have to
 // make your own HTTP request.
 
@@ -57,7 +57,7 @@ To do that, send Friendbot the public key you created. It’ll create and fund a
 
 Now for the last step: getting the account’s details and checking its balance. Accounts can carry multiple balances — one for each type of currency they hold.
 
-```javascript
+```text
 const server = new StellarSdk.Server("https://expansion-testnet.bantu.network");
 
 // the JS SDK uses promises for most actions, such as retrieving an account
@@ -66,6 +66,7 @@ console.log("Balances for account: " + pair.publicKey());
 account.balances.forEach(function (balance) {
   console.log("Type:", balance.asset_type, ", Balance:", balance.balance);
 });
+
 ```
 
 Now that you’ve got an account, you can [start sending and receiving payments](send-and-receive-payments.md), or, if you're ready to hunker down, you can skip ahead and [build a wallet](../building-apps/index.md) or [issue a Bantu-network asset](../issuing-assets/index.md).
