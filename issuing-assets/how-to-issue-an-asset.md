@@ -141,5 +141,5 @@ server
   });
 ```
 
-Naturally, the balances for the distributor's account will now hold both XM and our new Astrodollars.
+Naturally, the balances for the distributor's account will now hold both XLM and our new Astrodollars.
 
