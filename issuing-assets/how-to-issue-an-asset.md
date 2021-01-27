@@ -75,32 +75,32 @@ Once you’ve done that, you can also [create a sell offer](https://github.com/s
 ## Sample Code
 
 ```javascript
-var BantuSdk = require("Bantu-sdk");
-var server = new BantuSdk.Server("https://expansion-testnet.bantu.network");
+var StellarSdk = require("stellar-sdk");
+var server = new StellarSdk.Server("https://expansion-testnet.bantu.network");
 
 // Keys for accounts to issue and receive the new asset
-var issuingKeys = BantuSdk.Keypair.fromSecret(
+var issuingKeys = StellarSdk.Keypair.fromSecret(
   "SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4",
 );
-var receivingKeys = BantuSdk.Keypair.fromSecret(
+var receivingKeys = StellarSdk.Keypair.fromSecret(
   "SDSAVCRE5JRAI7UFAVLE5IMIZRD6N6WOJUWKY4GFN34LOBEEUS4W2T2D",
 );
 
 // Create an object to represent the new asset
-var astroDollar = new BantuSdk.Asset("AstroDollar", issuingKeys.publicKey());
+var astroDollar = new StellarSdk.Asset("AstroDollar", issuingKeys.publicKey());
 
 // First, the receiving account must trust the asset
 server
   .loadAccount(receivingKeys.publicKey())
   .then(function (receiver) {
-    var transaction = new BantuSdk.TransactionBuilder(receiver, {
+    var transaction = new StellarSdk.TransactionBuilder(receiver, {
       fee: 100,
-      networkPassphrase: BantuSdk.Networks.TESTNET,
+      networkPassphrase: StellarSdk.Networks.TESTNET,
     })
       // The `changeTrust` operation creates (or alters) a trustline
       // The `limit` parameter below is optional
       .addOperation(
-        BantuSdk.Operation.changeTrust({
+        StellarSdk.Operation.changeTrust({
           asset: astroDollar,
           limit: "1000",
         }),
@@ -118,12 +118,12 @@ server
     return server.loadAccount(issuingKeys.publicKey());
   })
   .then(function (issuer) {
-    var transaction = new BantuSdk.TransactionBuilder(issuer, {
+    var transaction = new StellarSdk.TransactionBuilder(issuer, {
       fee: 100,
-      networkPassphrase: BantuSdk.Networks.TESTNET,
+      networkPassphrase: StellarSdk.Networks.TESTNET,
     })
       .addOperation(
-        BantuSdk.Operation.payment({
+        StellarSdk.Operation.payment({
           destination: receivingKeys.publicKey(),
           asset: astroDollar,
           amount: "10",
