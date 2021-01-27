@@ -11,7 +11,7 @@
   * [Follow Received Payments](tutorials/follow-received-payments.md)
   * [Securing Web-based Projects](tutorials/securing-projects.md)
 * [Issue Assets](issuing-assets/README.md)
-  * [index](issuing-assets/index.md)
+  * [Overview](issuing-assets/index.md)
   * [publishing-asset-info](issuing-assets/publishing-asset-info.md)
   * [anatomy-of-an-asset](issuing-assets/anatomy-of-an-asset.md)
   * [how-to-issue-an-asset](issuing-assets/how-to-issue-an-asset.md)
