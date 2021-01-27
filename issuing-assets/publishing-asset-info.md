@@ -13,7 +13,7 @@ The most successful asset issuers give exchanges, wallets, and potential buyers 
 * Your asset holders are _more_ confident in you and the assets you issue.
 * Your project will most likely be _more_ successful!
 
-The Bantu ticker, which is the source of market data for sites like CoinMarketCap, only includes assets with valid `bantu.toml` files. Trading interfaces use `bantu.toml` files to populate their listings, and to decide if and how to present assets to their users. Any and all ecosystem integrations that allow for interoperability — from federation to in-app deposit and withdrawal — rely on information in your `bantu.toml` detailing your Bantu setup.
+The Bantu ticker, which is the source of market data for sites like CoinMarketCap, only includes assets with valid `bantu.toml` files. Trading interfaces use `bantu.toml` files to populate their listings, and to decide if and how to present assets to their users. Any and all ecosystem integrations that allow for interoperability — from buds to in-app deposit and withdrawal — rely on information in your `bantu.toml` detailing your Bantu setup.
 
 Completing your `bantu.toml` is not a step you can skip.
 
@@ -53,7 +53,7 @@ In addition, there are several fields where you list information about your Bant
 * `TRANSFER_SERVER_SEP0024`, which is where wallets find endpoints to initiate interactive deposit and withdrawal based on the [SEP-24](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0024.md) spec
 * `WEB_AUTH_ENDPOINT`, which is where wallets initiate user authentication sessions based on the [SEP-10](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0010.md) spec
 
-If you support other Bantu Ecosystem Proposals — such as federation or delegated signing — or host a public Horizon instance that other people can use to query the ledger, you should also add the location of those resources to [General Information](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0001.md#general-information) so they're discoverable.
+If you support other Bantu Ecosystem Proposals — such as buds or delegated signing — or host a public Horizon instance that other people can use to query the ledger, you should also add the location of those resources to [General Information](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0001.md#general-information) so they're discoverable.
 
 ### Organization Documentation
 
@@ -166,7 +166,7 @@ server
 
 ```javascript
 NETWORK_PASSPHRASE="Public Global Stellar Network ; September 2015"
-FEDERATION_SERVER="https://api.domain.com/federation"
+BUDS_SERVER="https://api.domain.com/buds"
 AUTH_SERVER="https://api.domain.com/auth"
 TRANSFER_SERVER="https://api.domain.com"
 SIGNING_KEY="GBBHQ7H4V6RRORKYLHTCAWP6MOHNORRFJSDPXDFYDGJB2LPZUFPXUEW3"
@@ -213,7 +213,7 @@ issuer="GAOO3LWBC4XF6VWRP5ESJ6IBHAISVJMSBTALHOQM2EZG7Q477UWA6L7U"
 display_decimals=7
 anchor_asset_type="crypto"
 anchor_asset="BTC"
-redemption_instructions="Use SEP6 with our federation server"
+redemption_instructions="Use SEP6 with our buds server"
 collateral_addresses=["2C1mCx3ukix1KfegAY5zgQJV7sanAciZpv"]
 collateral_address_signatures=["304502206e21798a42fae0e854281abd38bacd1aeed3ee3738d9e1446618c4571d10"]
 
