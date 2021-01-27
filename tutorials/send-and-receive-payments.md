@@ -19,9 +19,9 @@ Every transaction also incurs a small fee. Like the minimum balance on accounts,
 
 Bantustores and communicates transaction data in a binary format called [XDR](../glossary/xdr.md), which is optimized for network performance but unreadable to the human eye. Luckily, [Expansion](../api/introduction/index.md), the BantuAPI, and the [BantuSDKs](../software-and-sdks/index.md) convert XDRs into friendlier formats. Here’s how you might send 10 XBN to an account:
 
-```text
+```javascript
 var StellarSdk = require("stellar-sdk");
-var server = new StellarSdk.Server("https://expansion-testnet.bantu.network");
+var server = new StellarSdk.Server("https://horizon-testnet.stellar.org");
 var sourceKeys = StellarSdk.Keypair.fromSecret(
   "SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4",
 );
@@ -53,21 +53,21 @@ server
       .addOperation(
         StellarSdk.Operation.payment({
           destination: destinationId,
-          // Because Bantu allows transaction in many currencies, you must
-          // specify the asset type. The special "native" asset represents XBN.
+          // Because Stellar allows transaction in many currencies, you must
+          // specify the asset type. The special "native" asset represents Lumens.
           asset: StellarSdk.Asset.native(),
           amount: "10",
         }),
       )
       // A memo allows you to add your own metadata to a transaction. It's
-      // optional and does not affect how Bantu treats the transaction.
+      // optional and does not affect how Stellar treats the transaction.
       .addMemo(StellarSdk.Memo.text("Test Transaction"))
       // Wait a maximum of three minutes for the transaction
       .setTimeout(180)
       .build();
     // Sign the transaction to prove you are actually the person sending it.
     transaction.sign(sourceKeys);
-    // And finally, send it off to Bantu!
+    // And finally, send it off to Stellar!
     return server.submitTransaction(transaction);
   })
   .then(function (result) {
@@ -85,7 +85,7 @@ What exactly happened there? Let’s break it down.
 
 Confirm that the account ID \(aka the _public key_\) you are sending to actually exists by loading the associated account data from the Bantu network. It's okay to skip this step, but it gives you an opportunity to avoid making a transaction that will inevitably fail.
 
-```text
+```javascript
 server.loadAccount(destinationId).then(function (account) {
   /* validate the account */
 });
@@ -93,7 +93,7 @@ server.loadAccount(destinationId).then(function (account) {
 
 Load data for the account you are sending from. An account can only perform one transaction at a time and has something called a [sequence number](../glossary/accounts.md#sequence-number), which helps Bantu verify the order of transactions. A transaction’s sequence number needs to match the account’s sequence number, so you need to get the account’s current sequence number from the network.
 
-```text
+```javascript
 .then(function() {
 return server.loadAccount(sourceKeys.publicKey());
 })
@@ -103,13 +103,13 @@ The SDK will automatically increment the account’s sequence number when you bu
 
 Start building a transaction. This requires an account object, not just an account ID, because it will increment the account’s sequence number.
 
-```text
+```javascript
 var transaction = new StellarSdk.TransactionBuilder(sourceAccount);
 ```
 
 Add the payment operation to the account. Note that you need to specify the type of asset you are sending: Bantu’s network currency is the [XBN](https://www.stellar.org/XBN), but you can send any asset issued on the network. We'll cover sending non-XBN assets [below](send-and-receive-payments.md#transacting-in-other-currencies). For now, though, we’ll stick to XBN, which are called “native” assets in the SDK:
 
-```text
+```javascript
 .addOperation(StellarSdk.Operation.payment({
   destination: destinationId,
   asset: StellarSdk.Asset.native(),
@@ -121,19 +121,19 @@ You should also note that the amount is a string rather than a number. When work
 
 Optionally, you can add your own metadata, called a [memo](../glossary/transactions.md#memo), to a transaction. Bantu doesn’t do anything with this data, but you can use it for any purpose you’d like. Many exchanges require memos for incoming transactions because they use a single Bantu account for all their users and rely on the memo to differentiate between internal user accounts.
 
-```text
+```javascript
 .addMemo(StellarSdk.Memo.text('Test Transaction'))
 ```
 
 Now that the transaction has all the data it needs, you have to cryptographically sign it using your secret key. This proves that the data actually came from you and not someone impersonating you.
 
-```text
+```javascript
 transaction.sign(sourceKeys);
 ```
 
 And finally, submit it to the Bantu network!
 
-```text
+```javascript
 server.submitTransaction(transaction);
 ```
 
@@ -145,7 +145,7 @@ You don’t actually need to do anything to receive payments into a Bantu accoun
 
 However, you may want to keep an eye out for incoming payments. A simple program that watches the network for payments and prints each one might look like:
 
-```text
+```javascript
 var StellarSdk = require("stellar-sdk");
 
 var server = new StellarSdk.Server("https://expansion-testnet.bantu.network");
@@ -203,7 +203,7 @@ function loadLastPagingToken() {
 
 There are two main parts to this program. First, you create a query for payments involving a given account. Like most queries in Bantu, this could return a huge number of items, so the API returns paging tokens, which you can use later to start your query from the same point where you previously left off. In the example above, the functions to save and load paging tokens are left blank, but in a real application, you’d want to save the paging tokens to a file or database so you can pick up where you left off in case the program crashes or the user closes it.
 
-```text
+```javascript
 var payments = server.payments().forAccount(accountId);
 var lastToken = loadLastPagingToken();
 if (lastToken) {
@@ -215,7 +215,7 @@ Second, the results of the query are streamed. This is the easiest way to watch 
 
 Try it out: Run this program, and then, in another window, create and submit a payment. You should see this program log the payment.
 
-```text
+```javascript
 payments.stream({
   onmessage: function (payment) {
     // handle a payment
@@ -225,7 +225,7 @@ payments.stream({
 
 You can also request payments in groups or pages. Once you’ve processed each page of payments, you’ll need to request the next one until there are none left.
 
-```text
+```javascript
 payments.call().then(function handlePage(paymentsPage) {
   paymentsPage.records.forEach(function (payment) {
     // handle a payment
