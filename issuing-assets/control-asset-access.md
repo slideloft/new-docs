@@ -5,8 +5,6 @@ order: 50
 
 # control-asset-access
 
-import { CodeExample } from "components/CodeExample";
-
 When you issue an asset on Stellar, anyone can hold it by default. In general, that’s a good thing: easy access means better reach and better liquidity, and most of the time, issuers with KYC requirements can handle those when an asset moves onto or off of the network. Most fiat-backed token issuers, for instance, use the transfer server protocol specified in SEP-24 to decide whether to honor deposits and withdrawals rather than setting account-level flags. You can read about how to do that in the [Enable Deposit and Withdrawal](../anchoring-assets/enabling-deposit-and-withdrawal/index.md) section.
 
 However, if you need to control access to an asset to comply with regulations \(or for any other reason\), you can easily do so by enabling flags on your issuing account.
