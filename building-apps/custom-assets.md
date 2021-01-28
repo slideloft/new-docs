@@ -50,14 +50,14 @@ export default function render() {
           type="button"
           onClick={(e) => this.trustAsset(e)}
         >
-          {this.loading.trust ? <stellar-loader /> : null} Trust Asset
+          {this.loading.trust ? <bantu-loader /> : null} Trust Asset
         </button>,
         <button
           class={this.loading.pay ? "loading" : null}
           type="button"
           onClick={(e) => this.makePayment(e)}
         >
-          {this.loading.pay ? <stellar-loader /> : null} Make Payment
+          {this.loading.pay ? <bantu-loader /> : null} Make Payment
         </button>,
       ]
     ) : (
@@ -66,7 +66,7 @@ export default function render() {
         type="button"
         onClick={(e) => this.createAccount(e)}
       >
-        {this.loading.fund ? <stellar-loader /> : null} Create Account
+        {this.loading.fund ? <bantu-loader /> : null} Create Account
       </button>
     ),
 
@@ -87,7 +87,7 @@ export default function render() {
             type="button"
             onClick={(e) => this.updateAccount(e)}
           >
-            {this.loading.update ? <stellar-loader /> : null} Update Account
+            {this.loading.update ? <bantu-loader /> : null} Update Account
           </button>,
           <button type="button" onClick={(e) => this.signOut(e)}>
             Sign Out
