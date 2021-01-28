@@ -7,7 +7,7 @@ order: 50
 
 In this tutorial we’re going to modify our \[base wallet app\]\(./basic-wallet.mdx\) to include functionality to send XBN to other Stellar accounts.
 
-[View keystore boilerplate code on GitHub](https://github.com/stellar/stellar-demo-wallet/tree/keystore)
+
 
 In the [Build a Basic Wallet section](basic-wallet.md), we did the hard work of wiring up a secure client and rock-solid key creation and storage structure with a clear plan for key use and management. Now that we have a method for creating an account — and for storing that account's secrets so they're safe and easy to use — we're ready to start making payments. We'll start with XBN payments since they're a little simpler; in the [next sectiion](custom-assets.md), we'll look at how to support payments for other assets.
 
