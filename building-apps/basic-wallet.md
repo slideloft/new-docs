@@ -6,7 +6,7 @@ order: 40
 # Create a Basic Wallet
 
 {% hint style="info" %}
-In this tutorial, the goal is to get to a place where a user can create, store, and access their Stellar account using an intuitive pincode encryption method.
+In this tutorial, the goal is to get to a place where a user can create, store, and access their Bantu account using an intuitive pincode encryption method.
 {% endhint %}
 
 ## User Flow
