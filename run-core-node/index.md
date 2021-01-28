@@ -36,10 +36,10 @@ To make things easier, we’ll define four types of nodes based on permutations 
 
 | Type of Node | Supports Horizon | Submits Transactions | Validates Transactions | Publishes History |
 | :--- | :--- | :--- | :--- | :--- |
-| **Watcher** | :heavy\_check\_mark: | :heavy\_check\_mark: |  |  |
-| **Basic Validator** | :heavy\_check\_mark: | :heavy\_check\_mark: | :heavy\_check\_mark: |  |
-| **Full Validator** | :heavy\_check\_mark: | :heavy\_check\_mark: | :heavy\_check\_mark: | :heavy\_check\_mark: |
-| **Archiver** | :heavy\_check\_mark: | :heavy\_check\_mark: |  | :heavy\_check\_mark: |
+| **Watcher** |               ✅ |           ✅ |  |  |
+| **Basic Validator** |               ✅ |           ✅ |               ✅ |  |
+| **Full Validator** |               ✅ |           ✅ |               ✅: |             ✅ |
+| **Archiver** |               ✅ |           ✅ |  |             ✅ |
 
 So why choose one type over another? Let’s break it down a bit and take a look at what each type is good for.
 
