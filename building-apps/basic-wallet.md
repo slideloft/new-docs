@@ -136,7 +136,7 @@ export interface Prompter {
 }
 
 @Component({
-  tag: "stellar-prompt",
+  tag: "bantu-prompt",
   styleUrl: "prompt.scss",
   shadow: true,
 })
@@ -258,7 +258,7 @@ One of the first things you’ll notice is the use of `lodash-es`. Let’s make 
 
  \`\`\`bash npm i -D lodash-es \`\`\`
 
-There’s a lot going on in this file, but since this isn’t a Stencil tutorial we’ll skip the details. What this allows us to do it to use a `<stellar-prompt prompter={this.prompter} />` component elsewhere in our project. It's worth noting the variables available to us in the `prompter` property.
+There’s a lot going on in this file, but since this isn’t a Stencil tutorial we’ll skip the details. What this allows us to do it to use a `<bantu-prompt prompter={this.prompter} />` component elsewhere in our project. It's worth noting the variables available to us in the `prompter` property.
 
  \`\`\`ts export interface Prompter { show: boolean; message?: string; placeholder?: string; options?: Array; resolve?: Function; reject?: Function; } \`\`\`
 
@@ -308,7 +308,7 @@ Cool! With any luck we should be able to use these slick alias imports for the p
 
  \`\`\`js @Component\({ tag: 'stellar-wallet', styleUrl: 'wallet.scss', shadow: true }\) export class Wallet { @State\(\) account: StellarAccount @State\(\) prompter: Prompter = {show: false} @State\(\) error: any = null ... } \`\`\`
 
-Pretty standard boring bits, setting up the `@Component` with its defining values and initializing with some `@State` and `@Prop` data. You can see we’re setting up an `account` state with our `StellarAccount` class as well as a `prompter` state with that `Prompter` class from the `stellar-prompt` we imported earlier. We’re initializing that `prompter` state with a `show` value of `false` so the prompt modal rendereth not initially.
+Pretty standard boring bits, setting up the `@Component` with its defining values and initializing with some `@State` and `@Prop` data. You can see we’re setting up an `account` state with our `StellarAccount` class as well as a `prompter` state with that `Prompter` class from the `bantu-prompt` we imported earlier. We’re initializing that `prompter` state with a `show` value of `false` so the prompt modal rendereth not initially.
 
 Everything after this is the assignment of our imported events and methods from up above. Let’s begin with the `./events/componentWillLoad.ts`
 
@@ -356,7 +356,7 @@ That’s everything we need for the `componentWillLoad` event. On to the `./even
 
  \) : null, this.account ? \(  this.signOut\(e\)}&gt; Sign Out \) : null, \]; } \`\`\`
 
-It looks messy, but it’s actually a pretty simple `.tsx` file rendering out our DOM based off a series of conditional values. You can see we’re including the `stellar-prompt` component, and setting the prompter prop to our `this.prompter` state. We then have a ternary operation toggling between a Create Account button and a basic account UI. If `this.account` has a truthy value, we’ll print out the account’s `publicKey` along with some interaction buttons. If `this.account` is falsey, we’ll print out a singular Create Account button connected to, you guessed it, the `createAccount` method. After that logic, we print out an error if there is one, and finally a Sign Out button if there’s an account to sign out of. Those are the two `Wallet` `@Component` events.
+It looks messy, but it’s actually a pretty simple `.tsx` file rendering out our DOM based off a series of conditional values. You can see we’re including the `bantu-prompt` component, and setting the prompter prop to our `this.prompter` state. We then have a ternary operation toggling between a Create Account button and a basic account UI. If `this.account` has a truthy value, we’ll print out the account’s `publicKey` along with some interaction buttons. If `this.account` is falsey, we’ll print out a singular Create Account button connected to, you guessed it, the `createAccount` method. After that logic, we print out an error if there is one, and finally a Sign Out button if there’s an account to sign out of. Those are the two `Wallet` `@Component` events.
 
 ## Create Methods
 
