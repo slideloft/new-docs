@@ -19,7 +19,7 @@ Hopefully by now you’re familiar with how to generate new Stencil components.
 npm run generate
 ```
 
-We'll call the component `stellar-loader`, and deselect both test files leaving only the styling. Once you've done that, open `src/components/loader/` and rename the `.css` file to `.scss`. Then replace the `loader.tsx` contents with this:
+We'll call the component `bantu-loader`, and deselect both test files leaving only the styling. Once you've done that, open `src/components/loader/` and rename the `.css` file to `.scss`. Then replace the `loader.tsx` contents with this:
 
 ```typescript
 import Combinatorics from "js-combinatorics";
@@ -27,7 +27,7 @@ import { Component, h, State, Prop } from "@stencil/core";
 import { isEqual as loIsEqual, sample as loSample } from "lodash-es";
 
 @Component({
-  tag: "stellar-loader",
+  tag: "bantu-loader",
   styleUrl: "loader.scss",
   shadow: true,
 })
@@ -114,7 +114,7 @@ interface Loading {
 }
 
 @Component({
-  tag: "stellar-wallet",
+  tag: "bantu-wallet",
   styleUrl: "wallet.scss",
   shadow: true,
 })
@@ -188,7 +188,7 @@ Here we’re setting up two TypeScript classes: one for our account and the othe
 
 ```typescript
 @Component({
-  tag: 'stellar-wallet',
+  tag: 'bantu-wallet',
   styleUrl: 'wallet.scss',
   shadow: true
 })
@@ -277,7 +277,7 @@ export default function render() {
           type="button"
           onClick={(e) => this.makePayment(e)}
         >
-          {this.loading.pay ? <stellar-loader /> : null} Make Payment
+          {this.loading.pay ? <bantu-loader /> : null} Make Payment
         </button>,
       ]
     ) : (
@@ -286,7 +286,7 @@ export default function render() {
         type="button"
         onClick={(e) => this.createAccount(e)}
       >
-        {this.loading.fund ? <stellar-loader /> : null} Create Account
+        {this.loading.fund ? <bantu-loader /> : null} Create Account
       </button>
     ),
 
@@ -307,7 +307,7 @@ export default function render() {
             type="button"
             onClick={(e) => this.updateAccount(e)}
           >
-            {this.loading.update ? <stellar-loader /> : null} Update Account
+            {this.loading.update ? <bantu-loader /> : null} Update Account
           </button>,
           <button type="button" onClick={(e) => this.signOut(e)}>
             Sign Out
