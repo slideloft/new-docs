@@ -17,7 +17,7 @@
   * [Publish Information About an Asset](issuing-assets/publishing-asset-info.md)
   * [Control Access to an Asset](issuing-assets/control-asset-access.md)
 * [Building Apps](building-apps/README.md)
-  * [index](building-apps/index.md)
+  * [Overview](building-apps/index.md)
   * [project-setup](building-apps/project-setup.md)
   * [key-management](building-apps/key-management.md)
   * [basic-wallet](building-apps/basic-wallet.md)
