@@ -5,9 +5,13 @@ order: 50
 
 # Make XBN Payments
 
+In this tutorial we’re going to modify our base wallet app to include functionality to send XBN to other Stellar accounts.
+
 In this tutorial we’re going to modify our \[base wallet app\]\(./basic-wallet.mdx\) to include functionality to send XBN to other Stellar accounts.
 
+In this tutorial we’re going to modify our \[base wallet app\]\(./basic-wallet.mdx\) to include functionality to send XBN to other Stellar accounts.
 
+[View keystore boilerplate code on GitHub](https://github.com/stellar/stellar-demo-wallet/tree/keystore)
 
 In the [Build a Basic Wallet section](basic-wallet.md), we did the hard work of wiring up a secure client and rock-solid key creation and storage structure with a clear plan for key use and management. Now that we have a method for creating an account — and for storing that account's secrets so they're safe and easy to use — we're ready to start making payments. We'll start with XBN payments since they're a little simpler; in the [next sectiion](custom-assets.md), we'll look at how to support payments for other assets.
 
@@ -17,13 +21,72 @@ There isn’t too much that's new or complicated here: we'll be building on what
 
 Hopefully by now you’re familiar with how to generate new Stencil components.
 
+```bash
+npm run generate
+```
+
 \`\`\`bash npm run generate \`\`\`
 
 We'll call the component `stellar-loader`, and deselect both test files leaving only the styling. Once you've done that, open `src/components/loader/` and rename the `.css` file to `.scss`. Then replace the `loader.tsx` contents with this:
 
+```typescript
+import Combinatorics from "js-combinatorics";
+import { Component, h, State, Prop } from "@stencil/core";
+import { isEqual as loIsEqual, sample as loSample } from "lodash-es";
+
+@Component({
+  tag: "stellar-loader",
+  styleUrl: "loader.scss",
+  shadow: true,
+})
+export class Loader {
+  @State() chances: any = [];
+  @State() chance: any = null;
+  @Prop() interval: any;
+
+  componentWillLoad() {
+    return new Promise((resolve) => {
+      if (!this.chances.length) this.generateChances(9);
+
+      if (!this.interval)
+        this.interval = setInterval(() => this.getChance(), 100);
+
+      resolve();
+    });
+  }
+
+  generateChances(int: number) {
+    const baseN = Combinatorics.baseN([0, 1], int);
+
+    this.chances = baseN.toArray();
+    this.getChance();
+  }
+  getChance() {
+    const chance = loSample(this.chances);
+
+    if (loIsEqual(chance, this.chance)) this.getChance();
+    else this.chance = chance;
+  }
+
+  render() {
+    return (
+      <div class="loader">
+        {this.chance.map((int, i) => (
+          <div class={int ? "on" : null} key={`${int}${i}`}></div>
+        ))}
+      </div>
+    );
+  }
+}
+```
+
 \`\`\`tsx import Combinatorics from "js-combinatorics"; import { Component, h, State, Prop } from "@stencil/core"; import { isEqual as loIsEqual, sample as loSample } from "lodash-es"; @Component\({ tag: "stellar-loader", styleUrl: "loader.scss", shadow: true, }\) export class Loader { @State\(\) chances: any = \[\]; @State\(\) chance: any = null; @Prop\(\) interval: any; componentWillLoad\(\) { return new Promise\(\(resolve\) =&gt; { if \(!this.chances.length\) this.generateChances\(9\); if \(!this.interval\) this.interval = setInterval\(\(\) =&gt; this.getChance\(\), 100\); resolve\(\); }\); } generateChances\(int: number\) { const baseN = Combinatorics.baseN\(\[0, 1\], int\); this.chances = baseN.toArray\(\); this.getChance\(\); } getChance\(\) { const chance = loSample\(this.chances\); if \(loIsEqual\(chance, this.chance\)\) this.getChance\(\); else this.chance = chance; } render\(\) { return \( {this.chance.map\(\(int, i\) =&gt; \( \)\)} \); } } \`\`\`
 
 Don’t forget to install new packages!
+
+```bash
+npm i -D js-combinatorics
+```
 
 \`\`\`bash npm i -D js-combinatorics \`\`\`
 
@@ -35,17 +98,131 @@ It’s a fancy wackadoodle little component which at the end of the day just pro
 
 We’re now ready to tackle the `src/components/wallet/wallet.ts` file.
 
+```typescript
+import { Component, State, Prop } from "@stencil/core";
+import { Server, ServerApi } from "stellar-sdk";
+
+import componentWillLoad from "./events/componentWillLoad";
+import render from "./events/render";
+
+import createAccount from "./methods/createAccount";
+import updateAccount from "./methods/updateAccount";
+import makePayment from "./methods/makePayment";
+import copyAddress from "./methods/copyAddress";
+import copySecret from "./methods/copySecret";
+import signOut from "./methods/signOut";
+import setPrompt from "./methods/setPrompt";
+
+import { Prompter } from "@prompt/prompt";
+
+interface StellarAccount {
+  publicKey: string;
+  keystore: string;
+  state?: ServerApi.AccountRecord;
+}
+
+interface Loading {
+  fund?: boolean;
+  pay?: boolean;
+  update?: boolean;
+}
+
+@Component({
+  tag: "stellar-wallet",
+  styleUrl: "wallet.scss",
+  shadow: true,
+})
+export class Wallet {
+  @State() account: StellarAccount;
+  @State() prompter: Prompter = { show: false };
+  @State() loading: Loading = {};
+  @State() error: any = null;
+
+  @Prop() server: Server;
+
+  // Component events
+  componentWillLoad() {}
+  render() {}
+
+  // Stellar methods
+  createAccount = createAccount;
+  updateAccount = updateAccount;
+  makePayment = makePayment;
+  copyAddress = copyAddress;
+  copySecret = copySecret;
+  signOut = signOut;
+
+  // Misc methods
+  setPrompt = setPrompt;
+}
+
+Wallet.prototype.componentWillLoad = componentWillLoad;
+Wallet.prototype.render = render;
+```
+
 \`\`\`ts import { Component, State, Prop } from "@stencil/core"; import { Server, ServerApi } from "stellar-sdk"; import componentWillLoad from "./events/componentWillLoad"; import render from "./events/render"; import createAccount from "./methods/createAccount"; import updateAccount from "./methods/updateAccount"; import makePayment from "./methods/makePayment"; import copyAddress from "./methods/copyAddress"; import copySecret from "./methods/copySecret"; import signOut from "./methods/signOut"; import setPrompt from "./methods/setPrompt"; import { Prompter } from "@prompt/prompt"; interface StellarAccount { publicKey: string; keystore: string; state?: ServerApi.AccountRecord; } interface Loading { fund?: boolean; pay?: boolean; update?: boolean; } @Component\({ tag: "stellar-wallet", styleUrl: "wallet.scss", shadow: true, }\) export class Wallet { @State\(\) account: StellarAccount; @State\(\) prompter: Prompter = { show: false }; @State\(\) loading: Loading = {}; @State\(\) error: any = null; @Prop\(\) server: Server; // Component events componentWillLoad\(\) {} render\(\) {} // Stellar methods createAccount = createAccount; updateAccount = updateAccount; makePayment = makePayment; copyAddress = copyAddress; copySecret = copySecret; signOut = signOut; // Misc methods setPrompt = setPrompt; } Wallet.prototype.componentWillLoad = componentWillLoad; Wallet.prototype.render = render; \`\`\`
 
 If you’ve followed other tutorials in this series much of this may be review, but we’ll just walk along this file and see exactly what’s going on.
+
+```typescript
+import { Component, State, Prop } from "@stencil/core";
+import { Server, ServerApi } from "stellar-sdk";
+
+import componentWillLoad from "./events/componentWillLoad"; // UPDATE
+import render from "./events/render"; // UPDATE
+
+import createAccount from "./methods/createAccount"; // UPDATE
+import updateAccount from "./methods/updateAccount"; // NEW
+import makePayment from "./methods/makePayment"; // NEW
+import copyAddress from "./methods/copyAddress";
+import copySecret from "./methods/copySecret";
+import signOut from "./methods/signOut";
+import setPrompt from "./methods/setPrompt";
+
+import { Prompter } from "@prompt/prompt";
+```
 
 \`\`\`ts import { Component, State, Prop } from "@stencil/core"; import { Server, ServerApi } from "stellar-sdk"; import componentWillLoad from "./events/componentWillLoad"; // UPDATE import render from "./events/render"; // UPDATE import createAccount from "./methods/createAccount"; // UPDATE import updateAccount from "./methods/updateAccount"; // NEW import makePayment from "./methods/makePayment"; // NEW import copyAddress from "./methods/copyAddress"; import copySecret from "./methods/copySecret"; import signOut from "./methods/signOut"; import setPrompt from "./methods/setPrompt"; import { Prompter } from "@prompt/prompt"; \`\`\`
 
 Imports galore! Nothing really noteworthy here other than you’ll notice we’re importing `./methods/updateAccount` and `./methods/makePayment` methods which we’ll be creating soon. There are a number of updates in the other methods from previous tutorials, and we’ll walk through all of those in a moment as well.
 
+```typescript
+interface StellarAccount {
+  // UPDATE
+  publicKey: string;
+  keystore: string;
+  state?: ServerApi.AccountRecord;
+}
+
+interface Loading {
+  // NEW
+  fund?: boolean;
+  pay?: boolean;
+  update?: boolean;
+}
+```
+
 \`\`\`ts interface StellarAccount { // UPDATE publicKey: string; keystore: string; state?: ServerApi.AccountRecord; } interface Loading { // NEW fund?: boolean; pay?: boolean; update?: boolean; } \`\`\`
 
 Here we’re setting up two TypeScript classes: one for our account and the other for our loading states.
+
+```typescript
+@Component({
+  tag: 'stellar-wallet',
+  styleUrl: 'wallet.scss',
+  shadow: true
+})
+export class Wallet {
+  @State() account: StellarAccount
+  @State() prompter: Prompter = {show: false}
+  @State() loading: Loading = {} // NEW
+  @State() error: any = null
+
+  @Prop() server: Server // NEW
+
+  ...
+}
+```
 
 \`\`\`ts @Component\({ tag: 'stellar-wallet', styleUrl: 'wallet.scss', shadow: true }\) export class Wallet { @State\(\) account: StellarAccount @State\(\) prompter: Prompter = {show: false} @State\(\) loading: Loading = {} // NEW @State\(\) error: any = null @Prop\(\) server: Server // NEW ... } \`\`\`
 
@@ -55,7 +232,37 @@ Here we set up our `@State`’s, those dynamic properties with values that will 
 
 Next let’s update our two component events `./events/componentWillLoad.ts` and `./events/render.tsx`:
 
-\`\`\`ts import { Server } from "stellar-sdk"; import { handleError } from "@services/error"; import { get } from "@services/storage"; export default async function componentWillLoad\(\) { try { let keystore = await get\("keyStore"\); this.error = null; this.server = new Server\("[https://horizon-testnet.stellar.org"\](https://horizon-testnet.stellar.org"\)\); if \(keystore\) { keystore = atob\(keystore\); const { publicKey } = JSON.parse\(atob\(JSON.parse\(keystore\).adata\)\); this.account = { publicKey, keystore, }; this.updateAccount\(\); } } catch \(err\) { this.error = handleError\(err\); } } \`\`\`
+```text
+import { Server } from "stellar-sdk";
+import { handleError } from "@services/error";
+import { get } from "@services/storage";
+
+export default async function componentWillLoad() {
+  try {
+    let keystore = await get("keyStore");
+
+    this.error = null;
+    this.server = new Server("https://horizon-testnet.stellar.org");
+
+    if (keystore) {
+      keystore = atob(keystore);
+
+      const { publicKey } = JSON.parse(atob(JSON.parse(keystore).adata));
+
+      this.account = {
+        publicKey,
+        keystore,
+      };
+
+      this.updateAccount();
+    }
+  } catch (err) {
+    this.error = handleError(err);
+  }
+}
+```
+
+\`\`\`ts import { Server } from "stellar-sdk"; import { handleError } from "@services/error"; import { get } from "@services/storage"; export default async function componentWillLoad\(\) { try { let keystore = await get\("keyStore"\); this.error = null; this.server = new Server\("\[[https://horizon-testnet.stellar.org"\]\(https://horizon-testnet.stellar.org"\)\](https://horizon-testnet.stellar.org"]%28https://horizon-testnet.stellar.org"%29\)\); if \(keystore\) { keystore = atob\(keystore\); const { publicKey } = JSON.parse\(atob\(JSON.parse\(keystore\).adata\)\); this.account = { publicKey, keystore, }; this.updateAccount\(\); } } catch \(err\) { this.error = handleError\(err\); } } \`\`\`
 
 In Stencil’s `componentWillLoad` method, we set up default values for the States and Props we initialized earlier. Most notably, we’re setting our server and account. You’ll notice we’re using the public `horizon-testnet` for now — we're just learning, and not ready to send live XBN — but in production you’d want to change this to the public `horizon` endpoint or, if you're running your own Horizon, to one of your own Horizon API endpoints.
 
