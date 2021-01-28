@@ -210,7 +210,7 @@ Here we set up our `@State`’s, those dynamic properties with values that will 
 
 Next let’s update our two component events `./events/componentWillLoad.ts` and `./events/render.tsx`:
 
-```text
+```typescript
 import { Server } from "stellar-sdk";
 import { handleError } from "@services/error";
 import { get } from "@services/storage";
