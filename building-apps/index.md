@@ -3,7 +3,7 @@ title: Overview
 order: 0
 ---
 
-# Overview
+# index
 
 Bantu is a self-serve distributed ledger that you can use as a backend to power all kinds of apps and services. It has built-in logic for creating accounts, signing transactions, and tracking balances, and anyone can use it to issue, store, transfer, and trade assets. Since many of those assets connect to real-world currencies, and since there are open protocols for integrating deposit and withdrawal of those assets, a Bantu-based app can take advantage of real banking rails and connect to real money.
 

@@ -18,7 +18,7 @@
   * [Control Access to an Asset](issuing-assets/control-asset-access.md)
 * [Building Apps](building-apps/README.md)
   * [Overview](building-apps/index.md)
-  * [project-setup](building-apps/project-setup.md)
+  * [Project Setup](building-apps/project-setup.md)
   * [key-management](building-apps/key-management.md)
   * [basic-wallet](building-apps/basic-wallet.md)
   * [xlm-payments](building-apps/xlm-payments.md)
