@@ -19,7 +19,7 @@
 * [Building Apps](building-apps/README.md)
   * [Overview](building-apps/index.md)
   * [Project Setup](building-apps/project-setup.md)
-  * [key-management](building-apps/key-management.md)
+  * [Key Management Basics](building-apps/key-management.md)
   * [basic-wallet](building-apps/basic-wallet.md)
   * [xlm-payments](building-apps/xlm-payments.md)
   * [custom-assets](building-apps/custom-assets.md)
