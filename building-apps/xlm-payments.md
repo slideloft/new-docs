@@ -3,9 +3,7 @@ title: Make XLM Payments
 order: 50
 ---
 
-# xlm-payments
-
-import { CodeExample } from "components/CodeExample"; import { Alert } from "components/Alert";
+# Make XLM Payments
 
  In this tutorial we’re going to modify our \[base wallet app\]\(./basic-wallet.mdx\) to include functionality to send XLM to other Stellar accounts.
 
