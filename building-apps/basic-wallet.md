@@ -400,7 +400,7 @@ export * from "./components";
 
 Cool! With any luck we should be able to use these slick alias imports for the prompt and services directories now.
 
-## Create Stellar Account Class
+## Create Bantu Account Class
 
 ```typescript
 interface StellarAccount {
@@ -514,10 +514,10 @@ npx cap init
 ```
 
 ```bash
-? App name Stellar Wallet
+? App name Bantu Wallet
 ? App Package ID (in Java package format, no dashes) com.wallet.stellar
 ? Which npm client would you like to use? npm
-✔ Initializing Capacitor project in /Users/tylervanderhoeven/Desktop/Web/Clients/Stellar/stellar-demo-wallet in 1.91ms
+✔ Initializing Capacitor project in /Users/Desktop/Web/Clients/bantu/bantu-demo-wallet in 1.91ms
 
 
 🎉   Your Capacitor project is ready to go!  🎉
@@ -534,7 +534,7 @@ https://capacitor.ionicframework.com/docs/basics/workflow
 
 We’re not really making full use of [ Capacitor ](https://capacitor.ionicframework.com/), but it is an amazing service so be sure and check it out! For now we just need it to make storing and retrieving our data a bit more stable.
 
-This storage service is simply a key setter and getter helper for storing and retrieving data. We’ll use this for any persistent data we want to store. For now, that's our Stellar account data.
+This storage service is simply a key setter and getter helper for storing and retrieving data. We’ll use this for any persistent data we want to store. For now, that's our Bantu account data.
 
 ## Set Up Event Handling
 
@@ -545,7 +545,7 @@ import { h } from "@stencil/core";
 
 export default function render() {
   return [
-    <stellar-prompt prompter={this.prompter} />,
+    <bantu-prompt prompter={this.prompter} />,
     this.account ? (
       [
         <div class="account-key">
@@ -746,5 +746,5 @@ export default function setPrompt(
 
 In `setPrompt`, we see how the prompt state is set, and how the Promise is set up to allow us to wait on the prompt whenever we call this method. It’s actually pretty slick, and it might be worth looking back at the `src/components/prompt/prompt.tsx` to see how the `resolve` and `reject` functions get called. It’s not central to our wallet creation, but it’s a pretty handy little component that will serve us well in the future as we continue to request input from the user.
 
-That’s it folks! Restart the server with `npm start` and you’ve got a perfectly legitimate, minimal Stellar wallet key creation and storage Web Component! It's a solid foundation for a non-custodial wallet that relies on a simple pincode.
+That’s it folks! Restart the server with `npm start` and you’ve got a perfectly legitimate, minimal Bantu wallet key creation and storage Web Component! It's a solid foundation for a non-custodial wallet that relies on a simple pincode.
 
