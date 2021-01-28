@@ -130,7 +130,7 @@ export class Wallet {
   componentWillLoad() {}
   render() {}
 
-  // Bantu methods
+  // Stellar methods
   createAccount = createAccount;
   updateAccount = updateAccount;
   makePayment = makePayment;
@@ -204,13 +204,13 @@ export class Wallet {
 }
 ```
 
-Here we set up our `@State`’s, those dynamic properties with values that will change and alter the DOM of the component, and our `@Prop`, which in this case will hold a static reference to our Bantu server instance.
+Here we set up our `@State`’s, those dynamic properties with values that will change and alter the DOM of the component, and our `@Prop`, which in this case will hold a static reference to our Stellar server instance.
 
 ## Update Component Events
 
 Next let’s update our two component events `./events/componentWillLoad.ts` and `./events/render.tsx`:
 
-```typescript
+```text
 import { Server } from "stellar-sdk";
 import { handleError } from "@services/error";
 import { get } from "@services/storage";
@@ -250,7 +250,7 @@ import { has as loHas } from "lodash-es";
 
 export default function render() {
   return [
-    <bantu-prompt prompter={this.prompter} />,
+    <stellar-prompt prompter={this.prompter} />,
 
     this.account ? (
       [
@@ -348,7 +348,7 @@ export default async function createAccount(e: Event) {
     const keypair = Keypair.random();
 
     await axios(
-      `https://friendbot.dev.bantu.network?addr=${keypair.publicKey()}`,
+      `https://friendbot.stellar.org?addr=${keypair.publicKey()}`,
     ).finally(() => (this.loading = { ...this.loading, fund: false }));
 
     this.account = {
@@ -371,11 +371,11 @@ export default async function createAccount(e: Event) {
 
 ## Fund Account Using Friendbot
 
-The only new thing we’re adding here — other than a loading state and an initial `this.updateAccount()` call at the end — is the call to [Friendbot](https://friendbot.dev.bantu.network), which is a testnet tool that we can use to automatically fund our new testnet account with 10,000 XBN. Nice little shortcut to kickstart our development.
+The only new thing we’re adding here — other than a loading state and an initial `this.updateAccount()` call at the end — is the call to [friendbot.stellar.org](https://friendbot.stellar.org/), which is a testnet tool that we can use to automatically fund our new testnet account with 10,000 XBN. Nice little shortcut to kickstart our development.
 
 ```typescript
 await axios(
-  `https://friendbot.dev.bantu.network?addr=${keypair.publicKey()}`,
+  `https://friendbot.stellar.org?addr=${keypair.publicKey()}`,
 ).finally(() => (this.loading = { ...this.loading, fund: false }));
 ```
 
@@ -445,7 +445,7 @@ export default async function updateAccount(e?: Event) {
 }
 ```
 
-All we’re doing here is looking up the state of the Bantu account on the ledger and saving it to the `this.account.state`. You’ll also notice we’re omitting several fields from the account and balances for easier readability. You may choose to save these and selectively display the values you care about, but in our example we’re just displaying the raw JSON, so cleaning things up a little is the right move.
+All we’re doing here is looking up the state of the Stellar account on the ledger and saving it to the `this.account.state`. You’ll also notice we’re omitting several fields from the account and balances for easier readability. You may choose to save these and selectively display the values you care about, but in our example we’re just displaying the raw JSON, so cleaning things up a little is the right move.
 
 `this.account = {...this.account, state: loOmit(account, ['id', ...])}` may feel odd, but it’s just the Stencil way of updating a state’s object key to trigger a re-render of the DOM. You’ll notice `this.loading` follows the same pattern. We’ll make use of this data further down in the `render` method, but for now just know this is how we would grab ahold of the account to get the latest state.
 
@@ -599,7 +599,7 @@ Next we unpack the keystore with the pincode, reset any existing errors, and tri
     return this.server.submitTransaction(transaction)
 ```
 
-From there we call the keypair account to retrieve its current sequence number so we can prepare a transaction with a payment operation. We set the destination and amount using the instructions from the prompt we collected and split earlier. Finally, we build, sign, and submit that transaction to the Bantu Expansion API server.
+From there we call the keypair account to retrieve its current sequence number so we can prepare a transaction with a payment operation. We set the destination and amount using the instructions from the prompt we collected and split earlier. Finally, we build, sign, and submit that transaction to the Stellar Expansion API server.
 
 ```typescript
   .catch((err) => {
@@ -646,5 +646,5 @@ If the account we want to send XBN is unfunded \(and therefore doesn't yet exist
 
 Finally, we log any success transaction, kill the loader, and `updateAccount` to reflect the new balance in our account after successfully sending XBN. We also have our `catch` block that passes to the `handleError` service. We will render that in a nice error block in the UI.
 
-There we go! That wasn’t so bad right? Pretty simple, and yet from this tutorial we have the power to hold and observe balances, and to make payments using the power of the Bantu ledger. Amazing!
+There we go! That wasn’t so bad right? Pretty simple, and yet from this tutorial we have the power to hold and observe balances, and to make payments using the power of the Stellar ledger. Amazing!
 

@@ -22,7 +22,7 @@
   * [Key Management Basics](building-apps/key-management.md)
   * [Create a Basic Wallet](building-apps/basic-wallet.md)
   * [Make XBN Payments](building-apps/xbn-payments.md)
-  * [custom-assets](building-apps/custom-assets.md)
+  * [Handle Custom Assets](building-apps/custom-assets.md)
 * [Run a Core Node](run-core-node/README.md)
   * [running-node](run-core-node/running-node.md)
   * [index](run-core-node/index.md)

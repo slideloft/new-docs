@@ -3,13 +3,9 @@ title: Handle Custom Assets
 order: 60
 ---
 
-# custom-assets
+# Handle Custom Assets
 
-import { CodeExample } from "components/CodeExample"; import { Alert } from "components/Alert";
-
- In this section of the tutorial, we'll add the ability to hold and transfer custom assets to the basic wallet we built in previous sections. It asssumes that you've already completed \[Build a Basic Wallet\]\(./basic-wallet.mdx\) and \[Make XLM Payments\]\(./xlm-payments.mdx\).
-
-[View pay boilerplate code on GitHub](https://github.com/stellar/stellar-demo-wallet/tree/pay)
+ In this section of the tutorial, we'll add the ability to hold and transfer custom assets to the basic wallet we built in previous sections. It assumes that you've already completed Create a Basic Wallet and Make XBN Payments
 
 ## What's a Custom Asset?
 
