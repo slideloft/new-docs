@@ -5,9 +5,9 @@ order: 50
 
 # Make XBN Payments
 
-In this tutorial we’re going to modify our base wallet app to include functionality to send XBN to other Stellar accounts.
+In this tutorial we’re going to modify our base wallet app to include functionality to send XBN to other Bantu accounts.
 
-In the [Build a Basic Wallet section](basic-wallet.md), we did the hard work of wiring up a secure client and rock-solid key creation and storage structure with a clear plan for key use and management. Now that we have a method for creating an account — and for storing that account's secrets so they're safe and easy to use — we're ready to start making payments. We'll start with XBN payments since they're a little simpler; in the [next sectiion](custom-assets.md), we'll look at how to support payments for other assets.
+In the [Build a Basic Wallet section](basic-wallet.md), we did the hard work of wiring up a secure client and rock-solid key creation and storage structure with a clear plan for key use and management. Now that we have a method for creating an account — and for storing that account's secrets so they're safe and easy to use — we're ready to start making payments. We'll start with XBN payments since they're a little simpler; in the [next section](custom-assets.md), we'll look at how to support payments for other assets.
 
 There isn’t too much that's new or complicated here: we'll be building on what we already have. Again, most of the work will be in `src/components/wallet/`; however, before we dive into that file let’s clean up our project just a touch and add some helpful polish. Namely a loader component.
 
