@@ -460,11 +460,20 @@ export default async function componentWillLoad() {
 
 “But wait!” you say, “What are the `@services/error` and `@services/storage` packages?” Fine, yes, we should go over those. Remember the module alias stuff from earlier? Well one was for `@prompt` and the other was for `@services`. Go ahead and create these two files and add them to the `src/services` directory.
 
-\`\`\`bash mkdir -p src/services touch src/services/{error,storage}.ts \`\`\`
+```bash
+mkdir -p src/services
+touch src/services/{error,storage}.ts
+```
 
 `error.ts` will look like this.
 
-\`\`\`ts import { get as loGet } from "lodash-es"; export function handleError\(err: any\) { return loGet\(err, "response.data", loGet\(err, "message", err\)\); } \`\`\`
+```typescript
+import { get as loGet } from "lodash-es";
+
+export function handleError(err: any) {
+  return loGet(err, "response.data", loGet(err, "message", err));
+}
+```
 
 Nothing fancy, just a clean little error handler we’ll make use of later when processing API requests.
 
@@ -472,13 +481,56 @@ Nothing fancy, just a clean little error handler we’ll make use of later when 
 
 Next is `storage.ts`.
 
-\`\`\`js import { Plugins } from "@capacitor/core"; const { Storage } = Plugins; export async function set\(key: string, value: any\): Promise { await Storage.set\({ key, value, }\); } export async function get\(key: string\): Promise { const item = await Storage.get\({ key }\); return item.value; } export async function remove\(key: string\): Promise { await Storage.remove\({ key }\); } \`\`\`
+```javascript
+import { Plugins } from "@capacitor/core";
+
+const { Storage } = Plugins;
+
+export async function set(key: string, value: any): Promise<void> {
+  await Storage.set({
+    key,
+    value,
+  });
+}
+
+export async function get(key: string): Promise<any> {
+  const item = await Storage.get({ key });
+  return item.value;
+}
+
+export async function remove(key: string): Promise<void> {
+  await Storage.remove({ key });
+}
+```
 
 You’ll notice a new package `@capacitor/core`. Let’s install and set that up.
 
-\`\`\`bash \# Install dependencies npm i -D @capacitor/core @capacitor/cli \# Initialize Capacitor npx cap init \`\`\`
+```bash
+# Install dependencies
+npm i -D @capacitor/core @capacitor/cli
 
-\`\`\`bash ? App name Stellar Wallet ? App Package ID \(in Java package format, no dashes\) com.wallet.stellar ? Which npm client would you like to use? npm ✔ Initializing Capacitor project in /Users/tylervanderhoeven/Desktop/Web/Clients/Stellar/stellar-demo-wallet in 1.91ms 🎉 Your Capacitor project is ready to go! 🎉 Add platforms using "npx cap add": npx cap add android npx cap add ios npx cap add electron Follow the Developer Workflow guide to get building: [https://capacitor.ionicframework.com/docs/basics/workflow](https://capacitor.ionicframework.com/docs/basics/workflow) \`\`\`
+# Initialize Capacitor
+npx cap init
+```
+
+```bash
+? App name Stellar Wallet
+? App Package ID (in Java package format, no dashes) com.wallet.stellar
+? Which npm client would you like to use? npm
+✔ Initializing Capacitor project in /Users/tylervanderhoeven/Desktop/Web/Clients/Stellar/stellar-demo-wallet in 1.91ms
+
+
+🎉   Your Capacitor project is ready to go!  🎉
+
+Add platforms using "npx cap add":
+
+  npx cap add android
+  npx cap add ios
+  npx cap add electron
+
+Follow the Developer Workflow guide to get building:
+https://capacitor.ionicframework.com/docs/basics/workflow
+```
 
 We’re not really making full use of [ Capacitor ](https://capacitor.ionicframework.com/), but it is an amazing service so be sure and check it out! For now we just need it to make storing and retrieving our data a bit more stable.
 
@@ -488,15 +540,49 @@ This storage service is simply a key setter and getter helper for storing and re
 
 That’s everything we need for the `componentWillLoad` event. On to the `./events/render.tsx` file.
 
-\`\`\`tsx import { h } from "@stencil/core"; export default function render\(\) { return \[, this.account ? \( \[
+```typescript
+import { h } from "@stencil/core";
 
-{this.account.publicKey} this.copyAddress\(e\)} &gt; Copy Address this.copySecret\(e\)} &gt; Copy Secret, \] \) : \( this.createAccount\(e\)}&gt; Create Account \), this.error ? \(
+export default function render() {
+  return [
+    <stellar-prompt prompter={this.prompter} />,
+    this.account ? (
+      [
+        <div class="account-key">
+          <p>{this.account.publicKey}</p>
+          <button
+            class="small"
+            type="button"
+            onClick={(e) => this.copyAddress(e)}
+          >
+            Copy Address
+          </button>
+          <button
+            class="small"
+            type="button"
+            onClick={(e) => this.copySecret(e)}
+          >
+            Copy Secret
+          </button>
+        </div>,
+      ]
+    ) : (
+      <button type="button" onClick={(e) => this.createAccount(e)}>
+        Create Account
+      </button>
+    ),
 
-```text
-{JSON.stringify(this.error, null, 2)}
+    this.error ? (
+      <pre class="error">{JSON.stringify(this.error, null, 2)}</pre>
+    ) : null,
+    this.account ? (
+      <button type="button" onClick={(e) => this.signOut(e)}>
+        Sign Out
+      </button>
+    ) : null,
+  ];
+}
 ```
-
-\) : null, this.account ? \( this.signOut\(e\)}&gt; Sign Out \) : null, \]; } \`\`\`
 
 It looks messy, but it’s actually a pretty simple `.tsx` file rendering out our DOM based off a series of conditional values. You can see we’re including the `bantu-prompt` component, and setting the prompter prop to our `this.prompter` state. We then have a ternary operation toggling between a Create Account button and a basic account UI. If `this.account` has a truthy value, we’ll print out the account’s `publicKey` along with some interaction buttons. If `this.account` is falsey, we’ll print out a singular Create Account button connected to, you guessed it, the `createAccount` method. After that logic, we print out an error if there is one, and finally a Sign Out button if there’s an account to sign out of. Those are the two `Wallet` `@Component` events.
 
@@ -504,11 +590,48 @@ It looks messy, but it’s actually a pretty simple `.tsx` file rendering out ou
 
 Let’s look at the methods now beginning with the `./methods/createAccount.ts` file.
 
-\`\`\`ts import sjcl from "@tinyanvil/sjcl"; import { Keypair } from "stellar-sdk"; import { handleError } from "@services/error"; import { set } from "@services/storage"; export default async function createAccount\(e: Event\) { try { e.preventDefault\(\); const pincode\_1 = await this.setPrompt\("Enter a keystore pincode"\); const pincode\_2 = await this.setPrompt\("Enter keystore pincode again"\); if \(!pincode\_1 \|\| !pincode\_2 \|\| pincode\_1 !== pincode\_2\) throw "Invalid pincode"; this.error = null; const keypair = Keypair.random\(\); this.account = { publicKey: keypair.publicKey\(\), keystore: sjcl.encrypt\(pincode\_1, keypair.secret\(\), { adata: JSON.stringify\({ publicKey: keypair.publicKey\(\), }\), }\), }; await set\("keyStore", btoa\(this.account.keystore\)\); } catch \(err\) { this.error = handleError\(err\); } } \`\`\`
+```typescript
+import sjcl from "@tinyanvil/sjcl";
+import { Keypair } from "stellar-sdk";
+
+import { handleError } from "@services/error";
+import { set } from "@services/storage";
+
+export default async function createAccount(e: Event) {
+  try {
+    e.preventDefault();
+
+    const pincode_1 = await this.setPrompt("Enter a keystore pincode");
+    const pincode_2 = await this.setPrompt("Enter keystore pincode again");
+
+    if (!pincode_1 || !pincode_2 || pincode_1 !== pincode_2)
+      throw "Invalid pincode";
+
+    this.error = null;
+
+    const keypair = Keypair.random();
+
+    this.account = {
+      publicKey: keypair.publicKey(),
+      keystore: sjcl.encrypt(pincode_1, keypair.secret(), {
+        adata: JSON.stringify({
+          publicKey: keypair.publicKey(),
+        }),
+      }),
+    };
+
+    await set("keyStore", btoa(this.account.keystore));
+  } catch (err) {
+    this.error = handleError(err);
+  }
+}
+```
 
 Aha! Finally something interesting. This method forms the meat of our component. Before we dive into it, though let’s install the missing `@tinyanvil/sjcl` package.
 
-\`\`\`bash npm i -D @tinyanvil/sjcl \`\`\`
+```bash
+npm i -D @tinyanvil/sjcl
+```
 
 ## Create an Account
 
@@ -520,17 +643,48 @@ Now that we’ve created an account, there are three more actions we'll enable: 
 
 First `./methods/copyAddress.ts`
 
-\`\`\`ts import copy from "copy-to-clipboard"; export default async function copyAddress\(e: Event\) { e.preventDefault\(\); copy\(this.account.publicKey\); } \`\`\`
+```typescript
+import copy from "copy-to-clipboard";
+
+export default async function copyAddress(e: Event) {
+  e.preventDefault();
+  copy(this.account.publicKey);
+}
+```
 
 Well there you go, the easiest code you’ll see all day. Just `copy` the `publicKey` from the `this.account` object to the clipboard. Before we jump though don’t forget to install that `copy-to-clipboard` package.
 
-\`\`\`bash npm i -D copy-to-clipboard \`\`\`
+```bash
+npm i -D copy-to-clipboard
+```
 
 ## Copy Secret
 
 Next `./methods/copySecret.ts`
 
-\`\`\`ts import sjcl from "@tinyanvil/sjcl"; import copy from "copy-to-clipboard"; import { handleError } from "@services/error"; export default async function copySecret\(e: Event\) { try { e.preventDefault\(\); const pincode = await this.setPrompt\("Enter your keystore pincode"\); if \(!pincode\) return; this.error = null; const secret = sjcl.decrypt\(pincode, this.account.keystore\); copy\(secret\); } catch \(err\) { this.error = handleError\(err\); } } \`\`\`
+```typescript
+import sjcl from "@tinyanvil/sjcl";
+import copy from "copy-to-clipboard";
+
+import { handleError } from "@services/error";
+
+export default async function copySecret(e: Event) {
+  try {
+    e.preventDefault();
+
+    const pincode = await this.setPrompt("Enter your keystore pincode");
+
+    if (!pincode) return;
+
+    this.error = null;
+
+    const secret = sjcl.decrypt(pincode, this.account.keystore);
+    copy(secret);
+  } catch (err) {
+    this.error = handleError(err);
+  }
+}
+```
 
 You may not actually include this in your production wallet, but for now it's a simple demonstration of how to programmatically gain access to the secret key at a later date for making payments, creating trustlines, etc. It’s essentially the `createAccount` in reverse: it asks for the pincode to decrypt the keystore which, once decrypted, we `copy` into the clipboard.
 
@@ -538,7 +692,30 @@ You may not actually include this in your production wallet, but for now it's a 
 
 Finally `./methods/signOut.ts`
 
-\`\`\`ts import { remove } from "@services/storage"; import { handleError } from "@services/error"; export default async function signOut\(e: Event\) { try { e.preventDefault\(\); const confirmNuke = await this.setPrompt\( "Are you sure? This will nuke your account", "Enter NUKE to confirm", \); if \(!confirm \|\| !/nuke/gi.test\(confirmNuke\)\) return; this.error = null; await remove\("keyStore"\); location.reload\(\); } catch \(err\) { this.error = handleError\(err\); } } \`\`\`
+```typescript
+import { remove } from "@services/storage";
+import { handleError } from "@services/error";
+
+export default async function signOut(e: Event) {
+  try {
+    e.preventDefault();
+
+    const confirmNuke = await this.setPrompt(
+      "Are you sure? This will nuke your account",
+      "Enter NUKE to confirm",
+    );
+
+    if (!confirm || !/nuke/gi.test(confirmNuke)) return;
+
+    this.error = null;
+
+    await remove("keyStore");
+    location.reload();
+  } catch (err) {
+    this.error = handleError(err);
+  }
+}
+```
 
 It’s important to allow users to nuke their account, but we need to be careful to confirm that action with our faithful `setPrompt`. Once they opt to “NUKE” the account we can remove the `keyStore` and reload the app.
 
@@ -546,7 +723,26 @@ It’s important to allow users to nuke their account, but we need to be careful
 
 Speaking of `setPrompt` the last method in our `wallet.ts` file is `./methods/setPrompt.ts`.
 
-\`\`\`ts export default function setPrompt\( message: string, placeholder?: string, options?: Array, \): Promise { this.prompter = { ...this.prompter, show: true, message, placeholder, options, }; return new Promise\(\(resolve, reject\) =&gt; { this.prompter.resolve = resolve; this.prompter.reject = reject; }\); } \`\`\`
+```typescript
+export default function setPrompt(
+  message: string,
+  placeholder?: string,
+  options?: Array<any>,
+): Promise<string> {
+  this.prompter = {
+    ...this.prompter,
+    show: true,
+    message,
+    placeholder,
+    options,
+  };
+
+  return new Promise((resolve, reject) => {
+    this.prompter.resolve = resolve;
+    this.prompter.reject = reject;
+  });
+}
+```
 
 In `setPrompt`, we see how the prompt state is set, and how the Promise is set up to allow us to wait on the prompt whenever we call this method. It’s actually pretty slick, and it might be worth looking back at the `src/components/prompt/prompt.tsx` to see how the `resolve` and `reject` functions get called. It’s not central to our wallet creation, but it’s a pretty handy little component that will serve us well in the future as we continue to request input from the user.
 
