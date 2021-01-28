@@ -1,15 +1,15 @@
 ---
-title: Make XLM Payments
+title: Make XBN Payments
 order: 50
 ---
 
-# Make XLM Payments
+# Make XBN Payments
 
- In this tutorial we’re going to modify our \[base wallet app\]\(./basic-wallet.mdx\) to include functionality to send XLM to other Stellar accounts.
+ In this tutorial we’re going to modify our \[base wallet app\]\(./basic-wallet.mdx\) to include functionality to send XBN to other Stellar accounts.
 
 [View keystore boilerplate code on GitHub](https://github.com/stellar/stellar-demo-wallet/tree/keystore)
 
-In the [Build a Basic Wallet section](basic-wallet.md), we did the hard work of wiring up a secure client and rock-solid key creation and storage structure with a clear plan for key use and management. Now that we have a method for creating an account — and for storing that account's secrets so they're safe and easy to use — we're ready to start making payments. We'll start with XLM payments since they're a little simpler; in the [next sectiion](custom-assets.md), we'll look at how to support payments for other assets.
+In the [Build a Basic Wallet section](basic-wallet.md), we did the hard work of wiring up a secure client and rock-solid key creation and storage structure with a clear plan for key use and management. Now that we have a method for creating an account — and for storing that account's secrets so they're safe and easy to use — we're ready to start making payments. We'll start with XBN payments since they're a little simpler; in the [next sectiion](custom-assets.md), we'll look at how to support payments for other assets.
 
 There isn’t too much that's new or complicated here: we'll be building on what we already have. Again, most of the work will be in `src/components/wallet/`; however, before we dive into that file let’s clean up our project just a touch and add some helpful polish. Namely a loader component.
 
@@ -57,7 +57,7 @@ Next let’s update our two component events `./events/componentWillLoad.ts` and
 
  \`\`\`ts import { Server } from "stellar-sdk"; import { handleError } from "@services/error"; import { get } from "@services/storage"; export default async function componentWillLoad\(\) { try { let keystore = await get\("keyStore"\); this.error = null; this.server = new Server\("https://horizon-testnet.stellar.org"\); if \(keystore\) { keystore = atob\(keystore\); const { publicKey } = JSON.parse\(atob\(JSON.parse\(keystore\).adata\)\); this.account = { publicKey, keystore, }; this.updateAccount\(\); } } catch \(err\) { this.error = handleError\(err\); } } \`\`\`
 
-In Stencil’s `componentWillLoad` method, we set up default values for the States and Props we initialized earlier. Most notably, we’re setting our server and account. You’ll notice we’re using the public `horizon-testnet` for now — we're just learning, and not ready to send live XLM — but in production you’d want to change this to the public `horizon` endpoint or, if you're running your own Horizon, to one of your own Horizon API endpoints.
+In Stencil’s `componentWillLoad` method, we set up default values for the States and Props we initialized earlier. Most notably, we’re setting our server and account. You’ll notice we’re using the public `horizon-testnet` for now — we're just learning, and not ready to send live XBN — but in production you’d want to change this to the public `horizon` endpoint or, if you're running your own Horizon, to one of your own Horizon API endpoints.
 
 For the account we’re simply checking to see if a `keyStore` value has been stored, and if so we’re grabbing the public key and keystore from it and adding those to the account `@State`. The `state` value, which is optional, is not set here as we’ll need to run the method `updateAccount()` to find if the account exists, and if so what the state of that account looks like. We’ll get to that method shortly. For now let’s update our `render.tsx` method:
 
@@ -88,7 +88,7 @@ Yikers amirite!? Don’t worry though: it’s actually quite simple if you’ve 
 
 ## Fund Account Using Friendbot
 
-The only new thing we’re adding here — other than a loading state and an initial `this.updateAccount()` call at the end — is the call to [friendbot.stellar.org](https://friendbot.stellar.org/), which is a testnet tool that we can use to automatically fund our new testnet account with 10,000 XLM. Nice little shortcut to kickstart our development.
+The only new thing we’re adding here — other than a loading state and an initial `this.updateAccount()` call at the end — is the call to [friendbot.stellar.org](https://friendbot.stellar.org/), which is a testnet tool that we can use to automatically fund our new testnet account with 10,000 XBN. Nice little shortcut to kickstart our development.
 
  \`\`\`ts await axios\( \`https://friendbot.stellar.org?addr=${keypair.publicKey\(\)}\`, \).finally\(\(\) =&gt; \(this.loading = { ...this.loading, fund: false }\)\); \`\`\`
 
@@ -98,7 +98,7 @@ So that’s the updated `./methods/createAccount.ts` file.
 
 ## Update Account Method
 
-Now let’s create two new files for updating the account and making XLM payments.
+Now let’s create two new files for updating the account and making XBN payments.
 
  \`\`\`bash touch src/components/wallet/methods/{updateAccount,makePayment}.ts \`\`\`
 
@@ -120,7 +120,7 @@ This method is quite massive, so let’s break it down further so it's easier to
 
  \`\`\`ts export default async function makePayment\(e: Event\) { try { e.preventDefault\(\) let instructions = await this.setPrompt\('{Amount} {Destination}'\) instructions = instructions.split\(' '\) const pincode = await this.setPrompt\('Enter your keystore pincode'\) if \( !instructions \|\| !pincode \) return \`\`\`
 
-We’re going to need a couple pieces of info from the user: the amount of XLM to send, what address to send it to, and the pincode for unlocking the keystore file. We request those asynchronously and cancel out of the method if they aren’t provided.
+We’re going to need a couple pieces of info from the user: the amount of XBN to send, what address to send it to, and the pincode for unlocking the keystore file. We request those asynchronously and cancel out of the method if they aren’t provided.
 
  \`\`\`ts const keypair = Keypair.fromSecret\( sjcl.decrypt\(pincode, this.account.keystore\), \); this.error = null; this.loading = { ...this.loading, pay: true }; \`\`\`
 
@@ -132,11 +132,11 @@ From there we call the keypair account to retrieve its current sequence number s
 
  \`\`\`ts .catch\(\(err\) =&gt; { if \( // Paying an account which doesn't exist, create it instead loHas\(err, 'response.data.extras.result\_codes.operations'\) && err.response.data.status === 400 && err.response.data.extras.result\_codes.operations.indexOf\('op\_no\_destination'\) !== -1 \) { const transaction = new TransactionBuilder\(account, { fee: BASE\_FEE, networkPassphrase: Networks.TESTNET }\) .addOperation\(Operation.createAccount\({ destination: instructions\[1\], startingBalance: instructions\[0\] }\)\) .setTimeout\(0\) .build\(\) transaction.sign\(keypair\) return this.server.submitTransaction\(transaction\) } else throw err }\) \`\`\`
 
-If the account we want to send XLM is unfunded \(and therefore doesn't yet exist on the ledger\), we'll get back `op_no_destination`. This `catch` handles that issue by trying again with a `createAccount` operation. For any other issues we just pass the error on unmodified.
+If the account we want to send XBN is unfunded \(and therefore doesn't yet exist on the ledger\), we'll get back `op_no_destination`. This `catch` handles that issue by trying again with a `createAccount` operation. For any other issues we just pass the error on unmodified.
 
  \`\`\`ts }\) .then\(\(res\) =&gt; console.log\(res\)\) .finally\(\(\) =&gt; { this.loading = {...this.loading, pay: false} this.updateAccount\(\) }\) } catch \(err\) { this.error = handleError\(err\) } } \`\`\`
 
-Finally, we log any success transaction, kill the loader, and `updateAccount` to reflect the new balance in our account after successfully sending XLM. We also have our `catch` block that passes to the `handleError` service. We will render that in a nice error block in the UI.
+Finally, we log any success transaction, kill the loader, and `updateAccount` to reflect the new balance in our account after successfully sending XBN. We also have our `catch` block that passes to the `handleError` service. We will render that in a nice error block in the UI.
 
 There we go! That wasn’t so bad right? Pretty simple, and yet from this tutorial we have the power to hold and observe balances, and to make payments using the power of the Stellar ledger. Amazing!
 
