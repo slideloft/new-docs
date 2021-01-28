@@ -3,35 +3,256 @@ title: Create a Basic Wallet
 order: 40
 ---
 
-# basic-wallet
+# Create a Basic Wallet
 
-import { CodeExample } from "components/CodeExample"; import { Alert } from "components/Alert";
-
- In this tutorial, the goal is to get to a place where a user can create, store, and access their Stellar account using an intuitive pincode encryption method. It assumes that you have already completed the \[Project Setup section\]\(./project-setup.mdx\).
-
-[View the setup boilerplate code on GitHub](https://github.com/stellar/stellar-demo-wallet/tree/setup)
+{% hint style="info" %}
+In this tutorial, the goal is to get to a place where a user can create, store, and access their Stellar account using an intuitive pincode encryption method. 
+{% endhint %}
 
 ## User Flow
 
-Because we've decided to build a non-custodial wallet, we don’t need to communicate with a server or database at all: everything can happen locally right on a user’s device. We’ll be doing all our work inside of `src/components/wallet/`, so head over there now. We’re going to use the `StellarSdk.Keypair.random()` from the StellarSdk to generate a new valid Stellar keypair. That's the easy part. The hard work will be storing that vital information in a secure yet accessible manner.
+Because we've decided to build a non-custodial wallet, we don’t need to communicate with a server or database at all: everything can happen locally right on a user’s device. We’ll be doing all our work inside of `src/components/wallet/`, so head over there now. We’re going to use the `StellarSdk.Keypair.random()` from the StellarSdk to generate a new valid Bantu keypair. That's the easy part. The hard work will be storing that vital information in a secure yet accessible manner.
 
-The user flow we're building will work like this: Click “Create Account” → UI modal popup asking for a pincode → Enter pincode, click “OK” → App encrypts a new Stellar keypair secret key with pincode → App saves encrypted secret to `localStorage`. On page reload, we’ll fetch the `publicKey` to “login” the user, but for any protected action such as “Copy Secret”, the modal will pop back up asking for the original pincode.
+The user flow we're building will work like this: Click “Create Account” → UI modal popup asking for a pincode → Enter pincode, click “OK” → App encrypts a new Bantu keypair secret key with pincode → App saves encrypted secret to `localStorage`. On page reload, we’ll fetch the `publicKey` to “login” the user, but for any protected action such as “Copy Secret”, the modal will pop back up asking for the original pincode.
 
 ## Create a Popup Modal
 
 To start, let's look at at the popup modal. We’ll be mimicking the browser’s `prompt` functionality with our own new, more powerful component. First things first we should generate a new component:
 
- \`\`\`bash npm run generate \`\`\`
+```bash
+npm run generate
+```
 
-Call it `stellar-prompt`, and deselect both test files leaving only the styling. Once you have that, open `src/components/prompt/` and rename the `.css` file to `.scss`. Fill that style file with this:
+Call it `bantu-prompt`, and deselect both test files leaving only the styling. Once you have that, open `src/components/prompt/` and rename the `.css` file to `.scss`. Fill that style file with this:
 
- \`\`\`scss @import "../../global/style.scss"; :host { display: block; font-family: $font-family; font-size: 15px; .prompt-wrapper { position: absolute; top: 0; left: 0; bottom: 0; right: 0; display: flex; align-items: center; justify-content: center; align-content: center; min-height: 100vh; min-width: 100vw; background-color: rgba\(black, 0.2\); z-index: 1; } .prompt { background-color: white; padding: 20px; max-width: 350px; width: 100%; position: relative; p { margin-bottom: 10px; } input { width: 100%; margin: 0; padding: 5px; outline: none; border: 1px solid black; text-transform: uppercase; &:focus { border-color: blue; } } } .select-wrapper { position: relative; display: inline-flex; select { border-color: blue; padding: 0 10px; min-width: 100px; } &:after, &:before { font-size: 12px; position: absolute; right: 10px; color: blue; } &:after { content: "◀"; top: calc\(50% - 5px\); transform: translate\(0, -50%\) rotate\(90deg\); } &:before { content: "▶"; top: calc\(50% + 5px\); transform: translate\(0, -50%\) rotate\(90deg\); } } .actions { display: flex; justify-content: flex-end; margin-top: 10px; button { margin: 0; min-width: 50px; } .cancel { background: none; border: 1px solid blue; color: blue; } .submit { margin-left: 10px; } } } \`\`\`
+```css
+@import "../../global/style.scss";
+
+:host {
+  display: block;
+  font-family: $font-family;
+  font-size: 15px;
+
+  .prompt-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    min-height: 100vh;
+    min-width: 100vw;
+    background-color: rgba(black, 0.2);
+    z-index: 1;
+  }
+  .prompt {
+    background-color: white;
+    padding: 20px;
+    max-width: 350px;
+    width: 100%;
+    position: relative;
+
+    p {
+      margin-bottom: 10px;
+    }
+    input {
+      width: 100%;
+      margin: 0;
+      padding: 5px;
+      outline: none;
+      border: 1px solid black;
+      text-transform: uppercase;
+
+      &:focus {
+        border-color: blue;
+      }
+    }
+  }
+  .select-wrapper {
+    position: relative;
+    display: inline-flex;
+
+    select {
+      border-color: blue;
+      padding: 0 10px;
+      min-width: 100px;
+    }
+
+    &:after,
+    &:before {
+      font-size: 12px;
+      position: absolute;
+      right: 10px;
+      color: blue;
+    }
+    &:after {
+      content: "◀";
+      top: calc(50% - 5px);
+      transform: translate(0, -50%) rotate(90deg);
+    }
+    &:before {
+      content: "▶";
+      top: calc(50% + 5px);
+      transform: translate(0, -50%) rotate(90deg);
+    }
+  }
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+
+    button {
+      margin: 0;
+      min-width: 50px;
+    }
+    .cancel {
+      background: none;
+      border: 1px solid blue;
+      color: blue;
+    }
+    .submit {
+      margin-left: 10px;
+    }
+  }
+}
+```
 
 Replace the `prompt.tsx` contents with this.
 
- \`\`\`tsx import { Component, Prop, Element, Watch, h, State } from "@stencil/core"; import { defer as loDefer } from "lodash-es"; export interface Prompter { show: boolean; message?: string; placeholder?: string; options?: Array; resolve?: Function; reject?: Function; } @Component\({ tag: "stellar-prompt", styleUrl: "prompt.scss", shadow: true, }\) export class Prompt { @Element\(\) private element: HTMLElement; @Prop\({ mutable: true }\) prompter: Prompter; @State\(\) private input: string; @Watch\("prompter"\) watchHandler\(newValue: Prompter, oldValue: Prompter\) { if \(newValue.show === oldValue.show\) return; if \(newValue.show\) { this.input = null; if \(newValue.options\) this.input = this.input \|\| \`${newValue.options\[0\].code}:${newValue.options\[0\].issuer}\`; else loDefer\(\(\) =&gt; this.element.shadowRoot.querySelector\("input"\).focus\(\)\); } else { this.prompter.message = null; this.prompter.placeholder = null; this.prompter.options = null; } } componentDidLoad\(\) { addEventListener\("keyup", \(e: KeyboardEvent\) =&gt; { if \(this.prompter.show\) e.keyCode === 13 ? this.submit\(e\) : e.keyCode === 27 ? this.cancel\(e\) : null; }\); } cancel\(e: Event\) { e.preventDefault\(\); this.prompter = { ...this.prompter, show: false, }; this.prompter.reject\(null\); } submit\(e: Event\) { e.preventDefault\(\); this.prompter = { ...this.prompter, show: false, }; this.prompter.resolve\(this.input\); } update\(e\) { this.input = e.target.value.toUpperCase\(\); } render\(\) { return this.prompter.show ? \( {this.prompter.message ?
+```typescript
+import { Component, Prop, Element, Watch, h, State } from "@stencil/core";
+import { defer as loDefer } from "lodash-es";
 
-{this.prompter.message} : null} {this.prompter.options ? \(  this.update\(e\)}&gt; {" "} {this.prompter.options.map\(\(option\) =&gt; \( {option.code} \)\)} \) : \(  this.update\(e\)} &gt; \)}  this.cancel\(e\)} &gt; Cancel  this.submit\(e\)} &gt; OK \) : null; } } \`\`\`
+export interface Prompter {
+  show: boolean;
+  message?: string;
+  placeholder?: string;
+  options?: Array<any>;
+  resolve?: Function;
+  reject?: Function;
+}
+
+@Component({
+  tag: "stellar-prompt",
+  styleUrl: "prompt.scss",
+  shadow: true,
+})
+export class Prompt {
+  @Element() private element: HTMLElement;
+
+  @Prop({ mutable: true }) prompter: Prompter;
+
+  @State() private input: string;
+
+  @Watch("prompter")
+  watchHandler(newValue: Prompter, oldValue: Prompter) {
+    if (newValue.show === oldValue.show) return;
+
+    if (newValue.show) {
+      this.input = null;
+
+      if (newValue.options)
+        this.input =
+          this.input ||
+          `${newValue.options[0].code}:${newValue.options[0].issuer}`;
+      else
+        loDefer(() => this.element.shadowRoot.querySelector("input").focus());
+    } else {
+      this.prompter.message = null;
+      this.prompter.placeholder = null;
+      this.prompter.options = null;
+    }
+  }
+
+  componentDidLoad() {
+    addEventListener("keyup", (e: KeyboardEvent) => {
+      if (this.prompter.show)
+        e.keyCode === 13
+          ? this.submit(e)
+          : e.keyCode === 27
+          ? this.cancel(e)
+          : null;
+    });
+  }
+
+  cancel(e: Event) {
+    e.preventDefault();
+
+    this.prompter = {
+      ...this.prompter,
+      show: false,
+    };
+    this.prompter.reject(null);
+  }
+
+  submit(e: Event) {
+    e.preventDefault();
+
+    this.prompter = {
+      ...this.prompter,
+      show: false,
+    };
+    this.prompter.resolve(this.input);
+  }
+
+  update(e) {
+    this.input = e.target.value.toUpperCase();
+  }
+
+  render() {
+    return this.prompter.show ? (
+      <div class="prompt-wrapper">
+        <div class="prompt">
+          {this.prompter.message ? <p>{this.prompter.message}</p> : null}
+
+          {this.prompter.options ? (
+            <div class="select-wrapper">
+              <select onInput={(e) => this.update(e)}>
+                {" "}
+                {this.prompter.options.map((option) => (
+                  <option
+                    value={`${option.code}:${option.issuer}`}
+                    selected={this.input === `${option.code}:${option.issuer}`}
+                  >
+                    {option.code}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : (
+            <input
+              type="text"
+              placeholder={this.prompter.placeholder}
+              value={this.input}
+              onInput={(e) => this.update(e)}
+            ></input>
+          )}
+
+          <div class="actions">
+            <button
+              class="cancel"
+              type="button"
+              onClick={(e) => this.cancel(e)}
+            >
+              Cancel
+            </button>
+            <button
+              class="submit"
+              type="button"
+              onClick={(e) => this.submit(e)}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </div>
+    ) : null;
+  }
+}
+```
 
 One of the first things you’ll notice is the use of `lodash-es`. Let’s make sure we’ve got that imported before moving forward:
 

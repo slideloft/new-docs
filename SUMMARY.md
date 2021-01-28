@@ -20,7 +20,7 @@
   * [Overview](building-apps/index.md)
   * [Project Setup](building-apps/project-setup.md)
   * [Key Management Basics](building-apps/key-management.md)
-  * [basic-wallet](building-apps/basic-wallet.md)
+  * [Create a Basic Wallet](building-apps/basic-wallet.md)
   * [xlm-payments](building-apps/xlm-payments.md)
   * [custom-assets](building-apps/custom-assets.md)
 * [Run a Core Node](run-core-node/README.md)
