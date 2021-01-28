@@ -297,7 +297,7 @@ interface StellarAccount {
 }
 
 @Component({
-  tag: "stellar-wallet",
+  tag: "bantu-wallet",
   styleUrl: "wallet.scss",
   shadow: true,
 })
@@ -343,7 +343,7 @@ import { Prompter } from "@prompt/prompt";
 
 Just one import from a library we should already have installed.
 
-The other relative path imports are all the _events_ and _methods_ we’ll create here in a moment. For now, just generate all those files in their appropriate directories. Ensure your console is at the root of the `stellar-wallet` project before running this string of commands:
+The other relative path imports are all the _events_ and _methods_ we’ll create here in a moment. For now, just generate all those files in their appropriate directories. Ensure your console is at the root of the `bantu-wallet` project before running this string of commands:
 
 ```bash
 mkdir -p src/components/wallet/{events,methods}
@@ -413,7 +413,7 @@ interface StellarAccount {
 
 ```javascript
 @Component({
-  tag: 'stellar-wallet',
+  tag: 'bantu-wallet',
   styleUrl: 'wallet.scss',
   shadow: true
 })
