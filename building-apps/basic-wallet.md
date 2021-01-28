@@ -6,7 +6,7 @@ order: 40
 # Create a Basic Wallet
 
 {% hint style="info" %}
-In this tutorial, the goal is to get to a place where a user can create, store, and access their Stellar account using an intuitive pincode encryption method. 
+In this tutorial, the goal is to get to a place where a user can create, store, and access their Stellar account using an intuitive pincode encryption method.
 {% endhint %}
 
 ## User Flow
@@ -256,73 +256,215 @@ export class Prompt {
 
 One of the first things you’ll notice is the use of `lodash-es`. Let’s make sure we’ve got that imported before moving forward:
 
- \`\`\`bash npm i -D lodash-es \`\`\`
+```bash
+npm i -D lodash-es
+```
 
 There’s a lot going on in this file, but since this isn’t a Stencil tutorial we’ll skip the details. What this allows us to do it to use a `<bantu-prompt prompter={this.prompter} />` component elsewhere in our project. It's worth noting the variables available to us in the `prompter` property.
 
- \`\`\`ts export interface Prompter { show: boolean; message?: string; placeholder?: string; options?: Array; resolve?: Function; reject?: Function; } \`\`\`
+```typescript
+export interface Prompter {
+  show: boolean;
+  message?: string;
+  placeholder?: string;
+  options?: Array<any>;
+  resolve?: Function;
+  reject?: Function;
+}
+```
 
 The values we’ll be making most use of are those first three: `show`, `message` and `placeholder`. The last two—`resolve` and `reject`—are for promisifying the prompt so we can await a response before continuing with further logic. Don't worry: that statement will make more sense in a moment once we include this component in `src/components/wallet/`. Speaking of, let’s swing over to that component now.
 
 We’ve got a lot of work to do in here so I’ll just paste the code in all its glory and we’ll walk through it block by block:
 
- \`\`\`ts import { Component, State } from "@stencil/core"; import componentWillLoad from "./events/componentWillLoad"; import render from "./events/render"; import createAccount from "./methods/createAccount"; import copyAddress from "./methods/copyAddress"; import copySecret from "./methods/copySecret"; import signOut from "./methods/signOut"; import setPrompt from "./methods/setPrompt"; import { Prompter } from "@prompt/prompt"; interface StellarAccount { publicKey: string; keystore: string; } @Component\({ tag: "stellar-wallet", styleUrl: "wallet.scss", shadow: true, }\) export class Wallet { @State\(\) account: StellarAccount; @State\(\) prompter: Prompter = { show: false }; @State\(\) error: any = null; // Component events componentWillLoad\(\) {} render\(\) {} // Stellar methods createAccount = createAccount; copyAddress = copyAddress; copySecret = copySecret; signOut = signOut; // Misc methods setPrompt = setPrompt; } Wallet.prototype.componentWillLoad = componentWillLoad; Wallet.prototype.render = render; \`\`\`
+```typescript
+import { Component, State } from "@stencil/core";
+
+import componentWillLoad from "./events/componentWillLoad";
+import render from "./events/render";
+
+import createAccount from "./methods/createAccount";
+import copyAddress from "./methods/copyAddress";
+import copySecret from "./methods/copySecret";
+import signOut from "./methods/signOut";
+import setPrompt from "./methods/setPrompt";
+
+import { Prompter } from "@prompt/prompt";
+
+interface StellarAccount {
+  publicKey: string;
+  keystore: string;
+}
+
+@Component({
+  tag: "stellar-wallet",
+  styleUrl: "wallet.scss",
+  shadow: true,
+})
+export class Wallet {
+  @State() account: StellarAccount;
+  @State() prompter: Prompter = { show: false };
+  @State() error: any = null;
+
+  // Component events
+  componentWillLoad() {}
+  render() {}
+
+  // Stellar methods
+  createAccount = createAccount;
+  copyAddress = copyAddress;
+  copySecret = copySecret;
+  signOut = signOut;
+
+  // Misc methods
+  setPrompt = setPrompt;
+}
+
+Wallet.prototype.componentWillLoad = componentWillLoad;
+Wallet.prototype.render = render;
+```
 
 They say the beginning is a good place to start. Let’s do that:
 
- \`\`\`js import { Component, State } from "@stencil/core"; import componentWillLoad from "./events/componentWillLoad"; import render from "./events/render"; import createAccount from "./methods/createAccount"; import copyAddress from "./methods/copyAddress"; import copySecret from "./methods/copySecret"; import signOut from "./methods/signOut"; import setPrompt from "./methods/setPrompt"; import { Prompter } from "@prompt/prompt"; \`\`\`
+```javascript
+import { Component, State } from "@stencil/core";
+
+import componentWillLoad from "./events/componentWillLoad";
+import render from "./events/render";
+
+import createAccount from "./methods/createAccount";
+import copyAddress from "./methods/copyAddress";
+import copySecret from "./methods/copySecret";
+import signOut from "./methods/signOut";
+import setPrompt from "./methods/setPrompt";
+
+import { Prompter } from "@prompt/prompt";
+```
 
 Just one import from a library we should already have installed.
 
 The other relative path imports are all the _events_ and _methods_ we’ll create here in a moment. For now, just generate all those files in their appropriate directories. Ensure your console is at the root of the `stellar-wallet` project before running this string of commands:
 
- \`\`\`bash mkdir -p src/components/wallet/{events,methods} touch src/components/wallet/events/{componentWillLoad.ts,render.tsx} touch src/components/wallet/methods/{createAccount,copyAddress,copySecret,signOut,setPrompt}.ts \`\`\`
+```bash
+mkdir -p src/components/wallet/{events,methods}
+touch src/components/wallet/events/{componentWillLoad.ts,render.tsx}
+touch src/components/wallet/methods/{createAccount,copyAddress,copySecret,signOut,setPrompt}.ts
+```
 
 Next we have this funky line which may seem like an npm team import, but is actually a fancy typescript module alias path.
 
- \`\`\`ts import { Prompter } from "@prompt/prompt"; \`\`\`
+```typescript
+import { Prompter } from "@prompt/prompt";
+```
 
 This allows us to avoid long error prone `../../../` paths and just use `@{alias}/{path?}/{module}`. In order to get this past both the linter and compiler we’ll need to modify a couple files.
 
 First, modify the `tsconfig.json` file to include these values in the `compilerOptions` object.
 
- \`\`\`JSON { "compilerOptions": { "baseUrl": "./src", "paths": { "@prompt/\*": \["components/prompt/\*"\], "@services/\*": \["services/\*"\] }, // ... }, // ... } \`\`\`
+```javascript
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@prompt/*": ["components/prompt/*"],
+      "@services/*": ["services/*"]
+    },
+    // ...
+  },
+  // ...
+}
+```
 
 Next,modify the `package.json` file to include a `_moduleAliases` key at the root of the object.
 
- \`\`\`JSON { // ... "\_moduleAliases": { "@prompt": "dist/collection/components/prompt", "@services": "dist/collection/services" } } \`\`\`
+```javascript
+{
+  // ...
+  "_moduleAliases": {
+    "@prompt": "dist/collection/components/prompt",
+    "@services": "dist/collection/services"
+  }
+}
+```
 
 Finally, install the `module-alias` package and add it to the top of the `src/index.ts` file.
 
- \`\`\`bash npm i -D module-alias \`\`\`
+```bash
+npm i -D module-alias
+```
 
- \`\`\`ts import "module-alias/register"; export \* from "./components"; \`\`\`
+```typescript
+import "module-alias/register";
+export * from "./components";
+```
 
 Cool! With any luck we should be able to use these slick alias imports for the prompt and services directories now.
 
 ## Create Stellar Account Class
 
- \`\`\`ts interface StellarAccount { publicKey: string; keystore: string; } \`\`\`
+```typescript
+interface StellarAccount {
+  publicKey: string;
+  keystore: string;
+}
+```
 
 `interface` is just the TypeScript way of setting up a tidy typed class. `StellarAccount` will be our account class. It includes the `publicKey` for easy reference later in Horizon or Astrograph calls and the Top Secret `keystore` key containing the encrypted account secret cipher.
 
- \`\`\`js @Component\({ tag: 'stellar-wallet', styleUrl: 'wallet.scss', shadow: true }\) export class Wallet { @State\(\) account: StellarAccount @State\(\) prompter: Prompter = {show: false} @State\(\) error: any = null ... } \`\`\`
+```javascript
+@Component({
+  tag: 'stellar-wallet',
+  styleUrl: 'wallet.scss',
+  shadow: true
+})
+export class Wallet {
+  @State() account: StellarAccount
+  @State() prompter: Prompter = {show: false}
+  @State() error: any = null
+
+  ...
+}
+```
 
 Pretty standard boring bits, setting up the `@Component` with its defining values and initializing with some `@State` and `@Prop` data. You can see we’re setting up an `account` state with our `StellarAccount` class as well as a `prompter` state with that `Prompter` class from the `bantu-prompt` we imported earlier. We’re initializing that `prompter` state with a `show` value of `false` so the prompt modal rendereth not initially.
 
 Everything after this is the assignment of our imported events and methods from up above. Let’s begin with the `./events/componentWillLoad.ts`
 
- \`\`\`js import { handleError } from "@services/error"; import { get } from "@services/storage"; export default async function componentWillLoad\(\) { try { let keystore = await get\("keyStore"\); this.error = null; if \(keystore\) { keystore = atob\(keystore\); const { publicKey } = JSON.parse\(atob\(JSON.parse\(keystore\).adata\)\); this.account = { publicKey, keystore, }; } } catch \(err\) { this.error = handleError\(err\); } } \`\`\`
+```typescript
+import { handleError } from "@services/error";
+import { get } from "@services/storage";
+
+export default async function componentWillLoad() {
+  try {
+    let keystore = await get("keyStore");
+
+    this.error = null;
+
+    if (keystore) {
+      keystore = atob(keystore);
+
+      const { publicKey } = JSON.parse(atob(JSON.parse(keystore).adata));
+
+      this.account = {
+        publicKey,
+        keystore,
+      };
+    }
+  } catch (err) {
+    this.error = handleError(err);
+  }
+}
+```
 
 `componentWillLoad` is the Stencil way of pre-filling the state and prop values before actually rendering the component. In our case we’ll use this method to populate the `account` `@State` with the saved storage `keyStore` value if there is one. At first there won’t be, so we’ll come back to this once we’ve actually gone over how to create and save accounts. For now just know it’s here, and since you’re smart, I imagine you can already kind of see how it works.
 
 “But wait!” you say, “What are the `@services/error` and `@services/storage` packages?” Fine, yes, we should go over those. Remember the module alias stuff from earlier? Well one was for `@prompt` and the other was for `@services`. Go ahead and create these two files and add them to the `src/services` directory.
 
- \`\`\`bash mkdir -p src/services touch src/services/{error,storage}.ts \`\`\`
+\`\`\`bash mkdir -p src/services touch src/services/{error,storage}.ts \`\`\`
 
 `error.ts` will look like this.
 
- \`\`\`ts import { get as loGet } from "lodash-es"; export function handleError\(err: any\) { return loGet\(err, "response.data", loGet\(err, "message", err\)\); } \`\`\`
+\`\`\`ts import { get as loGet } from "lodash-es"; export function handleError\(err: any\) { return loGet\(err, "response.data", loGet\(err, "message", err\)\); } \`\`\`
 
 Nothing fancy, just a clean little error handler we’ll make use of later when processing API requests.
 
@@ -330,13 +472,13 @@ Nothing fancy, just a clean little error handler we’ll make use of later when 
 
 Next is `storage.ts`.
 
- \`\`\`js import { Plugins } from "@capacitor/core"; const { Storage } = Plugins; export async function set\(key: string, value: any\): Promise { await Storage.set\({ key, value, }\); } export async function get\(key: string\): Promise { const item = await Storage.get\({ key }\); return item.value; } export async function remove\(key: string\): Promise { await Storage.remove\({ key }\); } \`\`\`
+\`\`\`js import { Plugins } from "@capacitor/core"; const { Storage } = Plugins; export async function set\(key: string, value: any\): Promise { await Storage.set\({ key, value, }\); } export async function get\(key: string\): Promise { const item = await Storage.get\({ key }\); return item.value; } export async function remove\(key: string\): Promise { await Storage.remove\({ key }\); } \`\`\`
 
 You’ll notice a new package `@capacitor/core`. Let’s install and set that up.
 
- \`\`\`bash \# Install dependencies npm i -D @capacitor/core @capacitor/cli \# Initialize Capacitor npx cap init \`\`\`
+\`\`\`bash \# Install dependencies npm i -D @capacitor/core @capacitor/cli \# Initialize Capacitor npx cap init \`\`\`
 
- \`\`\`bash ? App name Stellar Wallet ? App Package ID \(in Java package format, no dashes\) com.wallet.stellar ? Which npm client would you like to use? npm ✔ Initializing Capacitor project in /Users/tylervanderhoeven/Desktop/Web/Clients/Stellar/stellar-demo-wallet in 1.91ms 🎉 Your Capacitor project is ready to go! 🎉 Add platforms using "npx cap add": npx cap add android npx cap add ios npx cap add electron Follow the Developer Workflow guide to get building: https://capacitor.ionicframework.com/docs/basics/workflow \`\`\`
+\`\`\`bash ? App name Stellar Wallet ? App Package ID \(in Java package format, no dashes\) com.wallet.stellar ? Which npm client would you like to use? npm ✔ Initializing Capacitor project in /Users/tylervanderhoeven/Desktop/Web/Clients/Stellar/stellar-demo-wallet in 1.91ms 🎉 Your Capacitor project is ready to go! 🎉 Add platforms using "npx cap add": npx cap add android npx cap add ios npx cap add electron Follow the Developer Workflow guide to get building: [https://capacitor.ionicframework.com/docs/basics/workflow](https://capacitor.ionicframework.com/docs/basics/workflow) \`\`\`
 
 We’re not really making full use of [ Capacitor ](https://capacitor.ionicframework.com/), but it is an amazing service so be sure and check it out! For now we just need it to make storing and retrieving our data a bit more stable.
 
@@ -346,15 +488,15 @@ This storage service is simply a key setter and getter helper for storing and re
 
 That’s everything we need for the `componentWillLoad` event. On to the `./events/render.tsx` file.
 
- \`\`\`tsx import { h } from "@stencil/core"; export default function render\(\) { return \[, this.account ? \( \[
+\`\`\`tsx import { h } from "@stencil/core"; export default function render\(\) { return \[, this.account ? \( \[
 
-{this.account.publicKey}  this.copyAddress\(e\)} &gt; Copy Address  this.copySecret\(e\)} &gt; Copy Secret, \] \) : \(  this.createAccount\(e\)}&gt; Create Account \), this.error ? \(
+{this.account.publicKey} this.copyAddress\(e\)} &gt; Copy Address this.copySecret\(e\)} &gt; Copy Secret, \] \) : \( this.createAccount\(e\)}&gt; Create Account \), this.error ? \(
 
 ```text
 {JSON.stringify(this.error, null, 2)}
 ```
 
- \) : null, this.account ? \(  this.signOut\(e\)}&gt; Sign Out \) : null, \]; } \`\`\`
+\) : null, this.account ? \( this.signOut\(e\)}&gt; Sign Out \) : null, \]; } \`\`\`
 
 It looks messy, but it’s actually a pretty simple `.tsx` file rendering out our DOM based off a series of conditional values. You can see we’re including the `bantu-prompt` component, and setting the prompter prop to our `this.prompter` state. We then have a ternary operation toggling between a Create Account button and a basic account UI. If `this.account` has a truthy value, we’ll print out the account’s `publicKey` along with some interaction buttons. If `this.account` is falsey, we’ll print out a singular Create Account button connected to, you guessed it, the `createAccount` method. After that logic, we print out an error if there is one, and finally a Sign Out button if there’s an account to sign out of. Those are the two `Wallet` `@Component` events.
 
@@ -362,11 +504,11 @@ It looks messy, but it’s actually a pretty simple `.tsx` file rendering out ou
 
 Let’s look at the methods now beginning with the `./methods/createAccount.ts` file.
 
- \`\`\`ts import sjcl from "@tinyanvil/sjcl"; import { Keypair } from "stellar-sdk"; import { handleError } from "@services/error"; import { set } from "@services/storage"; export default async function createAccount\(e: Event\) { try { e.preventDefault\(\); const pincode\_1 = await this.setPrompt\("Enter a keystore pincode"\); const pincode\_2 = await this.setPrompt\("Enter keystore pincode again"\); if \(!pincode\_1 \|\| !pincode\_2 \|\| pincode\_1 !== pincode\_2\) throw "Invalid pincode"; this.error = null; const keypair = Keypair.random\(\); this.account = { publicKey: keypair.publicKey\(\), keystore: sjcl.encrypt\(pincode\_1, keypair.secret\(\), { adata: JSON.stringify\({ publicKey: keypair.publicKey\(\), }\), }\), }; await set\("keyStore", btoa\(this.account.keystore\)\); } catch \(err\) { this.error = handleError\(err\); } } \`\`\`
+\`\`\`ts import sjcl from "@tinyanvil/sjcl"; import { Keypair } from "stellar-sdk"; import { handleError } from "@services/error"; import { set } from "@services/storage"; export default async function createAccount\(e: Event\) { try { e.preventDefault\(\); const pincode\_1 = await this.setPrompt\("Enter a keystore pincode"\); const pincode\_2 = await this.setPrompt\("Enter keystore pincode again"\); if \(!pincode\_1 \|\| !pincode\_2 \|\| pincode\_1 !== pincode\_2\) throw "Invalid pincode"; this.error = null; const keypair = Keypair.random\(\); this.account = { publicKey: keypair.publicKey\(\), keystore: sjcl.encrypt\(pincode\_1, keypair.secret\(\), { adata: JSON.stringify\({ publicKey: keypair.publicKey\(\), }\), }\), }; await set\("keyStore", btoa\(this.account.keystore\)\); } catch \(err\) { this.error = handleError\(err\); } } \`\`\`
 
 Aha! Finally something interesting. This method forms the meat of our component. Before we dive into it, though let’s install the missing `@tinyanvil/sjcl` package.
 
- \`\`\`bash npm i -D @tinyanvil/sjcl \`\`\`
+\`\`\`bash npm i -D @tinyanvil/sjcl \`\`\`
 
 ## Create an Account
 
@@ -378,17 +520,17 @@ Now that we’ve created an account, there are three more actions we'll enable: 
 
 First `./methods/copyAddress.ts`
 
- \`\`\`ts import copy from "copy-to-clipboard"; export default async function copyAddress\(e: Event\) { e.preventDefault\(\); copy\(this.account.publicKey\); } \`\`\`
+\`\`\`ts import copy from "copy-to-clipboard"; export default async function copyAddress\(e: Event\) { e.preventDefault\(\); copy\(this.account.publicKey\); } \`\`\`
 
 Well there you go, the easiest code you’ll see all day. Just `copy` the `publicKey` from the `this.account` object to the clipboard. Before we jump though don’t forget to install that `copy-to-clipboard` package.
 
- \`\`\`bash npm i -D copy-to-clipboard \`\`\`
+\`\`\`bash npm i -D copy-to-clipboard \`\`\`
 
 ## Copy Secret
 
 Next `./methods/copySecret.ts`
 
- \`\`\`ts import sjcl from "@tinyanvil/sjcl"; import copy from "copy-to-clipboard"; import { handleError } from "@services/error"; export default async function copySecret\(e: Event\) { try { e.preventDefault\(\); const pincode = await this.setPrompt\("Enter your keystore pincode"\); if \(!pincode\) return; this.error = null; const secret = sjcl.decrypt\(pincode, this.account.keystore\); copy\(secret\); } catch \(err\) { this.error = handleError\(err\); } } \`\`\`
+\`\`\`ts import sjcl from "@tinyanvil/sjcl"; import copy from "copy-to-clipboard"; import { handleError } from "@services/error"; export default async function copySecret\(e: Event\) { try { e.preventDefault\(\); const pincode = await this.setPrompt\("Enter your keystore pincode"\); if \(!pincode\) return; this.error = null; const secret = sjcl.decrypt\(pincode, this.account.keystore\); copy\(secret\); } catch \(err\) { this.error = handleError\(err\); } } \`\`\`
 
 You may not actually include this in your production wallet, but for now it's a simple demonstration of how to programmatically gain access to the secret key at a later date for making payments, creating trustlines, etc. It’s essentially the `createAccount` in reverse: it asks for the pincode to decrypt the keystore which, once decrypted, we `copy` into the clipboard.
 
@@ -396,7 +538,7 @@ You may not actually include this in your production wallet, but for now it's a 
 
 Finally `./methods/signOut.ts`
 
- \`\`\`ts import { remove } from "@services/storage"; import { handleError } from "@services/error"; export default async function signOut\(e: Event\) { try { e.preventDefault\(\); const confirmNuke = await this.setPrompt\( "Are you sure? This will nuke your account", "Enter NUKE to confirm", \); if \(!confirm \|\| !/nuke/gi.test\(confirmNuke\)\) return; this.error = null; await remove\("keyStore"\); location.reload\(\); } catch \(err\) { this.error = handleError\(err\); } } \`\`\`
+\`\`\`ts import { remove } from "@services/storage"; import { handleError } from "@services/error"; export default async function signOut\(e: Event\) { try { e.preventDefault\(\); const confirmNuke = await this.setPrompt\( "Are you sure? This will nuke your account", "Enter NUKE to confirm", \); if \(!confirm \|\| !/nuke/gi.test\(confirmNuke\)\) return; this.error = null; await remove\("keyStore"\); location.reload\(\); } catch \(err\) { this.error = handleError\(err\); } } \`\`\`
 
 It’s important to allow users to nuke their account, but we need to be careful to confirm that action with our faithful `setPrompt`. Once they opt to “NUKE” the account we can remove the `keyStore` and reload the app.
 
@@ -404,7 +546,7 @@ It’s important to allow users to nuke their account, but we need to be careful
 
 Speaking of `setPrompt` the last method in our `wallet.ts` file is `./methods/setPrompt.ts`.
 
- \`\`\`ts export default function setPrompt\( message: string, placeholder?: string, options?: Array, \): Promise { this.prompter = { ...this.prompter, show: true, message, placeholder, options, }; return new Promise\(\(resolve, reject\) =&gt; { this.prompter.resolve = resolve; this.prompter.reject = reject; }\); } \`\`\`
+\`\`\`ts export default function setPrompt\( message: string, placeholder?: string, options?: Array, \): Promise { this.prompter = { ...this.prompter, show: true, message, placeholder, options, }; return new Promise\(\(resolve, reject\) =&gt; { this.prompter.resolve = resolve; this.prompter.reject = reject; }\); } \`\`\`
 
 In `setPrompt`, we see how the prompt state is set, and how the Promise is set up to allow us to wait on the prompt whenever we call this method. It’s actually pretty slick, and it might be worth looking back at the `src/components/prompt/prompt.tsx` to see how the `resolve` and `reject` functions get called. It’s not central to our wallet creation, but it’s a pretty handy little component that will serve us well in the future as we continue to request input from the user.
 
