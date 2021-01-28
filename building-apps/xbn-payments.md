@@ -220,7 +220,7 @@ export default async function componentWillLoad() {
     let keystore = await get("keyStore");
 
     this.error = null;
-    this.server = new Server("https://horizon-testnet.stellar.org");
+    this.server = new Server("https://expansion-testnet.bantu.network/");
 
     if (keystore) {
       keystore = atob(keystore);
@@ -240,7 +240,7 @@ export default async function componentWillLoad() {
 }
 ```
 
-In Stencil’s `componentWillLoad` method, we set up default values for the States and Props we initialized earlier. Most notably, we’re setting our server and account. You’ll notice we’re using the public `horizon-testnet` for now — we're just learning, and not ready to send live XBN — but in production you’d want to change this to the public `horizon` endpoint or, if you're running your own Horizon, to one of your own Horizon API endpoints.
+In Stencil’s `componentWillLoad` method, we set up default values for the States and Props we initialized earlier. Most notably, we’re setting our server and account. You’ll notice we’re using the public `Expansion-testnet` for now — we're just learning, and not ready to send live XBN — but in production you’d want to change this to the public `Expansion` endpoint or, if you're running your own Expansion, to one of your own Expansion API endpoints.
 
 For the account we’re simply checking to see if a `keyStore` value has been stored, and if so we’re grabbing the public key and keystore from it and adding those to the account `@State`. The `state` value, which is optional, is not set here as we’ll need to run the method `updateAccount()` to find if the account exists, and if so what the state of that account looks like. We’ll get to that method shortly. For now let’s update our `render.tsx` method:
 
@@ -599,7 +599,7 @@ Next we unpack the keystore with the pincode, reset any existing errors, and tri
     return this.server.submitTransaction(transaction)
 ```
 
-From there we call the keypair account to retrieve its current sequence number so we can prepare a transaction with a payment operation. We set the destination and amount using the instructions from the prompt we collected and split earlier. Finally, we build, sign, and submit that transaction to the Stellar Horizon API server.
+From there we call the keypair account to retrieve its current sequence number so we can prepare a transaction with a payment operation. We set the destination and amount using the instructions from the prompt we collected and split earlier. Finally, we build, sign, and submit that transaction to the Stellar Expansion API server.
 
 ```typescript
   .catch((err) => {
