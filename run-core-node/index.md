@@ -38,7 +38,7 @@ To make things easier, we’ll define four types of nodes based on permutations 
 | :--- | :--- | :--- | :--- | :--- |
 | **Watcher** |               ✅ |           ✅ |  |  |
 | **Basic Validator** |               ✅ |           ✅ |               ✅ |  |
-| **Full Validator** |               ✅ |           ✅ |               ✅: |             ✅ |
+| **Full Validator** |               ✅ |           ✅ |               ✅ |             ✅ |
 | **Archiver** |               ✅ |           ✅ |  |             ✅ |
 
 So why choose one type over another? Let’s break it down a bit and take a look at what each type is good for.
