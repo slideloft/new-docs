@@ -92,7 +92,14 @@ Multisig allows you to do all of this without exposing the master key of your an
 
 Your account setup:
 
-\`\`\` Master Key Weight: 2 Additional Signing Key Weight: 1 Low Threshold: 0 Medium Threshold: 2 High Threshold: 2 \`\`\`
+```text
+  Master Key Weight: 2
+  Additional Signing Key Weight: 1
+  Low Threshold: 0
+  Medium Threshold: 2
+  High Threshold: 2
+
+```
 
 ### Example 2: Joint Accounts
 
@@ -100,7 +107,15 @@ Your account setup:
 
 Joint account setup:
 
-\`\`\` Master Key Weight: 1 Low Threshold: 0 Medium Threshold: 0 High Threshold: 3 Bilal's Signing Key Weight: 1 Carina's Signing Key Weight: 1 \`\`\`
+```text
+  Master Key Weight: 1
+  Low Threshold: 0
+  Medium Threshold: 0
+  High Threshold: 3
+  Bilal's Signing Key Weight: 1
+  Carina's Signing Key Weight: 1
+
+```
 
 ### Example 3: Expense Accounts
 
@@ -108,7 +123,15 @@ Joint account setup:
 
 Expense account setup:
 
-\`\`\` Master Key Weight: 3 Low Threshold: 0 Medium Threshold: 0 High Threshold: 3 Diyuan's Key Weight: 1 Emil's Key Weight: 1 \`\`\`
+```text
+  Master Key Weight: 3
+  Low Threshold: 0
+  Medium Threshold: 0
+  High Threshold: 3
+  Diyuan's Key Weight: 1
+  Emil's Key Weight: 1
+
+```
 
 The next example involves setting the master key weight of an account to 0. Be very, very careful if you decide to do that: that key will no longer be able to sign any kind of transaction, so you are in danger of \_permanently\_ locking yourself out of your account. Make sure you've thought carefully about what you're doing, that you understand the implications, and that you change weights in the correct order.
 
@@ -118,5 +141,17 @@ The next example involves setting the master key weight of an account to 0. Be v
 
 Company account setup:
 
-\`\`\` Master Key Weight: 0 \(Turned off so this account can't do anything without an employee.\) Low Threshold: 3 Medium Threshold: 3 High Threshold: 3 Employee 1 Key Weight: 1 Employee 2 Key Weight: 1 Employee 3 Key Weight: 1 Employee 4 Key Weight: 1 Employee 5 Key Weight: 1 Employee 6 Key Weight: 1 \`\`\`
+```text
+  Master Key Weight: 0 (Turned off so this account can't do anything without an employee.)
+  Low Threshold: 3
+  Medium Threshold: 3
+  High Threshold: 3
+  Employee 1 Key Weight: 1
+  Employee 2 Key Weight: 1
+  Employee 3 Key Weight: 1
+  Employee 4 Key Weight: 1
+  Employee 5 Key Weight: 1
+  Employee 6 Key Weight: 1
+
+```
 
