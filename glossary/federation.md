@@ -11,10 +11,10 @@ The [Bantu federation protocol](https://github.com/Bantu/Bantu-protocol/blob/mas
 
 Bantu federated addresses are divided into two parts separated by `*`: the username and the domain.
 
-For example: `jed*Bantu.org`:
+For example: `flarcos*Bantu.network`:
 
-* `jed` is the username,
-* `Bantu.org` is the domain.
+* `flarcos` is the username,
+* `Bantu.network` is the domain.
 
 The domain can be any valid RFC 1035 domain name. The username is limited to printable UTF-8 with whitespace and the following characters excluded: &lt;\*,&gt;.
 
@@ -44,7 +44,7 @@ Federation requests are http `GET` requests with the following form:
 
 Supported types:
 
-* **name**: Example: `https://YOUR_FEDERATION_SERVER/federation?q=jed*Bantu.org&type=name`
+* **name**: Example: `https://YOUR_FEDERATION_SERVER/federation?q=flarcos*Bantu.org&type=name`
 * **forward**: Used for forwarding the payment on to a different network or different financial institution. The other parameters of the query will vary depending on what kind of institution is the ultimate destination of the payment and what you as the forwarding anchor supports. Your [Bantu.toml](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0001.md) file should specify what parameters you expect in a `forward` federation request. If you are unable to forward or the other parameters in the request are incorrect you should return an error to this effect. Example request: `https://YOUR_FEDERATION_SERVER/federation?type=forward&forward_type=bank_account&swift=BOPBPHMM&acct=2382376`
 * **id**: _not supported by all federation servers_ Reverse federation will return the federation record of the Bantu address associated with the given account ID. In some cases this is ambiguous. For instance if an anchor sends transactions on behalf of its users the account id will be of the anchor and the federation server won't be able to resolve the particular user that sent the transaction. In cases like that you may need to use **txid** instead. Example: `https://YOUR_FEDERATION_SERVER/federation?q=GD6WU64OEP5C4LRBH6NK3MHYIA2ADN6K6II6EXPNVUR3ERBXT4AN4ACD&type=id`
 * **txid**: _not supported by all federation servers_ Will return the federation record of the sender of the transaction if known by the server. Example: `https://YOUR_FEDERATION_SERVER/federation?q=c1b368c00e9852351361e07cc58c54277e7a6366580044ab152b8db9cd8ec52a&type=txid`
