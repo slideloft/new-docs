@@ -67,7 +67,7 @@ Each account has a balance for each token the account holds, including XBN.
 
 Each account also tracks its liabilities. Buying liabilities equal the total amount of an asset offered to buy aggregated over all offers owned by this account, and selling liabilities equal the total amount of an asset offered to sell aggregated over all offers owned by this account.
 
-An account must always have a balance sufficiently above the minimum reserve to satisfy its lumen selling liabilities, and a balance sufficiently below the maximum to accommodate its lumen buying liabilities.
+An account must always have a balance sufficiently above the minimum reserve to satisfy its XBN selling liabilities, and a balance sufficiently below the maximum to accommodate its XBN buying liabilities.
 
 ### Signers
 
