@@ -26,7 +26,7 @@ To support Buds, first create a Bantu.toml file, and publish it at `https://YOUR
 
 In general, you will want to include any and all information about your Bantu integration in your Bantu.toml. To support Buds specifically, you need to add a `Buds_SERVER` section to your Bantu.toml file that tells other people the URL of your Buds endpoint.
 
-For example: `Buds_SERVER="https://api.yourdomain.com/Buds"`
+For example: `Buds_SERVER="https://api.yourdomain.com/buds"`
 
 Please note that your Buds server **must** use `https` protocol.
 
