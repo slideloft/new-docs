@@ -13,23 +13,23 @@ INFO[0000] Starting Expansion on :8000           pid=29013
 
 The log line above announces that Expansion is ready to serve client requests. Note: the numbers shown above may be different for your installation. Next you can confirm that Expansion is responding correctly by loading the root resource. In the example above, that URL would be [http://127.0.0.1:8000/](http://127.0.0.1:8000/), and simply running `curl http://127.0.0.1:8000/` shows you that the root resource can be loaded correctly.
 
-If you didn't set up a Stellar Core node yet, you may see an error like this:
+If you didn't set up a Bantu Core node yet, you may see an error like this:
 
 ```text
 ERRO[2019-05-06T16:21:14.126+08:00] Error getting core latest ledger err="get failed: pq: relation \"ledgerheaders\" does not exist"
 ```
 
-Expansion requires a functional Stellar Core node. Go back and set up Stellar Core as described in the [Run a Core Node guide](../run-core-node/index.md). In particular, you need to initialise the database as [described here](../run-core-node/configuring.md#buckets).
+Expansion requires a functional Bantu Core node. Go back and set up Bantu Core as described in the [Run a Core Node guide](../run-core-node/index.md). In particular, you need to initialise the database as [described here](../run-core-node/configuring.md#buckets).
 
-## Ingesting Live Stellar Core Data
+## Ingesting Live Bantu Core Data
 
-Expansion provides most of its utility through ingested data. Your Expansion server can be configured to listen for and ingest transaction results from the connected Stellar Core instance.
+Expansion provides most of its utility through ingested data. Your Expansion server can be configured to listen for and ingest transaction results from the connected Bantu Core instance.
 
 To enable ingestion, you must either pass `--ingest=true` on the command line or set the `INGEST` environment variable to "true". As of Expansion 1.0.0, you can start multiple ingesting machines in your cluster.
 
 ### Ingesting Historical Data
 
-To enable ingestion of historical data from Stellar Core, you need to run `Expansion db reingest range start end`. If you're running a [full validator](../run-core-node/index.md#full-validator) with published history archive, for example, you might want to ingest all of the network's history. You can run this process in the background while your Expansion server is up. This continuously decrements the `history.elder_ledger` in your /metrics endpoint until `NUM_LEDGERS` is reached and the backfill is complete.
+To enable ingestion of historical data from Bantu Core, you need to run `Expansion db reingest range start end`. If you're running a [full validator](../run-core-node/index.md#full-validator) with published history archive, for example, you might want to ingest all of the network's history. You can run this process in the background while your Expansion server is up. This continuously decrements the `history.elder_ledger` in your /metrics endpoint until `NUM_LEDGERS` is reached and the backfill is complete.
 
 ### Ingesting Historical Data and Reingesting Ledgers
 
@@ -47,26 +47,26 @@ This allows reingestion to be split up and done in parallel by multiple Expansio
 
 ### Managing Storage for Historical Data
 
-Over time, the recorded network history will grow unbounded, increasing storage used by the database. Expansion needs sufficient disk space to expand the data ingested from Stellar Core. Unless you need to maintain a [history archive](../run-core-node/publishing-history-archives.md), you may configure Expansion to only retain a certain number of ledgers in the database. This is done using the `--history-retention-count` flag or the `HISTORY_RETENTION_COUNT` environment variable. Set the value to the number of recent ledgers you wish to keep around, and every hour the Expansion subsystem will reap expired data. Alternatively, you may execute the command `Expansion db reap` to force a collection.
+Over time, the recorded network history will grow unbounded, increasing storage used by the database. Expansion needs sufficient disk space to expand the data ingested from Bantu Core. Unless you need to maintain a [history archive](../run-core-node/publishing-history-archives.md), you may configure Expansion to only retain a certain number of ledgers in the database. This is done using the `--history-retention-count` flag or the `HISTORY_RETENTION_COUNT` environment variable. Set the value to the number of recent ledgers you wish to keep around, and every hour the Expansion subsystem will reap expired data. Alternatively, you may execute the command `Expansion db reap` to force a collection.
 
-### Surviving Stellar Core Downtime
+### Surviving Bantu Core Downtime
 
-Expansion tries to maintain a gap-free window into the history of the Stellar network. This reduces the number of edge cases that Expansion-dependent software must deal with in an attempt to make the integration process simpler. To maintain a gap-free history, Expansion needs access to all of the metadata produced by Stellar Core in the process of closing a ledger, and there are instances when this metadata can be lost. Usually, this loss of metadata occurs because the Stellar Core node went offline and performed a catchup operation when restarted.
+Expansion tries to maintain a gap-free window into the history of the Bantu network. This reduces the number of edge cases that Expansion-dependent software must deal with in an attempt to make the integration process simpler. To maintain a gap-free history, Expansion needs access to all of the metadata produced by Bantu Core in the process of closing a ledger, and there are instances when this metadata can be lost. Usually, this loss of metadata occurs because the Bantu Core node went offline and performed a catchup operation when restarted.
 
-To ensure that the metadata required by Expansion is maintained, you have several options: You may either set the `CATCHUP_COMPLETE` Stellar Core configuration option to `true` or configure `CATCHUP_RECENT` to determine the amount of time your Stellar Core can be offline without having to rebuild your Expansion database.
+To ensure that the metadata required by Expansion is maintained, you have several options: You may either set the `CATCHUP_COMPLETE` Bantu Core configuration option to `true` or configure `CATCHUP_RECENT` to determine the amount of time your Bantu Core can be offline without having to rebuild your Expansion database.
 
-Unless your node is a [Full Validator which publishes an archive](../run-core-node/index.md#full-validator) we _do not_ recommend using the `CATCHUP_COMPLETE` method, as this will force Stellar Core to apply every transaction from the beginning of the ledger, which will take an ever increasing amount of time. Instead, we recommend you set the `CATCHUP_RECENT` config value. To do this, determine how long of a downtime you would like to survive \(expressed in seconds\) and divide by ten. This roughly equates to the number of ledgers that occur within your desired grace period since ledgers roughly close at a rate of one every ten seconds. With this value set, Stellar Core will replay transactions for ledgers that are recent enough, ensuring that the metadata needed by Expansion is present.
+Unless your node is a [Full Validator which publishes an archive](../run-core-node/index.md#full-validator) we _do not_ recommend using the `CATCHUP_COMPLETE` method, as this will force Bantu Core to apply every transaction from the beginning of the ledger, which will take an ever increasing amount of time. Instead, we recommend you set the `CATCHUP_RECENT` config value. To do this, determine how long of a downtime you would like to survive \(expressed in seconds\) and divide by ten. This roughly equates to the number of ledgers that occur within your desired grace period since ledgers roughly close at a rate of one every ten seconds. With this value set, Bantu Core will replay transactions for ledgers that are recent enough, ensuring that the metadata needed by Expansion is present.
 
 ### Correcting Gaps in Historical Data
 
-In the section above, we mentioned that Expansion _tries_ to maintain a gap-free window. Unfortunately, it cannot directly control the state of stellar-core and [so gaps may form](https://www.stellar.org/developers/software/known-issues.html#gaps-detected) due to extended down time. When a gap is encountered, Expansion will stop ingesting historical data and complain loudly in the log with error messages \(log lines will include "ledger gap detected"\). To resolve this situation, you must re-establish the expected state of the Stellar Core database and purge historical data from Expansion's database. We leave the details of this process up to the reader as it is dependent upon your operating needs and configuration, but we offer one potential solution:
+In the section above, we mentioned that Expansion _tries_ to maintain a gap-free window. Unfortunately, it cannot directly control the state of Bantu-core and [so gaps may form](https://www.Bantu.org/developers/software/known-issues.html#gaps-detected) due to extended down time. When a gap is encountered, Expansion will stop ingesting historical data and complain loudly in the log with error messages \(log lines will include "ledger gap detected"\). To resolve this situation, you must re-establish the expected state of the Bantu Core database and purge historical data from Expansion's database. We leave the details of this process up to the reader as it is dependent upon your operating needs and configuration, but we offer one potential solution:
 
-We recommend you configure the HISTORY\_RETENTION\_COUNT in Expansion to a value less than or equal to the configured value for CATCHUP\_RECENT in Stellar Core. Given this situation, any downtime that would cause a ledger gap will require a downtime greater than the amount of historical data retained by Expansion. To re-establish continuity:
+We recommend you configure the HISTORY\_RETENTION\_COUNT in Expansion to a value less than or equal to the configured value for CATCHUP\_RECENT in Bantu Core. Given this situation, any downtime that would cause a ledger gap will require a downtime greater than the amount of historical data retained by Expansion. To re-establish continuity:
 
 1. Stop Expansion.
 2. Run `Expansion db reap` to clear the historical database.
-3. Clear the cursor for Expansion by running `stellar-core -c "dropcursor?id=Expansion"` \(ensure capitilization is maintained\).
-4. Clear ledger metadata from before the gap by running `stellar-core -c "maintenance?queue=true"`.
+3. Clear the cursor for Expansion by running `Bantu-core -c "dropcursor?id=Expansion"` \(ensure capitilization is maintained\).
+4. Clear ledger metadata from before the gap by running `Bantu-core -c "maintenance?queue=true"`.
 5. Restart Expansion.
 
 ### Some endpoints are not available during state ingestion
@@ -82,7 +82,7 @@ It's possible that the progress logs \(see below\) will not show anything new fo
 If you see that ingestion is not proceeding for a very long period of time:
 
 1. Check the RAM usage on the machine. It's possible that system ran out of RAM and it using swap memory that is extremely slow.
-2. If above is not the case, file a new issue in [the Expansion repository](https://github.com/stellar/go/tree/master/services/Expansion).
+2. If above is not the case, file a new issue in [the Expansion repository](https://github.com/Bantu/go/tree/master/services/Expansion).
 
 ### CPU usage goes high every few minutes
 
@@ -142,7 +142,7 @@ INFO[2019-08-29T13:40:00.972+02:00] Finished processing ledger                  
 
 ## Managing Stale Historical Data
 
-Expansion ingests ledger data from a connected instance of Stellar Core. In the event that Stellar Core stops running \(or if Expansion stops ingesting data for any other reason\), the view provided by Expansion will start to lag behind reality. For simpler applications, this may be fine, but in many cases this lag is unacceptable and the application should not continue operating until the lag is resolved.
+Expansion ingests ledger data from a connected instance of Bantu Core. In the event that Bantu Core stops running \(or if Expansion stops ingesting data for any other reason\), the view provided by Expansion will start to lag behind reality. For simpler applications, this may be fine, but in many cases this lag is unacceptable and the application should not continue operating until the lag is resolved.
 
-To help applications that cannot tolerate lag, Expansion provides a configurable "staleness" threshold. Given that enough lag has accumulated to surpass this threshold \(expressed in number of ledgers\), Expansion will only respond with an error: [`stale_history`](https://github.com/stellar/go/blob/master/services/Expansion/internal/docs/reference/errors/stale-history.md). To configure this option, use either the `--history-stale-threshold` command line flag or the `HISTORY_STALE_THRESHOLD` environment variable. NOTE: non-historical requests \(such as submitting transactions or finding payment paths\) will not error out when the staleness threshold is surpassed.
+To help applications that cannot tolerate lag, Expansion provides a configurable "staleness" threshold. Given that enough lag has accumulated to surpass this threshold \(expressed in number of ledgers\), Expansion will only respond with an error: [`stale_history`](https://github.com/Bantu/go/blob/master/services/Expansion/internal/docs/reference/errors/stale-history.md). To configure this option, use either the `--history-stale-threshold` command line flag or the `HISTORY_STALE_THRESHOLD` environment variable. NOTE: non-historical requests \(such as submitting transactions or finding payment paths\) will not error out when the staleness threshold is surpassed.
 
