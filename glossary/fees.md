@@ -5,9 +5,11 @@ order: null
 
 # Fees
 
-import { CodeExample } from "components/CodeExample"; import { Alert } from "components/Alert";
 
- This doc explains transaction fees. Stellar also requires accounts to have a minimum balance, which you can read about in the \[Minimum Balance\]\(./minimum-balance.mdx\) doc.
+
+{% hint style="info" %}
+This doc explains transaction fees. Stellar also requires accounts to have a minimum balance, which you can read about in the [Minimum Balance](minimum-balance.md) doc.
+{% endhint %}
 
 To prevent ledger spam and maintain the efficiency of the network, Stellar requires small transaction fees and minimum balances on accounts. Transaction fees are also used to prioritize transactions when the network enters surge pricing mode.
 
