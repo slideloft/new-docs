@@ -5,11 +5,11 @@ order: 40
 
 # configuring
 
-import { CodeExample } from "components/CodeExample";
+Bantuimport { CodeExample } from "components/CodeExample";
 
-After you've [installed](installation.md) Stellar Core, your next step is to complete a configuration file that specifies crucial things about your node — like whether it connects to the testnet or the public network, what database it writes to, and which other nodes are in its [quorum set](configuring.md#choosing-your-quorum-set). You do that using a [TOML](https://github.com/toml-lang/toml), and by default Stellar Core loads that file from `./stellar-core.cfg`. You can specify a different file to load using the command line:
+After you've [installed](installation.md) Bantu Core, your next step is to complete a configuration file that specifies crucial things about your node — like whether it connects to the testnet or the public network, what database it writes to, and which other nodes are in its [quorum set](configuring.md#choosing-your-quorum-set). You do that using a [TOML](https://github.com/toml-lang/toml), and by default Bantu Core loads that file from `./bantu-core.cfg`. You can specify a different file to load using the command line:
 
-`$ stellar-core --conf betterfile.cfg <COMMAND>`
+`$ bantu-core --conf betterfile.cfg <COMMAND>`
 
 This section of the docs will walk you through the key fields you'll need to include in your config file to get your node up and runninig.
 
@@ -24,21 +24,21 @@ This doc works best in conjunction with concrete config examples, so as you read
 
 ## Database
 
-Stellar Core stores two copies of the ledger: one in a SQL database and one in XDR files on local disk called [buckets](configuring.md#buckets). The database is consulted during consensus, and modified atomically when a transaction set is applied to the ledger. It's random access, fine-grained, and fast.
+Bantu Core stores two copies of the ledger: one in a SQL database and one in XDR files on local disk called [buckets](configuring.md#buckets). The database is consulted during consensus, and modified atomically when a transaction set is applied to the ledger. It's random access, fine-grained, and fast.
 
-While a SQLite database works with Stellar Core, we generally recommend using a separate PostgreSQL server. Horizon, for instance, requires PostgreSQL. A Postgres database is the bread and butter of Stellar Core.
+While a SQLite database works with Bantu Core, we generally recommend using a separate PostgreSQL server. Horizon, for instance, requires PostgreSQL. A Postgres database is the bread and butter of Bantu Core.
 
 You specify your node's database in the aptly named `DATABASE` field of your config file, which you can can read more about in the [complete example config](https://github.com/stellar/stellar-core/blob/master/docs/stellar-core_example.cfg#L23). It defaults to an in-memory database, but you can specify a path as per the example config.
 
 ## Buckets
 
-Stellar-core also stores a duplicate copy of the ledger in the form of flat XDR files called "buckets." These files are placed in a directory specified in the config file as `BUCKET_DIR_PATH`, which defaults to `buckets`. The bucket files are used for hashing and transmission of ledger differences to history archives.
+Bantu-core also stores a duplicate copy of the ledger in the form of flat XDR files called "buckets." These files are placed in a directory specified in the config file as `BUCKET_DIR_PATH`, which defaults to `buckets`. The bucket files are used for hashing and transmission of ledger differences to history archives.
 
 Buckets should be stored on a fast local disk with sufficient space to store several times the size of the current ledger.
 
-For the most part, the contents of both the database and buckets directories can be ignored as they are managed by Stellar Core. However, when running Stellar Core for the first time, you must initialize both with the following command:
+For the most part, the contents of both the database and buckets directories can be ignored as they are managed by Bantu Core. However, when running Bantu Core for the first time, you must initialize both with the following command:
 
-`$ stellar-core new-db`
+`$ bantu-core new-db`
 
 This command initializes the database and bucket directories, and then exits. You can also use this command if your DB gets corrupted and you want to restart it from scratch.
 
@@ -47,21 +47,21 @@ This command initializes the database and bucket directories, and then exits. Yo
 Use the `NETWORK_PASSPHRASE` field to specify whether your node connects to the [testnet](../glossary/testnet.md) or the public network. Your choices:
 
 * `NETWORK_PASSPHRASE="Test SDF Network ; September 2015"`
-* `NETWORK_PASSPHRASE="Public Global Stellar Network ; September 2015"`
+* `NETWORK_PASSPHRASE="Public Global` Bantu `Network ; September 2015"`
 
 For more about the Network Passphrase and how it works, check out the [glossary entry](../glossary/network-passphrase.md).
 
 ## Validating
 
-By default, Stellar Core isn't set up to validate. If you want your node to be a [Basic Validator](index.md#basic-validator) or a [Full Validator](index.md#full-validator), you need to configure it to do so, which means preparing it to take part in [SCP](../glossary/scp.md) and sign messages pledging that the network agrees to a particular transaction set.
+By default, Bantu Core isn't set up to validate. If you want your node to be a [Basic Validator](index.md#basic-validator) or a [Full Validator](index.md#full-validator), you need to configure it to do so, which means preparing it to take part in [SCP](../glossary/scp.md) and sign messages pledging that the network agrees to a particular transaction set.
 
 Configuring a node to participate in SCP and sign messages is a three step process:
 
-* Create a keypair `stellar-core gen-seed`
+* Create a keypair `bantu-core gen-seed`
 * Add `NODE_SEED="SD7DN..."` to your configuration file, where `SD7DN...` is the secret key from the keypair
 * Add `NODE_IS_VALIDATOR=true` to your configuration file
 
-If you want other validators to add your node to their quorum sets, you should also share your public key \(GDMTUTQ... \) by publishing a stellar.toml file on your homedomain following specs laid out in [SEP-20](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0020.md).
+If you want other validators to add your node to their quorum sets, you should also share your public key \(GDMTUTQ... \) by publishing a bantu.toml file on your homedomain following specs laid out in [SEP-20](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0020.md).
 
 It's essential to store and safeguard your node's secret key: if someone else has access to it, they can send messages to the network and they will appear to originate from your node. Each node you run should have its own secret key.
 
@@ -69,7 +69,7 @@ If you run more than one node, set the `HOME_DOMAIN` common to those nodes using
 
 ## Choosing Your Quorum Set
 
-No matter what kind of node you run — Watcher, Basic Validator, Full Validator, or Archiver — you need to select a quorum set, which consists of validators \(grouped by organization\) that your node checks with to determine whether to apply a transaction set to a ledger. If you want to know more about how qorum sets work, check this article about [how Stellar approaches quorums](https://www.stellar.org/developers-blog/why-quorums-matter-and-how-stellar-approaches-them). If you want to see what a quorum set consisting of all the Tier 1 validators looks like — at tried and true setup — check out the [public network config for a Full Validator](https://github.com/stellar/packages/blob/master/docs/examples/pubnet-validator-full/stellar-core.cfg)
+No matter what kind of node you run — Watcher, Basic Validator, Full Validator, or Archiver — you need to select a quorum set, which consists of validators \(grouped by organization\) that your node checks with to determine whether to apply a transaction set to a ledger. If you want to know more about how qorum sets work, check this article about [how Bantu approaches quorums](https://www.stellar.org/developers-blog/why-quorums-matter-and-how-stellar-approaches-them). If you want to see what a quorum set consisting of all the Tier 1 validators looks like — at tried and true setup — check out the [public network config for a Full Validator](https://github.com/stellar/packages/blob/master/docs/examples/pubnet-validator-full/stellar-core.cfg)
 
 A good quorum set:
 
@@ -77,9 +77,9 @@ A good quorum set:
 * has enough redundancy to handle arbitrary node failures
 * maintains good quorum intersection
 
-Since crafting a good quorum set is a difficult thing to do, stellar core _automatically_ generates a quorum set for you based on structured information you provide in your config file. You choose the validators you want to trust; stellar core configures them into an optimal quorum set.
+Since crafting a good quorum set is a difficult thing to do, bantu core _automatically_ generates a quorum set for you based on structured information you provide in your config file. You choose the validators you want to trust; bantu core configures them into an optimal quorum set.
 
-To generate a quorum set, stellar core:
+To generate a quorum set, bantu core:
 
 * Groups validators run by the same organization into a subquorum
 * Sets the threshold for each of those subquorums
@@ -89,11 +89,11 @@ While this does not absolve you of all responsibility — you still need to pick
 
 ### Validator discovery
 
-When you add a validating node to your quorum set, it’s generally because you trust the _organization_ running the node: you trust SDF, not some anonymous Stellar public key.
+When you add a validating node to your quorum set, it’s generally because you trust the _organization_ running the node: you trust SDF, not some anonymous Bantu public key.
 
-In order to create a self-verified link between a node and the organization that runs it, a validator declares a home domain on-chain using a `set_options` operation, and publishes organizational information in a stellar.toml file hosted on that domain. To find out how that works, take a look at [SEP-20](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0020.md).
+In order to create a self-verified link between a node and the organization that runs it, a validator declares a home domain on-chain using a `set_options` operation, and publishes organizational information in a bantu.toml file hosted on that domain. To find out how that works, take a look at [SEP-20](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0020.md).
 
-As a result of that link, you can look up a node by its Stellar public key and check the stellar.toml to find out who runs it. It’s possible to do that manually, but you can also just consult the list of nodes on [Stellarbeat.io](https://stellarbeat.io/nodes). If you decide to trust an organization, you can use that list to collect the information necessary to add their nodes to your configuration.
+As a result of that link, you can look up a node by its Bantu public key and check the bantu.toml to find out who runs it. It’s possible to do that manually, but you can also just consult the list of nodes on [Stellarbeat.io](https://stellarbeat.io/nodes). If you decide to trust an organization, you can use that list to collect the information necessary to add their nodes to your configuration.
 
 When you look at that list, you will discover that the most reliable organizations actually run more than one validator, and adding all of an organization’s nodes to your quorum set creates the redundancy necessary to sustain arbitrary node failure. When an organization with a trio of nodes takes one down for maintenance, for instance, the remaining two vote on the organization’s behalf, and the organization’s network presence persists.
 
@@ -101,7 +101,7 @@ One important thing to note: you need to either depend on exactly one entity OR 
 
 ### Home domains array
 
-To create your quorum set, Stellar Core relies on two arrays of tables: `[[HOME_DOMAINS]]` and `[[VALIDATORS]]`. Check out the [example config](https://github.com/stellar/stellar-core/blob/master/docs/stellar-core_example.cfg#L372) to see those arrays in action.
+To create your quorum set, Bantu Core relies on two arrays of tables: `[[HOME_DOMAINS]]` and `[[VALIDATORS]]`. Check out the [example config](https://github.com/stellar/stellar-core/blob/master/docs/stellar-core_example.cfg#L372) to see those arrays in action.
 
 `[[HOME_DOMAINS]]` defines a superset of validators: when you add nodes hosted by the same organization to your configuration, they share a home domain, and the information in the `[[HOME_DOMAINS]]` table, specifically the quality rating, will automatically apply to every one of those validators.
 
@@ -114,7 +114,14 @@ For each organization you want to add, create a separate `[[HOME_DOMAINS]]` tabl
 
 Here’s an example:
 
- \`\`\` \[\[HOME\_DOMAINS\]\] HOME\_DOMAIN="testnet.stellar.org" QUALITY="HIGH" \[\[HOME\_DOMAINS\]\] HOME\_DOMAIN="some-other-domain" QUALITY="LOW" \`\`\`
+```bash
+[[HOME_DOMAINS]] 
+    HOME_DOMAIN="testnet.bantu.org" 
+    QUALITY="HIGH" 
+[[HOME_DOMAINS]] 
+    HOME_DOMAIN="some-other-domain" 
+    QUALITY="LOW
+```
 
 ### Validators array
 
@@ -125,7 +132,7 @@ For each node you would like to add to your quorum set, complete a `[[VALIDATORS
 | NAME | string | A unique alias for the node |
 | QUALITY | string | Rating for node \(required unless specified in `[[HOME_DOMAINS]]`\): `HIGH`, `MEDIUM`, or `LOW`. |
 | HOME\_DOMAIN | string | URL of home domain linked to validator |
-| PUBLIC\_KEY | string | Stellar public key associated with validator |
+| PUBLIC\_KEY | string | Bantu public key associated with validator |
 | ADDRESS | string | Peer:port associated with validator \(optional\) |
 | HISTORY | string | archive GET command associated with validator \(optional\) |
 
@@ -133,7 +140,28 @@ If the node's `HOME_DOMAIN` aligns with an organization defined in the `[[HOME_D
 
 Here’s an example:
 
- \`\`\` \[\[VALIDATORS\]\] NAME="sdftest1" HOME\_DOMAIN="testnet.stellar.org" PUBLIC\_KEY="GDKXE2OZMJIPOSLNA6N6F2BVCI3O777I2OOC4BV7VOYUEHYX7RTRYA7Y" ADDRESS="core-testnet1.stellar.org" HISTORY="curl -sf http://history.stellar.org/prd/core-testnet/core\_testnet\_001/{0} -o {1}" \[\[VALIDATORS\]\] NAME="sdftest2" HOME\_DOMAIN="testnet.stellar.org" PUBLIC\_KEY="GCUCJTIYXSOXKBSNFGNFWW5MUQ54HKRPGJUTQFJ5RQXZXNOLNXYDHRAP" ADDRESS="core-testnet2.stellar.org" HISTORY="curl -sf http://history.stellar.org/prd/core-testnet/core\_testnet\_002/{0} -o {1}" \[\[VALIDATORS\]\] NAME="rando-node" QUALITY="LOW" HOME\_DOMAIN="rando.com" PUBLIC\_KEY="GC2V2EFSXN6SQTWVYA5EPJPBWWIMSD2XQNKUOHGEKB535AQE2I6IXV2Z" ADDRESS="core.rando.com" \`\`\`
+```bash
+[[VALIDATORS]]
+    NAME="sdftest1" 
+    HOME_DOMAIN="testnet.bantu.org" 
+    PUBLIC_KEY="GDKXE2OZMJIPOSLNA6N6F2BVCI3O777I2OOC4BV7VOYUEHYX7RTRYA7Y" 
+    ADDRESS="core-testnet1.bantublockchain.org" 
+    HISTORY="curl -sf http://history.bantublockchain.org/prd/core-testnet/core_testnet_001/{0} -o {1}" 
+
+[[VALIDATORS]] 
+    NAME="sdftest2" 
+    HOME_DOMAIN="testnet.bantublockchain.org" 
+    PUBLIC_KEY="GCUCJTIYXSOXKBSNFGNFWW5MUQ54HKRPGJUTQFJ5RQXZXNOLNXYDHRAP" 
+    ADDRESS="core-testnet2.bantublockchain.org" 
+    HISTORY="curl -sf http://history.bantublockchain.org/prd/core-testnet/core_testnet_002/{0} -o {1}" 
+    
+[[VALIDATORS]] 
+    NAME="rando-node"
+    QUALITY="LOW" 
+    HOME_DOMAIN="rando.com" 
+    PUBLIC_KEY="GC2V2EFSXN6SQTWVYA5EPJPBWWIMSD2XQNKUOHGEKB535AQE2I6IXV2Z" 
+    ADDRESS="core.rando.com" 
+```
 
 ### Validator quality
 
@@ -154,7 +182,7 @@ Choosing redundant nodes is good practice. The archive requirement is programmat
 
 ### Automatic quorum set generation
 
-Once you add validators to your configuration, stellar core automatically generates a quorum set using the following rules:
+Once you add validators to your configuration, bantu core automatically generates a quorum set using the following rules:
 
 * Validators with the same home domain are automatically grouped together and given a threshold requiring a simple majority \(2f+1\)
 * Heterogeneous groups of validators are given a threshold assuming byzantine failure \(3f+1\)
@@ -173,7 +201,7 @@ Without those settings, your validator depends on other nodes on the network to 
 
 ### Updating and Coordinating Your Quorum Set
 
-When you join the ranks of node operators, it's also important to join the conversation. The best way to do that: get on the \#validators channel on the [Stellar Keybase](https://keybase.io/team/stellar.public) and sign up for the [validators google group](https://groups.google.com/forum/#!forum/stellar-validators). That way, you can and coordinate changes with the rest of the network.
+When you join the ranks of node operators, it's also important to join the conversation. The best way to do that: get on the \#validators channel on the [Bantu Keybase](https://keybase.io/team/stellar.public) and sign up for the [validators google group](https://groups.google.com/forum/#!forum/stellar-validators). That way, you can and coordinate changes with the rest of the network.
 
 When you need to make changes to your validator or to your quorum set — say you take a validator down for maintenance or add new validators to your node's quorum set — it's crucial to stage the changes to preserve quorum intersection and general good health of the network:
 
@@ -184,9 +212,9 @@ When you want to add or remove nodes, start by making changes to your own nodes'
 
 ## History
 
-Stellar Core normally interacts with one or more history archive, which are configurable facilities where [Full Validators](index.md#full-validator) and [Archivers](index.md#archiver) store flat files containing history checkpoints: bucket files and history logs. History archives are usually off-site commodity storage services such as Amazon S3, Google Cloud Storage, Azure Blob Storage, or custom SCP/SFTP/HTTP servers. To find out how to _publish_ a history archive, consult [Publishing History Archives](publishing-history-archives.md).
+Bantu Core normally interacts with one or more history archive, which are configurable facilities where [Full Validators](index.md#full-validator) and [Archivers](index.md#archiver) store flat files containing history checkpoints: bucket files and history logs. History archives are usually off-site commodity storage services such as Amazon S3, Google Cloud Storage, Azure Blob Storage, or custom SCP/SFTP/HTTP servers. To find out how to _publish_ a history archive, consult [Publishing History Archives](publishing-history-archives.md).
 
-No matter what kind of node you're running, you should configure it to `get` history from one or more public archives. You can configure any number of archives to download from: Stellar Core will automatically round-robin between them.
+No matter what kind of node you're running, you should configure it to `get` history from one or more public archives. You can configure any number of archives to download from: Bantu Core will automatically round-robin between them.
 
 When you're [choosing your quorum set](configuring.md#choosing-your-quorum-set), you should include high-quality nodes — which, by defintion, publish archives — and add the location for each node's archive in the `HISTORY` field in the [validators array](configuring.md#validators-array).
 
@@ -196,23 +224,23 @@ Note: if you notice a lot of errors related to downloading archives, you should 
 
 ## Automatic Maintenance
 
-Some tables in Stellar Core's database act as a publishing queue for external systems such as Horizon and generate **meta data** for changes happening to the distributed ledger.
+Some tables in Bantu Core's database act as a publishing queue for external systems such as Horizon and generate **meta data** for changes happening to the distributed ledger.
 
 If not managed properly those tables will grow without bounds. To avoid this, a built-in scheduler will delete data from old ledgers that are not used anymore by other parts of the system \(external systems included\).
 
 The settings that control the automatic maintenance behavior are: `AUTOMATIC_MAINTENANCE_PERIOD`, `AUTOMATIC_MAINTENANCE_COUNT` and `KNOWN_CURSORS`.
 
-By default, Stellar Core will perform this automatic maintenance, so be sure to disable it until you have done the appropriate data ingestion in downstream systems \(Horizon for example sometimes needs to reingest data\).
+By default, Bantu Core will perform this automatic maintenance, so be sure to disable it until you have done the appropriate data ingestion in downstream systems \(Horizon for example sometimes needs to reingest data\).
 
 If you need to regenerate the metadata, the simplest way is to replay ledgers for the range you're interested in after \(optionally\) clearing the database with `newdb`.
 
 ## Metadata Snapshots and Restoration
 
-Some deployments of Stellar Core and Horizon will want to retain metadata for the _entire history_ of the network. This metadata can be quite large and computationally expensive to regenerate anew by replaying ledgers in stellar-core from an empty initial database state, as described in the previous section.
+Some deployments of Bantu Core and Horizon will want to retain metadata for the _entire history_ of the network. This metadata can be quite large and computationally expensive to regenerate anew by replaying ledgers in bantu-core from an empty initial database state, as described in the previous section.
 
 This can be especially costly if run more than once. For instance, when bringing a new node online. Or even if running a single node with Horizon, having already ingested the meta data _once_: a subsequent version of Horizon may have a schema change that entails re-ingesting it _again_.
 
-Some operators therefore prefer to shut down their stellar-core \(and/or Horizon\) processes and _take filesystem-level snapshots_ or _database-level dumps_ of the contents of Stellar Core's database and bucket directory, and/or Horizon's database, after metadata generation has occurred the first time. Such snapshots can then be restored, putting stellar-core and/or Horizon in a state containing metadata without performing full replay.
+Some operators therefore prefer to shut down their bantu-core \(and/or Horizon\) processes and _take filesystem-level snapshots_ or _database-level dumps_ of the contents of Bantu Core's database and bucket directory, and/or Horizon's database, after metadata generation has occurred the first time. Such snapshots can then be restored, putting bantu-core and/or Horizon in a state containing metadata without performing full replay.
 
-Any reasonably recent state will do — if such a snapshot is a little old, stellar-core will replay ledgers from whenever the snapshot was taken to the current network state anyways — but this procedure can greatly accelerate restoring validator nodes, or cloning them to create new ones.
+Any reasonably recent state will do — if such a snapshot is a little old, bantu-core will replay ledgers from whenever the snapshot was taken to the current network state anyways — but this procedure can greatly accelerate restoring validator nodes, or cloning them to create new ones.
 

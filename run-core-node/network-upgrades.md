@@ -5,9 +5,11 @@ order: 80
 
 # network-upgrades
 
+```javascript
 import { CodeExample } from "components/CodeExample";
+```
 
-The network itself has network wide settings that can be updated.
+The network itself has network-wide settings that can be updated.
 
 This is performed by validators voting for and agreeing to new values the same way that consensus is reached for transaction sets, etc.
 
@@ -45,10 +47,14 @@ For more information look at [Network Upgrade](network-upgrades.md).
 
 Example here is to upgrade the protocol version to version 9 on January-31-2018.
 
-1. `$ stellar-core http-command 'upgrades?mode=set&upgradetime=2018-01-31T20:00:00Z&protocolversion=9'`
-2. `$ stellar-core http-command info`
+1. `$ bantu-core http-command 'upgrades?mode=set&upgradetime=2018-01-31T20:00:00Z&protocolversion=9'`
+2. `$ bantu-core http-command info`
 
 At this point `info` will tell you that the node is setup to vote for this upgrade:
 
- \`\`\`json "status" : \[ "Armed with network upgrades: upgradetime=2018-01-31T20:00:00Z, protocolversion=9" \] \`\`\`
+```javascript
+"status" : [ 
+    "Armed with network upgrades: upgradetime=2018-01-31T20:00:00Z, protocolversion=9" 
+    ]
+```
 

@@ -5,27 +5,29 @@ order: 60
 
 # running-node
 
+```javascript
 import { CodeExample } from "components/CodeExample";
+```
 
-## Starting Stellar Core
+## Starting Bantu Core
 
-Once you've [set up your environment](prerequisites.md), [configured your node](configuring.md), set up your [quorum set](configuring.md#choosing-your-quorum-set), and selected archives to `get` [history from](configuring.md#history), you're ready to start Stellar Core.
+Once you've [set up your environment](prerequisites.md), [configured your node](configuring.md), set up your [quorum set](configuring.md#choosing-your-quorum-set), and selected archives to `get` [history from](configuring.md#history), you're ready to start Bantu Core.
 
 Use a command equivalent to:
 
-`$ stellar-core run`
+`$ bantu-core run`
 
 At this point, you're ready to observe your node's activity as it joins the network.
 
-You may want to skip ahead and review the [logging](running-node.md#logging) section to familiarize yourself wiith Stellar Core's output.
+You may want to skip ahead and review the [logging](running-node.md#logging) section to familiarize yourself with Bantu Core's output.
 
 ## Interacting With Your Instance
 
-When your node is running, you can interact with Stellar Core via an administrative HTTP endpoint. Commands can be submitted using command-line HTTP tools such as `curl`, or by running a command such as
+When your node is running, you can interact with Bantu Core via an administrative HTTP endpoint. Commands can be submitted using command-line HTTP tools such as `curl`, or by running a command such as
 
-`$ stellar-core http-command <http-command>`
+`$ bantu-core http-command <http-command>`
 
-That HTTP endpoint is not intended to be exposed to the public internet. It's typically accessed by administrators, or by a mid-tier application to submit transactions to the Stellar network.
+That HTTP endpoint is not intended to be exposed to the public internet. It's typically accessed by administrators, or by a mid-tier application to submit transactions to the Bantu network.
 
 See [commands](commands.md) for a description of the available commands.
 
@@ -37,51 +39,82 @@ Your node will go through the following phases as it joins the network:
 
 You should see `authenticated_count` increase.
 
- \`\`\`json "peers" : { "authenticated\_count" : 3, "pending\_count" : 4 }, \`\`\`
+```javascript
+"peers" : { "authenticated_count" : 3, "pending_count" : 4 }
+```
 
 ### Observing Consensus
 
 Until the node sees a quorum, it will say:
 
- \`\`\`json "state" : "Joining SCP" \`\`\`
+```javascript
+"state" : "Joining SCP"
+```
 
 After observing consensus, a new field `quorum` will display information about network decisions. At this point the node will switch to "_Catching up_":
 
- \`\`\`json "quorum" : { "qset" : { "ledger" : 22267866, "agree" : 5, "delayed" : 0, "disagree" : 0, "fail\_at" : 3, "hash" : "980a24", "missing" : 0, "phase" : "EXTERNALIZE" }, "transitive" : { "intersection" : true, "last\_check\_ledger" : 22267866, "node\_count" : 21 } }, "state" : "Catching up", \`\`\`
+```javascript
+"quorum" : { 
+    "qset" : { 
+        "ledger" : 22267866, 
+        "agree" : 5, 
+        "delayed" : 0, 
+        "disagree" : 0, 
+        "fail_at" : 3, 
+        "hash" : "980a24", 
+        "missing" : 0, 
+        "phase" : "EXTERNALIZE" 
+    }, 
+    "transitive" : { 
+        "intersection" : true, 
+        "last_check_ledger" : 22267866, 
+        "node_count" : 21 
+    }
+}, 
+"state" : "Catching up"
+```
 
 ### Catching up
 
 This is a phase where the node downloads data from archives. The state will start with something like:
 
- \`\`\`json "state" : "Catching up", "status" : \[ "Catching up: Awaiting checkpoint \(ETA: 35 seconds\)" \] \`\`\`
+```javascript
+"state" : "Catching up", 
+"status" : [ "Catching up: Awaiting checkpoint (ETA: 35 seconds)" ] 
+```
 
 And then go through the various phases of downloading and applying state such as
 
- \`\`\`json "state" : "Catching up", "status" : \[ "Catching up: downloading ledger files 20094/119803 \(16%\)" \] \`\`\`
+```javascript
+"state" : "Catching up", 
+"status" : [ "Catching up: downloading ledger files 20094/119803 (16%)" ] 
+```
 
-You can specify how far back your node goes to catch up in your config file. If you set`CATCHUP_COMPLETE` to `true`, your node will replay the entire history of the network, which can take a long time. Weeks. Satoshipay offers a [parallel catchup script](https://github.com/satoshipay/stellar-core-parallel-catchup) to speed up the process, but you only need to replay the complete network history if you're setting up a Full Validator. Otherwise, you can specify a starting point for catchup using `CATCHUP_RECENT`. See the [complete example configuration](https://github.com/stellar/stellar-core/blob/master/docs/stellar-core_example.cfg) for more details.
+You can specify how far back your node goes to catch up in your config file. If you set`CATCHUP_COMPLETE` to `true`, your node will replay the entire history of the network, which can take a long time. Weeks. SatoshiPay offers a [parallel catchup script](https://github.com/satoshipay/stellar-core-parallel-catchup) to speed up the process, but you only need to replay the complete network history if you're setting up a Full Validator. Otherwise, you can specify a starting point for catchup using `CATCHUP_RECENT`. See the [complete example configuration](https://github.com/stellar/stellar-core/blob/master/docs/stellar-core_example.cfg) for more details.
 
 ### Synced
 
 When the node is done catching up, its state will change to:
 
- \`\`\`json "state" : "Synced!" \`\`\`
+```javascript
+"state" : "Synced!"
+```
 
 ## Logging
 
-Stellar Core sends logs to standard output and `stellar-core.log` by default, configurable as `LOG_FILE_PATH`.
+Bantu Core sends logs to standard output and `bantu-core.log` by default, configurable as `LOG_FILE_PATH`.
 
 Log messages are classified by progressive _priority levels_:`TRACE`, `DEBUG`, `INFO`, `WARNING`, `ERROR` and `FATAL`. The logging system only emits those messages at or above its configured logging level.
 
 The log level can be controlled by configuration, the `-ll` command-line flag, or adjusted dynamically by administrative \(HTTP\) commands. To do so, run:
 
-`$ stellar-core http-command "ll?level=debug"`
+`$ bantu-core http-command "ll?level=debug"`
 
 while your system is running.
 
-Log levels can also be adjusted on a partition-by-partition basis through the administrative interface. For example the history system can be set to DEBUG-level logging by running:
+Log levels can also be adjusted on a partition-by-partition basis through the administrative interface. For example, the history system can be set to DEBUG-level logging by running:
 
-`$ stellar-core http-command "ll?level=debug&partition=history"`
+`$ bantu-core http-command "ll?level=debug&partition=history"`
 
 Against a running system.
 
@@ -95,7 +128,7 @@ As an administrator of a validator, you must ensure that the maintenance you are
 
 Safe means that the other validators that depend on yours will not be affected too much when you turn off your validator for maintenance and that your validator will continue to operate as part of the network when it comes back up.
 
-If you are changing some settings that may impact network wide settings such as protocol version, review [the section on network configuration](running-node.md#network-configuration).
+If you are changing some settings that may impact network-wide settings such as protocol version, review [the section on network configuration](running-node.md#network-configuration).
 
 If you're changing your quorum set configuration, also read the [section on what to do](running-node.md#special-considerations-during-quorum-set-updates).
 
@@ -113,13 +146,13 @@ We recommend performing the following steps in order \(repeat sequentially as ne
 
 Sometimes an organization needs to make changes that impact other's quorum sets:
 
-* taking a validator down for long period of time
+* taking a validator down for a long period of time
 * adding new validators to their pool
 
 In both cases, it's crucial to stage the changes to preserve quorum intersection and general good health of the network:
 
-* removing too many nodes from your quorum set _before_ the nodes are taken down : if different people remove different sets the remaining sets may not overlap between nodes and may cause network splits
-* adding too many nodes in your quorum set at the same time : if not done carefully can cause those nodes to overpower your configuration
+* removing too many nodes from your quorum set _before_ the nodes are taken down: if different people remove different sets the remaining sets may not overlap between nodes and may cause network splits
+* adding too many nodes in your quorum set at the same time: if not done carefully can cause those nodes to overpower your configuration
 
 Recommended steps are for the entity that adds/removes nodes to do so first between their own nodes, and then have people reflect those changes gradually \(over several rounds\) in their quorum configuration.
 
