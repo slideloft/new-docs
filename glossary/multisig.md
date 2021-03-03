@@ -133,7 +133,9 @@ Expense account setup:
 
 ```
 
+{% hint style="info" %}
 The next example involves setting the master key weight of an account to 0. Be very, very careful if you decide to do that: that key will no longer be able to sign any kind of transaction, so you are in danger of \_permanently\_ locking yourself out of your account. Make sure you've thought carefully about what you're doing, that you understand the implications, and that you change weights in the correct order.
+{% endhint %}
 
 ### Example 4: Company Accounts
 
