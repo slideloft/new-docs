@@ -9,9 +9,9 @@ import { CodeExample } from "components/CodeExample"; import { Alert } from "com
 
 ## Transaction signatures
 
-Stellar uses **signatures** as authorization. Transactions always need authorization from at least one public key in order to be considered valid. Generally, transactions only need authorization from the public key of the source account.
+Bantu uses **signatures** as authorization. Transactions always need authorization from at least one public key in order to be considered valid. Generally, transactions only need authorization from the public key of the source account.
 
-Transaction signatures are created by cryptographically signing the transaction object contents with a secret key. Stellar currently uses the ed25519 signature scheme, but there's also a mechanism for adding additional types of public/private key schemes. A transaction with an attached signature is considered to have authorization from that public key.
+Transaction signatures are created by cryptographically signing the transaction object contents with a secret key. Bantu currently uses the ed25519 signature scheme, but there's also a mechanism for adding additional types of public/private key schemes. A transaction with an attached signature is considered to have authorization from that public key.
 
 In two cases, a transaction may need more than one signature. If the transaction has operations that affect more than one account, it will need authorization from every account in question. A transaction will also need additional signatures if the account associated with the transaction has multiple public keys.
 
