@@ -3,7 +3,7 @@ title: Federation
 order: null
 ---
 
-# Federation
+# BUDS
 
 The [BUDS](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0002.md) maps Bantu addresses to more information about a given user. It's a way for Bantu client software to resolve email-like addresses such as `name*yourdomain.com` into account IDs like: `GCCVPYFOHY7ZB7557JKENAX62LUAPLMGIWNZJAFV2MITK6T32V37KEJU`. Federated addresses provide an easy way for users to share payment details by using a syntax that interoperates across different domains and providers.
 
@@ -32,7 +32,7 @@ Please note that your federation server **must** use `https` protocol.
 
 Once you've published the location of your federation server, implement federation url HTTP endpoint that accepts an HTTP GET request and issues responses of the form detailed below:
 
- To make it easier to set up a federation server, the Bantu Development foundation server you can use the \[reference implementation\]\(https://github.com/Bantu/go/tree/master/services/federation\) designed to be dropped into your existing infrastructure..
+To make it easier to set up a federation server, the Bantu Development foundation server you can use the \[reference implementation\]\([https://github.com/Bantu/go/tree/master/services/federation\](https://github.com/Bantu/go/tree/master/services/federation\)\) designed to be dropped into your existing infrastructure..
 
 ## Federation Requests
 

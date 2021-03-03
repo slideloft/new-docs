@@ -49,7 +49,7 @@
   * [Claimable Balance](glossary/claimable-balance.md)
   * [XDR](glossary/xdr.md)
   * [Assets](glossary/assets.md)
-  * [Federation](glossary/federation.md)
+  * [BUDS](glossary/buds.md)
   * [Inflation](glossary/inflation.md)
   * [Miscellaneous Core Objects](glossary/miscellaneous-core-objects.md)
   * [Testnet](glossary/testnet.md)
