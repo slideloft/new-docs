@@ -5,7 +5,7 @@ order: null
 
 # testnet
 
-The testnet is a small test Stellar network, run by the Stellar Development Foundation \(SDF\). It's free to use, functions just like the main public network, and is the best place to start developing on Stellar since it doesn't connect to real money.
+The testnet is a small test Stellar network, run by the Bantu Blockchain Foundation \(SDF\). It's free to use, functions just like the main public network, and is the best place to start developing on Stellar since it doesn't connect to real money.
 
 SDF runs 3 Stellar Core validators on the testnet.
 
