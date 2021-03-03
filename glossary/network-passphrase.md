@@ -11,8 +11,8 @@ Each Stellar network has its own unique passphrase, which is used when validatin
 
 The current passphrases for the Stellar pubnet and testnet are:
 
-* Pubnet: `'Public Global Stellar Network ; September 2015'`
-* Testnet: `'Test SDF Network ; September 2015'`
+* Pubnet: `'Public Bantu Network ; 10-10-2020'`
+* Testnet: `'Bantu Testnet'`
 
 The passphrase serves two main purposes:
 
