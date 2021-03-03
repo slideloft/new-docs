@@ -7,7 +7,7 @@ order: null
 
 The [BUDS](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0002.md) maps Bantu addresses to more information about a given user. It's a way for Bantu client software to resolve email-like addresses such as `name*yourdomain.com` into account IDs like: `GCCVPYFOHY7ZB7557JKENAX62LUAPLMGIWNZJAFV2MITK6T32V37KEJU`. Federated addresses provide an easy way for users to share payment details by using a syntax that interoperates across different domains and providers.
 
-## Federated addresses
+## Buds addresses
 
 Bantu federated addresses are divided into two parts separated by `*`: the username and the domain.
 
