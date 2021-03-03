@@ -5,8 +5,6 @@ order: null
 
 # Fees
 
-
-
 {% hint style="info" %}
 This doc explains transaction fees. Bantu also requires accounts to have a minimum balance, which you can read about in the [Minimum Balance](minimum-balance.md) doc.
 {% endhint %}
@@ -27,7 +25,7 @@ Bantu deducts the entire fee from the transaction’s source account, regardless
 
 The base fee for a given ledger is determined dynamically using a version of a [VCG auction](https://en.wikipedia.org/wiki/Vickrey%E2%80%93Clarke%E2%80%93Groves_auction). When you submit a transaction to the network, you specify the _maximum base fee_ you’re willing to pay per operation, but you’re actually charged the _lowest possible fee_ based on network activity.
 
-When network activity is below capacity, you pay the network minimum, which is currently **100 spirits \(0.00001 XLM\)** per operation.
+When network activity is below capacity, you pay the network minimum, which is currently **100 spirits \(0.00001 XBN\)** per operation.
 
 ## Surge Pricing
 
