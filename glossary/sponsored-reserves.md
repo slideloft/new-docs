@@ -3,7 +3,7 @@ title: Sponsored Reserves
 order: null
 ---
 
-# sponsored-reserves
+# Sponsored Reserves
 
 import { CodeExample } from "components/CodeExample";
 

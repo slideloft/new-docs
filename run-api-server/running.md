@@ -8,7 +8,7 @@ order: 40
 Once your Expansion database is configured, you're ready to run Expansion. To run Expansion you simply run `Expansion` or `Expansion serve`, both of which start the HTTP server and start logging to standard out. When run, you should see output similar to:
 
 ```text
-INFO[0000] Starting Expansion on :8000           pid=29013 
+INFO[0000] Starting Expansion on :8000           pid=29013
 ```
 
 The log line above announces that Expansion is ready to serve client requests. Note: the numbers shown above may be different for your installation. Next you can confirm that Expansion is responding correctly by loading the root resource. In the example above, that URL would be [http://127.0.0.1:8000/](http://127.0.0.1:8000/), and simply running `curl http://127.0.0.1:8000/` shows you that the root resource can be loaded correctly.
@@ -40,7 +40,6 @@ expansion1> expansion db reingest range 1 10000
 expansion2> expansion db reingest range 10001 20000
 expansion3> expansion db reingest range 20001 30000
 # ... etc.
-
 ```
 
 This allows reingestion to be split up and done in parallel by multiple Expansion processes.
@@ -103,7 +102,6 @@ It starts with informing you about state ingestion:
 ```text
 INFO[2019-08-29T13:04:13.473+02:00] Starting ingestion system from empty state...  pid=5965 service=expingest temp_set="*io.MemoryTempSet"
 INFO[2019-08-29T13:04:15.263+02:00] Reading from History Archive Snapshot         ledger=25565887 pid=5965 service=expingest
-
 ```
 
 During state ingestion, Expansion will log number of processed entries every 100,000 entries \(there are currently around 7M entries in the public network\):
@@ -114,7 +112,6 @@ INFO[2019-08-29T13:04:38.487+02:00] Processing entries from History Archive Snap
 INFO[2019-08-29T13:04:41.322+02:00] Processing entries from History Archive Snapshot  ledger=25565887 numEntries=300000 pid=5965 service=expingest
 INFO[2019-08-29T13:04:48.429+02:00] Processing entries from History Archive Snapshot  ledger=25565887 numEntries=400000 pid=5965 service=expingest
 INFO[2019-08-29T13:05:00.306+02:00] Processing entries from History Archive Snapshot  ledger=25565887 numEntries=500000 pid=5965 service=expingest
-
 ```
 
 When state ingestion is finished, it will proceed to ledger ingestion starting from the next ledger after checkpoint ledger \(25565887+1 in this example\) to update the state using transaction meta:
@@ -137,7 +134,6 @@ INFO[2019-08-29T13:40:00.901+02:00] Reading new ledger                          
 INFO[2019-08-29T13:40:00.902+02:00] Processing ledger                             ledger=25565890 pid=5965 service=expingest type=ledger_pipeline updating_database=true
 INFO[2019-08-29T13:40:00.972+02:00] Processed ledger                              ledger=25565890 pid=5965 service=expingest type=ledger_pipeline
 INFO[2019-08-29T13:40:00.972+02:00] Finished processing ledger                    duration=0.071039012 ledger=25565890 pid=5965 service=expingest shutdown=false transactions=20
-
 ```
 
 ## Managing Stale Historical Data

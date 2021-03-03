@@ -3,7 +3,7 @@ title: Channels
 order: null
 ---
 
-# channels
+# Channels
 
 import { CodeExample } from "components/CodeExample";
 

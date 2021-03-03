@@ -3,7 +3,7 @@ title: Versioning and Network Upgrades
 order: null
 ---
 
-# versioning
+# Versioning
 
 import { CodeExample } from "components/CodeExample";
 

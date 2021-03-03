@@ -3,7 +3,7 @@ title: Transactions
 order: null
 ---
 
-# transactions
+# Transactions
 
 Transactions are commands that modify the ledger state. They consist of a list of anywhere from 1 to 100 operations, and they are signed, submitted to the network, and considered for inclusion in the transaction set via [SCP](scp.md). They contain the operations used to send payments, enter orders into the [decentralized exchange](decentralized-exchange.md), change settings on accounts, and authorize accounts to hold assets. If you think of the ledger as a database, then transactions are SQL commands.
 

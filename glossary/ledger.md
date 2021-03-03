@@ -3,7 +3,7 @@ title: Ledger
 order: null
 ---
 
-# ledger
+# Ledger
 
 A ledger represents the state of the Stellar universe at a given point in time. It’s shared across all the nodes that make up the network, and contains the list of all accounts and balances, all orders on the distributed exchange, and any other data that persists.
 

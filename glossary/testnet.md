@@ -3,7 +3,7 @@ title: Testnet
 order: null
 ---
 
-# testnet
+# Testnet
 
 The testnet is a small test Bantu network, run by the Bantu Blockchain Foundation \(BBF\). It's free to use, functions just like the main public network, and is the best place to start developing on Bantu since it doesn't connect to real money.
 

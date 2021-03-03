@@ -3,7 +3,7 @@ title: Decentralized Exchange
 order: null
 ---
 
-# decentralized-exchange
+# Decentralized Exchange
 
 In addition to supporting the issuing and movement of [assets](assets.md), the Stellar network also acts as a decentralized **distributed exchange** that allows you to trade and convert assets on the network. The Stellar ledger stores both balances held by user accounts and orders that user accounts make to buy or sell assets.
 

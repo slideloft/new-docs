@@ -3,7 +3,7 @@ title: Inflation
 order: null
 ---
 
-# inflation
+# Inflation
 
 Prior to Protocol 12, Stellar had a built-in inflation mechanism conceived to allow account holders to collectively direct inflation-generated lumens toward projects built on Stellar.
 

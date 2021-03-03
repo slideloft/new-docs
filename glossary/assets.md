@@ -3,7 +3,7 @@ title: Assets
 order: null
 ---
 
-# assets
+# Assets
 
 The Stellar distributed network can be used to track, hold, and transfer any type of **asset**: dollars, euros, bitcoin, stocks, gold, and other tokens of value. Any asset on the network can be traded and exchanged with any other using Stellar's built-in [decentralized exchange](decentralized-exchange.md).
 

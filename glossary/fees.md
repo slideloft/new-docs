@@ -3,7 +3,7 @@ title: Fees
 order: null
 ---
 
-# fees
+# Fees
 
 import { CodeExample } from "components/CodeExample"; import { Alert } from "components/Alert";
 

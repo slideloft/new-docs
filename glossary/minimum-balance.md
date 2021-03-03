@@ -3,7 +3,7 @@ title: Minimum Balance
 order: null
 ---
 
-# minimum-balance
+# Minimum Balance
 
 import { CodeExample } from "components/CodeExample"; import { Alert } from "components/Alert";
 

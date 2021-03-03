@@ -3,7 +3,7 @@ title: Claimable Balance
 order: null
 ---
 
-# claimable-balance
+# Claimable Balance
 
 import { CodeExample } from "components/CodeExample";
 

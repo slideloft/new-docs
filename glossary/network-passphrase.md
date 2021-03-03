@@ -3,7 +3,7 @@ title: Network Passphrase
 order: null
 ---
 
-# network-passphrase
+# Network Passphrase
 
 Stellar has two public networks: the Public Network \(pubnet\), which is the main network used by applications in production, and the Test Network \([testnet](testnet.md)\), which is a network maintained by the Stellar Development Foundation that developers can use to test their Applications.
 

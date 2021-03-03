@@ -3,7 +3,7 @@ title: Accounts
 order: null
 ---
 
-# accounts
+# Accounts
 
 Accounts are the central data structure in Stellar. They hold balances, sign transactions, and issue assets. All entries that persist on the ledger are owned by a particular account.
 

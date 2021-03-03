@@ -3,7 +3,7 @@ title: Federation
 order: null
 ---
 
-# federation
+# Federation
 
 import { CodeExample } from "components/CodeExample"; import { Alert } from "components/Alert";
 

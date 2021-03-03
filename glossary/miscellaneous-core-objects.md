@@ -3,7 +3,7 @@ title: Miscellaneous Stellar Core Objects
 order: null
 ---
 
-# miscellaneous-core-objects
+# Miscellaneous Core Objects
 
 ## LedgerKey
 

@@ -3,7 +3,7 @@ title: Operations
 order: null
 ---
 
-# operations
+# Operations
 
 Operations are the bread and butter of Stellar: they’re the individual commands that mutate the ledger. Transactions, which accounts sign and submit for inclusion in the ledger, are really just bundles of operations. Transactions can, by definition, include anywhere from 1 to 100 operations.
 
