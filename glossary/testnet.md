@@ -11,7 +11,7 @@ BBF runs 3 Bantu Core validators on the testnet.
 
 You can connect a node to the testnet by configuring [Bantu Core](https://github.com/Bantu/Bantu-core) to use this [configuration](https://github.com/Bantu/Bantu-core/blob/master/docs/Bantu-core_testnet.cfg).
 
-There is also a [Expansion instance](https://expansion.Bantu.network/) that can directly interact with the testnet.
+There is also an [Expansion instance](https://expansion.Bantu.network/) that can directly interact with the testnet.
 
 ## What is the Bantu testnet good for?
 
