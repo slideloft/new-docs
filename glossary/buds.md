@@ -1,5 +1,5 @@
 ---
-title: Federation
+title: Buds
 order: null
 ---
 
@@ -20,40 +20,40 @@ The domain can be any valid RFC 1035 domain name. The username is limited to pri
 
 Note that the `@` symbol is allowed in the username. This means you can use email addresses in the username of a federated address. For example: `maria@gmail.com*Bantu.network`.
 
-## Supporting Federation
+## Supporting Buds
 
-To support federation, first create a Bantu.toml file, and publish it at `https://YOUR_DOMAIN/.well-known/Bantu.toml`. Complete instructions for doing that can be found in the [Bantu.toml specifciation](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0001.md) \(aka SEP-1\).
+To support Buds, first create a Bantu.toml file, and publish it at `https://YOUR_DOMAIN/.well-known/Bantu.toml`. Complete instructions for doing that can be found in the [Bantu.toml specifciation](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0001.md) \(aka SEP-1\).
 
-In general, you will want to include any and all information about your Bantu integration in your Bantu.toml. To support federation specifically, you need to add a `FEDERATION_SERVER` section to your Bantu.toml file that tells other people the URL of your federation endpoint.
+In general, you will want to include any and all information about your Bantu integration in your Bantu.toml. To support Buds specifically, you need to add a `Buds_SERVER` section to your Bantu.toml file that tells other people the URL of your Buds endpoint.
 
-For example: `FEDERATION_SERVER="https://api.yourdomain.com/federation"`
+For example: `Buds_SERVER="https://api.yourdomain.com/Buds"`
 
-Please note that your federation server **must** use `https` protocol.
+Please note that your Buds server **must** use `https` protocol.
 
-Once you've published the location of your federation server, implement federation url HTTP endpoint that accepts an HTTP GET request and issues responses of the form detailed below:
+Once you've published the location of your Buds server, implement Buds url HTTP endpoint that accepts an HTTP GET request and issues responses of the form detailed below:
 
-To make it easier to set up a federation server, the Bantu Development foundation server you can use the \[reference implementation\]\([https://github.com/Bantu/go/tree/master/services/federation\](https://github.com/Bantu/go/tree/master/services/federation\)\) designed to be dropped into your existing infrastructure..
+To make it easier to set up a Buds server, the Bantu Development foundation server you can use the \[reference implementation\]\([https://github.com/Bantu/go/tree/master/services/Buds\](https://github.com/Bantu/go/tree/master/services/Buds\)\) designed to be dropped into your existing infrastructure..
 
-## Federation Requests
+## Buds Requests
 
-You can use the federation endpoint to look up an account id if you have a Bantu address. You can also do reverse federation and look up a Bantu address from an account id or a transaction id. This is useful to see who has sent you a payment.
+You can use the Buds endpoint to look up an account id if you have a Bantu address. You can also do reverse Buds and look up a Bantu address from an account id or a transaction id. This is useful to see who has sent you a payment.
 
-Federation requests are http `GET` requests with the following form:
+Buds requests are http `GET` requests with the following form:
 
 `?q=<string to look up>&type=<name,forward,id,txid>`
 
 Supported types:
 
-* **name**: Example: `https://YOUR_FEDERATION_SERVER/federation?q=flarcos*bantu.networ&type=name`
-* **forward**: Used for forwarding the payment on to a different BUDS or different financial institution. The other parameters of the query will vary depending on what kind of institution is the ultimate destination of the payment and what you as the forwarding anchor supports. Your [Bantu.toml](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0001.md) file should specify what parameters you expect in a `forward` federation request. If you are unable to forward or the other parameters in the request are incorrect you should return an error to this effect. Example request: `https://YOUR_FEDERATION_SERVER/federation?type=forward&forward_type=bank_account&swift=BOPBPHMM&acct=2382376`
-* **id**: _not supported by all federation servers_ Reverse federation will return the federation record of the Bantu address associated with the given account ID. In some cases this is ambiguous. For instance if an anchor sends transactions on behalf of its users the account id will be of the anchor and the federation server won't be able to resolve the particular user that sent the transaction. In cases like that you may need to use **txid** instead. Example: `https://YOUR_FEDERATION_SERVER/federation?q=GD6WU64OEP5C4LRBH6NK3MHYIA2ADN6K6II6EXPNVUR3ERBXT4AN4ACD&type=id`
-* **txid**: _not supported by all federation servers_ Will return the federation record of the sender of the transaction if known by the server. Example: `https://YOUR_FEDERATION_SERVER/federation?q=c1b368c00e9852351361e07cc58c54277e7a6366580044ab152b8db9cd8ec52a&type=txid`
+* **name**: Example: `https://YOUR_Buds_SERVER/Buds?q=flarcos*bantu.networ&type=name`
+* **forward**: Used for forwarding the payment on to a different BUDS or different financial institution. The other parameters of the query will vary depending on what kind of institution is the ultimate destination of the payment and what you as the forwarding anchor supports. Your [Bantu.toml](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0001.md) file should specify what parameters you expect in a `forward` Buds request. If you are unable to forward or the other parameters in the request are incorrect you should return an error to this effect. Example request: `https://YOUR_Buds_SERVER/Buds?type=forward&forward_type=bank_account&swift=BOPBPHMM&acct=2382376`
+* **id**: _not supported by all Buds servers_ Reverse Buds will return the Buds record of the Bantu address associated with the given account ID. In some cases this is ambiguous. For instance if an anchor sends transactions on behalf of its users the account id will be of the anchor and the Buds server won't be able to resolve the particular user that sent the transaction. In cases like that you may need to use **txid** instead. Example: `https://YOUR_Buds_SERVER/Buds?q=GD6WU64OEP5C4LRBH6NK3MHYIA2ADN6K6II6EXPNVUR3ERBXT4AN4ACD&type=id`
+* **txid**: _not supported by all Buds servers_ Will return the Buds record of the sender of the transaction if known by the server. Example: `https://YOUR_Buds_SERVER/Buds?q=c1b368c00e9852351361e07cc58c54277e7a6366580044ab152b8db9cd8ec52a&type=txid`
 
-## Federation Response
+## Buds Response
 
-The federation server should respond with an appropriate HTTP status code, headers, and a JSON response.
+The Buds server should respond with an appropriate HTTP status code, headers, and a JSON response.
 
-You must enable CORS on the federation server so clients can send requests from other sites. The following HTTP header must be set for all federation server responses.
+You must enable CORS on the Buds server so clients can send requests from other sites. The following HTTP header must be set for all Buds server responses.
 
 ```text
 Access-Control-Allow-Origin: *
@@ -70,7 +70,7 @@ When a record has been found the response should return `200 OK` http status cod
 }
 ```
 
-If a redirect is needed the federation server should return `3xx` http status code and immediately redirect the user to the correct URL using the `Location` header.
+If a redirect is needed the Buds server should return `3xx` http status code and immediately redirect the user to the correct URL using the `Location` header.
 
 When a record has not been found `404 Not Found` http status code should be returned.
 
@@ -78,15 +78,15 @@ Every other http status code will be considered an error. The body should contai
 
 ```text
 {
-   "detail": "extra details provided by the federation server"
+   "detail": "extra details provided by the Buds server"
 }
 ```
 
-## Looking up federation provider via a home domain entry
+## Looking up Buds provider via a home domain entry
 
-Accounts may optionally have a home domain specified. This allows an account to programmatically specify the main federation provider for that account.
+Accounts may optionally have a home domain specified. This allows an account to programmatically specify the main Buds provider for that account.
 
 ## Caching
 
-You shouldn't cache responses from federation servers. Some organizations may generate random IDs to protect their users' privacy. Those IDs may change over time.
+You shouldn't cache responses from Buds servers. Some organizations may generate random IDs to protect their users' privacy. Those IDs may change over time.
 
