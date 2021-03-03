@@ -7,7 +7,7 @@ order: null
 
 Accounts are the central data structure in Bantu. They hold balances, sign transactions, and issue assets. All entries that persist on the ledger are owned by a particular account.
 
-In addition to a valid keypair, an account needs a balance of XLM sufficient to meet the network reserve before it exists on the ledger.
+In addition to a valid keypair, an account needs a balance of XBN sufficient to meet the network reserve before it exists on the ledger.
 
 ## Keypair
 
@@ -19,7 +19,7 @@ You can use any Bantu wallet or SDK to generate a valid keypair.
 
 ## Account Creation
 
-A keypair alone doesn’t create an account: before an account exists on the ledger, it needs an XLM balance sufficient to meet the minimum network reserve. The minimum reserve, which is determined by validator vote, is intended to disincentivize the creation of tons of unused accounts in order to prevent ledger spam and maintain the efficiency and scalability of the network.
+A keypair alone doesn’t create an account: before an account exists on the ledger, it needs an XBN balance sufficient to meet the minimum network reserve. The minimum reserve, which is determined by validator vote, is intended to disincentivize the creation of tons of unused accounts in order to prevent ledger spam and maintain the efficiency and scalability of the network.
 
 There is a specific operation, Create Account, which you use to make a payment to a valid public key that does not exist on the ledger, thereby creating the account.
 
@@ -37,7 +37,7 @@ The current transaction sequence number of the account. This number starts equal
 
 ### Number of subentries
 
-Number of entries the account owns. This number is used to calculate the account's minimum balance: each subentry increases an account’s reserve by 0.5XLM. Subentries include:
+Number of entries the account owns. This number is used to calculate the account's minimum balance: each subentry increases an account’s reserve by 0.5XBN. Subentries include:
 
 _Trustlines_ Offers _Signers_ Data entries
 
@@ -61,7 +61,7 @@ Asset issuers set flags at the account level if they want to control access to t
 
 ### Balances
 
-Each account has a balance for each token the account holds, including XLM.
+Each account has a balance for each token the account holds, including XBN.
 
 ### Liabilities
 
