@@ -17,7 +17,7 @@ If you are new, you may want to start with the early [Tutorials](../tutorials/cr
 
 ## Developer Channels
 
-Stellar has an active developer community, and it's often helpful to interact with other devs who are working on Stellar-based projects. They're great at answering questions, giving feedback, and sharing information about the best ways to use the network. For general information on our community channels, check out the stellar.org [Community Page](https://bantutalk.org/).
+Bantu has an active developer community, and it's often helpful to interact with other devs who are working on Bantu-based projects. They're great at answering questions, giving feedback, and sharing information about the best ways to use the network. For general information on our community channels, check out the stellar.org [Community Page](https://bantutalk.org/).
 
 You can join our [dedicated developer channel ](https://bantutalk.org/c/bantu-developers/7)to  get information on important plans, developments, and events
 
