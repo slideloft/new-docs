@@ -3,19 +3,21 @@ title: Running
 order: 40
 ---
 
-# running
-
-import { CodeExample } from "components/CodeExample";
+# Running
 
 Once your Expansion database is configured, you're ready to run Expansion. To run Expansion you simply run `Expansion` or `Expansion serve`, both of which start the HTTP server and start logging to standard out. When run, you should see output similar to:
 
- \`\`\` INFO\[0000\] Starting Expansion on :8000 pid=29013 \`\`\`
+```text
+INFO[0000] Starting Expansion on :8000           pid=29013 
+```
 
 The log line above announces that Expansion is ready to serve client requests. Note: the numbers shown above may be different for your installation. Next you can confirm that Expansion is responding correctly by loading the root resource. In the example above, that URL would be [http://127.0.0.1:8000/](http://127.0.0.1:8000/), and simply running `curl http://127.0.0.1:8000/` shows you that the root resource can be loaded correctly.
 
 If you didn't set up a Stellar Core node yet, you may see an error like this:
 
- \`\`\` ERRO\[2019-05-06T16:21:14.126+08:00\] Error getting core latest ledger err="get failed: pq: relation \"ledgerheaders\" does not exist" \`\`\`
+```text
+ERRO[2019-05-06T16:21:14.126+08:00] Error getting core latest ledger err="get failed: pq: relation \"ledgerheaders\" does not exist"
+```
 
 Expansion requires a functional Stellar Core node. Go back and set up Stellar Core as described in the [Run a Core Node guide](../run-core-node/index.md). In particular, you need to initialise the database as [described here](../run-core-node/configuring.md#buckets).
 
@@ -33,7 +35,13 @@ To enable ingestion of historical data from Stellar Core, you need to run `Expan
 
 To reingest older ledgers — which you may need to do after a version upgrade — or to ingest ledgers closed by the network before you started Expansion use the `Expansion db reingest range [START_LEDGER] [END_LEDGER]` command:
 
- \`\`\` Expansion1&gt; Expansion db reingest range 1 10000 Expansion2&gt; Expansion db reingest range 10001 20000 Expansion3&gt; Expansion db reingest range 20001 30000 \# ... etc. \`\`\`
+```text
+horizon1> horizon db reingest range 1 10000
+horizon2> horizon db reingest range 10001 20000
+horizon3> horizon db reingest range 20001 30000
+# ... etc.
+
+```
 
 This allows reingestion to be split up and done in parallel by multiple Expansion processes.
 
@@ -92,15 +100,45 @@ In order to check the progress and the status of experimental ingestion you shou
 
 It starts with informing you about state ingestion:
 
- \`\`\` INFO\[2019-08-29T13:04:13.473+02:00\] Starting ingestion system from empty state... pid=5965 service=expingest temp\_set="\*io.MemoryTempSet" INFO\[2019-08-29T13:04:15.263+02:00\] Reading from History Archive Snapshot ledger=25565887 pid=5965 service=expingest \`\`\`
+```text
+INFO[2019-08-29T13:04:13.473+02:00] Starting ingestion system from empty state...  pid=5965 service=expingest temp_set="*io.MemoryTempSet"
+INFO[2019-08-29T13:04:15.263+02:00] Reading from History Archive Snapshot         ledger=25565887 pid=5965 service=expingest
+
+```
 
 During state ingestion, Expansion will log number of processed entries every 100,000 entries \(there are currently around 7M entries in the public network\):
 
- \`\`\` INFO\[2019-08-29T13:04:34.652+02:00\] Processing entries from History Archive Snapshot ledger=25565887 numEntries=100000 pid=5965 service=expingest INFO\[2019-08-29T13:04:38.487+02:00\] Processing entries from History Archive Snapshot ledger=25565887 numEntries=200000 pid=5965 service=expingest INFO\[2019-08-29T13:04:41.322+02:00\] Processing entries from History Archive Snapshot ledger=25565887 numEntries=300000 pid=5965 service=expingest INFO\[2019-08-29T13:04:48.429+02:00\] Processing entries from History Archive Snapshot ledger=25565887 numEntries=400000 pid=5965 service=expingest INFO\[2019-08-29T13:05:00.306+02:00\] Processing entries from History Archive Snapshot ledger=25565887 numEntries=500000 pid=5965 service=expingest \`\`\`
+```text
+INFO[2019-08-29T13:04:34.652+02:00] Processing entries from History Archive Snapshot  ledger=25565887 numEntries=100000 pid=5965 service=expingest
+INFO[2019-08-29T13:04:38.487+02:00] Processing entries from History Archive Snapshot  ledger=25565887 numEntries=200000 pid=5965 service=expingest
+INFO[2019-08-29T13:04:41.322+02:00] Processing entries from History Archive Snapshot  ledger=25565887 numEntries=300000 pid=5965 service=expingest
+INFO[2019-08-29T13:04:48.429+02:00] Processing entries from History Archive Snapshot  ledger=25565887 numEntries=400000 pid=5965 service=expingest
+INFO[2019-08-29T13:05:00.306+02:00] Processing entries from History Archive Snapshot  ledger=25565887 numEntries=500000 pid=5965 service=expingest
+
+```
 
 When state ingestion is finished, it will proceed to ledger ingestion starting from the next ledger after checkpoint ledger \(25565887+1 in this example\) to update the state using transaction meta:
 
- \`\`\` INFO\[2019-08-29T13:39:41.590+02:00\] Processing entries from History Archive Snapshot ledger=25565887 numEntries=5300000 pid=5965 service=expingest INFO\[2019-08-29T13:39:44.518+02:00\] Processing entries from History Archive Snapshot ledger=25565887 numEntries=5400000 pid=5965 service=expingest INFO\[2019-08-29T13:39:47.488+02:00\] Processing entries from History Archive Snapshot ledger=25565887 numEntries=5500000 pid=5965 service=expingest INFO\[2019-08-29T13:40:00.670+02:00\] Processed ledger ledger=25565887 pid=5965 service=expingest type=state\_pipeline INFO\[2019-08-29T13:40:00.670+02:00\] Finished processing History Archive Snapshot duration=2145.337575904 ledger=25565887 numEntries=5529931 pid=5965 service=expingest shutdown=false INFO\[2019-08-29T13:40:00.693+02:00\] Reading new ledger ledger=25565888 pid=5965 service=expingest INFO\[2019-08-29T13:40:00.694+02:00\] Processing ledger ledger=25565888 pid=5965 service=expingest type=ledger\_pipeline updating\_database=true INFO\[2019-08-29T13:40:00.779+02:00\] Processed ledger ledger=25565888 pid=5965 service=expingest type=ledger\_pipeline INFO\[2019-08-29T13:40:00.779+02:00\] Finished processing ledger duration=0.086024492 ledger=25565888 pid=5965 service=expingest shutdown=false transactions=14 INFO\[2019-08-29T13:40:00.815+02:00\] Reading new ledger ledger=25565889 pid=5965 service=expingest INFO\[2019-08-29T13:40:00.816+02:00\] Processing ledger ledger=25565889 pid=5965 service=expingest type=ledger\_pipeline updating\_database=true INFO\[2019-08-29T13:40:00.881+02:00\] Processed ledger ledger=25565889 pid=5965 service=expingest type=ledger\_pipeline INFO\[2019-08-29T13:40:00.881+02:00\] Finished processing ledger duration=0.06619956 ledger=25565889 pid=5965 service=expingest shutdown=false transactions=29 INFO\[2019-08-29T13:40:00.901+02:00\] Reading new ledger ledger=25565890 pid=5965 service=expingest INFO\[2019-08-29T13:40:00.902+02:00\] Processing ledger ledger=25565890 pid=5965 service=expingest type=ledger\_pipeline updating\_database=true INFO\[2019-08-29T13:40:00.972+02:00\] Processed ledger ledger=25565890 pid=5965 service=expingest type=ledger\_pipeline INFO\[2019-08-29T13:40:00.972+02:00\] Finished processing ledger duration=0.071039012 ledger=25565890 pid=5965 service=expingest shutdown=false transactions=20 \`\`\`
+```text
+INFO[2019-08-29T13:39:41.590+02:00] Processing entries from History Archive Snapshot  ledger=25565887 numEntries=5300000 pid=5965 service=expingest
+INFO[2019-08-29T13:39:44.518+02:00] Processing entries from History Archive Snapshot  ledger=25565887 numEntries=5400000 pid=5965 service=expingest
+INFO[2019-08-29T13:39:47.488+02:00] Processing entries from History Archive Snapshot  ledger=25565887 numEntries=5500000 pid=5965 service=expingest
+INFO[2019-08-29T13:40:00.670+02:00] Processed ledger                              ledger=25565887 pid=5965 service=expingest type=state_pipeline
+INFO[2019-08-29T13:40:00.670+02:00] Finished processing History Archive Snapshot  duration=2145.337575904 ledger=25565887 numEntries=5529931 pid=5965 service=expingest shutdown=false
+INFO[2019-08-29T13:40:00.693+02:00] Reading new ledger                            ledger=25565888 pid=5965 service=expingest
+INFO[2019-08-29T13:40:00.694+02:00] Processing ledger                             ledger=25565888 pid=5965 service=expingest type=ledger_pipeline updating_database=true
+INFO[2019-08-29T13:40:00.779+02:00] Processed ledger                              ledger=25565888 pid=5965 service=expingest type=ledger_pipeline
+INFO[2019-08-29T13:40:00.779+02:00] Finished processing ledger                    duration=0.086024492 ledger=25565888 pid=5965 service=expingest shutdown=false transactions=14
+INFO[2019-08-29T13:40:00.815+02:00] Reading new ledger                            ledger=25565889 pid=5965 service=expingest
+INFO[2019-08-29T13:40:00.816+02:00] Processing ledger                             ledger=25565889 pid=5965 service=expingest type=ledger_pipeline updating_database=true
+INFO[2019-08-29T13:40:00.881+02:00] Processed ledger                              ledger=25565889 pid=5965 service=expingest type=ledger_pipeline
+INFO[2019-08-29T13:40:00.881+02:00] Finished processing ledger                    duration=0.06619956 ledger=25565889 pid=5965 service=expingest shutdown=false transactions=29
+INFO[2019-08-29T13:40:00.901+02:00] Reading new ledger                            ledger=25565890 pid=5965 service=expingest
+INFO[2019-08-29T13:40:00.902+02:00] Processing ledger                             ledger=25565890 pid=5965 service=expingest type=ledger_pipeline updating_database=true
+INFO[2019-08-29T13:40:00.972+02:00] Processed ledger                              ledger=25565890 pid=5965 service=expingest type=ledger_pipeline
+INFO[2019-08-29T13:40:00.972+02:00] Finished processing ledger                    duration=0.071039012 ledger=25565890 pid=5965 service=expingest shutdown=false transactions=20
+
+```
 
 ## Managing Stale Historical Data
 

@@ -40,7 +40,7 @@
   * [installing](run-api-server/installing.md)
   * [monitoring](run-api-server/monitoring.md)
   * [prerequisites](run-api-server/prerequisites.md)
-  * [running](run-api-server/running.md)
+  * [Running](run-api-server/running.md)
   * [configuring](run-api-server/configuring.md)
 * [Software and SDKs](software-and-sdks/README.md)
   * [index](software-and-sdks/index.md)
