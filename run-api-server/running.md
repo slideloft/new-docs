@@ -7,59 +7,59 @@ order: 40
 
 import { CodeExample } from "components/CodeExample";
 
-Once your Horizon database is configured, you're ready to run Horizon. To run Horizon you simply run `horizon` or `horizon serve`, both of which start the HTTP server and start logging to standard out. When run, you should see output similar to:
+Once your Expansion database is configured, you're ready to run Expansion. To run Expansion you simply run `Expansion` or `Expansion serve`, both of which start the HTTP server and start logging to standard out. When run, you should see output similar to:
 
- \`\`\` INFO\[0000\] Starting horizon on :8000 pid=29013 \`\`\`
+ \`\`\` INFO\[0000\] Starting Expansion on :8000 pid=29013 \`\`\`
 
-The log line above announces that Horizon is ready to serve client requests. Note: the numbers shown above may be different for your installation. Next you can confirm that Horizon is responding correctly by loading the root resource. In the example above, that URL would be [http://127.0.0.1:8000/](http://127.0.0.1:8000/), and simply running `curl http://127.0.0.1:8000/` shows you that the root resource can be loaded correctly.
+The log line above announces that Expansion is ready to serve client requests. Note: the numbers shown above may be different for your installation. Next you can confirm that Expansion is responding correctly by loading the root resource. In the example above, that URL would be [http://127.0.0.1:8000/](http://127.0.0.1:8000/), and simply running `curl http://127.0.0.1:8000/` shows you that the root resource can be loaded correctly.
 
 If you didn't set up a Stellar Core node yet, you may see an error like this:
 
  \`\`\` ERRO\[2019-05-06T16:21:14.126+08:00\] Error getting core latest ledger err="get failed: pq: relation \"ledgerheaders\" does not exist" \`\`\`
 
-Horizon requires a functional Stellar Core node. Go back and set up Stellar Core as described in the [Run a Core Node guide](../run-core-node/index.md). In particular, you need to initialise the database as [described here](../run-core-node/configuring.md#buckets).
+Expansion requires a functional Stellar Core node. Go back and set up Stellar Core as described in the [Run a Core Node guide](../run-core-node/index.md). In particular, you need to initialise the database as [described here](../run-core-node/configuring.md#buckets).
 
 ## Ingesting Live Stellar Core Data
 
-Horizon provides most of its utility through ingested data. Your Horizon server can be configured to listen for and ingest transaction results from the connected Stellar Core instance.
+Expansion provides most of its utility through ingested data. Your Expansion server can be configured to listen for and ingest transaction results from the connected Stellar Core instance.
 
-To enable ingestion, you must either pass `--ingest=true` on the command line or set the `INGEST` environment variable to "true". As of Horizon 1.0.0, you can start multiple ingesting machines in your cluster.
+To enable ingestion, you must either pass `--ingest=true` on the command line or set the `INGEST` environment variable to "true". As of Expansion 1.0.0, you can start multiple ingesting machines in your cluster.
 
 ### Ingesting Historical Data
 
-To enable ingestion of historical data from Stellar Core, you need to run `horizon db reingest range start end`. If you're running a [full validator](../run-core-node/index.md#full-validator) with published history archive, for example, you might want to ingest all of the network's history. You can run this process in the background while your Horizon server is up. This continuously decrements the `history.elder_ledger` in your /metrics endpoint until `NUM_LEDGERS` is reached and the backfill is complete.
+To enable ingestion of historical data from Stellar Core, you need to run `Expansion db reingest range start end`. If you're running a [full validator](../run-core-node/index.md#full-validator) with published history archive, for example, you might want to ingest all of the network's history. You can run this process in the background while your Expansion server is up. This continuously decrements the `history.elder_ledger` in your /metrics endpoint until `NUM_LEDGERS` is reached and the backfill is complete.
 
 ### Ingesting Historical Data and Reingesting Ledgers
 
-To reingest older ledgers — which you may need to do after a version upgrade — or to ingest ledgers closed by the network before you started Horizon use the `horizon db reingest range [START_LEDGER] [END_LEDGER]` command:
+To reingest older ledgers — which you may need to do after a version upgrade — or to ingest ledgers closed by the network before you started Expansion use the `Expansion db reingest range [START_LEDGER] [END_LEDGER]` command:
 
- \`\`\` horizon1&gt; horizon db reingest range 1 10000 horizon2&gt; horizon db reingest range 10001 20000 horizon3&gt; horizon db reingest range 20001 30000 \# ... etc. \`\`\`
+ \`\`\` Expansion1&gt; Expansion db reingest range 1 10000 Expansion2&gt; Expansion db reingest range 10001 20000 Expansion3&gt; Expansion db reingest range 20001 30000 \# ... etc. \`\`\`
 
-This allows reingestion to be split up and done in parallel by multiple Horizon processes.
+This allows reingestion to be split up and done in parallel by multiple Expansion processes.
 
 ### Managing Storage for Historical Data
 
-Over time, the recorded network history will grow unbounded, increasing storage used by the database. Horizon needs sufficient disk space to expand the data ingested from Stellar Core. Unless you need to maintain a [history archive](../run-core-node/publishing-history-archives.md), you may configure Horizon to only retain a certain number of ledgers in the database. This is done using the `--history-retention-count` flag or the `HISTORY_RETENTION_COUNT` environment variable. Set the value to the number of recent ledgers you wish to keep around, and every hour the Horizon subsystem will reap expired data. Alternatively, you may execute the command `horizon db reap` to force a collection.
+Over time, the recorded network history will grow unbounded, increasing storage used by the database. Expansion needs sufficient disk space to expand the data ingested from Stellar Core. Unless you need to maintain a [history archive](../run-core-node/publishing-history-archives.md), you may configure Expansion to only retain a certain number of ledgers in the database. This is done using the `--history-retention-count` flag or the `HISTORY_RETENTION_COUNT` environment variable. Set the value to the number of recent ledgers you wish to keep around, and every hour the Expansion subsystem will reap expired data. Alternatively, you may execute the command `Expansion db reap` to force a collection.
 
 ### Surviving Stellar Core Downtime
 
-Horizon tries to maintain a gap-free window into the history of the Stellar network. This reduces the number of edge cases that Horizon-dependent software must deal with in an attempt to make the integration process simpler. To maintain a gap-free history, Horizon needs access to all of the metadata produced by Stellar Core in the process of closing a ledger, and there are instances when this metadata can be lost. Usually, this loss of metadata occurs because the Stellar Core node went offline and performed a catchup operation when restarted.
+Expansion tries to maintain a gap-free window into the history of the Stellar network. This reduces the number of edge cases that Expansion-dependent software must deal with in an attempt to make the integration process simpler. To maintain a gap-free history, Expansion needs access to all of the metadata produced by Stellar Core in the process of closing a ledger, and there are instances when this metadata can be lost. Usually, this loss of metadata occurs because the Stellar Core node went offline and performed a catchup operation when restarted.
 
-To ensure that the metadata required by Horizon is maintained, you have several options: You may either set the `CATCHUP_COMPLETE` Stellar Core configuration option to `true` or configure `CATCHUP_RECENT` to determine the amount of time your Stellar Core can be offline without having to rebuild your Horizon database.
+To ensure that the metadata required by Expansion is maintained, you have several options: You may either set the `CATCHUP_COMPLETE` Stellar Core configuration option to `true` or configure `CATCHUP_RECENT` to determine the amount of time your Stellar Core can be offline without having to rebuild your Expansion database.
 
-Unless your node is a [Full Validator which publishes an archive](../run-core-node/index.md#full-validator) we _do not_ recommend using the `CATCHUP_COMPLETE` method, as this will force Stellar Core to apply every transaction from the beginning of the ledger, which will take an ever increasing amount of time. Instead, we recommend you set the `CATCHUP_RECENT` config value. To do this, determine how long of a downtime you would like to survive \(expressed in seconds\) and divide by ten. This roughly equates to the number of ledgers that occur within your desired grace period since ledgers roughly close at a rate of one every ten seconds. With this value set, Stellar Core will replay transactions for ledgers that are recent enough, ensuring that the metadata needed by Horizon is present.
+Unless your node is a [Full Validator which publishes an archive](../run-core-node/index.md#full-validator) we _do not_ recommend using the `CATCHUP_COMPLETE` method, as this will force Stellar Core to apply every transaction from the beginning of the ledger, which will take an ever increasing amount of time. Instead, we recommend you set the `CATCHUP_RECENT` config value. To do this, determine how long of a downtime you would like to survive \(expressed in seconds\) and divide by ten. This roughly equates to the number of ledgers that occur within your desired grace period since ledgers roughly close at a rate of one every ten seconds. With this value set, Stellar Core will replay transactions for ledgers that are recent enough, ensuring that the metadata needed by Expansion is present.
 
 ### Correcting Gaps in Historical Data
 
-In the section above, we mentioned that Horizon _tries_ to maintain a gap-free window. Unfortunately, it cannot directly control the state of stellar-core and [so gaps may form](https://www.stellar.org/developers/software/known-issues.html#gaps-detected) due to extended down time. When a gap is encountered, Horizon will stop ingesting historical data and complain loudly in the log with error messages \(log lines will include "ledger gap detected"\). To resolve this situation, you must re-establish the expected state of the Stellar Core database and purge historical data from Horizon's database. We leave the details of this process up to the reader as it is dependent upon your operating needs and configuration, but we offer one potential solution:
+In the section above, we mentioned that Expansion _tries_ to maintain a gap-free window. Unfortunately, it cannot directly control the state of stellar-core and [so gaps may form](https://www.stellar.org/developers/software/known-issues.html#gaps-detected) due to extended down time. When a gap is encountered, Expansion will stop ingesting historical data and complain loudly in the log with error messages \(log lines will include "ledger gap detected"\). To resolve this situation, you must re-establish the expected state of the Stellar Core database and purge historical data from Expansion's database. We leave the details of this process up to the reader as it is dependent upon your operating needs and configuration, but we offer one potential solution:
 
-We recommend you configure the HISTORY\_RETENTION\_COUNT in Horizon to a value less than or equal to the configured value for CATCHUP\_RECENT in Stellar Core. Given this situation, any downtime that would cause a ledger gap will require a downtime greater than the amount of historical data retained by Horizon. To re-establish continuity:
+We recommend you configure the HISTORY\_RETENTION\_COUNT in Expansion to a value less than or equal to the configured value for CATCHUP\_RECENT in Stellar Core. Given this situation, any downtime that would cause a ledger gap will require a downtime greater than the amount of historical data retained by Expansion. To re-establish continuity:
 
-1. Stop Horizon.
-2. Run `horizon db reap` to clear the historical database.
-3. Clear the cursor for Horizon by running `stellar-core -c "dropcursor?id=HORIZON"` \(ensure capitilization is maintained\).
+1. Stop Expansion.
+2. Run `Expansion db reap` to clear the historical database.
+3. Clear the cursor for Expansion by running `stellar-core -c "dropcursor?id=Expansion"` \(ensure capitilization is maintained\).
 4. Clear ledger metadata from before the gap by running `stellar-core -c "maintenance?queue=true"`.
-5. Restart Horizon.
+5. Restart Expansion.
 
 ### Some endpoints are not available during state ingestion
 
@@ -74,11 +74,11 @@ It's possible that the progress logs \(see below\) will not show anything new fo
 If you see that ingestion is not proceeding for a very long period of time:
 
 1. Check the RAM usage on the machine. It's possible that system ran out of RAM and it using swap memory that is extremely slow.
-2. If above is not the case, file a new issue in [the Horizon repository](https://github.com/stellar/go/tree/master/services/horizon).
+2. If above is not the case, file a new issue in [the Expansion repository](https://github.com/stellar/go/tree/master/services/Expansion).
 
 ### CPU usage goes high every few minutes
 
-This is _by design_. Horizon runs a state verifier routine that compares state in local storage to history archives every 64 ledgers to ensure data changes are applied correctly. If data corruption is detected, Horizon will block access to endpoints serving invalid data.
+This is _by design_. Expansion runs a state verifier routine that compares state in local storage to history archives every 64 ledgers to ensure data changes are applied correctly. If data corruption is detected, Expansion will block access to endpoints serving invalid data.
 
 We recommend keeping this security feature turned on; however, if it's causing problems \(due to CPU usage\) this can be disabled by `--ingest-disable-state-verification` CLI param or `INGEST-DISABLE-STATE-VERIFICATION` env variable.
 
@@ -94,7 +94,7 @@ It starts with informing you about state ingestion:
 
  \`\`\` INFO\[2019-08-29T13:04:13.473+02:00\] Starting ingestion system from empty state... pid=5965 service=expingest temp\_set="\*io.MemoryTempSet" INFO\[2019-08-29T13:04:15.263+02:00\] Reading from History Archive Snapshot ledger=25565887 pid=5965 service=expingest \`\`\`
 
-During state ingestion, Horizon will log number of processed entries every 100,000 entries \(there are currently around 7M entries in the public network\):
+During state ingestion, Expansion will log number of processed entries every 100,000 entries \(there are currently around 7M entries in the public network\):
 
  \`\`\` INFO\[2019-08-29T13:04:34.652+02:00\] Processing entries from History Archive Snapshot ledger=25565887 numEntries=100000 pid=5965 service=expingest INFO\[2019-08-29T13:04:38.487+02:00\] Processing entries from History Archive Snapshot ledger=25565887 numEntries=200000 pid=5965 service=expingest INFO\[2019-08-29T13:04:41.322+02:00\] Processing entries from History Archive Snapshot ledger=25565887 numEntries=300000 pid=5965 service=expingest INFO\[2019-08-29T13:04:48.429+02:00\] Processing entries from History Archive Snapshot ledger=25565887 numEntries=400000 pid=5965 service=expingest INFO\[2019-08-29T13:05:00.306+02:00\] Processing entries from History Archive Snapshot ledger=25565887 numEntries=500000 pid=5965 service=expingest \`\`\`
 
@@ -104,7 +104,7 @@ When state ingestion is finished, it will proceed to ledger ingestion starting f
 
 ## Managing Stale Historical Data
 
-Horizon ingests ledger data from a connected instance of Stellar Core. In the event that Stellar Core stops running \(or if Horizon stops ingesting data for any other reason\), the view provided by Horizon will start to lag behind reality. For simpler applications, this may be fine, but in many cases this lag is unacceptable and the application should not continue operating until the lag is resolved.
+Expansion ingests ledger data from a connected instance of Stellar Core. In the event that Stellar Core stops running \(or if Expansion stops ingesting data for any other reason\), the view provided by Expansion will start to lag behind reality. For simpler applications, this may be fine, but in many cases this lag is unacceptable and the application should not continue operating until the lag is resolved.
 
-To help applications that cannot tolerate lag, Horizon provides a configurable "staleness" threshold. Given that enough lag has accumulated to surpass this threshold \(expressed in number of ledgers\), Horizon will only respond with an error: [`stale_history`](https://github.com/stellar/go/blob/master/services/horizon/internal/docs/reference/errors/stale-history.md). To configure this option, use either the `--history-stale-threshold` command line flag or the `HISTORY_STALE_THRESHOLD` environment variable. NOTE: non-historical requests \(such as submitting transactions or finding payment paths\) will not error out when the staleness threshold is surpassed.
+To help applications that cannot tolerate lag, Expansion provides a configurable "staleness" threshold. Given that enough lag has accumulated to surpass this threshold \(expressed in number of ledgers\), Expansion will only respond with an error: [`stale_history`](https://github.com/stellar/go/blob/master/services/Expansion/internal/docs/reference/errors/stale-history.md). To configure this option, use either the `--history-stale-threshold` command line flag or the `HISTORY_STALE_THRESHOLD` environment variable. NOTE: non-historical requests \(such as submitting transactions or finding payment paths\) will not error out when the staleness threshold is surpassed.
 
