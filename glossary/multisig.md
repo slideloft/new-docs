@@ -5,7 +5,6 @@ order: null
 
 # multisig
 
-import { CodeExample } from "components/CodeExample"; import { Alert } from "components/Alert";
 
 ## Transaction signatures
 
