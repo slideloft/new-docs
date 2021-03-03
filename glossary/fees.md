@@ -17,7 +17,9 @@ To prevent ledger spam and maintain the efficiency of the network, Stellar requi
 
 Stellar transactions can contain anywhere from 1 to a defined limit of 100 operations. The fee for a given transaction is equal to the number of operations the transaction contains multiplied by the base fee for a given ledger.
 
- \`\`\` Transaction fee = \# of operations \* base fee \`\`\`
+```text
+Transaction fee = # of operations * base fee
+```
 
 Stellar deducts the entire fee from the transaction’s source account, regardless of which accounts are involved in each operation or who signed the transaction.
 
