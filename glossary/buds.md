@@ -5,11 +5,11 @@ order: null
 
 # BUDS
 
-The [BUDS](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0002.md) maps Bantu addresses to more information about a given user. It's a way for Bantu client software to resolve email-like addresses such as `name*yourdomain.com` into account IDs like: `GCCVPYFOHY7ZB7557JKENAX62LUAPLMGIWNZJAFV2MITK6T32V37KEJU`. Federated addresses provide an easy way for users to share payment details by using a syntax that interoperates across different domains and providers.
+The [BUDS](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0002.md) maps Bantu addresses to more information about a given user. It's a way for Bantu client software to resolve email-like addresses such as `name*yourdomain.com` into account IDs like: `GCCVPYFOHY7ZB7557JKENAX62LUAPLMGIWNZJAFV2MITK6T32V37KEJU`. Buds addresses provide an easy way for users to share payment details by using a syntax that interoperates across different domains and providers.
 
 ## Buds addresses
 
-Bantu federated addresses are divided into two parts separated by `*`: the username and the domain.
+Bantu Buds addresses are divided into two parts separated by `*`: the username and the domain.
 
 For example: `flarcos*Bantu.network`:
 
@@ -18,7 +18,7 @@ For example: `flarcos*Bantu.network`:
 
 The domain can be any valid RFC 1035 domain name. The username is limited to printable UTF-8 with whitespace and the following characters excluded: &lt;\*,&gt;.
 
-Note that the `@` symbol is allowed in the username. This means you can use email addresses in the username of a federated address. For example: `maria@gmail.com*Bantu.network`.
+Note that the `@` symbol is allowed in the username. This means you can use email addresses in the username of a Buds address. For example: `maria@gmail.com*Bantu.network`.
 
 ## Supporting Buds
 
