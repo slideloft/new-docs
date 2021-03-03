@@ -331,7 +331,7 @@ Parameters:
 | Low threshold | integer | A number from 0-255 \(inclusive\) representing the threshold this account sets on all operations it performs that have [a low threshold](../glossary/multisig.md). |
 | Medium threshold | integer | A number from 0-255 \(inclusive\) representing the threshold this account sets on all operations it performs that have [a medium threshold](../glossary/multisig.md). |
 | High threshold | integer | A number from 0-255 \(inclusive\) representing the threshold this account sets on all operations it performs that have [a high threshold](../glossary/multisig.md). |
-| Home domain | string | Sets the home domain of an account. See [Federation](../glossary/buds.md). |
+| Home domain | string | Sets the home domain of an account. See [Federation](../glossary/federation.md). |
 | Signer | {Public Key, weight} | Add, update, or remove a signer from an account. Signer weight is a number from 0-255 \(inclusive\). The signer is deleted if the weight is 0. |
 
 Possible errors:

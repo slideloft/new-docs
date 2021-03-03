@@ -23,6 +23,7 @@
   * [Create a Basic Wallet](building-apps/basic-wallet.md)
   * [Make XBN Payments](building-apps/xbn-payments.md)
   * [Handle Custom Assets](building-apps/custom-assets.md)
+* [Untitled](untitled.md)
 * [Run a Core Node](run-core-node/README.md)
   * [index](run-core-node/index.md)
   * [running-node](run-core-node/running-node.md)

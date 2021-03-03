@@ -56,7 +56,126 @@ Each of these accounts can only claim the balance under certain, individual cond
 
 It's worth emphasizing that there is no "recovery" mechanism for a claimable balance in general: if none of the predicates can be fulfilled, the balance **cannot be recovered**. The "reclaim" paradigm below acts as a safety net for this situation.
 
- \`\`\`js const sdk = require\("stellar-sdk"\); async function main\(\) { let server = new sdk.Server\("https://horizon-testnet.stellar.org"\); let A = sdk.Keypair.fromSecret\("SAQLZCQA6AYUXK6JSKVPJ2MZ5K5IIABJOEQIG4RVBHX4PG2KMRKWXCHJ"\); let B = sdk.Keypair.fromPublicKey\("GAS4V4O2B7DW5T7IQRPEEVCRXMDZESKISR7DVIGKZQYYV3OSQ5SH5LVP"\); // NOTE: Proper error checks are omitted for brevity; always validate things! let aAccount = await server.loadAccount\(A.publicKey\(\)\).catch\(function \(err\) { console.error\(\`Failed to load ${A.publicKey\(\)}: ${err}\`\) }\) if \(!aAccount\) { return } // Create a claimable balance with our two above-described conditions. let soon = Math.ceil\(\(Date.now\(\) / 1000\) + 60\); // .now\(\) is in ms let bCanClaim = sdk.Claimant.predicateBeforeRelativeTime\("60"\); let aCanReclaim = sdk.Claimant.predicateNot\( sdk.Claimant.predicateBeforeAbsoluteTime\(soon.toString\(\)\) \); // Create the operation and submit it in a transaction. let claimableBalanceEntry = sdk.Operation.createClaimableBalance\({ claimants: \[ new sdk.Claimant\(B.publicKey\(\), bCanClaim\), new sdk.Claimant\(A.publicKey\(\), aCanReclaim\) \], asset: sdk.Asset.native\(\), amount: "420", }\); let tx = new sdk.TransactionBuilder\(aAccount, {fee: sdk.BASE\_FEE}\) .addOperation\(claimableBalanceEntry\) .setNetworkPassphrase\(sdk.Networks.TESTNET\) .setTimeout\(180\) .build\(\); tx.sign\(A\); let txResponse = await server.submitTransaction\(tx\).then\(function\(\) { console.log\("Claimable balance created!"\); }\).catch\(function \(err\) { console.error\(\`Tx submission failed: ${err}\`\) }\); } \`\`\` \`\`\`go package main import \( "fmt" "time" sdk "github.com/stellar/go/clients/horizonclient" "github.com/stellar/go/keypair" "github.com/stellar/go/network" "github.com/stellar/go/txnbuild" "github.com/stellar/go/xdr" \) func main\(\) { client := sdk.DefaultTestNetClient // Suppose that these accounts exist and are funded accordingly: A := "SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4" B := "GA2C5RFPE6GCKMY3US5PAB6UZLKIGSPIUKSLRB6Q723BM2OARMDUYEJ5" // Load the corresponding account for A. aKeys := keypair.MustParseFull\(A\) aAccount, err := client.AccountDetail\(sdk.AccountRequest{ AccountID: aKeys.Address\(\), }\) // Create a claimable balance with our two above-described conditions. soon := time.Now\(\).Add\(time.Second \* 60\) bCanClaim := txnbuild.BeforeRelativeTimePredicate\(60\) aCanReclaim := txnbuild.NotPredicate\( txnbuild.BeforeAbsoluteTimePredicate\(soon.Unix\(\)\), \) claimants := \[\]txnbuild.Claimant{ txnbuild.NewClaimant\(B, &bCanClaim\), txnbuild.NewClaimant\(aKeys.Address\(\), &aCanReclaim\), } // Create the operation and submit it in a transaction. claimableBalanceEntry := txnbuild.CreateClaimableBalance{ Destinations: claimants, Asset: txnbuild.NativeAsset{}, Amount: "420", } // Build, sign, and submit the transaction tx, err := txnbuild.NewTransaction\( txnbuild.TransactionParams{ SourceAccount: &aAccount, IncrementSequenceNum: true, BaseFee: txnbuild.MinBaseFee, // Use a real timeout in production! Timebounds: txnbuild.NewInfiniteTimeout\(\), Operations: \[\]txnbuild.Operation{&claimableBalanceEntry}, }, \) check\(err\) tx, err = tx.Sign\(network.TestNetworkPassphrase, aKeys\) check\(err\) txResp, err := client.SubmitTransaction\(tx\) check\(err\) fmt.Println\("Claimable balance created!"\) } \`\`\`
+{% tabs %}
+{% tab title="JavaScript" %}
+```go
+const sdk = require("stellar-sdk");
+
+async function main() {
+  let server = new sdk.Server("https://horizon-testnet.stellar.org");
+
+  let A = sdk.Keypair.fromSecret("SAQLZCQA6AYUXK6JSKVPJ2MZ5K5IIABJOEQIG4RVBHX4PG2KMRKWXCHJ");
+  let B = sdk.Keypair.fromPublicKey("GAS4V4O2B7DW5T7IQRPEEVCRXMDZESKISR7DVIGKZQYYV3OSQ5SH5LVP");
+
+  // NOTE: Proper error checks are omitted for brevity; always validate things!
+
+  let aAccount = await server.loadAccount(A.publicKey()).catch(function (err) {
+    console.error(`Failed to load ${A.publicKey()}: ${err}`)
+  })
+  if (!aAccount) { return }
+
+  // Create a claimable balance with our two above-described conditions.
+  let soon = Math.ceil((Date.now() / 1000) + 60); // .now() is in ms
+  let bCanClaim = sdk.Claimant.predicateBeforeRelativeTime("60");
+  let aCanReclaim = sdk.Claimant.predicateNot(
+    sdk.Claimant.predicateBeforeAbsoluteTime(soon.toString())
+  );
+
+  // Create the operation and submit it in a transaction.
+  let claimableBalanceEntry = sdk.Operation.createClaimableBalance({
+    claimants: [
+      new sdk.Claimant(B.publicKey(), bCanClaim),
+      new sdk.Claimant(A.publicKey(), aCanReclaim)
+    ],
+    asset: sdk.Asset.native(),
+    amount: "420",
+  });
+
+  let tx = new sdk.TransactionBuilder(aAccount, {fee: sdk.BASE_FEE})
+    .addOperation(claimableBalanceEntry)
+    .setNetworkPassphrase(sdk.Networks.TESTNET)
+    .setTimeout(180)
+    .build();
+
+  tx.sign(A);
+  let txResponse = await server.submitTransaction(tx).then(function() {
+    console.log("Claimable balance created!");
+  }).catch(function (err) {
+    console.error(`Tx submission failed: ${err}`)
+  });
+}
+```
+{% endtab %}
+
+{% tab title="Go" %}
+```go
+package main
+
+import (
+    "fmt"
+    "time"
+
+    sdk "github.com/stellar/go/clients/horizonclient"
+    "github.com/stellar/go/keypair"
+    "github.com/stellar/go/network"
+    "github.com/stellar/go/txnbuild"
+    "github.com/stellar/go/xdr"
+)
+
+func main() {
+    client := sdk.DefaultTestNetClient
+
+    // Suppose that these accounts exist and are funded accordingly:
+    A := "SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U6MM63WBSBZATAQI3EBTQ4"
+    B := "GA2C5RFPE6GCKMY3US5PAB6UZLKIGSPIUKSLRB6Q723BM2OARMDUYEJ5"
+
+    // Load the corresponding account for A.
+    aKeys := keypair.MustParseFull(A)
+    aAccount, err := client.AccountDetail(sdk.AccountRequest{
+        AccountID: aKeys.Address(),
+    })
+
+    // Create a claimable balance with our two above-described conditions.
+    soon := time.Now().Add(time.Second * 60)
+    bCanClaim := txnbuild.BeforeRelativeTimePredicate(60)
+    aCanReclaim := txnbuild.NotPredicate(
+        txnbuild.BeforeAbsoluteTimePredicate(soon.Unix()),
+    )
+
+    claimants := []txnbuild.Claimant{
+        txnbuild.NewClaimant(B, &bCanClaim),
+        txnbuild.NewClaimant(aKeys.Address(), &aCanReclaim),
+    }
+
+    // Create the operation and submit it in a transaction.
+    claimableBalanceEntry := txnbuild.CreateClaimableBalance{
+        Destinations: claimants,
+        Asset:        txnbuild.NativeAsset{},
+        Amount:       "420",
+    }
+
+    // Build, sign, and submit the transaction
+    tx, err := txnbuild.NewTransaction(
+        txnbuild.TransactionParams{
+            SourceAccount:        &aAccount,
+            IncrementSequenceNum: true,
+            BaseFee:              txnbuild.MinBaseFee,
+            // Use a real timeout in production!
+            Timebounds: txnbuild.NewInfiniteTimeout(),
+            Operations: []txnbuild.Operation{&claimableBalanceEntry},
+        },
+    )
+    check(err)
+    tx, err = tx.Sign(network.TestNetworkPassphrase, aKeys)
+    check(err)
+    txResp, err := client.SubmitTransaction(tx)
+    check(err)
+
+    fmt.Println("Claimable balance created!")
+}
+```
+{% endtab %}
+{% endtabs %}
 
 At this point, the `ClaimableBalanceEntry` exists in the ledger, but we'll need its Balance ID to claim it. This can be acquired in a number of ways:
 
@@ -66,11 +185,110 @@ At this point, the `ClaimableBalanceEntry` exists in the ledger, but we'll need 
 
 Either party could also check the `/effects` of the transaction, query `/claimable_balances` with different filters, etc. Note that while \(1\) may be unavailable in some SDKs as its just a helper, the other methods are universal.
 
- \`\`\`js // Method 1: Not available in the JavaScript SDK yet. // Method 2: Suppose \`txResponse\` comes from the transaction submission // above. let txResult = sdk.xdr.TransactionResult.fromXDR\( txResponse.result\_xdr, "base64"\); let results = txResult.result\(\).results\(\); // We look at the first result since our first \(and only\) operation // in the transaction was the CreateClaimableBalanceOp. let operationResult = results\[0\].value\(\).createClaimableBalanceResult\(\); let balanceId = operationResult.balanceId\(\).toXDR\("hex"\); console.log\("Balance ID \(2\):", balanceId\); // Method 3: Account B could alternatively do something like: let balances = await server .claimableBalances\(\) .claimant\(B.publicKey\(\)\) .limit\(1\) // there may be many in general .order\("desc"\) // so always get the latest one .call\(\) .catch\(function\(err\) { console.error\(\`Claimable balance retrieval failed: ${err}\`\) }\); if \(!balances\) { return; } balanceId = balances.records\[0\].id; console.log\("Balance ID \(3\):", balanceId\); \`\`\` \`\`\`go // Method 1: Suppose \`tx\` comes from the transaction built above. // Notice that this can be done \*before\* submission. balanceId, err := tx.ClaimableBalanceID\(0\) check\(err\) // Method 2: Suppose \`txResp\` comes from the transaction submission above. var txResult xdr.TransactionResult err = xdr.SafeUnmarshalBase64\(txResp.ResultXdr, &txResult\) check\(err\) if results, ok := txResult.OperationResults\(\); ok { // We look at the first result since our first \(and only\) operation in the // transaction was the CreateClaimableBalanceOp. operationResult := results\[0\].MustTr\(\).CreateClaimableBalanceResult balanceId, err := xdr.MarshalHex\(operationResult.BalanceId\) check\(err\) fmt.Println\("Balance ID:", balanceId\) } // Method 3: Account B could alternatively do something like: balances, err := client.ClaimableBalances\(sdk.ClaimableBalanceRequest{Claimant: B}\) check\(err\) balanceId := balances.Embedded.Records\[0\].BalanceID \`\`\`
+{% tabs %}
+{% tab title="JavaScript" %}
+```javascript
+// Method 1: Not available in the JavaScript SDK yet.
+
+// Method 2: Suppose `txResponse` comes from the transaction submission
+// above.
+let txResult = sdk.xdr.TransactionResult.fromXDR(
+  txResponse.result_xdr, "base64");
+let results = txResult.result().results();
+
+// We look at the first result since our first (and only) operation
+// in the transaction was the CreateClaimableBalanceOp.
+let operationResult = results[0].value().createClaimableBalanceResult();
+let balanceId = operationResult.balanceId().toXDR("hex");
+console.log("Balance ID (2):", balanceId);
+
+// Method 3: Account B could alternatively do something like:
+let balances = await server
+    .claimableBalances()
+    .claimant(B.publicKey())
+    .limit(1)       // there may be many in general
+    .order("desc")  // so always get the latest one
+    .call()
+    .catch(function(err) {
+      console.error(`Claimable balance retrieval failed: ${err}`)
+    });
+if (!balances) { return; }
+
+balanceId = balances.records[0].id;
+console.log("Balance ID (3):", balanceId);
+```
+{% endtab %}
+
+{% tab title="Go" %}
+```go
+// Method 1: Suppose `tx` comes from the transaction built above.
+//           Notice that this can be done *before* submission.
+balanceId, err := tx.ClaimableBalanceID(0)
+check(err)
+
+// Method 2: Suppose `txResp` comes from the transaction submission above.
+var txResult xdr.TransactionResult
+err = xdr.SafeUnmarshalBase64(txResp.ResultXdr, &txResult)
+check(err)
+
+if results, ok := txResult.OperationResults(); ok {
+    // We look at the first result since our first (and only) operation in the
+    // transaction was the CreateClaimableBalanceOp.
+    operationResult := results[0].MustTr().CreateClaimableBalanceResult
+    balanceId, err := xdr.MarshalHex(operationResult.BalanceId)
+    check(err)
+    fmt.Println("Balance ID:", balanceId)
+}
+
+// Method 3: Account B could alternatively do something like:
+balances, err := client.ClaimableBalances(sdk.ClaimableBalanceRequest{Claimant: B})
+check(err)
+balanceId := balances.Embedded.Records[0].BalanceID
+```
+{% endtab %}
+{% endtabs %}
 
 With the claimable balance ID acquired, either Account B or A can actually submit a claim, depending on which predicate is fulfilled. We'll assume here that a minute has passed, so Account A just reclaims the balance entry.
 
- \`\`\`js let claimBalance = sdk.Operation.claimClaimableBalance\({ balanceId: balanceId }\); console.log\(A.publicKey\(\), "claiming", balanceId\); let tx = new sdk.TransactionBuilder\(aAccount, {fee: sdk.BASE\_FEE}\) .addOperation\(claimBalance\) .setNetworkPassphrase\(sdk.Networks.TESTNET\) .setTimeout\(180\) .build\(\); tx.sign\(A\); await server.submitTransaction\(tx\).catch\(function \(err\) { console.error\(\`Tx submission failed: ${err}\`\) }\); \`\`\` \`\`\`go claimBalance := txnbuild.ClaimClaimableBalance{BalanceID: balanceId} tx, err = txnbuild.NewTransaction\( txnbuild.TransactionParams{ SourceAccount: &aAccount, // or Account B, depending on the condition! IncrementSequenceNum: true, BaseFee: txnbuild.MinBaseFee, Timebounds: txnbuild.NewInfiniteTimeout\(\), Operations: \[\]txnbuild.Operation{&claimBalance}, }, \) check\(err\) tx, err = tx.Sign\(network.TestNetworkPassphrase, aKeys\) check\(err\) txResp, err = client.SubmitTransaction\(tx\) check\(err\) \`\`\`
+{% tabs %}
+{% tab title="JavaScript" %}
+```javascript
+let claimBalance = sdk.Operation.claimClaimableBalance({ balanceId: balanceId });
+console.log(A.publicKey(), "claiming", balanceId);
+
+let tx = new sdk.TransactionBuilder(aAccount, {fee: sdk.BASE_FEE})
+  .addOperation(claimBalance)
+  .setNetworkPassphrase(sdk.Networks.TESTNET)
+  .setTimeout(180)
+  .build();
+
+tx.sign(A);
+await server.submitTransaction(tx).catch(function (err) {
+  console.error(`Tx submission failed: ${err}`)
+});
+```
+{% endtab %}
+
+{% tab title="Go" %}
+```go
+claimBalance := txnbuild.ClaimClaimableBalance{BalanceID: balanceId}
+tx, err = txnbuild.NewTransaction(
+    txnbuild.TransactionParams{
+        SourceAccount:        &aAccount, // or Account B, depending on the condition!
+        IncrementSequenceNum: true,
+        BaseFee:              txnbuild.MinBaseFee,
+        Timebounds:           txnbuild.NewInfiniteTimeout(),
+        Operations:           []txnbuild.Operation{&claimBalance},
+    },
+)
+check(err)
+tx, err = tx.Sign(network.TestNetworkPassphrase, aKeys)
+check(err)
+txResp, err = client.SubmitTransaction(tx)
+check(err)
+```
+{% endtab %}
+{% endtabs %}
 
 And that's it! At this point, since we opted for the "reclaim" path, Account A should have the same balance as what it started with \(sans fees\), and Account B should be unchanged.
 

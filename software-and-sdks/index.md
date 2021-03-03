@@ -7,21 +7,21 @@ order: 0
 
 ## Software
 
-There are two key pieces of network software: Stellar Core, which tracks and adds transaction sets to the ledger, and Horizon, an API that allows programmatic access to submit transactions and query network data. To find out more about how they work together, visit the description of the [Stellar Stack](../start/bantu-stack.md).
+There are two key pieces of network software: Bantu Core, which tracks and adds transaction sets to the ledger, and Horizon, an API that allows programmatic access to submit transactions and query network data. To find out more about how they work together, visit the description of the [Bantu Stack](../start/bantu-stack.md).
 
-You do not have to run a Stellar Core node or Horizon instance to build on Stellar: you can start developing in your language of choice by installing one of the [Stellar SDKs](index.md#sdks) below, and interacting with a public Horizon instance. To find out more about how to interact with Horizon, check out the [API Reference](../api/introduction/index.md) section, which chronicles every Horizon endpoint, resource, aggregation, and error.
+You do not have to run a Bantu Core node or Horizon instance to build on Bantu: you can start developing in your language of choice by installing one of the [Bantu SDKs](index.md#sdks) below, and interacting with a public Horizon instance. To find out more about how to interact with Horizon, check out the [API Reference](../api/introduction/index.md) section, which chronicles every Horizon endpoint, resource, aggregation, and error.
 
-### Stellar Core
+### Bantu Core
 
-Stellar Core is the backbone of the Stellar network and does the hard work of validating and agreeing on the status of every transaction with other instances of Core through the Stellar Consensus Protocol. The processes for installing, configuring, and maintaining a Stellar Core node are covered in great detail in the [Run a Core Node](../run-core-node/index.md) section of the docs.
+Bantu Core is the backbone of the Bantu network and does the hard work of validating and agreeing on the status of every transaction with other instances of Core through the Bantu Consensus Protocol. The processes for installing, configuring, and maintaining a Bantu Core node are covered in great detail in the [Run a Core Node](../run-core-node/index.md) section of the docs.
 
 ### Horizon
 
-Horizon is the client-facing API server for the Stellar ecosystem. It acts as the interface between Stellar Core and applications that want to access the Stellar network. If you're running Stellar Core, you will probably also want to run Horizon. For more information on how to set up and operate a Horizon instance, see the [Run an API Server](../run-api-server/index.md) section of the docs.
+Horizon is the client-facing API server for the Bantu ecosystem. It acts as the interface between Bantu Core and applications that want to access the Bantu network. If you're running Bantu Core, you will probably also want to run Horizon. For more information on how to set up and operate a Horizon instance, see the [Run an API Server](../run-api-server/index.md) section of the docs.
 
 ## SDKs
 
-There are a wide variety of Stellar SDKs, which means you can interact with the network in your language of choice. The Javascript, Java, and Go SDKs are maintained by the Stellar Development Foundation; the rest are maintained by dedicated community developers. They're all open source, so if you have a question, suggestion, or contribution to make, you can file a Github issue or pull request in the relevant SDK repository. You can also get in touch with SDK maintainers by joining the [Stellar public Keybase team](https://keybase.io/team/stellar.public), and navigating to the \#sdk-mainteners channel.
+There are a wide variety of Bantu SDKs, which means you can interact with the network in your language of choice. The Javascript, Java, and Go SDKs are maintained by the Bantu Development Foundation; the rest are maintained by dedicated community developers. They're all open source, so if you have a question, suggestion, or contribution to make, you can file a Github issue or pull request in the relevant SDK repository. You can also get in touch with SDK maintainers by joining the [Bantu public Keybase team](https://keybase.io/team/stellar.public), and navigating to the \#sdk-mainteners channel.
 
 Each SDK has its own source code and documentation, and we've linked to both in the list below. Often, the best place to find out how to use a given SDK is to check the documentation specific to it. Most offer practical examples that demonstrate how to construct and submit transactions and interact with Horizon endpoints.
 
@@ -37,7 +37,7 @@ Each SDK has its own source code and documentation, and we've linked to both in 
 
 ### Go
 
-The Go SDK is split up into a few separate packages, all of which you can find in [the Go monorepo README](https://github.com/stellar/go/blob/master/docs/reference/readme.md). The two key libraries for interacting with Horizon are `txnbuild`, which enables the construction, signing, and encoding of Stellar transactions, and `horizonclient`, which provides a web client for interfacing with Horizon server REST endpoints to retrieve ledger information and submit transactions built with `txnbuild`.
+The Go SDK is split up into a few separate packages, all of which you can find in [the Go monorepo README](https://github.com/stellar/go/blob/master/docs/reference/readme.md). The two key libraries for interacting with Horizon are `txnbuild`, which enables the construction, signing, and encoding of Bantu transactions, and `horizonclient`, which provides a web client for interfacing with Horizon server REST endpoints to retrieve ledger information and submit transactions built with `txnbuild`.
 
 * `txnbuild` [Source](https://github.com/stellar/go/tree/master/txnbuild)
 * `txnbuild` [Docs](https://godoc.org/github.com/stellar/go/txnbuild)
@@ -88,11 +88,11 @@ The Go SDK is split up into a few separate packages, all of which you can find i
 
 ## Tools
 
-The Stellar Development Foundation maintains a small suite of tools to make it easier for developers to interact with the network.
+The Bantu Development Foundation maintains a small suite of tools to make it easier for developers to interact with the network.
 
 ### [Laboratory](https://www.stellar.org/laboratory/)
 
-The Stellar laboratory is a GUI that allows you to create accounts, construct and submit transactions, read XDRs, and query all of Horizon's endpoints. It exposes the relevant calls to Horizon, so it's a great way to experiment with and learn more about the Stellar API. The source is available [here](https://github.com/stellar/laboratory).
+The Bantu laboratory is a GUI that allows you to create accounts, construct and submit transactions, read XDRs, and query all of Horizon's endpoints. It exposes the relevant calls to Horizon, so it's a great way to experiment with and learn more about the Bantu API. The source is available [here](https://github.com/stellar/laboratory).
 
 ### [Account Viewer](https://www.stellar.org/account-viewer/)
 
@@ -106,13 +106,13 @@ The dashboard shows the current status of the public network and the test networ
 
 The status page tracks network incidents and scheduled maintenance for both the public network and the test network. We recommend subscribing to updates so you're notified about important events including protocol upgrades and testnet resets.
 
-There is also a small [suite of tools](https://github.com/stellar/go/tree/master/tools) built in Go that can be useful for Stellar Core and Horizon operators. It includes things like Stellar Archivist, which is for Stellar Core archive maintenance, and Horizon cmp, which compares the responses of two Horizon servers and shows the diffs.
+There is also a small [suite of tools](https://github.com/stellar/go/tree/master/tools) built in Go that can be useful for Bantu Core and Horizon operators. It includes things like Bantu Archivist, which is for Bantu Core archive maintenance, and Horizon cmp, which compares the responses of two Horizon servers and shows the diffs.
 
 ## Reference Implementations
 
-The Stellar Development Foundation maintains reference implementations of some [Stellar Ecosystem Proposals](https://github.com/stellar/stellar-protocol/tree/master/ecosystem) to jumpstart the process of building infrastructure on top of Stellar in a way that maximizes interoperability among ecosystem participants.
+The Bantu Development Foundation maintains reference implementations of some [Bantu Ecosystem Proposals](https://github.com/stellar/stellar-protocol/tree/master/ecosystem) to jumpstart the process of building infrastructure on top of Bantu in a way that maximizes interoperability among ecosystem participants.
 
-* [Polaris](https://github.com/stellar/django-polaris) is an extendable django app that makes it easy for anchors to [facilitate cross-border payments and enable deposits and withdrawals](). Using Polaris, you can run a web server supporting any combination of SEP-1, 6, 10, 12, and 24.
-* The [SEP-24 demo client](https://github.com/stellar/sep24-demo-client) makes it easy for anchors to test their deposit and withdrawal flows by implementing the client side of a Stellar SEP24 interactive flow.
+* [Polaris](https://github.com/stellar/django-polaris) is an extendable Django app that makes it easy for anchors to [facilitate cross-border payments and enable deposits and withdrawals](). Using Polaris, you can run a web server supporting any combination of SEP-1, 6, 10, 12, and 24.
+* The [SEP-24 demo client](https://github.com/stellar/sep24-demo-client) makes it easy for anchors to test their deposit and withdrawal flows by implementing the client side of a Bantu SEP24 interactive flow.
 * The [Federation Server](https://github.com/stellar/go/tree/master/services/federation) is a Go implementation of the federation protocol described in [SEP-2](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0002.md). It's designed to be dropped into your existing infrastructure.
 
