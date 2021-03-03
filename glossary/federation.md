@@ -5,7 +5,7 @@ order: null
 
 # Federation
 
-The [Bantu federation protocol](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0002.md) maps Bantu addresses to more information about a given user. It's a way for Bantu client software to resolve email-like addresses such as `name*yourdomain.com` into account IDs like: `GCCVPYFOHY7ZB7557JKENAX62LUAPLMGIWNZJAFV2MITK6T32V37KEJU`. Federated addresses provide an easy way for users to share payment details by using a syntax that interoperates across different domains and providers.
+The [BUDS](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0002.md) maps Bantu addresses to more information about a given user. It's a way for Bantu client software to resolve email-like addresses such as `name*yourdomain.com` into account IDs like: `GCCVPYFOHY7ZB7557JKENAX62LUAPLMGIWNZJAFV2MITK6T32V37KEJU`. Federated addresses provide an easy way for users to share payment details by using a syntax that interoperates across different domains and providers.
 
 ## Federated addresses
 
@@ -18,7 +18,7 @@ For example: `flarcos*Bantu.network`:
 
 The domain can be any valid RFC 1035 domain name. The username is limited to printable UTF-8 with whitespace and the following characters excluded: &lt;\*,&gt;.
 
-Note that the `@` symbol is allowed in the username. This means you can use email addresses in the username of a federated address. For example: `maria@gmail.com*Bantu.org`.
+Note that the `@` symbol is allowed in the username. This means you can use email addresses in the username of a federated address. For example: `maria@gmail.com*Bantu.network`.
 
 ## Supporting Federation
 
@@ -45,7 +45,7 @@ Federation requests are http `GET` requests with the following form:
 Supported types:
 
 * **name**: Example: `https://YOUR_FEDERATION_SERVER/federation?q=flarcos*bantu.networ&type=name`
-* **forward**: Used for forwarding the payment on to a different network or different financial institution. The other parameters of the query will vary depending on what kind of institution is the ultimate destination of the payment and what you as the forwarding anchor supports. Your [Bantu.toml](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0001.md) file should specify what parameters you expect in a `forward` federation request. If you are unable to forward or the other parameters in the request are incorrect you should return an error to this effect. Example request: `https://YOUR_FEDERATION_SERVER/federation?type=forward&forward_type=bank_account&swift=BOPBPHMM&acct=2382376`
+* **forward**: Used for forwarding the payment on to a different BUDS or different financial institution. The other parameters of the query will vary depending on what kind of institution is the ultimate destination of the payment and what you as the forwarding anchor supports. Your [Bantu.toml](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0001.md) file should specify what parameters you expect in a `forward` federation request. If you are unable to forward or the other parameters in the request are incorrect you should return an error to this effect. Example request: `https://YOUR_FEDERATION_SERVER/federation?type=forward&forward_type=bank_account&swift=BOPBPHMM&acct=2382376`
 * **id**: _not supported by all federation servers_ Reverse federation will return the federation record of the Bantu address associated with the given account ID. In some cases this is ambiguous. For instance if an anchor sends transactions on behalf of its users the account id will be of the anchor and the federation server won't be able to resolve the particular user that sent the transaction. In cases like that you may need to use **txid** instead. Example: `https://YOUR_FEDERATION_SERVER/federation?q=GD6WU64OEP5C4LRBH6NK3MHYIA2ADN6K6II6EXPNVUR3ERBXT4AN4ACD&type=id`
 * **txid**: _not supported by all federation servers_ Will return the federation record of the sender of the transaction if known by the server. Example: `https://YOUR_FEDERATION_SERVER/federation?q=c1b368c00e9852351361e07cc58c54277e7a6366580044ab152b8db9cd8ec52a&type=txid`
 
