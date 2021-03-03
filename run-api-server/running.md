@@ -36,9 +36,9 @@ To enable ingestion of historical data from Stellar Core, you need to run `Expan
 To reingest older ledgers — which you may need to do after a version upgrade — or to ingest ledgers closed by the network before you started Expansion use the `Expansion db reingest range [START_LEDGER] [END_LEDGER]` command:
 
 ```text
-horizon1> horizon db reingest range 1 10000
-horizon2> horizon db reingest range 10001 20000
-horizon3> horizon db reingest range 20001 30000
+expansion1> expansion db reingest range 1 10000
+expansion2> expansion db reingest range 10001 20000
+expansion3> expansion db reingest range 20001 30000
 # ... etc.
 
 ```
