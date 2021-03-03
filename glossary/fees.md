@@ -37,7 +37,7 @@ The goal of the transaction pricing specification, which you can read in full [h
 
 ## Fee Stats and Fee Strategy
 
-The general rule of thumb: choose the highest fee you're willing to pay to ensure your transaction makes the ledger. Wallet developers may want to offer users a chance to specify their own base fee, though it may make more sense to set a persistent global base fee multiple orders of magnitude above the market rate — 0.1 XLM, for instance — since the average user probably won't care if they’re paying 0.8 cents or 0.00008 cents.
+The general rule of thumb: choose the highest fee you're willing to pay to ensure your transaction makes the ledger. Wallet developers may want to offer users a chance to specify their own base fee, though it may make more sense to set a persistent global base fee multiple orders of magnitude above the market rate — 0.1 XBN, for instance — since the average user probably won't care if they’re paying 0.8 cents or 0.00008 cents.
 
 If you keep getting a timeout error when you submit a transaction, you may need to increase your base fee, or wait until network activity abates and re-submit your transaction. To help inform that decision, you can consult the Horizon `/fee_stats` endpoint, which provides detailed information about per-operation fee stats for the last five ledgers. You can find the same information on the fee stats panel of the dashboard. All three of the SDF-maintained SDKs also allow you to poll the `/fee_stats` endpoint: [Go](https://godoc.org/github.com/Bantu/go/clients/horizonclient#Client.FeeStats), [Java](https://Bantu.github.io/java-Bantu-sdk/), [Javascript](https://Bantu.github.io/js-Bantu-sdk/Server.html#feeStats).
 
