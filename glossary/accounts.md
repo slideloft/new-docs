@@ -5,17 +5,17 @@ order: null
 
 # Accounts
 
-Accounts are the central data structure in Stellar. They hold balances, sign transactions, and issue assets. All entries that persist on the ledger are owned by a particular account.
+Accounts are the central data structure in Bantu. They hold balances, sign transactions, and issue assets. All entries that persist on the ledger are owned by a particular account.
 
 In addition to a valid keypair, an account needs a balance of XLM sufficient to meet the network reserve before it exists on the ledger.
 
 ## Keypair
 
-Stellar relies on public key cryptography to ensure that transactions are secure: every account requires a valid keypair consisting of a _public key_ a _private key_. The public key is, as the name suggests, public. It’s visible on the ledger, anyone can look it up, and it’s what others use to send payments to the account, identify the issuer an asset, and verify that a given transaction is authorized.
+Bantu relies on public key cryptography to ensure that transactions are secure: every account requires a valid keypair consisting of a _public key_ a _private key_. The public key is, as the name suggests, public. It’s visible on the ledger, anyone can look it up, and it’s what others use to send payments to the account, identify the issuer an asset, and verify that a given transaction is authorized.
 
 The private key, however, is something an account holder should guard closely. It’s kind of like the combination to a lock — anyone who knows it can access the account, sign transactions, send funds, whatever. Do not share your private key with anyone.
 
-You can use any Stellar wallet or SDK to generate a valid keypair.
+You can use any Bantu wallet or SDK to generate a valid keypair.
 
 ## Account Creation
 
@@ -47,7 +47,7 @@ Operations have varying levels of access. This field specifies thresholds for lo
 
 ### Home domain
 
-A [fully qualified domain name](https://en.wikipedia.org/wiki/Fully_qualified_domain_name) such as `example.com` linked to the account. A home domain is required of asset issuers, who use it to [publish meta-information](../issuing-assets/publishing-asset-info.md) for Stellar wallets and potential token holders, and for organizations running validators, who use it to [self-identify their nodes](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0020.md).
+A [fully qualified domain name](https://en.wikipedia.org/wiki/Fully_qualified_domain_name) such as `example.com` linked to the account. A home domain is required of asset issuers, who use it to [publish meta-information](../issuing-assets/publishing-asset-info.md) for Bantu wallets and potential token holders, and for organizations running validators, who use it to [self-identify their nodes](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0020.md).
 
 To add a home domain to an account, use the [Set Options](../start/list-of-operations.md#set-options) operation.
 
