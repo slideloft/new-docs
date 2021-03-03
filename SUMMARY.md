@@ -62,7 +62,7 @@
   * [Decentralized Exchange](glossary/decentralized-exchange.md)
   * [Fees](glossary/fees.md)
   * [XBN Supply](glossary/xnbsupply.md)
-  * [fee-bumps](glossary/fee-bumps.md)
+  * [Fee Bumps](glossary/fee-bumps.md)
   * [Channels](glossary/channels.md)
   * [Transactions](glossary/transactions.md)
   * [Minimum Balance](glossary/minimum-balance.md)

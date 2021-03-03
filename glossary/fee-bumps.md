@@ -3,7 +3,7 @@ title: Fee-Bump Transactions
 order: null
 ---
 
-# fee-bumps
+# Fee Bumps
 
 A fee-bump transaction enables any account to pay the fee for an existing [transaction](transactions.md) without the need to re-sign the existing transaction or manage sequence numbers. They're useful if you need to increase the fee on a pre-signed transaction, or if you want to build a service that covers user fees. Unlike a regular transaction, which contains 1-100 [operations](operations.md), a fee-bump transaction contains a single [transaction envelope](transactions.md#transaction-envelopes).
 
