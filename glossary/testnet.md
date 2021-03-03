@@ -11,13 +11,13 @@ BBF runs 3 Bantu Core validators on the testnet.
 
 You can connect a node to the testnet by configuring [Bantu Core](https://github.com/Bantu/Bantu-core) to use this [configuration](https://github.com/Bantu/Bantu-core/blob/master/docs/Bantu-core_testnet.cfg).
 
-There is also a [Horizon instance](https://expansion.Bantu.network/) that can directly interact with the testnet.
+There is also a [Expansion instance](https://expansion.Bantu.network/) that can directly interact with the testnet.
 
 ## What is the Bantu testnet good for?
 
 * [Creating test accounts](../tutorials/create-account.md) \(with funding thanks to Friendbot\).
 * Developing applications and exploring tutorials on Bantu without the potential to lose any valuable [assets](assets.md).
-* Testing existing applications against new releases or release candidates of [Bantu Core](https://github.com/Bantu/Bantu-core/releases) and [Horizon](https://github.com/Bantu/go/releases).
+* Testing existing applications against new releases or release candidates of [Bantu Core](https://github.com/Bantu/Bantu-core/releases) and [Expansion](https://github.com/Bantu/go/releases).
 * Performing data analysis on a smaller, non-trivial data set compared to the public network.
 
 ## What is the Bantu testnet not good for?
@@ -43,9 +43,9 @@ If you are having trouble submitting transactions to the testnet, you may need t
 
 In order to preserve a good experience for developers, the BBF testnet is periodically reset to the genesis \(initial\) ledger. Resets declutter the network, remove spam, minimize the time required to catch up to the latest ledger, and help maintain the system over time.
 
-A reset clears all ledger entries \(such as accounts, trustlines, offers, etc\), transactions, and historical data from both Bantu Core and Horizon, which is why developers should not rely on the persistence of any accounts or on the state of any balances when using testnet.
+A reset clears all ledger entries \(such as accounts, trustlines, offers, etc\), transactions, and historical data from both Bantu Core and Expansion, which is why developers should not rely on the persistence of any accounts or on the state of any balances when using testnet.
 
-After a reset, you will need to take a few steps to re-join and re-synch to the testnet. Those steps are outlined [here](https://github.com/Bantu/packages#testnet-reset), along with line-by-line instructions for people using core + horizon ubuntu packages. If you need help with other packages, check [Bantu's Stack Exchange](https://Bantu.stackexchange.com/) for guidance.
+After a reset, you will need to take a few steps to re-join and re-synch to the testnet. Those steps are outlined [here](https://github.com/Bantu/packages#testnet-reset), along with line-by-line instructions for people using core + Expansion ubuntu packages. If you need help with other packages, check [Bantu's Stack Exchange](https://Bantu.stackexchange.com/) for guidance.
 
 BBF will try to make testnet resets as painless as possible, and will announce the exact date at least two weeks in advance on the [Bantu Dashboard](https://dashboard.bantu.network/), and via several of Bantu’s online developer communities.
 
