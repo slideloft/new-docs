@@ -5,8 +5,6 @@ order: 70
 
 # monitoring
 
-import { CodeExample } from "components/CodeExample";
-
 Once your node is up and running, it's important to keep an eye on it to make sure it stays afloat and continues to contribute to the health of the overall network. To help with that, Stellar Core exposes vital information that you can use to monitor your node and diagnose potential problems.
 
 You can access this information using commands and inspecting Stellar Core's output, which is what the first half of this doc covers. You can also connect [Prometheus](monitoring.md#using-prometheus) to make monitoring easier, combine it with [Alertmanager](monitoring.md#configure-notifications-using-alertmanager) to automate notification, and use pre-built [Grafana dashboards](monitoring.md#visualize-metrics-using-grafana) to create visual representations of your node's well-being.
@@ -15,9 +13,52 @@ However you decide to monitor, the most important thing is that you have a syste
 
 ## General Node Information
 
-If you run `$ stellar-core http-command 'info'`, the output will look something like this:
+If you run `$ bantu-core http-command 'info'`, the output will look something like this:
 
- \`\`\`json { "build" : "v11.1.0", "history\_failure\_rate" : "0", "ledger" : { "age" : 3, "baseFee" : 100, "baseReserve" : 5000000, "closeTime" : 1560350852, "hash" : "40d884f6eb105da56bea518513ba9c5cda9a4e45ac824e5eac8f7262c713cc60", "maxTxSetSize" : 1000, "num" : 24311579, "version" : 11 }, "network" : "Public Global Stellar Network ; September 2015", "peers" : { "authenticated\_count" : 5, "pending\_count" : 0 }, "protocol\_version" : 10, "quorum" : { "qset" : { "agree" : 6, "delayed" : 0, "disagree" : 0, "fail\_at" : 2, "hash" : "d5c247", "ledger" : 24311579, "missing" : 1, "phase" : "EXTERNALIZE" }, "transitive" : { "critical" : null, "intersection" : true, "last\_check\_ledger" : 24311536, "node\_count" : 21 } }, "startedOn" : "2019-06-10T17:40:29Z", "state" : "Catching up", "status" : \[ "Catching up: downloading and verifying buckets: 30/30 \(100%\)" \] } } \`\`\`
+```javascript
+{
+      "build" : "v11.1.0",
+      "history_failure_rate" : "0",
+      "ledger" : {
+         "age" : 3,
+         "baseFee" : 100,
+         "baseReserve" : 5000000,
+         "closeTime" : 1560350852,
+         "hash" : "40d884f6eb105da56bea518513ba9c5cda9a4e45ac824e5eac8f7262c713cc60",
+         "maxTxSetSize" : 1000,
+         "num" : 24311579,
+         "version" : 11
+      },
+      "network" : "Public Global Stellar Network ; September 2015",
+      "peers" : {
+         "authenticated_count" : 5,
+         "pending_count" : 0
+      },
+      "protocol_version" : 10,
+      "quorum" : {
+         "qset" : {
+            "agree" : 6,
+            "delayed" : 0,
+            "disagree" : 0,
+            "fail_at" : 2,
+            "hash" : "d5c247",
+            "ledger" : 24311579,
+            "missing" : 1,
+            "phase" : "EXTERNALIZE"
+         },
+         "transitive" : {
+            "critical" : null,
+            "intersection" : true,
+            "last_check_ledger" : 24311536,
+            "node_count" : 21
+         }
+      },
+      "startedOn" : "2019-06-10T17:40:29Z",
+      "state" : "Catching up",
+      "status" : [ "Catching up: downloading and verifying buckets: 30/30 (100%)" ]
+   }
+}
+```
 
 Some notable fields in `info` are:
 
@@ -40,9 +81,43 @@ The `peers` command returns information on the peers your node is connected to.
 
 This list is the result of both inbound connections from other peers and outbound connections from this node to other peers.
 
-`$ stellar-core http-command 'peers'`
+`$ bantu-core http-command 'peers'`
 
- \`\`\`json { "authenticated\_peers": { "inbound": \[ { "address": "54.161.82.181:11625", "elapsed": 6, "id": "sdf1", "olver": 5, "ver": "v9.1.0" } \], "outbound": \[ { "address": "54.211.174.177:11625", "elapsed": 2303, "id": "sdf2", "olver": 5, "ver": "v9.1.0" }, { "address": "54.160.175.7:11625", "elapsed": 14082, "id": "sdf3", "olver": 5, "ver": "v9.1.0" } \] }, "pending\_peers": { "inbound": \["211.249.63.74:11625", "45.77.5.118:11625"\], "outbound": \["178.21.47.226:11625", "178.131.109.241:11625"\] } } \`\`\`
+```javascript
+{
+  "authenticated_peers": {
+    "inbound": [
+      {
+        "address": "54.161.82.181:11625",
+        "elapsed": 6,
+        "id": "sdf1",
+        "olver": 5,
+        "ver": "v9.1.0"
+      }
+    ],
+    "outbound": [
+      {
+        "address": "54.211.174.177:11625",
+        "elapsed": 2303,
+        "id": "sdf2",
+        "olver": 5,
+        "ver": "v9.1.0"
+      },
+      {
+        "address": "54.160.175.7:11625",
+        "elapsed": 14082,
+        "id": "sdf3",
+        "olver": 5,
+        "ver": "v9.1.0"
+      }
+    ]
+  },
+  "pending_peers": {
+    "inbound": ["211.249.63.74:11625", "45.77.5.118:11625"],
+    "outbound": ["178.21.47.226:11625", "178.131.109.241:11625"]
+  }
+}
+```
 
 ## Quorum Health
 
@@ -54,11 +129,44 @@ The `quorum` command allows to diagnose problems with the quorum set of the loca
 
 If you run:
 
-`$ stellar-core http-command 'quorum'`
+`$ bantu-core http-command 'quorum'`
 
 The output will look something like:
 
- \`\`\`json { "node": "GCTSFJ36M7ZMTSX7ZKG6VJKPIDBDA26IEWRGV65DVX7YVVLBPE5ZWMIO", "qset": { "agree": 6, "delayed": null, "disagree": null, "fail\_at": 2, "fail\_with": \["sdf\_watcher1", "sdf\_watcher2"\], "hash": "d5c247", "ledger": 24311847, "missing": \["stronghold1"\], "phase": "EXTERNALIZE", "value": { "t": 3, "v": \[ "sdf\_watcher1", "sdf\_watcher2", "sdf\_watcher3", { "t": 3, "v": \["stronghold1", "eno", "tempo.eu.com", "satoshipay"\] } \] } }, "transitive": { "critical": \[\["GDM7M262ZJJPV4BZ5SLGYYUTJGIGM25ID2XGKI3M6IDN6QLSTWQKTXQM"\]\], "intersection": true, "last\_check\_ledger": 24311536, "node\_count": 21 } } \`\`\`
+```javascript
+{
+  "node": "GCTSFJ36M7ZMTSX7ZKG6VJKPIDBDA26IEWRGV65DVX7YVVLBPE5ZWMIO",
+  "qset": {
+    "agree": 6,
+    "delayed": null,
+    "disagree": null,
+    "fail_at": 2,
+    "fail_with": ["bbf_watcher1", "bbf_watcher2"],
+    "hash": "d5c247",
+    "ledger": 24311847,
+    "missing": ["sampl1"],
+    "phase": "EXTERNALIZE",
+    "value": {
+      "t": 3,
+      "v": [
+        "bff_watcher1",
+        "bff_watcher2",
+        "bff_watcher3",
+        {
+          "t": 3,
+          "v": ["sampl1", "flor", "bantupay", "bral"]
+        }
+      ]
+    }
+  },
+  "transitive": {
+    "critical": [["GDM7M262ZJJPV4BZ5SLGYYUTJGIGM25ID2XGKI3M6IDN6QLSTWQKTXQM"]],
+    "intersection": true,
+    "last_check_ledger": 24311536,
+    "node_count": 21
+  }
+}
+```
 
 This output has two main sections: `qset` and `transitive`. The former describes the node and its quorum set; the latter describes the transitive closure of the node's quorum set.
 
@@ -74,7 +182,7 @@ Entries to watch for in the `qset` section — which describe the node and its q
 * `missing` : the nodes that were missing during this consensus round.
 * `value` : the quorum set used by this node \(`t` is the threshold expressed as a number of nodes\).
 
-In the example above, 6 nodes are functioning properly, one is down \(`stronghold1`\), and the instance will fail if any two nodes still working \(or one node and one inner-quorum-set\) fail as well.
+In the example above, 6 nodes are functioning properly, one is down \(`sampl1`\), and the instance will fail if any two nodes still working \(or one node and one inner-quorum-set\) fail as well.
 
 If a node is stuck in state `Joining SCP`, this command allows to quickly find the reason:
 
@@ -85,7 +193,7 @@ If a node is stuck in state `Joining SCP`, this command allows to quickly find t
 
 Note that the node not being able to reach consensus does not mean that the network as a whole will not be able to reach consensus \(and the opposite is true: the network may fail because of a different set of validators failing\).
 
-You can get a sense of the quorum set health of a different node using using: `$ stellar-core http-command 'quorum?node=$sdf1` or `$ stellar-core http-command 'quorum?node=@GABCDE`
+You can get a sense of the quorum set health of a different node using using: `$ bantu-core http-command 'quorum?node=$sdf1` or `$ bantu-core http-command 'quorum?node=@GABCDE`
 
 Overall network health can be evaluated by walking through all nodes and looking at their health. Note that this is only an approximation, as remote nodes may not have received the same messages \(in particular: `missing` for other nodes is not reliable\).
 
@@ -106,11 +214,68 @@ The quorum endpoint can also retrieve detailed information for the transitive qu
 
 This is a format that's easier to process than what `scp` returns as it doesn't contain all SCP messages.
 
-`$ stellar-core http-command 'quorum?transitive=true'`
+`$ bantu-core http-command 'quorum?transitive=true'`
 
 The output looks something like:
 
- \`\`\`json { "critical": null, "intersection": true, "last\_check\_ledger": 121235, "node\_count": 4, "nodes": \[ { "distance": 0, "heard": 121235, "node": "GB7LI", "qset": { "t": 2, "v": \["sdf1", "sdf2", "sdf3"\] }, "status": "tracking", "value": "\[ txH: d99591, ct: 1557426183, upgrades: \[ \] \]", "value\_id": 1 }, { "distance": 1, "heard": 121235, "node": "sdf2", "qset": { "t": 2, "v": \["sdf1", "sdf2", "sdf3"\] }, "status": "tracking", "value": "\[ txH: d99591, ct: 1557426183, upgrades: \[ \] \]", "value\_id": 1 }, { "distance": 1, "heard": 121235, "node": "sdf3", "qset": { "t": 2, "v": \["sdf1", "sdf2", "sdf3"\] }, "status": "tracking", "value": "\[ txH: d99591, ct: 1557426183, upgrades: \[ \] \]", "value\_id": 1 }, { "distance": 1, "heard": 121235, "node": "sdf1", "qset": { "t": 2, "v": \["sdf1", "sdf2", "sdf3"\] }, "status": "tracking", "value": "\[ txH: d99591, ct: 1557426183, upgrades: \[ \] \]", "value\_id": 1 } \] } \`\`\`
+```javascript
+{
+  "critical": null,
+  "intersection": true,
+  "last_check_ledger": 121235,
+  "node_count": 4,
+  "nodes": [
+    {
+      "distance": 0,
+      "heard": 121235,
+      "node": "GB7LI",
+      "qset": {
+        "t": 2,
+        "v": ["bbf1", "bbf2", "bbf3"]
+      },
+      "status": "tracking",
+      "value": "[ txH: d99591, ct: 1557426183, upgrades: [ ] ]",
+      "value_id": 1
+    },
+    {
+      "distance": 1,
+      "heard": 121235,
+      "node": "sdf2",
+      "qset": {
+        "t": 2,
+        "v": ["bbf1", "bbf2", "bbf3"]
+      },
+      "status": "tracking",
+      "value": "[ txH: d99591, ct: 1557426183, upgrades: [ ] ]",
+      "value_id": 1
+    },
+    {
+      "distance": 1,
+      "heard": 121235,
+      "node": "sdf3",
+      "qset": {
+        "t": 2,
+        "v": ["bbf1", "bbf2", "bbf3"]
+      },
+      "status": "tracking",
+      "value": "[ txH: d99591, ct: 1557426183, upgrades: [ ] ]",
+      "value_id": 1
+    },
+    {
+      "distance": 1,
+      "heard": 121235,
+      "node": "sdf1",
+      "qset": {
+        "t": 2,
+        "v": ["bbf1", "bbf2", "bbf3"]
+      },
+      "status": "tracking",
+      "value": "[ txH: d99591, ct: 1557426183, upgrades: [ ] ]",
+      "value_id": 1
+    }
+  ]
+}
+```
 
 The output begins with the same summary information as in the `transitive` block of the non-transitive query \(if queried for the local node\), but also includes a `nodes` array that represents a walk of the transitive quorum centered on the query node.
 
@@ -150,17 +315,59 @@ Pointing your Prometheus instance to the exporter can be achieved by manually co
 
 #### Manual
 
- \`\`\`yaml - job\_name: "stellar-core" scrape\_interval: 10s scrape\_timeout: 10s static\_configs: - targets: \[ "core-node-001.example.com:9473", "core-node-002.example.com:9473", \] \# stellar-core-prometheus-exporter default port is 9473 - labels: application: "stellar-core" \`\`\`
+```yaml
+- job_name: "stellar-core"
+  scrape_interval: 10s
+  scrape_timeout: 10s
+  static_configs:
+    - targets: [
+          "core-node-001.example.com:9473",
+          "core-node-002.example.com:9473",
+        ] # stellar-core-prometheus-exporter default port is 9473
+    - labels:
+      application: "stellar-core"
+```
 
 #### Using Service Discovery \(EC2\)
 
- \`\`\`yaml - job\_name: stellar-core scrape\_interval: 10s scrape\_timeout: 10s ec2\_sd\_configs: - region: eu-west-1 port: 9473 relabel\_configs: \# ignore stopped instances - source\_labels: \[\_\_meta\_ec2\_instance\_state\] regex: stopped action: drop \# only keep with \`core\` in the Name tag - source\_labels: \[\_\_meta\_ec2\_tag\_Name\] regex: "\(.\*core.\*\)" action: keep \# use Name tag as instance label - source\_labels: \[\_\_meta\_ec2\_tag\_Name\] regex: "\(.\*\)" action: replace replacement: "${1}" target\_label: instance \# set application label to stellar-core - source\_labels: \[\_\_meta\_ec2\_tag\_Name\] regex: "\(.\*core.\*\)" action: replace replacement: stellar-core target\_label: application \`\`\`
+```yaml
+- job_name: stellar-core
+  scrape_interval: 10s
+  scrape_timeout: 10s
+  ec2_sd_configs:
+    - region: eu-west-1
+      port: 9473
+  relabel_configs:
+    # ignore stopped instances
+    - source_labels: [__meta_ec2_instance_state]
+      regex: stopped
+      action: drop
+    # only keep with `core` in the Name tag
+    - source_labels: [__meta_ec2_tag_Name]
+      regex: "(.*core.*)"
+      action: keep
+    # use Name tag as instance label
+    - source_labels: [__meta_ec2_tag_Name]
+      regex: "(.*)"
+      action: replace
+      replacement: "${1}"
+      target_label: instance
+    # set application label to stellar-core
+    - source_labels: [__meta_ec2_tag_Name]
+      regex: "(.*core.*)"
+      action: replace
+      replacement: stellar-core
+      target_label: application
+```
 
 ### Create Alerting Rules
 
 Once Prometheus scrapes metrics we can add alerting rules. Recommended rules are [**here**](https://github.com/stellar/packages/blob/master/docs/stellar-core-alerting.rules) \(require Prometheus 2.0 or later\). Copy rules to _/etc/prometheus/stellar-core-alerting.rules_ on the Prometheus server and add the following to the prometheus configuration file to include the file:
 
- \`\`\`yaml rule\_files: - "/etc/prometheus/stellar-core-alerting.rules" \`\`\`
+```yaml
+rule_files:
+  - "/etc/prometheus/stellar-core-alerting.rules"
+```
 
 Rules are documented in-line,and we strongly recommend that you review and verify all of them as every environment is different.
 
@@ -175,7 +382,34 @@ All recommended alerting rules have "severity" label:
 
 The following example alertmanager configuration demonstrates how to send notifications using different methods based on severity label:
 
- \`\`\`yaml global: smtp\_smarthost: localhost:25 smtp\_from: alertmanager@example.com route: receiver: default-receiver group\_by: \[alertname\] group\_wait: 30s group\_interval: 5m repeat\_interval: 1h routes: - receiver: critical-alerts match: severity: critical - receiver: warning-alerts match: severity: warning receivers: - name: critical-alerts pagerduty\_configs: - routing\_key: - name: warning-alerts slack\_configs: - api\_url: https://hooks.slack.com/services/slack/warning/channel/webhook - name: default-receiver email\_configs: - to: alerts-fallback@example.com \`\`\`
+```yaml
+global:
+  smtp_smarthost: localhost:25
+  smtp_from: alertmanager@example.com
+route:
+  receiver: default-receiver
+  group_by: [alertname]
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 1h
+  routes:
+    - receiver: critical-alerts
+      match:
+        severity: critical
+    - receiver: warning-alerts
+      match:
+        severity: warning
+receivers:
+  - name: critical-alerts
+    pagerduty_configs:
+      - routing_key: <PD routing key>
+  - name: warning-alerts
+    slack_configs:
+      - api_url: https://hooks.slack.com/services/slack/warning/channel/webhook
+  - name: default-receiver
+    email_configs:
+      - to: alerts-fallback@example.com
+```
 
 In the above examples alerts with severity "critical" are sent to pagerduty and warnings are sent to slack.
 
