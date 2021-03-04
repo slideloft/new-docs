@@ -14,9 +14,11 @@ Resource Types
 | [Transactions](ledgers/transactions.md) |  |
 | [Operations](transactions/operations.md) |  |
 | [Effects](ledgers/effects.md) |  |
-| [Accounts](https://developers.stellar.org/api/resources/accounts/) |  |
-| [Offers](https://developers.stellar.org/api/resources/offers/) |  |
-| [Claimable Balances](https://developers.stellar.org/api/resources/claimablebalances/) |  |
-| [Trades](https://developers.stellar.org/api/resources/trades/) |  |
-| [Assets](https://developers.stellar.org/api/resources/assets/) |  |
+| [Accounts](../../glossary/accounts.md) |  |
+| [Offers](accounts/offers.md) |  |
+| [Claimable Balances](operations/object/claim-claimable-balance.md) |  |
+| [Trades](trades/) |  |
+| [Assets](assets/) |  |
+
+
 
