@@ -18,9 +18,11 @@ The Bantu Blockchain Foundation \(BBF\) runs two instances of Expansion:
 
 API Reference Sections
 
-| [Introduction](https://developers.Bantu.org/api/introduction/) | How Expansion is structured. |
+| [Introduction](./) | How Expansion is structured. |
 | :--- | :--- |
-| [Resources](https://developers.Bantu.org/api/resources/) | Descriptions of resources and their endpoints. |
-| [Aggregations](https://developers.Bantu.org/api/aggregations/) | Descriptions of specialized endpoints. |
-| [Errors](https://developers.Bantu.org/api/errors/) | Potential errors and what they mean. |
+| [Resources](../resources/) | Descriptions of resources and their endpoints. |
+| [Aggregations](../aggregations/) | Descriptions of specialized endpoints. |
+| [Errors](../errors/) | Potential errors and what they mean. |
+
+
 
