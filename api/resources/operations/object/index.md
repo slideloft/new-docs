@@ -5,9 +5,9 @@ order: 0
 
 # index
 
-import { ExampleResponse } from "components/ExampleResponse"; import { AttributeTable } from "components/AttributeTable";
 
-Each of Stellar’s operations have unique response shapes. Below are the attributes that are common across individual operation objects.
+
+Each of Bantu’s operations have unique response shapes. Below are the attributes that are common across individual operation objects.
 
 See the [generic Operation errors](../../../errors/result-codes/operations.md).
 
