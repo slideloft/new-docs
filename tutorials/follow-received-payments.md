@@ -27,14 +27,14 @@ Let's get started by building our project skeleton:
 ```bash
 $ mkdir follow_tutorial
 $ cd follow_tutorial
-$ npm install --save stellar-base
+$ npm install --save bantu-base
 $ npm install --save eventsource
 ```
 
 This should have created a `package.json` in the `follow_tutorial` directory. You can check that everything went well by running the following command:
 
 ```bash
-$ node -e "require('stellar-base')"
+$ node -e "require('bantu-base')"
 ```
 
 Everything was successful if no output was generated from the above command. Now let's write a script to create a new account.
@@ -44,7 +44,7 @@ Everything was successful if no output was generated from the above command. Now
 Create a new file named `make_account.js` and paste the following text into it:
 
 ```javascript
-var Keypair = require("stellar-base").Keypair;
+var Keypair = require("bantu-base").Keypair;
 
 var newAccount = Keypair.random();
 
@@ -67,10 +67,10 @@ Before our account can do anything it must be funded. Indeed, before an account 
 
 ## Funding your account
 
-The Stellar test network provides the Friendbot, a tool that developers can use to get testnet lumens for testing purposes. To fund your account, simply execute the following curl command:
+The Bantu test network provides the Friendbot, a tool that developers can use to get testnet lumens for testing purposes. To fund your account, simply execute the following curl command:
 
 ```bash
-$ curl "https://friendbot.stellar.org/?addr=GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3"
+$ curl "https://friendbot.bantu.network/?addr=GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3"
 ```
 
 Don't forget to replace the account id above with your own. If the request succeeds, you should see a response like:
@@ -83,14 +83,14 @@ Don't forget to replace the account id above with your own. If the request succe
 }
 ```
 
-After a few seconds, the Stellar network will perform consensus, close the ledger, and your account will have been created. Next up we will write a command that watches for new payments to your account and outputs a message to the terminal.
+After a few seconds, the Bantu network will perform consensus, close the ledger, and your account will have been created. Next up we will write a command that watches for new payments to your account and outputs a message to the terminal.
 
 ## Following payments using `curl`
 
 To follow new payments connected to your account you simply need to send the `Accept: text/event-stream` header to the [/payments](../api/resources/operations/object/payment.md) endpoint.
 
 ```bash
-$ curl -H "Accept: text/event-stream" "https://horizon-testnet.stellar.org/accounts/GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3/payments"
+$ curl -H "Accept: text/event-stream" "https://expansion.bantu.network//accounts/GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3/payments"
 ```
 
 As a result you will see something like:
@@ -176,19 +176,19 @@ Sequence number can be found under the `sequence` field. For our example, the cu
 Now, create `make_payment.js` file and paste the following code into it, replacing the sequence number accordingly:
 
 ```javascript
-var StellarBase = require("stellar-base");
-StellarBase.Network.useTestNetwork();
+var BantuBase = require("bantu-base");
+BantuBase.Network.useTestNetwork();
 
-var keypair = StellarBase.Keypair.fromSecret(
+var keypair = BantuBase.Keypair.fromSecret(
   "SCU36VV2OYTUMDSSU4EIVX4UUHY3XC7N44VL4IJ26IOG6HVNC7DY5UJO",
 );
-var account = new StellarBase.Account(keypair.publicKey(), "713226564141056");
+var account = new BantuBase.Account(keypair.publicKey(), "713226564141056");
 
 var amount = "100";
-var transaction = new StellarBase.TransactionBuilder(account)
+var transaction = new BantuBase.TransactionBuilder(account)
   .addOperation(
-    StellarBase.Operation.createAccount({
-      destination: StellarBase.Keypair.random().publicKey(),
+    BantuBase.Operation.createAccount({
+      destination: BantuBase.Keypair.random().publicKey(),
       startingBalance: amount,
     }),
   )
