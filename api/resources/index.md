@@ -5,7 +5,7 @@ order: 0
 
 # Overview
 
-Data on the Stellar ledger is organized according to resources. Each resource has several different endpoints.
+Data on the Bantu ledger is organized according to resources. Each resource has several different endpoints.
 
  
 
