@@ -5,9 +5,9 @@ order: 70
 
 # monitoring
 
-Once your node is up and running, it's important to keep an eye on it to make sure it stays afloat and continues to contribute to the health of the overall network. To help with that, Stellar Core exposes vital information that you can use to monitor your node and diagnose potential problems.
+Once your node is up and running, it's important to keep an eye on it to make sure it stays afloat and continues to contribute to the health of the overall network. To help with that, Bantu Core exposes vital information that you can use to monitor your node and diagnose potential problems.
 
-You can access this information using commands and inspecting Stellar Core's output, which is what the first half of this doc covers. You can also connect [Prometheus](monitoring.md#using-prometheus) to make monitoring easier, combine it with [Alertmanager](monitoring.md#configure-notifications-using-alertmanager) to automate notification, and use pre-built [Grafana dashboards](monitoring.md#visualize-metrics-using-grafana) to create visual representations of your node's well-being.
+You can access this information using commands and inspecting Bantu Core's output, which is what the first half of this doc covers. You can also connect [Prometheus](monitoring.md#using-prometheus) to make monitoring easier, combine it with [Alertmanager](monitoring.md#configure-notifications-using-alertmanager) to automate notification, and use pre-built [Grafana dashboards](monitoring.md#visualize-metrics-using-grafana) to create visual representations of your node's well-being.
 
 However you decide to monitor, the most important thing is that you have a system in place to ensure that your integration keeps ticking.
 
@@ -29,7 +29,7 @@ If you run `$ bantu-core http-command 'info'`, the output will look something li
          "num" : 24311579,
          "version" : 11
       },
-      "network" : "Public Global Stellar Network ; September 2015",
+      "network" : "Public Bantu Network ; 10-10-2020",
       "peers" : {
          "authenticated_count" : 5,
          "pending_count" : 0
@@ -62,7 +62,7 @@ If you run `$ bantu-core http-command 'info'`, the output will look something li
 
 Some notable fields in `info` are:
 
-* `build`: the build number for this Stellar Core instance
+* `build`: the build number for this Bantu Core instance
 * `ledger`: the local state of your node, which may be different from the network state if your node was disconnected from the network. Some important sub-fields:
   * `age`: time elapsed since this ledger closed \(during normal operation less than 10 seconds\)
   * `num`: ledger number
@@ -121,7 +121,7 @@ This list is the result of both inbound connections from other peers and outboun
 
 ## Quorum Health
 
-To help node operators monitor their quorum sets and maintain the health of the overall network, Stellar Core also provides metrics on other nodes in your quorum set. You should monitor them to make sure they're up and running, and that your quorum set is maintaining good overlap with the rest of the network.
+To help node operators monitor their quorum sets and maintain the health of the overall network, Bantu Core also provides metrics on other nodes in your quorum set. You should monitor them to make sure they're up and running, and that your quorum set is maintaining good overlap with the rest of the network.
 
 ### Quorum set diagnostics
 
@@ -291,47 +291,47 @@ Fields are:
 
 ## Using Prometheus
 
-Monitoring `stellar-core` using Prometheus is by far the simplest solution, especially if you already have a Prometheus server within your infrastructure. Prometheus is a free and open source time-series database with a simple yet incredibly powerful query language `PromQL`. Prometheus is also tightly integrated with Grafana, so you can render complex visualisations with ease.
+Monitoring `bantu-core` using Prometheus is by far the simplest solution, especially if you already have a Prometheus server within your infrastructure. Prometheus is a free and open source time-series database with a simple yet incredibly powerful query language `PromQL`. Prometheus is also tightly integrated with Grafana, so you can render complex visualisations with ease.
 
-In order for Prometheus to scrape `stellar-core` application metrics, you will need to install the stellar-core-prometheus-exporter \(`apt-get install stellar-core-prometheus-exporter`\) and configure your Prometheus server to scrape this exporter \(default port: `9473`\). On top of that grafana can be used to visualize metrics.
+In order for Prometheus to scrape `bantu-core` application metrics, you will need to install the bantu-core-prometheus-exporter \(`apt-get install bantu-core-prometheus-exporter`\) and configure your Prometheus server to scrape this exporter \(default port: `9473`\). On top of that grafana can be used to visualize metrics.
 
 ### Install a Prometheus server within your infrastructure
 
 Installing and configuring a Prometheus server is out of scope of this document, however it is a fairly simple process: Prometheus is a single Go binary which you can download from [https://prometheus.io/docs/prometheus/latest/installation/](https://prometheus.io/docs/prometheus/latest/installation/).
 
-### Install the stellar-core-prometheus-exporter
+### Install the bantu-core-prometheus-exporter
 
-The stellar-core-prometheus-exporter is an exporter that scrapes the `stellar-core` metrics endpoint \(`http://localhost:11626/metrics`\) and renders these metrics in the Prometheus text-based format available for Prometheus to scrape and store in its timeseries database.
+The bantu-core-prometheus-exporter is an exporter that scrapes the `bantu-core` metrics endpoint \(`http://localhost:11626/metrics`\) and renders these metrics in the Prometheus text-based format available for Prometheus to scrape and store in its timeseries database.
 
-The exporter needs to be installed on every Stellar Core node you wish to monitor.
+The exporter needs to be installed on every Bantu Core node you wish to monitor.
 
-* `apt-get install stellar-core-prometheus-exporter`
+* `apt-get install bantu-core-prometheus-exporter`
 
-You will need to open up port `9473` between your Prometheus server and all your Stellar Core nodes for your Prometheus server to be able to scrape metrics.
+You will need to open up port `9473` between your Prometheus server and all your Bantu Core nodes for your Prometheus server to be able to scrape metrics.
 
-### Point Prometheus to stellar-core-prometheus-exporter
+### Point Prometheus to bantu-core-prometheus-exporter
 
 Pointing your Prometheus instance to the exporter can be achieved by manually configuring a scrape job; however, depending on the number of hosts you need to monitor this can quickly become unwieldy. Luckily, the process can also be automated using Prometheus' various "service discovery" plugins. For example with AWS hosted instance you can use the `ec2_sd_config` plugin.
 
 #### Manual
 
 ```yaml
-- job_name: "stellar-core"
+- job_name: "bantu-core"
   scrape_interval: 10s
   scrape_timeout: 10s
   static_configs:
     - targets: [
           "core-node-001.example.com:9473",
           "core-node-002.example.com:9473",
-        ] # stellar-core-prometheus-exporter default port is 9473
+        ] # bantu-core-prometheus-exporter default port is 9473
     - labels:
-      application: "stellar-core"
+      application: "bantu-core"
 ```
 
 #### Using Service Discovery \(EC2\)
 
 ```yaml
-- job_name: stellar-core
+- job_name: bantu-core
   scrape_interval: 10s
   scrape_timeout: 10s
   ec2_sd_configs:
@@ -352,21 +352,21 @@ Pointing your Prometheus instance to the exporter can be achieved by manually co
       action: replace
       replacement: "${1}"
       target_label: instance
-    # set application label to stellar-core
+    # set application label to bantu-core
     - source_labels: [__meta_ec2_tag_Name]
       regex: "(.*core.*)"
       action: replace
-      replacement: stellar-core
+      replacement: bantu-core
       target_label: application
 ```
 
 ### Create Alerting Rules
 
-Once Prometheus scrapes metrics we can add alerting rules. Recommended rules are [**here**](https://github.com/stellar/packages/blob/master/docs/stellar-core-alerting.rules) \(require Prometheus 2.0 or later\). Copy rules to _/etc/prometheus/stellar-core-alerting.rules_ on the Prometheus server and add the following to the prometheus configuration file to include the file:
+Once Prometheus scrapes metrics we can add alerting rules. Recommended rules are [**here**](https://github.com/bantu/packages/blob/master/docs/bantu-core-alerting.rules) \(require Prometheus 2.0 or later\). Copy rules to _/etc/prometheus/bantu-core-alerting.rules_ on the Prometheus server and add the following to the prometheus configuration file to include the file:
 
 ```yaml
 rule_files:
-  - "/etc/prometheus/stellar-core-alerting.rules"
+  - "/etc/prometheus/bantu-core-alerting.rules"
 ```
 
 Rules are documented in-line,and we strongly recommend that you review and verify all of them as every environment is different.
@@ -418,14 +418,14 @@ In the above examples alerts with severity "critical" are sent to pagerduty and 
 You may find the below exporters useful for monitoring your infrastructure as they provide incredible insight into your operating system and database metrics. Installing and configuring these exporters is out of the scope of this document but should be relatively straightforward.
 
 * [node\_exporter](https://prometheus.io/docs/guides/node-exporter/) can be used to track all operating system metrics.
-* [postgresql\_exporter](https://github.com/wrouesnel/postgres_exporter) can be used to monitor the local stellar-core database.
+* [postgresql\_exporter](https://github.com/wrouesnel/postgres_exporter) can be used to monitor the local bantu-core database.
 
 ### Visualize metrics using Grafana
 
-Once you've configured Prometheus to scrape and store your stellar-core metrics, you will want a nice way to render this data for human consumption. Grafana offers the simplest and most effective way to achieve this. Installing Grafana is out of scope of this document but is a very simple process, especially when using the [prebuilt apt packages](https://grafana.com/docs/installation/debian/#apt-repository)
+Once you've configured Prometheus to scrape and store your bantu-core metrics, you will want a nice way to render this data for human consumption. Grafana offers the simplest and most effective way to achieve this. Installing Grafana is out of scope of this document but is a very simple process, especially when using the [prebuilt apt packages](https://grafana.com/docs/installation/debian/#apt-repository)
 
 We recommend that administrators import the following two dashboards into their grafana deployments:
 
-* [**Stellar Core Monitoring**](https://grafana.com/grafana/dashboards/10603) - shows the most important metrics, node status and tries to surface common problems. It's a good troubleshooting starting point
-* [**Stellar Core Full**](https://grafana.com/grafana/dashboards/10334) - shows a simple health summary as well as all metrics exposed by the `stellar-core-prometheus-exporter`. It's much more detailed than the _Stellar Core Monitoring_ and might be useful during in-depth troubleshooting
+* [**Bantu Core Monitoring**](https://grafana.com/grafana/dashboards/10603) - shows the most important metrics, node status and tries to surface common problems. It's a good troubleshooting starting point
+* [**Bantu Core Full**](https://grafana.com/grafana/dashboards/10334) - shows a simple health summary as well as all metrics exposed by the `bantu-core-prometheus-exporter`. It's much more detailed than the _Bantu Core Monitoring_ and might be useful during in-depth troubleshooting
 
