@@ -53,7 +53,7 @@ In addition, there are several fields where you list information about your Bant
 * `TRANSFER_SERVER_SEP0024`, which is where wallets find endpoints to initiate interactive deposit and withdrawal based on the [SEP-24](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0024.md) spec
 * `WEB_AUTH_ENDPOINT`, which is where wallets initiate user authentication sessions based on the [SEP-10](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0010.md) spec
 
-If you support other Bantu Ecosystem Proposals — such as buds or delegated signing — or host a public Horizon instance that other people can use to query the ledger, you should also add the location of those resources to [General Information](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0001.md#general-information) so they're discoverable.
+If you support other Bantu Ecosystem Proposals — such as buds or delegated signing — or host a public Expansion instance that other people can use to query the ledger, you should also add the location of those resources to [General Information](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0001.md#general-information) so they're discoverable.
 
 ### Organization Documentation
 
