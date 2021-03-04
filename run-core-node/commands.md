@@ -39,7 +39,7 @@ Command options can only by placed after command.
 * **infer-quorum**: Print a potential quorum set inferred from history.
 * **load-xdr `<FILE-NAME>`**: Load an XDR bucket file, for testing.
 * **new-db**: Clears the local database and resets it to the genesis ledger. If you connect to the network after that it will catch up from scratch.
-* **new-hist `<HISTORY-LABEL>` ...**: Initialize the named history archives HISTORY-LABEL. HISTORY-LABEL should be one of the history archives you have specified in the Bantu-core.cfg. This will write a `.well-known/stellar-history.json` file in the archive root.
+* **new-hist `<HISTORY-LABEL>` ...**: Initialize the named history archives HISTORY-LABEL. HISTORY-LABEL should be one of the history archives you have specified in the Bantu-core.cfg. This will write a `.well-known/bantu-history.json` file in the archive root.
 * **offline-info**: Returns an output similar to `--c info` for an offline instance
 * **print-xdr `<FILE-NAME>`**: Pretty-print a binary file containing an XDR object. If FILE-NAME is "-", the XDR object is read from standard input.  Option --filetype \[auto\|ledgerheader\|meta\|result\|resultpair\|tx\|txfee\]\*\* controls type used for printing \(default: auto\).  Option --base64 alters the behavior to work on base64-encoded XDR rather than raw XDR.
 * **publish**: Execute publish of all items remaining in publish queue without connecting to network. May not publish last checkpoint if last closed ledger is on checkpoint boundary.
