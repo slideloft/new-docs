@@ -5,7 +5,7 @@ order: 0
 
 # index
 
-Horizon is an API for interacting with the Bantu network.
+Expansion is an API for interacting with the Bantu network.
 
 This API serves as the bridge between apps and [Stellar Core](../../run-core-node/index.md). Projects like wallets, decentralized exchanges, and asset issuers use Horizon to submit transactions, query an account balance, or stream events like transactions to an account.
 
