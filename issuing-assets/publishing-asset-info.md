@@ -165,7 +165,7 @@ server
 ## Sample bantu.toml
 
 ```javascript
-NETWORK_PASSPHRASE="Public Global Stellar Network ; September 2015"
+NETWORK_PASSPHRASE="Public Bantu Network ; 10-10-2020"
 BUDS_SERVER="https://api.domain.com/buds"
 AUTH_SERVER="https://api.domain.com/auth"
 TRANSFER_SERVER="https://api.domain.com"
