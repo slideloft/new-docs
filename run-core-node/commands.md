@@ -5,8 +5,6 @@ order: 80
 
 # commands
 
-import { CodeExample } from "components/CodeExample";
-
 Stellar Core can be controlled via the following commands.
 
 ## Common options
