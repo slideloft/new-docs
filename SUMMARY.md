@@ -133,7 +133,6 @@
       * [object](api/resources/accounts/object.md)
       * [single](api/resources/accounts/single.md)
       * [data](api/resources/accounts/data.md)
-      * [index](api/resources/accounts/index.md)
       * [operations](api/resources/accounts/operations.md)
       * [payments](api/resources/accounts/payments.md)
       * [trades](api/resources/accounts/trades.md)
