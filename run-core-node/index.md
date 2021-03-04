@@ -9,7 +9,7 @@ Bantu is a peer-to-peer network made up of nodes, which are computers that keep 
 
 You don’t need to run a node to build on Bantu: you can start developing with your [SDK of choice](../software-and-sdks/index.md), and use public instances of Horizon to query the ledger and submit transactions right away. In fact, the Bantu Development Foundation offers two public instances of Horizon — one for the public network and one for the testnet — which you can read more about in our [API reference docs](../api/introduction/index.md).
 
-If you’re serious about building on Bantu, have a production-level product or service that requires high-availability access network, or want to help increase network health and decentralization, then you probably _do_ want to run a node, or even a trio of nodes \(more on that in the [Tier 1 section](tier-1-orgs.md)\). 
+If you’re serious about building on Bantu, have a production-level product or service that requires high-availability access network, or want to help increase network health and decentralization, then you probably _do_ want to run a node, or even a trio of nodes \(more on that in the [Tier 1 section](tier-1-orgs.md)\).
 
 If you’re going the DIY route, this section of the docs is for you. It explains the technical and operational aspects of installing, configuring, and maintaining a Bantu Core node, and should help you figure out the best way to set up your Bantu integration.
 
@@ -36,10 +36,10 @@ To make things easier, we’ll define four types of nodes based on permutations 
 
 | Type of Node | Supports Horizon | Submits Transactions | Validates Transactions | Publishes History |
 | :--- | :--- | :--- | :--- | :--- |
-| **Watcher** |               ✅ |           ✅ |  |  |
-| **Basic Validator** |               ✅ |           ✅ |               ✅ |  |
-| **Full Validator** |               ✅ |           ✅ |               ✅ |             ✅ |
-| **Archiver** |               ✅ |           ✅ |  |             ✅ |
+| **Watcher** | ✅ | ✅ |  |  |
+| **Basic Validator** | ✅ | ✅ | ✅ |  |
+| **Full Validator** | ✅ | ✅ | ✅ | ✅ |
+| **Archiver** | ✅ | ✅ |  | ✅ |
 
 So why choose one type over another? Let’s break it down a bit and take a look at what each type is good for.
 
