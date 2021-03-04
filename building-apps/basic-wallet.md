@@ -291,7 +291,7 @@ import setPrompt from "./methods/setPrompt";
 
 import { Prompter } from "@prompt/prompt";
 
-interface StellarAccount {
+interface BantuAccount {
   publicKey: string;
   keystore: string;
 }
@@ -302,7 +302,7 @@ interface StellarAccount {
   shadow: true,
 })
 export class Wallet {
-  @State() account: StellarAccount;
+  @State() account: BantuAccount;
   @State() prompter: Prompter = { show: false };
   @State() error: any = null;
 
@@ -403,13 +403,13 @@ Cool! With any luck we should be able to use these slick alias imports for the p
 ## Create Bantu Account Class
 
 ```typescript
-interface StellarAccount {
+interface BantuAccount {
   publicKey: string;
   keystore: string;
 }
 ```
 
-`interface` is just the TypeScript way of setting up a tidy typed class. `StellarAccount` will be our account class. It includes the `publicKey` for easy reference later in Horizon or Astrograph calls and the Top Secret `keystore` key containing the encrypted account secret cipher.
+`interface` is just the TypeScript way of setting up a tidy typed class. `BantuAccount` will be our account class. It includes the `publicKey` for easy reference later in Horizon or Astrograph calls and the Top Secret `keystore` key containing the encrypted account secret cipher.
 
 ```javascript
 @Component({
@@ -418,7 +418,7 @@ interface StellarAccount {
   shadow: true
 })
 export class Wallet {
-  @State() account: StellarAccount
+  @State() account: BantuAccount
   @State() prompter: Prompter = {show: false}
   @State() error: any = null
 
@@ -426,7 +426,7 @@ export class Wallet {
 }
 ```
 
-Pretty standard boring bits, setting up the `@Component` with its defining values and initializing with some `@State` and `@Prop` data. You can see we’re setting up an `account` state with our `StellarAccount` class as well as a `prompter` state with that `Prompter` class from the `bantu-prompt` we imported earlier. We’re initializing that `prompter` state with a `show` value of `false` so the prompt modal rendereth not initially.
+Pretty standard boring bits, setting up the `@Component` with its defining values and initializing with some `@State` and `@Prop` data. You can see we’re setting up an `account` state with our `BantuAccount` class as well as a `prompter` state with that `Prompter` class from the `bantu-prompt` we imported earlier. We’re initializing that `prompter` state with a `show` value of `false` so the prompt modal rendereth not initially.
 
 Everything after this is the assignment of our imported events and methods from up above. Let’s begin with the `./events/componentWillLoad.ts`
 
