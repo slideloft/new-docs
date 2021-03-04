@@ -29,7 +29,7 @@ Accounts have the following fields:
 
 ### Account ID
 
-The public key that was used to create the account. Even if you replace the signer on the with a different key, the original account ID will always be used to identify the account.
+The public key that was used to create the account. Even if you replace the signer with a different key, the original account ID will always be used to identify the account.
 
 ### Sequence number
 

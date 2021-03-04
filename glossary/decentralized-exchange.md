@@ -5,13 +5,13 @@ order: null
 
 # Decentralized Exchange
 
-In addition to supporting the issuing and movement of [assets](assets.md), the Stellar network also acts as a decentralized **distributed exchange** that allows you to trade and convert assets on the network. The Stellar ledger stores both balances held by user accounts and orders that user accounts make to buy or sell assets.
+In addition to supporting the issuing and movement of [assets](assets.md), the Bantu network also acts as a decentralized **distributed exchange** that allows you to trade and convert assets on the network. The Bantu ledger stores both balances held by user accounts and orders that user accounts make to buy or sell assets.
 
 ## Orders
 
 An account can create orders to buy or sell assets using the [Manage Buy Offer](../start/list-of-operations.md#manage-buy-offer) or [Manage Sell Offer](../start/list-of-operations.md#manage-sell-offer) operation. In order to initiate an order, the account must hold the asset it wants to use to buy \(exchange for\) the desired asset to be purchased. The account must also trust the issuer of the asset it's trying to buy.
 
-Orders in Stellar behave like limit orders in traditional markets. When an account initiates an order, it is checked against the existing orderbook for that asset pair. If the submitted order is a marketable order \(for a marketable buy limit order, the limit price is at or above the ask price; for a marketable sell limit order, the limit price is at or below the bid price\), it is filled at the existing order price for the available quantity at that price. If the order is not marketable \(i.e. does not cross an existing order\), the order is saved on the orderbook until it is either consumed by another order, consumed by a path payment, or canceled by the account that created the order.
+Orders in Bantu behave like limit orders in traditional markets. When an account initiates an order, it is checked against the existing orderbook for that asset pair. If the submitted order is a marketable order \(for a marketable buy limit order, the limit price is at or above the ask price; for a marketable sell limit order, the limit price is at or below the bid price\), it is filled at the existing order price for the available quantity at that price. If the order is not marketable \(i.e. does not cross an existing order\), the order is saved on the orderbook until it is either consumed by another order, consumed by a path payment, or canceled by the account that created the order.
 
 Each order constitutes a selling obligation for the selling asset and buying obligation for the buying asset. These obligations are aggregated in the account \(for lumens\) or trustline \(for other assets\) owned by the account creating the order. Any operation that would cause an account to be unable to satisfy its obligations — such as sending away too much balance, will fail — This guarantees that any order in the orderbook can be executed entirely.
 
@@ -19,19 +19,19 @@ Orders are executed on a price-time priority, meaning orders will be executed ba
 
 ### Price
 
-Each order in Stellar is quoted with an associated price, and is represented as a ratio of the two assets in the order, one being the "quote asset" and the other being the "base asset". This is to ensure there is no loss of precision when representing the price of the order \(as opposed to storing the fraction as a floating-point number\).
+Each order in Bantu is quoted with an associated price, and is represented as a ratio of the two assets in the order, one being the "quote asset" and the other being the "base asset". This is to ensure there is no loss of precision when representing the price of the order \(as opposed to storing the fraction as a floating-point number\).
 
 Prices are specified as a `{numerator, denominator}` pair with both components of the fraction represented as 32 bit signed integers. The numerator is considered the base asset, and the denominator is considered the quote asset. When expressing a price of "Asset A in terms of Asset B", the amount of B is denominator \(and therefore the quote asset\), and A is the numerator \(and therefore the base asset\). As a good rule of thumb, it's generally correct to be thinking about the base asset that is being bought/sold \(in terms of the quote asset\). \(see comments below\)
 
-When creating a "buy"/"bid" order in Stellar via the [Manage Buy Offer](../start/list-of-operations.md#manage-buy-offer) operation, the price is specified as 1 unit of the base currency \(the asset being bought\), in terms of the quote asset \(the asset that is being sold\). For example, if you're _buying_ 100 XLM in exchange for 20 USD, you would specify the price as `{20, 100}`, which would be the equivalent of 5 XLM for 1 USD \(or $.20 per XLM\).
+When creating a "buy"/"bid" order in Bantu via the [Manage Buy Offer](../start/list-of-operations.md#manage-buy-offer) operation, the price is specified as 1 unit of the base currency \(the asset being bought\), in terms of the quote asset \(the asset that is being sold\). For example, if you're _buying_ 100 XLM in exchange for 20 USD, you would specify the price as `{20, 100}`, which would be the equivalent of 5 XLM for 1 USD \(or $.20 per XLM\).
 
-When creating a "sell"/"offer"/"ask" order in Stellar via the [Manage Sell Offer](../start/list-of-operations.md#manage-sell-offer) operation, the price is specified as 1 unit of base currency \(the asset being sold\), in terms of the quote asset \(the asset that is being bought\). For example, if you're _selling_ 100 XLM in exchange for 40 USD, you would specify the price as `{40, 100}`, which would be the equivalent of 2.5 XLM for 1 USD \(or $.40 per XLM\) \(_nice profit_\).
+When creating a "sell"/"offer"/"ask" order in Bantu via the [Manage Sell Offer](../start/list-of-operations.md#manage-sell-offer) operation, the price is specified as 1 unit of base currency \(the asset being sold\), in terms of the quote asset \(the asset that is being bought\). For example, if you're _selling_ 100 XLM in exchange for 40 USD, you would specify the price as `{40, 100}`, which would be the equivalent of 2.5 XLM for 1 USD \(or $.40 per XLM\) \(_nice profit_\).
 
 #### Fees
 
 It's important to note that the price you set is unrelated to the fee you pay for submitting the order as a part of a transaction. Fees are always paid in the native currency of the network \(lumens\), and are related to the transaction that you submit to the network \(which contains your order operation\) as opposed to your order itself.
 
-For more information, take a look at [our guide on fees in Stellar](fees.md).
+For more information, take a look at [our guide on fees in Bantu](fees.md).
 
 ## Passive Order
 
@@ -43,9 +43,9 @@ An account can place a passive sell order via the [Create Passive Sell Offer](..
 
 ## Orderbook
 
-An **orderbook** is a record of outstanding orders on the Stellar network. This record sits between any two assets. Abstractly, we often discuss assets using two _fictional placeholder_ assets traded in a market, which we call "**wheat**" and "**sheep**". The orderbook for that asset-pair therefore records every account wanting to sell wheat for sheep on one side _and_ every account wanting to sell sheep for wheat on the other side.
+An **orderbook** is a record of outstanding orders on the Bantu network. This record sits between any two assets. Abstractly, we often discuss assets using two _fictional placeholder_ assets traded in a market, which we call "**wheat**" and "**sheep**". The orderbook for that asset-pair therefore records every account wanting to sell wheat for sheep on one side _and_ every account wanting to sell sheep for wheat on the other side.
 
-\(A bit of further market terminology: outside of Stellar, the concept of an "orderbook" normally contains two kinds of "**order**": buying is expressed by "**bid**" orders, and selling is expressed by "**ask**" orders, also called "**offers**". Within the Stellar network, the representation of orders is simplified: all orders are stored as **selling** — i.e. the system automatically converts all bids to asks in the opposite direction — and Stellar's documentation and code can therefore sometimes be a bit lax in using the words "offer" and "order" as synonyms. Since both words refer to the same thing in Stellar in all cases, they are occasionally used interchangeably. This is harmless in the context of the Stellar ecosystem, but outside that context, an "offer" usually means an "ask" order _specifically_!\)
+\(A bit of further market terminology: outside of Bantu, the concept of an "orderbook" normally contains two kinds of "**order**": buying is expressed by "**bid**" orders, and selling is expressed by "**ask**" orders, also called "**offers**". Within the Bantu network, the representation of orders is simplified: all orders are stored as **selling** — i.e. the system automatically converts all bids to asks in the opposite direction — and Bantu's documentation and code can therefore sometimes be a bit lax in using the words "offer" and "order" as synonyms. Since both words refer to the same thing in Bantu in all cases, they are occasionally used interchangeably. This is harmless in the context of the Bantu ecosystem, but outside that context, an "offer" usually means an "ask" order _specifically_!\)
 
 An orderbook can be summarized by a diagram, as shown below. It is often visible on the trading interface of an exchange, though sometimes inverted left-to-right or drawn horizontally. But the idea is the same.
 
@@ -64,7 +64,7 @@ Some assets will have a very thin or nonexistent orderbook between them. That's 
 
 ## Cross-asset payments
 
-Suppose you are holding sheep and want to buy something from a store that only accepts wheat. You can create a payment in Stellar that will automatically convert your sheep into wheat. It goes through the sheep/wheat orderbook and converts your sheep at the best available rate.
+Suppose you are holding sheep and want to buy something from a store that only accepts wheat. You can create a payment in Bantu that will automatically convert your sheep into wheat. It goes through the sheep/wheat orderbook and converts your sheep at the best available rate.
 
 You can also make more complicated paths of asset conversion. Imagine that the sheep/wheat orderbook has a very large spread or is nonexistent. In this case, you might get a better rate if you first trade your sheep for brick and then sell that brick for wheat. So a potential path would be 2 hops: sheep-&gt;brick-&gt;wheat. This path would take you through the sheep/brick orderbook and then the brick/wheat orderbook.
 
@@ -74,7 +74,7 @@ This process of finding the best path of a payment is called **pathfinding**. Pa
 
 ## Preferred currency
 
-Because cross-asset payments are so simple with Stellar, users can keep their money in whatever asset they prefer to hold. **Preferred currency** creates a very flexible, open system.
+Because cross-asset payments are so simple with Bantu, users can keep their money in whatever asset they prefer to hold. **Preferred currency** creates a very flexible, open system.
 
 Imagine a world where, anytime you travel, you never have to exchange currency except at the point of sale. A world where you can choose to keep all your assets in, for example, Google stock, cashing out small amounts as you need to pay for things. Cross-asset payments make this world possible.
 

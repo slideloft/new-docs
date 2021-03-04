@@ -75,13 +75,220 @@ Each example builds on itself, referencing variables from previous snippets. We'
 
 We'll start by including the boilerplate of account and asset creation.
 
- \`\`\`js const sdk = require\("stellar-sdk"\); const http = require\("got"\); let server = new sdk.Server\("https://horizon-testnet.stellar.org"\); async function main\(\) { // Create & fund the new accounts. let keypairs = \[ sdk.Keypair.random\(\), sdk.Keypair.random\(\), sdk.Keypair.random\(\), \]; for \(const keypair of keypairs\) { const base = "https://friendbot.stellar.org/?"; const path = base + "addr=" + encodeURIComponent\(keypair.publicKey\(\)\); console.log\(\`Funding:\n ${keypair.secret\(\)}\n ${keypair.publicKey\(\)}\`\); // We use the "got" library here to do the HTTP request synchronously, but // you can obviously use any method you'd like for this. const response = await http\(path\).catch\(function \(error\) { console.error\(" failed:", error.response.body\); }\); } // Arbitrary assets to sponsor trustlines for. Let's assume they make sense. let S1 = keypairs\[0\], A = keypairs\[1\], S2 = keypairs\[2\]; let assets = \[ new sdk.Asset\("ABCD", S1.publicKey\(\)\), new sdk.Asset\("EFGH", S1.publicKey\(\)\), new sdk.Asset\("IJKL", S2.publicKey\(\)\), \]; // ... \`\`\` \`\`\`go package main import \( "fmt" "net/http" sdk "github.com/stellar/go/clients/horizonclient" "github.com/stellar/go/keypair" "github.com/stellar/go/network" protocol "github.com/stellar/go/protocols/horizon" "github.com/stellar/go/txnbuild" \) func main\(\) { client := sdk.DefaultTestNetClient // Both S1 and S2 will be sponsors for A at various points in time. S1, A, S2 := keypair.MustRandom\(\), keypair.MustRandom\(\), keypair.MustRandom\(\) addressA := A.Address\(\) for \_, pair := range \[\]\*keypair.Full{S1, A, S2} { resp, err := http.Get\("https://friendbot.stellar.org/?addr=" + pair.Address\(\)\) check\(err\) resp.Body.Close\(\) fmt.Println\("Funded", pair.Address\(\)\) } // Load the corresponding account for both A and C. s1Account, err := client.AccountDetail\(sdk.AccountRequest{AccountID: S1.Address\(\)}\) check\(err\) aAccount, err := client.AccountDetail\(sdk.AccountRequest{AccountID: addressA}\) check\(err\) s2Account, err := client.AccountDetail\(sdk.AccountRequest{AccountID: S2.Address\(\)}\) check\(err\) // Arbitrary assets to sponsor trustlines for. Let's assume they make sense. assets := \[\]txnbuild.CreditAsset{ txnbuild.CreditAsset{Code: "ABCD", Issuer: S1.Address\(\)}, txnbuild.CreditAsset{Code: "EFGH", Issuer: S1.Address\(\)}, txnbuild.CreditAsset{Code: "IJKL", Issuer: S2.Address\(\)}, } // ... \`\`\`
+{% tabs %}
+{% tab title="JavaScript" %}
+```javascript
+const sdk = require("stellar-sdk");
+const http = require("got");
+
+let server = new sdk.Server("https://horizon-testnet.stellar.org");
+
+async function main() {
+  // Create & fund the new accounts.
+  let keypairs = [
+    sdk.Keypair.random(),
+    sdk.Keypair.random(),
+    sdk.Keypair.random(),
+  ];
+
+  for (const keypair of keypairs) {
+    const base = "https://friendbot.stellar.org/?";
+    const path = base + "addr=" + encodeURIComponent(keypair.publicKey());
+
+    console.log(`Funding:\n ${keypair.secret()}\n ${keypair.publicKey()}`);
+
+    // We use the "got" library here to do the HTTP request synchronously, but 
+    // you can obviously use any method you'd like for this.
+    const response = await http(path).catch(function (error) {
+      console.error("  failed:", error.response.body);
+    });
+  }
+
+  // Arbitrary assets to sponsor trustlines for. Let's assume they make sense.
+  let S1 = keypairs[0], A = keypairs[1], S2 = keypairs[2];
+  let assets = [
+    new sdk.Asset("ABCD", S1.publicKey()),
+    new sdk.Asset("EFGH", S1.publicKey()),
+    new sdk.Asset("IJKL", S2.publicKey()),
+  ];
+
+  // ...
+```
+{% endtab %}
+
+{% tab title="Go" %}
+```go
+package main
+
+import (
+    "fmt"
+    "net/http"
+
+    sdk "github.com/stellar/go/clients/horizonclient"
+    "github.com/stellar/go/keypair"
+    "github.com/stellar/go/network"
+    protocol "github.com/stellar/go/protocols/horizon"
+    "github.com/stellar/go/txnbuild"
+)
+
+func main() {
+    client := sdk.DefaultTestNetClient
+
+    // Both S1 and S2 will be sponsors for A at various points in time.
+    S1, A, S2 := keypair.MustRandom(), keypair.MustRandom(), keypair.MustRandom()
+    addressA := A.Address()
+
+    for _, pair := range []*keypair.Full{S1, A, S2} {
+        resp, err := http.Get("https://friendbot.stellar.org/?addr=" + pair.Address())
+        check(err)
+        resp.Body.Close()
+        fmt.Println("Funded", pair.Address())
+    }
+
+    // Load the corresponding account for both A and C.
+    s1Account, err := client.AccountDetail(sdk.AccountRequest{AccountID: S1.Address()})
+    check(err)
+    aAccount, err := client.AccountDetail(sdk.AccountRequest{AccountID: addressA})
+    check(err)
+    s2Account, err := client.AccountDetail(sdk.AccountRequest{AccountID: S2.Address()})
+    check(err)
+
+    // Arbitrary assets to sponsor trustlines for. Let's assume they make sense.
+    assets := []txnbuild.CreditAsset{
+        txnbuild.CreditAsset{Code: "ABCD", Issuer: S1.Address()},
+        txnbuild.CreditAsset{Code: "EFGH", Issuer: S1.Address()},
+        txnbuild.CreditAsset{Code: "IJKL", Issuer: S2.Address()},
+    }
+
+    // ...
+```
+{% endtab %}
+{% endtabs %}
 
 ### Sponsoring Trustlines
 
 Now, let's sponsor trustlines for Account A. Notice how the `CHANGE_TRUST` operation is sandwiched between the begin and end sponsoring operations and that all relevant accounts need to sign the transaction.
 
- \`\`\`js // // 1. S1 will sponsor a trustline for Account A. // let s1Account = await server.loadAccount\(S1.publicKey\(\)\).catch\(accountFail\); let tx = new sdk.TransactionBuilder\(s1Account, {fee: sdk.BASE\_FEE}\) .addOperation\(sdk.Operation.beginSponsoringFutureReserves\({ sponsoredId: A.publicKey\(\), }\)\) .addOperation\(sdk.Operation.changeTrust\({ source: A.publicKey\(\), asset: assets\[0\], limit: "1000", // This limit can vary according with your application; // if left empty, it defaults to the max limit. }\)\) .addOperation\(sdk.Operation.endSponsoringFutureReserves\({ source: A.publicKey\(\), }\)\) .setNetworkPassphrase\(sdk.Networks.TESTNET\) .setTimeout\(180\) .build\(\); // Note that while either can submit this transaction, both must sign it. tx.sign\(S1, A\); let txResponse = await server.submitTransaction\(tx\).catch\(txCheck\); if \(!txResponse\) { return; } console.log\("Sponsored a trustline of", A.publicKey\(\)\); // // 2. Both S1 and S2 sponsor trustlines for Account A for different assets. // let aAccount = await server.loadAccount\(A.publicKey\(\)\).catch\(accountFail\); let tx = new sdk.TransactionBuilder\(aAccount, {fee: sdk.BASE\_FEE}\) .addOperation\(sdk.Operation.beginSponsoringFutureReserves\({ source: S1.publicKey\(\), sponsoredId: A.publicKey\(\) }\)\) .addOperation\(sdk.Operation.changeTrust\({ asset: assets\[1\], limit: "5000" }\)\) .addOperation\(sdk.Operation.endSponsoringFutureReserves\(\)\) .addOperation\(sdk.Operation.beginSponsoringFutureReserves\({ source: S2.publicKey\(\), sponsoredId: A.publicKey\(\) }\)\) .addOperation\(sdk.Operation.changeTrust\({ asset: assets\[2\], limit: "2500" }\)\) .addOperation\(sdk.Operation.endSponsoringFutureReserves\(\)\) .setNetworkPassphrase\(sdk.Networks.TESTNET\) .setTimeout\(180\) .build\(\); // Note that all 3 accounts must approve/sign this transaction. tx.sign\(S1, S2, A\); let txResponse = await server.submitTransaction\(tx\).catch\(txCheck\); if \(!txResponse\) { return; } console.log\("Sponsored two trustlines of", A.publicKey\(\)\); \`\`\` \`\`\`go // // 1. S1 will sponsor a trustline for Account A. // sponsorTrustline := \[\]txnbuild.Operation{ &txnbuild.BeginSponsoringFutureReserves{ SourceAccount: &s1Account, SponsoredID: addressA, }, &txnbuild.ChangeTrust{ Line: &assets\[0\], Limit: txnbuild.MaxTrustlineLimit, }, &txnbuild.EndSponsoringFutureReserves{}, } // Note that while A can submit this transaction, both sign it. SignAndSend\(client, &aAccount, \[\]\*keypair.Full{S1, A}, sponsorTrustline...\) fmt.Println\("Sponsored a trustline of", A.Address\(\)\) // // 2. Both S1 and S2 sponsor trustlines for Account A for different assets. // sponsorTrustline = \[\]txnbuild.Operation{ &txnbuild.BeginSponsoringFutureReserves{ SourceAccount: &s1Account, SponsoredID: addressA, }, &txnbuild.ChangeTrust{ Line: &assets\[1\], Limit: txnbuild.MaxTrustlineLimit, }, &txnbuild.EndSponsoringFutureReserves{}, &txnbuild.BeginSponsoringFutureReserves{ SourceAccount: &s2Account, SponsoredID: addressA, }, &txnbuild.ChangeTrust{ Line: &assets\[2\], Limit: txnbuild.MaxTrustlineLimit, }, &txnbuild.EndSponsoringFutureReserves{}, } // Note that all 3 accounts must approve/sign this transaction. SignAndSend\(client, &aAccount, \[\]\*keypair.Full{S1, S2, A}, sponsorTrustline...\) fmt.Println\("Sponsored two trustlines of", A.Address\(\)\) \`\`\`
+{% tabs %}
+{% tab title="JavaScript" %}
+```javascript
+  //
+  // 1. S1 will sponsor a trustline for Account A.
+  //
+  let s1Account = await server.loadAccount(S1.publicKey()).catch(accountFail);
+  let tx = new sdk.TransactionBuilder(s1Account, {fee: sdk.BASE_FEE})
+    .addOperation(sdk.Operation.beginSponsoringFutureReserves({
+      sponsoredId: A.publicKey(),
+    }))
+    .addOperation(sdk.Operation.changeTrust({
+      source: A.publicKey(),
+      asset: assets[0],
+      limit: "1000", // This limit can vary according with your application;
+                     // if left empty, it defaults to the max limit.
+    }))
+    .addOperation(sdk.Operation.endSponsoringFutureReserves({
+      source: A.publicKey(),
+    }))
+    .setNetworkPassphrase(sdk.Networks.TESTNET)
+    .setTimeout(180)
+    .build();
+
+  // Note that while either can submit this transaction, both must sign it.
+  tx.sign(S1, A);
+  let txResponse = await server.submitTransaction(tx).catch(txCheck);
+  if (!txResponse) { return; }
+
+  console.log("Sponsored a trustline of", A.publicKey());
+
+  //
+  // 2. Both S1 and S2 sponsor trustlines for Account A for different assets.
+  //
+  let aAccount = await server.loadAccount(A.publicKey()).catch(accountFail);
+  let tx = new sdk.TransactionBuilder(aAccount, {fee: sdk.BASE_FEE})
+    .addOperation(sdk.Operation.beginSponsoringFutureReserves({
+      source: S1.publicKey(),
+      sponsoredId: A.publicKey()
+    }))
+    .addOperation(sdk.Operation.changeTrust({
+      asset: assets[1],
+      limit: "5000"
+    }))
+    .addOperation(sdk.Operation.endSponsoringFutureReserves())
+
+    .addOperation(sdk.Operation.beginSponsoringFutureReserves({
+      source: S2.publicKey(),
+      sponsoredId: A.publicKey()
+    }))
+    .addOperation(sdk.Operation.changeTrust({
+      asset: assets[2],
+      limit: "2500"
+    }))
+    .addOperation(sdk.Operation.endSponsoringFutureReserves())
+    .setNetworkPassphrase(sdk.Networks.TESTNET)
+    .setTimeout(180)
+    .build();
+
+  // Note that all 3 accounts must approve/sign this transaction.
+  tx.sign(S1, S2, A);
+  let txResponse = await server.submitTransaction(tx).catch(txCheck);
+  if (!txResponse) { return; }
+
+  console.log("Sponsored two trustlines of", A.publicKey());
+```
+{% endtab %}
+
+{% tab title="Go" %}
+```go
+    //
+    // 1. S1 will sponsor a trustline for Account A.
+    //
+    sponsorTrustline := []txnbuild.Operation{
+        &txnbuild.BeginSponsoringFutureReserves{
+            SourceAccount: &s1Account,
+            SponsoredID:   addressA,
+        },
+        &txnbuild.ChangeTrust{
+            Line:  &assets[0],
+            Limit: txnbuild.MaxTrustlineLimit,
+        },
+        &txnbuild.EndSponsoringFutureReserves{},
+    }
+
+    // Note that while A can submit this transaction, both sign it.
+    SignAndSend(client, &aAccount, []*keypair.Full{S1, A}, sponsorTrustline...)
+    fmt.Println("Sponsored a trustline of", A.Address())
+
+    //
+    // 2. Both S1 and S2 sponsor trustlines for Account A for different assets.
+    //
+    sponsorTrustline = []txnbuild.Operation{
+        &txnbuild.BeginSponsoringFutureReserves{
+            SourceAccount: &s1Account,
+            SponsoredID:   addressA,
+        },
+        &txnbuild.ChangeTrust{
+            Line:          &assets[1],
+            Limit:         txnbuild.MaxTrustlineLimit,
+        },
+        &txnbuild.EndSponsoringFutureReserves{},
+
+        &txnbuild.BeginSponsoringFutureReserves{
+            SourceAccount: &s2Account,
+            SponsoredID:   addressA,
+        },
+        &txnbuild.ChangeTrust{
+            Line:          &assets[2],
+            Limit:         txnbuild.MaxTrustlineLimit,
+        },
+        &txnbuild.EndSponsoringFutureReserves{},
+    }
+
+    // Note that all 3 accounts must approve/sign this transaction.
+    SignAndSend(client, &aAccount, []*keypair.Full{S1, S2, A}, sponsorTrustline...)
+    fmt.Println("Sponsored two trustlines of", A.Address())
+```
+{% endtab %}
+{% endtabs %}
 
 ### Transferring Sponsorship
 
@@ -89,7 +296,64 @@ Suppose that now Signer 1 wants to transfer responsibility of sponsoring reserve
 
 An intuitive way to think of a sponsorship transfer is that the very act of sponsorship is being sponsored by a new account. That is, the new sponsor takes over the responsibilities of the old sponsor by sponsoring a revocation.
 
- \`\`\`js // // 3. Transfer sponsorship of B's second trustline from S1 to S2. // let tx = new sdk.TransactionBuilder\(s1Account, {fee: sdk.BASE\_FEE}\) .addOperation\(sdk.Operation.beginSponsoringFutureReserves\({ source: S2.publicKey\(\), sponsoredId: S1.publicKey\(\) }\)\) .addOperation\(sdk.Operation.revokeTrustlineSponsorship\({ account: A.publicKey\(\), asset: assets\[1\], }\)\) .addOperation\(sdk.Operation.endSponsoringFutureReserves\(\)\) .setNetworkPassphrase\(sdk.Networks.TESTNET\) .setTimeout\(180\) .build\(\); // Notice that while the old sponsor \*sends\* the transaction, both sponsors // must \*approve\* the transfer. tx.sign\(S1, S2\); let txResponse = await server.submitTransaction\(tx\).catch\(txCheck\); if \(!txResponse\) { return; } console.log\("Transferred sponsorship for", A.publicKey\(\)\); \`\`\` \`\`\`go // // 3. Transfer sponsorship of B's second trustline from S1 to S2. // transferOps := \[\]txnbuild.Operation{ &txnbuild.BeginSponsoringFutureReserves{ SourceAccount: &s2Account, SponsoredID: S1.Address\(\), }, &txnbuild.RevokeSponsorship{ SponsorshipType: txnbuild.RevokeSponsorshipTypeTrustLine, Account: &addressA, TrustLine: &txnbuild.TrustLineID{ Account: addressA, Asset: assets\[1\], }, }, &txnbuild.EndSponsoringFutureReserves{}, } // Notice that while the old sponsor \*sends\* the transaction \(in this case\), // both sponsors must \*approve\* the transfer. SignAndSend\(client, &s1Account, \[\]\*keypair.Full{S1, S2}, transferOps...\) fmt.Println\("Transferred sponsorship for", A.Address\(\)\) \`\`\`
+{% tabs %}
+{% tab title="JavaScript" %}
+```javascript
+  //
+  // 3. Transfer sponsorship of B's second trustline from S1 to S2.
+  //
+  let tx = new sdk.TransactionBuilder(s1Account, {fee: sdk.BASE_FEE})
+    .addOperation(sdk.Operation.beginSponsoringFutureReserves({
+      source: S2.publicKey(),
+      sponsoredId: S1.publicKey()
+    }))
+    .addOperation(sdk.Operation.revokeTrustlineSponsorship({
+      account: A.publicKey(),
+      asset: assets[1],
+    }))
+    .addOperation(sdk.Operation.endSponsoringFutureReserves())
+    .setNetworkPassphrase(sdk.Networks.TESTNET)
+    .setTimeout(180)
+    .build();
+
+  // Notice that while the old sponsor *sends* the transaction, both sponsors
+  // must *approve* the transfer.
+  tx.sign(S1, S2);
+  let txResponse = await server.submitTransaction(tx).catch(txCheck);
+  if (!txResponse) { return; }
+
+  console.log("Transferred sponsorship for", A.publicKey());
+```
+{% endtab %}
+
+{% tab title="Go" %}
+```go
+    //
+    // 3. Transfer sponsorship of B's second trustline from S1 to S2.
+    //
+    transferOps := []txnbuild.Operation{
+        &txnbuild.BeginSponsoringFutureReserves{
+            SourceAccount: &s2Account,
+            SponsoredID:   S1.Address(),
+        },
+        &txnbuild.RevokeSponsorship{
+            SponsorshipType: txnbuild.RevokeSponsorshipTypeTrustLine,
+            Account:         &addressA,
+            TrustLine: &txnbuild.TrustLineID{
+                Account: addressA,
+                Asset:   assets[1],
+            },
+        },
+        &txnbuild.EndSponsoringFutureReserves{},
+    }
+
+    // Notice that while the old sponsor *sends* the transaction (in this case),
+    // both sponsors must *approve* the transfer.
+    SignAndSend(client, &s1Account, []*keypair.Full{S1, S2}, transferOps...)
+    fmt.Println("Transferred sponsorship for", A.Address())
+```
+{% endtab %}
+{% endtabs %}
 
 At this point, Signer 1 is only sponsoring the first asset \(arbitrarily coded as `ABCD`\), while Signer 2 is sponsoring the other two assets. \(Recall that [initially](sponsored-reserves.md#sponsoring-trustlines) Signer 1 was also sponsoring `EFGH`.\)
 
@@ -97,7 +361,65 @@ At this point, Signer 1 is only sponsoring the first asset \(arbitrarily coded a
 
 Finally, we can demonstrate complete revocation of sponsorships. Below, Signer 2 removes themselves from all responsibility over the two asset trustlines. Notice that Account A is not involved at all, since revocation should be performable purely at the sponsor's discretion.
 
- \`\`\`js // // 4. S2 revokes sponsorship of B's trustlines entirely. // let s2Account = await server.loadAccount\(S2.publicKey\(\)\).catch\(accountFail\); let tx = new sdk.TransactionBuilder\(s2Account, {fee: sdk.BASE\_FEE}\) .addOperation\(sdk.Operation.revokeTrustlineSponsorship\({ account: A.publicKey\(\), asset: assets\[1\], }\)\) .addOperation\(sdk.Operation.revokeTrustlineSponsorship\({ account: A.publicKey\(\), asset: assets\[2\], }\)\) .setNetworkPassphrase\(sdk.Networks.TESTNET\) .setTimeout\(180\) .build\(\); tx.sign\(S2\); let txResponse = await server.submitTransaction\(tx\).catch\(txCheck\); if \(!txResponse\) { return; } console.log\("Revoked sponsorship for", A.publicKey\(\)\); } // ends main\(\) \`\`\` \`\`\`go // // 4. S2 revokes sponsorship of B's trustlines entirely. // revokeOps := \[\]txnbuild.Operation{ &txnbuild.RevokeSponsorship{ SponsorshipType: txnbuild.RevokeSponsorshipTypeTrustLine, Account: &addressA, TrustLine: &txnbuild.TrustLineID{ Account: addressA, Asset: assets\[1\], }, }, &txnbuild.RevokeSponsorship{ SponsorshipType: txnbuild.RevokeSponsorshipTypeTrustLine, Account: &addressA, TrustLine: &txnbuild.TrustLineID{ Account: addressA, Asset: assets\[2\], }, }, } SignAndSend\(client, &s2Account, \[\]\*keypair.Full{S2}, revokeOps...\) fmt.Println\("Revoked sponsorship for", A.Address\(\)\) } // ends main\(\) \`\`\`
+{% tabs %}
+{% tab title="JavaScript" %}
+```javascript
+  //
+  // 4. S2 revokes sponsorship of B's trustlines entirely.
+  //
+  let s2Account = await server.loadAccount(S2.publicKey()).catch(accountFail);
+  let tx = new sdk.TransactionBuilder(s2Account, {fee: sdk.BASE_FEE})
+    .addOperation(sdk.Operation.revokeTrustlineSponsorship({
+      account: A.publicKey(),
+      asset: assets[1],
+    }))
+    .addOperation(sdk.Operation.revokeTrustlineSponsorship({
+      account: A.publicKey(),
+      asset: assets[2],
+    }))
+    .setNetworkPassphrase(sdk.Networks.TESTNET)
+    .setTimeout(180)
+    .build();
+
+  tx.sign(S2);
+  let txResponse = await server.submitTransaction(tx).catch(txCheck);
+  if (!txResponse) { return; }
+
+  console.log("Revoked sponsorship for", A.publicKey());
+} // ends main()
+```
+{% endtab %}
+
+{% tab title="Go" %}
+```go
+    //
+    // 4. S2 revokes sponsorship of B's trustlines entirely.
+    //
+    revokeOps := []txnbuild.Operation{
+        &txnbuild.RevokeSponsorship{
+            SponsorshipType: txnbuild.RevokeSponsorshipTypeTrustLine,
+            Account:         &addressA,
+            TrustLine: &txnbuild.TrustLineID{
+                Account: addressA,
+                Asset:   assets[1],
+            },
+        },
+        &txnbuild.RevokeSponsorship{
+            SponsorshipType: txnbuild.RevokeSponsorshipTypeTrustLine,
+            Account:         &addressA,
+            TrustLine: &txnbuild.TrustLineID{
+                Account: addressA,
+                Asset:   assets[2],
+            },
+        },
+    }
+
+    SignAndSend(client, &s2Account, []*keypair.Full{S2}, revokeOps...)
+    fmt.Println("Revoked sponsorship for", A.Address())
+} // ends main()
+```
+{% endtab %}
+{% endtabs %}
 
 ### Sponsorship Source Accounts
 
@@ -109,7 +431,29 @@ Since the source account defaults to the transaction submitter when omitted, thi
 
 For example, the following is an identical expression of the [earlier Golang example](sponsored-reserves.md#sponsoring-trustlines) of sponsoring a trustline, just submitted by the **sponsor** \(Sponsor 1\) rather than the **sponsored** account \(Account A\). Notice the differences in where `SourceAccount` is set:
 
- \`\`\`go sponsorTrustline := \[\]txnbuild.Operation{ &txnbuild.BeginSponsoringFutureReserves{ SponsoredID: addressA, }, &txnbuild.ChangeTrust{ SourceAccount: &aAccount, Line: &assets\[0\], Limit: txnbuild.MaxTrustlineLimit, }, &txnbuild.EndSponsoringFutureReserves{ SourceAccount: &aAccount, }, } // Again, both participants must still sign the transaction: the sponsored // account must consent to the sponsorship. SignAndSend\(client, &s1Account, \[\]\*keypair.Full{S1, A}, sponsorTrustline...\) \`\`\`
+{% tabs %}
+{% tab title="Go" %}
+```go
+    sponsorTrustline := []txnbuild.Operation{
+        &txnbuild.BeginSponsoringFutureReserves{
+            SponsoredID: addressA,
+        },
+        &txnbuild.ChangeTrust{
+            SourceAccount: &aAccount,
+            Line:          &assets[0],
+            Limit:         txnbuild.MaxTrustlineLimit,
+        },
+        &txnbuild.EndSponsoringFutureReserves{
+            SourceAccount: &aAccount,
+        },
+    }
+
+    // Again, both participants must still sign the transaction: the sponsored
+    // account must consent to the sponsorship.
+    SignAndSend(client, &s1Account, []*keypair.Full{S1, A}, sponsorTrustline...)
+```
+{% endtab %}
+{% endtabs %}
 
 ### Other Examples
 
@@ -119,5 +463,69 @@ If you'd like other examples, or want to view a more-generic pseudocode breakdow
 
 For the above examples, an implementation of `SignAndSend` \(Golang\) and some \(very\) rudimentary error checking code \(all languages\) might look something like this:
 
- \`\`\`js function txCheck\(err\) { console.error\("Transaction submission failed:", err\); if \(err.response != null && err.response.data != null\) { console.error\("More details:", err.response.data.extras\); } else { console.error\("Unknown reason:", err\); } } function accountFail\(err\) { console.error\(" Failed to load account:", err.response.body\); } \`\`\` \`\`\`go // Builds a transaction containing \`operations...\`, signed \(by \`signers\`\), and // submitted using the given \`client\` on behalf of \`account\`. func SignAndSend\( client \*sdk.Client, account txnbuild.Account, signers \[\]\*keypair.Full, operations ...txnbuild.Operation, \) protocol.Transaction { // Build, sign, and submit the transaction tx, err := txnbuild.NewTransaction\( txnbuild.TransactionParams{ SourceAccount: account, IncrementSequenceNum: true, BaseFee: txnbuild.MinBaseFee, Timebounds: txnbuild.NewInfiniteTimeout\(\), Operations: operations, }, \) check\(err\) for \_, signer := range signers { tx, err = tx.Sign\(network.TestNetworkPassphrase, signer\) check\(err\) } txResp, err := client.SubmitTransaction\(tx\) if err != nil { if prob := sdk.GetError\(err\); prob != nil { fmt.Printf\(" problem: %s\n", prob.Problem.Detail\) fmt.Printf\(" extras: %s\n", prob.Problem.Extras\["result\_codes"\]\) } check\(err\) } return txResp } func check\(err error\) { if err != nil { panic\(err\) } } \`\`\`
+{% tabs %}
+{% tab title="JavaScript" %}
+```javascript
+function txCheck(err) {
+  console.error("Transaction submission failed:", err);
+  if (err.response != null && err.response.data != null) {
+    console.error("More details:", err.response.data.extras);
+  } else {
+    console.error("Unknown reason:", err);
+  }
+}
+
+function accountFail(err) {
+  console.error(" Failed to load account:", err.response.body);
+}
+```
+{% endtab %}
+
+{% tab title="Go" %}
+```go
+// Builds a transaction containing `operations...`, signed (by `signers`), and
+// submitted using the given `client` on behalf of `account`.
+func SignAndSend(
+    client *sdk.Client,
+    account txnbuild.Account,
+    signers []*keypair.Full,
+    operations ...txnbuild.Operation,
+) protocol.Transaction {
+    // Build, sign, and submit the transaction
+    tx, err := txnbuild.NewTransaction(
+        txnbuild.TransactionParams{
+            SourceAccount:        account,
+            IncrementSequenceNum: true,
+            BaseFee:              txnbuild.MinBaseFee,
+            Timebounds:           txnbuild.NewInfiniteTimeout(),
+            Operations:           operations,
+        },
+    )
+    check(err)
+
+    for _, signer := range signers {
+        tx, err = tx.Sign(network.TestNetworkPassphrase, signer)
+        check(err)
+    }
+
+    txResp, err := client.SubmitTransaction(tx)
+    if err != nil {
+        if prob := sdk.GetError(err); prob != nil {
+            fmt.Printf("  problem: %s\n", prob.Problem.Detail)
+            fmt.Printf("  extras: %s\n", prob.Problem.Extras["result_codes"])
+        }
+        check(err)
+    }
+
+    return txResp
+}
+
+func check(err error) {
+    if err != nil {
+        panic(err)
+    }
+}
+```
+{% endtab %}
+{% endtabs %}
 

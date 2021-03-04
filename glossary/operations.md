@@ -5,7 +5,7 @@ order: null
 
 # Operations
 
-Operations are the bread and butter of Stellar: they’re the individual commands that mutate the ledger. Transactions, which accounts sign and submit for inclusion in the ledger, are really just bundles of operations. Transactions can, by definition, include anywhere from 1 to 100 operations.
+Operations are the bread and butter of Bantu: they’re the individual commands that mutate the ledger. Transactions, which accounts sign and submit for inclusion in the ledger, are really just bundles of operations. Transactions can, by definition, include anywhere from 1 to 100 operations.
 
 Network capacity, which is determined by validator vote, is measured in terms of operations/ledger. Currently, it’s set to 1,000.
 
@@ -34,7 +34,7 @@ When a transaction is submitted to a node, the node checks the validity of each 
 1. The signatures on the transaction must be valid for the operation. That means:
    * The signatures are from valid signers for the source account of the operation.
    * The combined weight of all signatures for the source account _of the operation_ meets the threshold for the operation.
-2. The operation itself must be well formed. Typically this means checking the parameters for the operation to see if they're in a valid format.
+2. The operation itself must be well-formed. Typically this means checking the parameters for the operation to see if they're in a valid format.
    * For example, only positive values can be set for the amount of a payment operation.
 3. The operation must be valid in the current protocol version of the network. Deprecated operations, such as inflation, are invalid by design.
 

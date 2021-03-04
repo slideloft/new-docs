@@ -5,30 +5,30 @@ order: null
 
 # Minimum Balance
 
-import { CodeExample } from "components/CodeExample"; import { Alert } from "components/Alert";
+ This doc explains minimum balance requirements. If you want to know about transaction fees, check out the [Fees](fees.md) doc.
 
- This doc explains minimum balance requirements. If you want to know about transaction fees, check out the \[Fees\]\(./fees.mdx\) doc.
+All Bantu accounts must maintain a minimum balance of spirits. The minimum balance is calculated using the **base reserve,** which is currently **0.5 XBN**:
 
-All Stellar accounts must maintain a minimum balance of lumens. The minimum balance is calculated using the **base reserve,** which is currently **0.5 XLM**:
+```text
+Minimum Balance = (2 + # of entries + # of sponsoring entries - # of sponsored entries) * base reserve 
+```
 
- \`\`\` Minimum Balance = \(2 + \# of entries + \# of sponsoring entries - \# of sponsored entries\) \* base reserve \`\`\`
-
-The absolute minimum balance for an account is 1 XLM, which is equal to `(2 + 0 entries) * 0.5 base reserve`. Each additional entry reserves an additional 0.5 XLM. Entries include:
+The absolute minimum balance for an account is 1 XBN, which is equal to `(2 + 0 entries) * 0.5 base reserve`. Each additional entry reserves an additional 0.5 XBN. Entries include:
 
 * Trustlines
 * Offers
 * Signers
 * Data entries
 
-For example, an account with 1 trustline and 2 offers would have a minimum balance of `(2 + 3 entries) * 0.5 base reserve = 2.5 XLM`.
+For example, an account with 1 trustline and 2 offers would have a minimum balance of `(2 + 3 entries) * 0.5 base reserve = 2.5 XBN`.
 
 [Sponsored Reserves](sponsored-reserves.md) will affect the \# of sponsoring entries and \# of sponsored entries.
 
-[Claimable Balances](claimable-balance.md) are reflected in the \# of sponsoring entries. Each claimant in a claimable balance will require an additional 0.5 XLM. For example, an account that creates a claimable balance with 2 claimants would have a minimum balance of `(2 + 0 entries + 2 sponsoring entries) * 0.5 base reserve = 2 XLM`.
+[Claimable Balances](claimable-balance.md) are reflected in the \# of sponsoring entries. Each claimant in a claimable balance will require an additional 0.5 XBN. For example, an account that creates a claimable balance with 2 claimants would have a minimum balance of `(2 + 0 entries + 2 sponsoring entries) * 0.5 base reserve = 2 XBN`.
 
-Any transaction that would reduce an account's balance to less than the minimum will be rejected with an `INSUFFICIENT_BALANCE` error. Likewise, lumen selling liabilities that would reduce an account's balance to less than the minimum plus lumen selling liabilities will be rejected with an `INSUFFICIENT_BALANCE` error.
+Any transaction that would reduce an account's balance to less than the minimum will be rejected with an `INSUFFICIENT_BALANCE` error. Likewise, spirit selling liabilities that would reduce an account's balance to less than the minimum plus spirit selling liabilities will be rejected with an `INSUFFICIENT_BALANCE` error.
 
-The minimum balance is held in reserve, and closing an entry frees up the associated base reserve. For instance: if you zero-out a non-lumen balance and close the associated trustline, the 0.5 XLM base reserve that secured that trustline is added to your available balance.
+The minimum balance is held in reserve, and closing an entry frees up the associated base reserve. For instance: if you zero-out a non-spirit balance and close the associated trustline, the 0.5 XBN base reserve that secured that trustline is added to your available balance.
 
 ## Changes to Transaction Fees and Minimum Balances
 

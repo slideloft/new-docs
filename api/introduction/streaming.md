@@ -13,5 +13,18 @@ This reduces requests that return no data and allows near instantaneous updates 
 
 All attributes for the endpoints that allow streaming are the same as regular responses. A caller can initiate streaming by setting ‘Accept: text/event-stream’ in the HTTP header when making the request. Study an example of using streaming in the [Follow Received Payments tutorial](../../tutorials/follow-received-payments.md).
 
- \| \| \| ------------------------------------------------------- \| \| \[Ledgers\]\(../resources/ledgers/index.mdx\) \| \| \[Transactions\]\(../resources/transactions/index.mdx\) \| \| \[Operations\]\(../resources/operations/index.mdx\) \| \| \[Payments\]\(../resources/operations/object/payment.mdx\) \| \| \[Effects\]\(../resources/effects/index.mdx\) \| \| \[Accounts\]\(../resources/accounts/index.mdx\) \| \| \[Offers\]\(../resources/offers/index.mdx\) \| \| \[Trades\]\(../resources/trades/index.mdx\) \| \| \[Order Books\]\(../aggregations/order-books/index.mdx\) \|
+ 
+
+Endpoints with Streaming
+
+| [Ledgers](https://developers.stellar.org/api/resources/ledgers/) |
+| :--- |
+| [Transactions](https://developers.stellar.org/api/resources/transactions/) |
+| [Operations](https://developers.stellar.org/api/resources/operations/) |
+| [Payments](https://developers.stellar.org/api/resources/operations/object/payment/) |
+| [Effects](https://developers.stellar.org/api/resources/effects/) |
+| [Accounts](https://developers.stellar.org/api/resources/accounts/) |
+| [Offers](https://developers.stellar.org/api/resources/offers/) |
+| [Trades](https://developers.stellar.org/api/resources/trades/) |
+| [Order Books](https://developers.stellar.org/api/aggregations/order-books/) |
 

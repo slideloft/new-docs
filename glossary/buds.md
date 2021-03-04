@@ -7,7 +7,7 @@ order: null
 
 The [BUDS](https://github.com/Bantu/Bantu-protocol/blob/master/ecosystem/sep-0002.md) maps Bantu addresses to more information about a given user. It's a way for Bantu client software to resolve email-like addresses such as `name*yourdomain.com` into account IDs like: `GCCVPYFOHY7ZB7557JKENAX62LUAPLMGIWNZJAFV2MITK6T32V37KEJU`. Buds addresses provide an easy way for users to share payment details by using a syntax that interoperates across different domains and providers.
 
-The [Stellar federation protocol](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0002.md) maps Bantu addresses to more information about a given user. It's a way for Stellar client software to resolve email-like addresses such as `name*yourdomain.com` into account IDs like: `GCCVPYFOHY7ZB7557JKENAX62LUAPLMGIWNZJAFV2MITK6T32V37KEJU`. Federated addresses provide an easy way for users to share payment details by using a syntax that interoperates across different domains and providers.
+The [Bantu federation protocol](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0002.md) maps Bantu addresses to more information about a given user. It's a way for Bantu client software to resolve email-like addresses such as `name*yourdomain.com` into account IDs like: `GCCVPYFOHY7ZB7557JKENAX62LUAPLMGIWNZJAFV2MITK6T32V37KEJU`. Federated addresses provide an easy way for users to share payment details by using a syntax that interoperates across different domains and providers.
 
 ## Buds addresses
 
@@ -48,7 +48,7 @@ To make it easier to set up a Buds server, the Bantu Development foundation serv
 
 ## Buds Requests
 
-You can use the federation endpoint to look up an account id if you have a Bantu address. You can also do reverse federation and look up a Stellar address from an account id or a transaction id. This is useful to see who has sent you a payment.
+You can use the federation endpoint to look up an account id if you have a Bantu address. You can also do reverse federation and look up a Bantu address from an account id or a transaction id. This is useful to see who has sent you a payment.
 
 You can use the Buds endpoint to look up an account id if you have a Bantu address. You can also do reverse Buds and look up a Bantu address from an account id or a transaction id. This is useful to see who has sent you a payment.
 
@@ -58,8 +58,8 @@ Buds requests are http `GET` requests with the following form:
 
 Supported types:
 
-* **name**: Example: `https://YOUR_FEDERATION_SERVER/federation?q=jed*stellar.org&type=name`
-* **forward**: Used for forwarding the payment on to a different network or different financial institution. The other parameters of the query will vary depending on what kind of institution is the ultimate destination of the payment and what you as the forwarding anchor supports. Your [stellar.toml](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md) file should specify what parameters you expect in a `forward` federation request. If you are unable to forward or the other parameters in the request are incorrect you should return an error to this effect. Example request: `https://YOUR_FEDERATION_SERVER/federation?type=forward&forward_type=bank_account&swift=BOPBPHMM&acct=2382376`
+* **name**: Example: `https://YOUR_FEDERATION_SERVER/federation?q=jed*bantu.org&type=name`
+* **forward**: Used for forwarding the payment on to a different network or different financial institution. The other parameters of the query will vary depending on what kind of institution is the ultimate destination of the payment and what you as the forwarding anchor supports. Your [bantu.toml](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md) file should specify what parameters you expect in a `forward` federation request. If you are unable to forward or the other parameters in the request are incorrect you should return an error to this effect. Example request: `https://YOUR_FEDERATION_SERVER/federation?type=forward&forward_type=bank_account&swift=BOPBPHMM&acct=2382376`
 * **id**: _not supported by all federation servers_ Reverse federation will return the federation record of the Bantu address associated with the given account ID. In some cases this is ambiguous. For instance if an anchor sends transactions on behalf of its users the account id will be of the anchor and the federation server won't be able to resolve the particular user that sent the transaction. In cases like that you may need to use **txid** instead. Example: `https://YOUR_FEDERATION_SERVER/federation?q=GD6WU64OEP5C4LRBH6NK3MHYIA2ADN6K6II6EXPNVUR3ERBXT4AN4ACD&type=id`
 * **txid**: _not supported by all federation servers_ Will return the federation record of the sender of the transaction if known by the server. Example: `https://YOUR_FEDERATION_SERVER/federation?q=c1b368c00e9852351361e07cc58c54277e7a6366580044ab152b8db9cd8ec52a&type=txid`
 * **name**: Example: `https://YOUR_Buds_SERVER/Buds?q=flarcos*bantu.networ&type=name`

@@ -5,9 +5,9 @@ order: null
 
 # Ledger
 
-A ledger represents the state of the Stellar universe at a given point in time. It’s shared across all the nodes that make up the network, and contains the list of all accounts and balances, all orders on the distributed exchange, and any other data that persists.
+A ledger represents the state of the Bantu universe at a given point in time. It’s shared across all the nodes that make up the network, and contains the list of all accounts and balances, all orders on the distributed exchange, and any other data that persists.
 
-Every Stellar Consensus Protocol \(SCP\) round, the network reaches consensus on which transaction set to apply to the last closed ledger; when the new set is applied, a new "last closed ledger" is defined.
+Every Bantu Consensus Protocol \(SCP\) round, the network reaches consensus on which transaction set to apply to the last closed ledger; when the new set is applied, a new "last closed ledger" is defined.
 
 Each ledger is cryptographically linked to a unique previous ledger, creating a historical ledger chain that goes back to the genesis ledger, which is the first ledger in the history of the network.
 
@@ -50,7 +50,7 @@ The ledger is a collection of **entries**. Currently there are 4 types of ledger
 
 ### Account entry
 
-This entry represents an account. In Stellar, everything is built around accounts: transactions are performed by accounts, and accounts control the access rights to balances.
+This entry represents an account. In Bantu, everything is built around accounts: transactions are performed by accounts, and accounts control the access rights to balances.
 
 Other entries are add-ons, owned by a main account entry. With every new entry attached to the account, the minimum balance in XLM goes up for the account. For details, the docs on minimum balance.
 
@@ -62,7 +62,7 @@ Trustline entries define the rules around the use of this currency. Rules can be
 
 ### Offer entry
 
-Offers are entries that an account creates in the orderbook. They are a way to automate simple trading inside the Stellar network. For more on offers, refer to the distributed exchange documentation.
+Offers are entries that an account creates in the orderbook. They are a way to automate simple trading inside the Bantu network. For more on offers, refer to the distributed exchange documentation.
 
 ### Data entry
 
