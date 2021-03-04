@@ -18,6 +18,6 @@ You don't need to run your own Expansion instance to build on bantu: the bantu D
 Running Expansion within your own infrastructure provides a number of benefits. You can:
 
 * Disable request rate limiting for guaranteed network access
-* Have full operational control without dependency on the bantu Development Foundation
+* Have full operational control without dependency on the Bantu Blockchain Foundation
 * Run multiple instances for redundancy and scalability
 
