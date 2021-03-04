@@ -90,7 +90,7 @@ After a few seconds, the Bantu network will perform consensus, close the ledger,
 To follow new payments connected to your account you simply need to send the `Accept: text/event-stream` header to the [/payments](../api/resources/operations/object/payment.md) endpoint.
 
 ```bash
-$ curl -H "Accept: text/event-stream" "https://expansion.bantu.network//accounts/GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3/payments"
+$ curl -H "Accept: text/event-stream" "https://expansion-testnet.bantu.network/accounts/GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3/payments"
 ```
 
 As a result you will see something like:
