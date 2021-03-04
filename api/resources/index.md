@@ -7,15 +7,13 @@ order: 0
 
 Data on the Bantu ledger is organized according to resources. Each resource has several different endpoints.
 
- 
-
 Resource Types
 
-| [Ledgers](https://developers.stellar.org/api/resources/ledgers/) |  |
+| [Ledgers](ledgers/) |  |
 | :--- | :--- |
-| [Transactions](https://developers.stellar.org/api/resources/transactions/) |  |
-| [Operations](https://developers.stellar.org/api/resources/operations/) |  |
-| [Effects](https://developers.stellar.org/api/resources/effects/) |  |
+| [Transactions](ledgers/transactions.md) |  |
+| [Operations](transactions/operations.md) |  |
+| [Effects](ledgers/effects.md) |  |
 | [Accounts](https://developers.stellar.org/api/resources/accounts/) |  |
 | [Offers](https://developers.stellar.org/api/resources/offers/) |  |
 | [Claimable Balances](https://developers.stellar.org/api/resources/claimablebalances/) |  |
