@@ -40,5 +40,5 @@ On a modern laptop this test setup takes about 15 minutes to synchronise with th
 
 See the [Quickstart Docker Image](https://github.com/bantu/docker-bantu-core-Expansion) documentation for more details, and alternative ways to run the container.
 
-You can test your Expansion instance with a query like: [http://localhost:8000/transactions?cursor=&limit=10&order=asc](http://localhost:8000/transactions?cursor=&limit=10&order=asc). Use the [bantu Laboratory](https://www.bantu.org/laboratory/) to craft other queries to try out, and read about the available endpoints and see examples in the [Expansion API reference](../api/introduction/index.md).
+You can test your Expansion instance with a query like: [http://localhost:8000/transactions?cursor=&limit=10&order=asc](http://localhost:8000/transactions?cursor=&limit=10&order=asc). Use the [bantu Laboratory](https://laboratory.bantu.network/) to craft other queries to try out, and read about the available endpoints and see examples in the [Expansion API reference](../api/introduction/index.md).
 
