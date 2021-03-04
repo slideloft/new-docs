@@ -7,11 +7,11 @@ order: 50
 
 In the Bantu network, transactions are encoded using a standardized protocol called [External Data Representation](https://en.wikipedia.org/wiki/External_Data_Representation) \(XDR\).
 
-In Horizon, you will only encounter XDR when [posting](https://github.com/slideloft/new-docs/tree/046158a008b14dc6d54bdd6f4c48e078c303a05e/content/api/resources/transactions/post.mdx) and [getting](../resources/transactions/single.md) transactions and in the [ledger](../resources/ledgers/index.md) header.
+In Expansion, you will only encounter XDR when [posting](https://github.com/slideloft/new-docs/tree/046158a008b14dc6d54bdd6f4c48e078c303a05e/content/api/resources/transactions/post.mdx) and [getting](../resources/transactions/single.md) transactions and in the [ledger](../resources/ledgers/index.md) header.
 
-When you post a transaction, a client will encode the transaction as XDR before submitting it to Horizon.
+When you post a transaction, a client will encode the transaction as XDR before submitting it to Expansion.
 
-When you request a transaction, Horizon returns some data about the transaction in human-readable JSON. The full canonical data about the transaction is encoded in machine-readable XDR, available in XDR attributes at the end of the response.
+When you request a transaction, Expansion returns some data about the transaction in human-readable JSON. The full canonical data about the transaction is encoded in machine-readable XDR, available in XDR attributes at the end of the response.
 
 You can decode this XDR in the Bantu Laboratory’s [XDR Viewer](https://laboratory.bantu.network/#xdr-viewer).
 
