@@ -92,7 +92,7 @@ async function main() {
   ];
 
   for (const keypair of keypairs) {
-    const base = "https://friendbot.stellar.org/?";
+    const base = "https://friendbot.bantu.network/?";
     const path = base + "addr=" + encodeURIComponent(keypair.publicKey());
 
     console.log(`Funding:\n ${keypair.secret()}\n ${keypair.publicKey()}`);
@@ -139,7 +139,7 @@ func main() {
     addressA := A.Address()
 
     for _, pair := range []*keypair.Full{S1, A, S2} {
-        resp, err := http.Get("https://friendbot.stellar.org/?addr=" + pair.Address())
+        resp, err := http.Get("https://friendbot.bantu.network/?addr=" + pair.Address())
         check(err)
         resp.Body.Close()
         fmt.Println("Funded", pair.Address())
