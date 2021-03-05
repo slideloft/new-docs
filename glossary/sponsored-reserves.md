@@ -81,7 +81,7 @@ We'll start by including the boilerplate of account and asset creation.
 const sdk = require("stellar-sdk");
 const http = require("got");
 
-let server = new sdk.Server("https://expansion-testnet.bantu.network/");
+let server = new sdk.Server("https://expansion-testnet.bantu.network");
 
 async function main() {
   // Create & fund the new accounts.
