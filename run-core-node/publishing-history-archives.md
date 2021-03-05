@@ -161,7 +161,7 @@ Given the choice, it's best to configure your history archive prior to your node
 
 However, if you have _not_ published an archive during the node's initial synch, it's still possible to use the [bantu-archivist](https://github.com/bantu/go/tree/master/tools/bantu-archivist) command line tool to mirror, scan, and repair existing archives.
 
-Using the [SDF package repositories](https://github.com/bantu/packages) you can install `bantu-archivist` by running `apt-get install bantu-archivist`
+Using the [BBF package repositories](https://github.com/bantu/packages) you can install `bantu-archivist` by running `apt-get install bantu-archivist`
 
 The steps required to create a History archive for an existing validator — in other words, to upgrade a Basic Validator to a Full Validator — are straightforward:
 
@@ -228,7 +228,7 @@ If you decide to publish a complete archive — which enables other users to joi
 
 As you can tell from the output of the `scan` command, some history, ledger, transactions, and results are missing from the local history archive.
 
-You can repair the missing data using bantu-archivist's `repair` command combined with a known full archive — such as the SDF public history archive:
+You can repair the missing data using bantu-archivist's `repair` command combined with a known full archive — such as the BBF public history archive:
 
 `# bantu-archivist repair http://history.bantu.org/prd/core-testnet/core_testnet_001/ file:///mnt/xvdf/bantu-core-archive/node_001/`
 
