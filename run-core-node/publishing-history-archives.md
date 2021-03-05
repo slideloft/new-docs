@@ -25,9 +25,9 @@ To publish a local history archive using nginx:
 
 ```text
 [HISTORY.local]
-get="cp /mnt/xvdf/stellar-core-archive/node_001/{0} {1}"
-put="cp {0} /mnt/xvdf/stellar-core-archive/node_001/{1}"
-mkdir="mkdir -p /mnt/xvdf/stellar-core-archive/node_001/{0}"
+get="cp /mnt/xvdf/bantu-core-archive/node_001/{0} {1}"
+put="cp {0} /mnt/xvdf/bantu-core-archive/node_001/{1}"
+mkdir="mkdir -p /mnt/xvdf/bantu-core-archive/node_001/{0}"
 ```
 
 * Run new-hist to create the local archive
@@ -37,8 +37,8 @@ mkdir="mkdir -p /mnt/xvdf/stellar-core-archive/node_001/{0}"
 This command creates the history archive structure:
 
 ```text
-# tree -a /mnt/xvdf/stellar-core-archive/
-/mnt/xvdf/stellar-core-archive
+# tree -a /mnt/xvdf/bantu-core-archive/
+/mnt/xvdf/bantu-core-archive
 └── node_001
     ├── history
     │   └── 00
@@ -46,7 +46,7 @@ This command creates the history archive structure:
     │           └── 00
     │               └── history-00000000.json
     └── .well-known
-        └── stellar-history.json
+        └── bantu-history.json
 
 6 directories, 2 files
 ```
@@ -56,7 +56,7 @@ This command creates the history archive structure:
 ```text
 server {
   listen 80;
-  root /mnt/xvdf/stellar-core-archive/node_001/;
+  root /mnt/xvdf/bantu-core-archive/node_001/;
 
   server_name history.example.com;
 
@@ -70,7 +70,7 @@ server {
   }
 
   # do not cache history state file
-  location ~ ^/.well-known/stellar-history.json$ {
+  location ~ ^/.well-known/bantu-history.json$ {
     add_header Cache-Control "no-cache" always;
     try_files $uri;
   }
@@ -126,7 +126,7 @@ server {
   }
 
   # do not cache history state file
-  location ~ ^/.well-known/stellar-history.json$ {
+  location ~ ^/.well-known/bantu-history.json$ {
     add_header Cache-Control "no-cache" always;
     proxy_intercept_errors on;
     proxy_pass  http://$s3_bucket;
@@ -170,9 +170,9 @@ The steps required to create a History archive for an existing validator — in 
 
 ```text
 [HISTORY.local]
-get="cp /mnt/xvdf/stellar-core-archive/node_001/{0} {1}"
-put="cp {0} /mnt/xvdf/stellar-core-archive/node_001/{1}"
-mkdir="mkdir -p /mnt/xvdf/stellar-core-archive/node_001/{0}"
+get="cp /mnt/xvdf/bantu-core-archive/node_001/{0} {1}"
+put="cp {0} /mnt/xvdf/bantu-core-archive/node_001/{1}"
+mkdir="mkdir -p /mnt/xvdf/bantu-core-archive/node_001/{0}"
 ```
 
 * Run new-hist to create the local archive
@@ -182,8 +182,8 @@ mkdir="mkdir -p /mnt/xvdf/stellar-core-archive/node_001/{0}"
 This command creates the History archive structure:
 
 ```text
-# tree -a /mnt/xvdf/stellar-core-archive/
-/mnt/xvdf/stellar-core-archive
+# tree -a /mnt/xvdf/bantu-core-archive/
+/mnt/xvdf/bantu-core-archive
 └── node_001
     ├── history
     │   └── 00
@@ -191,7 +191,7 @@ This command creates the History archive structure:
     │           └── 00
     │               └── history-00000000.json
     └── .well-known
-        └── stellar-history.json
+        └── bantu-history.json
 
 6 directories, 2 file
 ```
@@ -210,7 +210,7 @@ At this stage your validator is successfully publishing its history, which enabl
 If you decide to publish a complete archive — which enables other users to join the network from the genesis ledger — it's also possible to use `bantu-archivist` to add all missing history data to your partial archive, and to verify the state and integrity of your archive. For example:
 
 ```text
-# stellar-archivist scan file:///mnt/xvdf/stellar-core-archive/node_001
+# bantu-archivist scan file:///mnt/xvdf/bantu-core-archive/node_001
 2019/04/25 11:42:51 Scanning checkpoint files in range: [0x0000003f, 0x0000417f]
 2019/04/25 11:42:51 Checkpoint files scanned with 324 errors
 2019/04/25 11:42:51 Archive: 3 history, 2 ledger, 2 transactions, 2 results, 2 scp
@@ -233,7 +233,7 @@ You can repair the missing data using bantu-archivist's `repair` command combine
 `# bantu-archivist repair http://history.bantu.org/prd/core-testnet/core_testnet_001/ file:///mnt/xvdf/bantu-core-archive/node_001/`
 
 ```text
-2019/04/25 11:50:15 repairing http://history.stellar.org/prd/core-testnet/core_testnet_001/ -> file:///mnt/xvdf/stellar-core-archive/node_001/
+2019/04/25 11:50:15 repairing http://history.bantu.org/prd/core-testnet/core_testnet_001/ -> file:///mnt/xvdf/bantu-core-archive/node_001/
 2019/04/25 11:50:15 Starting scan for repair
 2019/04/25 11:50:15 Scanning checkpoint files in range: [0x0000003f, 0x000041bf]
 2019/04/25 11:50:15 Checkpoint files scanned with 244 errors
