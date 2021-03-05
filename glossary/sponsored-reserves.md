@@ -5,7 +5,7 @@ order: null
 
 # Sponsored Reserves
 
-import { CodeExample } from "components/CodeExample";
+
 
 Protocol 15 introduces operations that allow an account to pay the base reserves for another account. This is done by using the [Begin Sponsoring Future Reserves](../start/list-of-operations.md#begin-sponsoring-future-reserves) and [End Sponsoring Future Reserves](../start/list-of-operations.md#end-sponsoring-future-reserves) operations.
 
@@ -81,7 +81,7 @@ We'll start by including the boilerplate of account and asset creation.
 const sdk = require("stellar-sdk");
 const http = require("got");
 
-let server = new sdk.Server("https://horizon-testnet.stellar.org");
+let server = new sdk.Server("https://expansion-testnet.bantu.network/");
 
 async function main() {
   // Create & fund the new accounts.
