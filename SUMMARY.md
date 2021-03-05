@@ -31,7 +31,7 @@
   * [installation](run-core-node/installation.md)
   * [prerequisites](run-core-node/prerequisites.md)
   * [configuring](run-core-node/configuring.md)
-  * [publishing-history-archives](run-core-node/publishing-history-archives.md)
+  * [publishing history archives](run-core-node/publishing-history-archives.md)
   * [commands](run-core-node/commands.md)
   * [monitoring](run-core-node/monitoring.md)
 * [Run API Server](run-api-server/README.md)
