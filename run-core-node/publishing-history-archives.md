@@ -5,7 +5,7 @@ order: 50
 
 # publishing-history-archives
 
-import { CodeExample } from "components/CodeExample";
+
 
 If you want to run a [Full Validator](index.md#full-validator) or an [Archiver](index.md#archiver), you need to set up your node to publish a history archive. You can host an archive using a blob store such as Amazon's s3 or Digital Ocean's spaces, or you can simply serve a local archive directly via an HTTP server such as Nginx or Apache. If you're setting up a [Watcher](index.md#watcher) or a [Basic Validator](index.md#basic-validator), you can skip this section. No matter what kind of node you're planning to run, make sure to set it up to `get` history, which is covered in [Configuration](configuring.md).
 
