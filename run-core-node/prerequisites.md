@@ -9,7 +9,7 @@ You can install Bantu Core a [number of different ways](installation.md), and on
 
 ## Computer Requirements
 
-We recently asked Bantu Core operators about their setups, and should have some updated information soon based on their responses. So stay tuned. In early 2018, bantu Core with PostgreSQL running on the same machine worked well on a [m5.large](https://aws.amazon.com/ec2/instance-types/m5/) in AWS \(dual-core 2.5 GHz Intel Xeon, 8 GB RAM\). Storage-wise, 20 GB was enough in 2018, but the ledger has grown a lot since then, and most people seem to have at least 1TB on hand.
+ Bantu Core with PostgreSQL running on the same machine worked well on a [m5.large](https://aws.amazon.com/ec2/instance-types/m5/) in AWS \(dual-core 2.5 GHz Intel Xeon, 8 GB RAM\). Storage-wise, 20 GB was enough for now, but the ledger will grow over time.
 
 If you are running Bantu Core in conjunction with expansion, you will need to ensure that your setup is also equipped to handle expansion's [compute requirements](../run-api-server/prerequisites.md) as well.
 
