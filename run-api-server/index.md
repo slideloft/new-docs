@@ -5,8 +5,6 @@ order: 0
 
 # index
 
-
-
 Expansion is responsible for providing an HTTP API to data in the bantu network. It ingests and re-serves the data produced by the bantu network in a form that is easier to consume than the performance-oriented data representations used by bantu-core.
 
 This document describes how to administer a **production** Expansion instance. If you are just starting with Expansion and want to deploy it quickly to test it out, consider the [Quickstart Guide](quickstart.md) instead. For information about developing on the Expansion codebase, check out the [Development Guide](https://github.com/bantu/go/blob/master/services/Expansion/internal/docs/developing.md).

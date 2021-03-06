@@ -43,7 +43,7 @@ In Expansion, assets are represented in a JSON object:
   "asset_code": "AstroDollar",
   "asset_issuer": "GC2BKLYOOYPDEFJKLKY6FNNRQMGFLVHJKQRGNSSRRGSMPGF32LHCQVGF",
   // `asset_type` is used to determine how asset data is stored.
-  // It can be `native` (lumens), `credit_alphanum4`, or `credit_alphanum12`.
+  // It can be `native` (XBN), `credit_alphanum4`, or `credit_alphanum12`.
   "asset_type": "credit_alphanum12"
 }
 ```

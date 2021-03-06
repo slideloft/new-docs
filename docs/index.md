@@ -3,7 +3,7 @@ title: Welcome
 order: -100
 ---
 
-# index
+# Index
 
 In addition to the docs here, which are guides to building on Bantu, you'll also see a link at the bottom of the left nav to the API Reference. You should check those out, too: that's a resource most developers consult as they build on Bantu.
 

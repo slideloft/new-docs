@@ -3,7 +3,7 @@ title: Paths
 order: 0
 ---
 
-# index
+# Index
 
 import { EndpointsTable } from "components/EndpointsTable";
 
@@ -11,5 +11,11 @@ Paths provide information about potential path payments. A path can be used to p
 
 Learn more about the two types of path payment: [`path payment strict send`](../../../start/list-of-operations.md#path-payment-strict-send) and [`path payment strict receive`](../../../start/list-of-operations.md#path-payment-strict-receive)
 
- \| \| \| \| --- \| --------------------------------------------- \| \| GET \| \[/paths/strict-receive\]\(./strict-receive.mdx\) \| \| GET \| \[/paths/strict-send\]\(./strict-send.mdx\) \|
+
+
+Endpoints
+
+| GET | [/paths/strict-receive](https://developers.stellar.org/api/aggregations/paths/strict-receive/) |
+| :--- | :--- |
+| GET | [/paths/strict-send](https://developers.stellar.org/api/aggregations/paths/strict-send/) |
 

@@ -3,17 +3,51 @@ title: Retrieve an Account's Data
 order: 90
 ---
 
-# data
-
-import { Endpoint } from "components/Endpoint"; import { ExampleResponse } from "components/ExampleResponse"; import { CodeExample } from "components/CodeExample"; import { AttributeTable } from "components/AttributeTable";
+# Data
 
 This endpoint represents a single data for a given account.
 
- \| \| \| \| --- \| ------------------------------- \| \| GET \| /accounts/:account\_id/data/:key \|
+ - ARGUMENT - 
 
- - ARGUMENT - REQUIRED - DESCRIPTION - account\_id - required - This account's public key encoded in a base32 string representation. - key - required - The key name for this data.
+* account\_id `required`
 
- \`\`\`curl curl "https://horizon.stellar.org/accounts/GCAXBKU3AKYJPLQ6PEJ6L47KOATCYCBJ2NFRGAK7FUUA2DCEUC265SU2/data/config.memo\_required" \`\`\` \`\`\`js var StellarSdk = require\("stellar-sdk"\); var server = new StellarSdk.Server\("https://horizon.stellar.org"\); server .loadAccount\("GCAXBKU3AKYJPLQ6PEJ6L47KOATCYCBJ2NFRGAK7FUUA2DCEUC265SU2"\) .then\(function \(account\) { return account.data\({ key: "config.memo\_required" }\); }\) .then\(function \(resp\) { console.log\(resp\); }\) .catch\(function \(err\) { console.error\(err\); }\); \`\`\`
+  This account’s public key encoded in a base32 string representation.
 
- \`\`\`json { "value": "MQ==" } \`\`\`
+* key `required`
+
+  The key name for this data.
+
+{% tabs %}
+{% tab title="JavaScript" %}
+```javascript
+var StellarSdk = require("stellar-sdk");
+var server = new StellarSdk.Server("https://expansion-testnet.bantu.network");
+
+server
+  .loadAccount("GCAXBKU3AKYJPLQ6PEJ6L47KOATCYCBJ2NFRGAK7FUUA2DCEUC265SU2")
+  .then(function (account) {
+    return account.data({ key: "config.memo_required" });
+  })
+  .then(function (resp) {
+    console.log(resp);
+  })
+  .catch(function (err) {
+    console.error(err);
+  });
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```javascript
+curl "https://expansion-testnet.bantu.network/accounts/GCAXBKU3AKYJPLQ6PEJ6L47KOATCYCBJ2NFRGAK7FUUA2DCEUC265SU2/data/config.memo_required"
+```
+{% endtab %}
+{% endtabs %}
+
+```bash
+
+{
+  "value": "MQ=="
+}
+```
 

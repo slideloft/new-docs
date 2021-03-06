@@ -51,7 +51,7 @@ When Horizon returns information about a ledger, it uses the following format:
 
 * total\_coinsstring
 
-  The total number of lumens in circulation.
+  The total number of spirits in circulation.
 
 * fee\_poolstring
 

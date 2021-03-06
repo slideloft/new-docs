@@ -43,7 +43,7 @@ If you keep getting a timeout error when you submit a transaction, you may need 
 
 ## Fee Pool
 
-The fee pool is the lot of lumens collected from transaction fees.
+The fee pool is the lot of spirits collected from transaction fees.
 
-SDF does not retain these lumens. They go into a locked account and sit there unused by anyone.
+SDF does not retain these spirits. They go into a locked account and sit there unused by anyone.
 

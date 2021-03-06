@@ -3,21 +3,193 @@ title: Retrieve an Account's Trades
 order: 80
 ---
 
-# trades
-
-import { Endpoint } from "components/Endpoint"; import { ExampleResponse } from "components/ExampleResponse"; import { CodeExample } from "components/CodeExample"; import { AttributeTable } from "components/AttributeTable";
+# Trades
 
 This endpoint represents all trades for a given account and can be used in streaming mode.
 
 Streaming mode allows you to listen for trades for this account as they are added to the Stellar ledger. If called in streaming mode, Horizon will start at the earliest known trade unless a `cursor` is set, in which case it will start from that `cursor`. By setting the `cursor` value to `now`, you can stream trades created since your request time.
 
- \| \| \| \| --- \| --- \| \| GET \| /accounts/:account\_id/trades?cursor={paging\_token}&order={asc,desc}&limit={1-200} \|
+ - ARGUMENT - 
 
- - ARGUMENT - REQUIRED - DESCRIPTION - account\_id - required - This account's public key encoded in a base32 string representation. - cursor - optional - A number that points to a specific location in a collection of responses and is pulled from the \`paging\_token\` value of a record. - order - optional - A designation of the order in which records should appear. Options include \`asc\`\(ascending\) or \`desc\` \(descending\). If this argument isn’t set, it defaults to \`asc\`. - limit - optional - The total number of records returned. The limit can range from 1 to 200 - an upper limit that is hardcoded in Horizon for performance reasons. If this argument isn’t designated, it defaults to 10.
+* account\_id `required`
 
- \`\`\`curl curl "https://horizon.stellar.org/accounts/GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K/trades?limit=3" \`\`\` \`\`\`js var StellarSdk = require\("stellar-sdk"\); var server = new StellarSdk.Server\("https://horizon.stellar.org"\); server .trades\(\) .forAccount\("GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K"\) .call\(\) .then\(function \(resp\) { console.log\(resp\); }\) .catch\(function \(err\) { console.error\(err\); }\); \`\`\`
+  This account’s public key encoded in a base32 string representation.
 
- \`\`\`json { "\_links": { "self": { "href": "https://horizon.stellar.org/accounts/GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K/trades?cursor=\u0026limit=3\u0026order=asc" }, "next": { "href": "https://horizon.stellar.org/accounts/GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K/trades?cursor=107449584845914113-0\u0026limit=3\u0026order=asc" }, "prev": { "href": "https://horizon.stellar.org/accounts/GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K/trades?cursor=107449468881756161-0\u0026limit=3\u0026order=desc" } }, "\_embedded": { "records": \[ { "\_links": { "self": { "href": "" }, "base": { "href": "https://horizon.stellar.org/accounts/GCO7OW5P2PP7WDN6YUDXUUOPAR4ZHJSDDCZTIAQRTRZHKQWV45WUPBWX" }, "counter": { "href": "https://horizon.stellar.org/accounts/GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K" }, "operation": { "href": "https://horizon.stellar.org/operations/107449468881756161" } }, "id": "107449468881756161-0", "paging\_token": "107449468881756161-0", "ledger\_close\_time": "2019-07-26T09:17:02Z", "offer\_id": "104078276", "base\_offer\_id": "104078276", "base\_account": "GCO7OW5P2PP7WDN6YUDXUUOPAR4ZHJSDDCZTIAQRTRZHKQWV45WUPBWX", "base\_amount": "4433.2000000", "base\_asset\_type": "native", "counter\_offer\_id": "4719135487309144065", "counter\_account": "GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K", "counter\_amount": "443.3200000", "counter\_asset\_type": "credit\_alphanum4", "counter\_asset\_code": "BB1", "counter\_asset\_issuer": "GD5J6HLF5666X4AZLTFTXLY46J5SW7EXRKBLEYPJP33S33MXZGV6CWFN", "base\_is\_seller": true, "price": { "n": 1, "d": 10 } }, { "\_links": { "self": { "href": "" }, "base": { "href": "https://horizon.stellar.org/accounts/GCQDOTIILRG634IRWAODTUS6H6Q7VUUNKZINBDJOXGJFR7YZ57FGYV7B" }, "counter": { "href": "https://horizon.stellar.org/accounts/GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K" }, "operation": { "href": "https://horizon.stellar.org/operations/107449486061649921" } }, "id": "107449486061649921-0", "paging\_token": "107449486061649921-0", "ledger\_close\_time": "2019-07-26T09:17:25Z", "offer\_id": "104273938", "base\_offer\_id": "104273938", "base\_account": "GCQDOTIILRG634IRWAODTUS6H6Q7VUUNKZINBDJOXGJFR7YZ57FGYV7B", "base\_amount": "10.0000000", "base\_asset\_type": "native", "counter\_offer\_id": "4719135504489037825", "counter\_account": "GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K", "counter\_amount": "1.0000000", "counter\_asset\_type": "credit\_alphanum4", "counter\_asset\_code": "BB1", "counter\_asset\_issuer": "GD5J6HLF5666X4AZLTFTXLY46J5SW7EXRKBLEYPJP33S33MXZGV6CWFN", "base\_is\_seller": true, "price": { "n": 1, "d": 10 } }, { "\_links": { "self": { "href": "" }, "base": { "href": "https://horizon.stellar.org/accounts/GAMU5TQFUMDGVKYQPPDCD2MKKUUWELSQAEKNNU4RFQCWFSRBPJA2MAGQ" }, "counter": { "href": "https://horizon.stellar.org/accounts/GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K" }, "operation": { "href": "https://horizon.stellar.org/operations/107449584845914113" } }, "id": "107449584845914113-0", "paging\_token": "107449584845914113-0", "ledger\_close\_time": "2019-07-26T09:19:30Z", "offer\_id": "104299223", "base\_offer\_id": "104299223", "base\_account": "GAMU5TQFUMDGVKYQPPDCD2MKKUUWELSQAEKNNU4RFQCWFSRBPJA2MAGQ", "base\_amount": "748.5338945", "base\_asset\_type": "native", "counter\_offer\_id": "104299548", "counter\_account": "GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K", "counter\_amount": "74.8533887", "counter\_asset\_type": "credit\_alphanum4", "counter\_asset\_code": "BB1", "counter\_asset\_issuer": "GD5J6HLF5666X4AZLTFTXLY46J5SW7EXRKBLEYPJP33S33MXZGV6CWFN", "base\_is\_seller": true, "price": { "n": 10000000, "d": 100000001 } } \] } } \`\`\`
+* cursor `optional`
 
- \`\`\`js var StellarSdk = require\("stellar-sdk"\); var server = new StellarSdk.Server\("https://horizon.stellar.org"\); var callback = function \(resp\) { console.log\(resp\); }; var es = server .trades\(\) .forAccount\("GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K"\) .cursor\("now"\) .stream\({ onmessage: callback }\); \`\`\`
+  A number that points to a specific location in a collection of responses and is pulled from the `paging_token` value of a record.
+
+* order `optional`
+
+  A designation of the order in which records should appear. Options include `asc`\(ascending\) or `desc` \(descending\). If this argument isn’t set, it defaults to `asc`.
+
+* limit `optional`
+
+  The total number of records returned. The limit can range from 1 to 200 - an upper limit that is hardcoded in Horizon for performance reasons. If this argument isn’t designated, it defaults to 10.
+
+{% tabs %}
+{% tab title="JavaScript" %}
+```javascript
+var StellarSdk = require("stellar-sdk");
+var server = new StellarSdk.Server("https://expansion-testnet.bantu.network");
+
+server
+  .trades()
+  .forAccount("GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K")
+  .call()
+  .then(function (resp) {
+    console.log(resp);
+  })
+  .catch(function (err) {
+    console.error(err);
+  });
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```javascript
+curl "https://expansion-testnet.bantu.network/accounts/GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K/trades?limit=3"
+```
+{% endtab %}
+{% endtabs %}
+
+```bash
+{
+  "_links": {
+    "self": {
+      "href": "https://expansion-testnet.bantu.network/accounts/GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K/trades?cursor=\u0026limit=3\u0026order=asc"
+    },
+    "next": {
+      "href": "https://expansion-testnet.bantu.network/accounts/GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K/trades?cursor=107449584845914113-0\u0026limit=3\u0026order=asc"
+    },
+    "prev": {
+      "href": "https://expansion-testnet.bantu.network/accounts/GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K/trades?cursor=107449468881756161-0\u0026limit=3\u0026order=desc"
+    }
+  },
+  "_embedded": {
+    "records": [
+      {
+        "_links": {
+          "self": {
+            "href": ""
+          },
+          "base": {
+            "href": "https://expansion-testnet.bantu.network/accounts/GCO7OW5P2PP7WDN6YUDXUUOPAR4ZHJSDDCZTIAQRTRZHKQWV45WUPBWX"
+          },
+          "counter": {
+            "href": "https://expansion-testnet.bantu.network/accounts/GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K"
+          },
+          "operation": {
+            "href": "https://expansion-testnet.bantu.network/operations/107449468881756161"
+          }
+        },
+        "id": "107449468881756161-0",
+        "paging_token": "107449468881756161-0",
+        "ledger_close_time": "2019-07-26T09:17:02Z",
+        "offer_id": "104078276",
+        "base_offer_id": "104078276",
+        "base_account": "GCO7OW5P2PP7WDN6YUDXUUOPAR4ZHJSDDCZTIAQRTRZHKQWV45WUPBWX",
+        "base_amount": "4433.2000000",
+        "base_asset_type": "native",
+        "counter_offer_id": "4719135487309144065",
+        "counter_account": "GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K",
+        "counter_amount": "443.3200000",
+        "counter_asset_type": "credit_alphanum4",
+        "counter_asset_code": "BB1",
+        "counter_asset_issuer": "GD5J6HLF5666X4AZLTFTXLY46J5SW7EXRKBLEYPJP33S33MXZGV6CWFN",
+        "base_is_seller": true,
+        "price": {
+          "n": 1,
+          "d": 10
+        }
+      },
+      {
+        "_links": {
+          "self": {
+            "href": ""
+          },
+          "base": {
+            "href": "https://expansion-testnet.bantu.network/accounts/GCQDOTIILRG634IRWAODTUS6H6Q7VUUNKZINBDJOXGJFR7YZ57FGYV7B"
+          },
+          "counter": {
+            "href": "https://expansion-testnet.bantu.network/accounts/GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K"
+          },
+          "operation": {
+            "href": "https://expansion-testnet.bantu.network/operations/107449486061649921"
+          }
+        },
+        "id": "107449486061649921-0",
+        "paging_token": "107449486061649921-0",
+        "ledger_close_time": "2019-07-26T09:17:25Z",
+        "offer_id": "104273938",
+        "base_offer_id": "104273938",
+        "base_account": "GCQDOTIILRG634IRWAODTUS6H6Q7VUUNKZINBDJOXGJFR7YZ57FGYV7B",
+        "base_amount": "10.0000000",
+        "base_asset_type": "native",
+        "counter_offer_id": "4719135504489037825",
+        "counter_account": "GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K",
+        "counter_amount": "1.0000000",
+        "counter_asset_type": "credit_alphanum4",
+        "counter_asset_code": "BB1",
+        "counter_asset_issuer": "GD5J6HLF5666X4AZLTFTXLY46J5SW7EXRKBLEYPJP33S33MXZGV6CWFN",
+        "base_is_seller": true,
+        "price": {
+          "n": 1,
+          "d": 10
+        }
+      },
+      {
+        "_links": {
+          "self": {
+            "href": ""
+          },
+          "base": {
+            "href": "https://expansion-testnet.bantu.network/accounts/GAMU5TQFUMDGVKYQPPDCD2MKKUUWELSQAEKNNU4RFQCWFSRBPJA2MAGQ"
+          },
+          "counter": {
+            "href": "https://expansion-testnet.bantu.network/accounts/GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K"
+          },
+          "operation": {
+            "href": "https://expansion-testnet.bantu.network/operations/107449584845914113"
+          }
+        },
+        "id": "107449584845914113-0",
+        "paging_token": "107449584845914113-0",
+        "ledger_close_time": "2019-07-26T09:19:30Z",
+        "offer_id": "104299223",
+        "base_offer_id": "104299223",
+        "base_account": "GAMU5TQFUMDGVKYQPPDCD2MKKUUWELSQAEKNNU4RFQCWFSRBPJA2MAGQ",
+        "base_amount": "748.5338945",
+        "base_asset_type": "native",
+        "counter_offer_id": "104299548",
+        "counter_account": "GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K",
+        "counter_amount": "74.8533887",
+        "counter_asset_type": "credit_alphanum4",
+        "counter_asset_code": "BB1",
+        "counter_asset_issuer": "GD5J6HLF5666X4AZLTFTXLY46J5SW7EXRKBLEYPJP33S33MXZGV6CWFN",
+        "base_is_seller": true,
+        "price": {
+          "n": 10000000,
+          "d": 100000001
+        }
+      }
+    ]
+  }
+}
+```
+
+```bash
+var StellarSdk = require("stellar-sdk");
+var server = new StellarSdk.Server("https://expansion-testnet.bantu.network");
+
+var callback = function (resp) {
+  console.log(resp);
+};
+
+var es = server
+  .trades()
+  .forAccount("GD3CJYUTZAY6JQF4CEI6Z7VW5O6VNGKZTBYUECTOJPEDTB7I2HZSPI2K")
+  .cursor("now")
+  .stream({ onmessage: callback });
+```
 

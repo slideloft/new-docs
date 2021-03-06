@@ -3,15 +3,84 @@ title: Retrieve Fee Stats
 order: 20
 ---
 
-# single
-
-import { Endpoint } from "components/Endpoint"; import { ExampleResponse } from "components/ExampleResponse"; import { CodeExample } from "components/CodeExample"; import { AttributeTable } from "components/AttributeTable";
+# Single
 
 The fee stats endpoint provides information about per-operation fee stats over the last 5 ledgers.
 
- \| \| \| \| --- \| ---------- \| \| GET \| /fee\_stats \|
+{% tabs %}
+{% tab title="JavaScript" %}
+```javascript
+var StellarSdk = require("stellar-sdk");
+var server = new StellarSdk.Server("https://expansion-testnet.bantu.network");
 
- \`\`\`curl curl "https://horizon.stellar.org/fee\_stats" \`\`\` \`\`\`js var StellarSdk = require\("stellar-sdk"\); var server = new StellarSdk.Server\("https://horizon.stellar.org"\); server .feeStats\(\) .then\(function \(resp\) { console.log\(resp\); }\) .catch\(function \(err\) { console.error\(err\); }\); \`\`\`
+server
+  .feeStats()
+  .then(function (resp) {
+    console.log(resp);
+  })
+  .catch(function (err) {
+    console.error(err);
+  });
+```
+{% endtab %}
 
- \`\`\`json { "last\_ledger": "28444696", "last\_ledger\_base\_fee": "100", "ledger\_capacity\_usage": "0.19", "min\_accepted\_fee": "100", "mode\_accepted\_fee": "100", "p10\_accepted\_fee": "100", "p20\_accepted\_fee": "100", "p30\_accepted\_fee": "100", "p40\_accepted\_fee": "100", "p50\_accepted\_fee": "100", "p60\_accepted\_fee": "100", "p70\_accepted\_fee": "100", "p80\_accepted\_fee": "100", "p90\_accepted\_fee": "100", "p95\_accepted\_fee": "100", "p99\_accepted\_fee": "120", "fee\_charged": { "max": "100", "min": "100", "mode": "100", "p10": "100", "p20": "100", "p30": "100", "p40": "100", "p50": "100", "p60": "100", "p70": "100", "p80": "100", "p90": "100", "p95": "100", "p99": "100" }, "max\_fee": { "max": "16000", "min": "100", "mode": "100", "p10": "100", "p20": "100", "p30": "100", "p40": "100", "p50": "100", "p60": "100", "p70": "100", "p80": "100", "p90": "100", "p95": "100", "p99": "120" } } \`\`\`
+{% tab title="cURL" %}
+```bash
+curl "https://expansion-testnet.bantu.network/fee_stats"
+```
+{% endtab %}
+{% endtabs %}
+
+```bash
+{
+  "last_ledger": "28444696",
+  "last_ledger_base_fee": "100",
+  "ledger_capacity_usage": "0.19",
+  "min_accepted_fee": "100",
+  "mode_accepted_fee": "100",
+  "p10_accepted_fee": "100",
+  "p20_accepted_fee": "100",
+  "p30_accepted_fee": "100",
+  "p40_accepted_fee": "100",
+  "p50_accepted_fee": "100",
+  "p60_accepted_fee": "100",
+  "p70_accepted_fee": "100",
+  "p80_accepted_fee": "100",
+  "p90_accepted_fee": "100",
+  "p95_accepted_fee": "100",
+  "p99_accepted_fee": "120",
+  "fee_charged": {
+    "max": "100",
+    "min": "100",
+    "mode": "100",
+    "p10": "100",
+    "p20": "100",
+    "p30": "100",
+    "p40": "100",
+    "p50": "100",
+    "p60": "100",
+    "p70": "100",
+    "p80": "100",
+    "p90": "100",
+    "p95": "100",
+    "p99": "100"
+  },
+  "max_fee": {
+    "max": "16000",
+    "min": "100",
+    "mode": "100",
+    "p10": "100",
+    "p20": "100",
+    "p30": "100",
+    "p40": "100",
+    "p50": "100",
+    "p60": "100",
+    "p70": "100",
+    "p80": "100",
+    "p90": "100",
+    "p95": "100",
+    "p99": "120"
+  }
+}
+```
 

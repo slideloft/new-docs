@@ -3,13 +3,19 @@ title: Order Books
 order: 0
 ---
 
-# index
+# Index
 
 import { EndpointsTable } from "components/EndpointsTable";
 
-An order book is a collections of offers for a specific pair of assets.
+An order book is a collection of offers for a specific pair of assets.
 
 Learn more about [order books](../../../glossary/decentralized-exchange.md).
 
- \| \| \| \| --- \| --------------------------- \| \| GET \| \[/order\_book\]\(./single.mdx\) \|
+
+
+Endpoints
+
+| GET | [/order\_book](https://developers.stellar.org/api/aggregations/order-books/single/) |
+| :--- | :--- |
+
 

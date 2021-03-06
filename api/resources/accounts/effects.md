@@ -5,19 +5,186 @@ order: 60
 
 # Effects
 
-import { Endpoint } from "components/Endpoint"; import { ExampleResponse } from "components/ExampleResponse"; import { CodeExample } from "components/CodeExample"; import { AttributeTable } from "components/AttributeTable";
-
 This endpoint returns the effects of a specific account and can be used in streaming mode.
 
 Streaming mode allows you to listen for new effects for this account as they are added to the Stellar ledger. If called in streaming mode, Horizon will start at the earliest known effect unless a `cursor` is set, in which case it will start from that `cursor`. By setting the `cursor` value to `now`, you can stream effects created since your request time.
 
- \| \| \| \| --- \| --- \| \| GET \| /accounts/:account\_id/effects?cursor={paging\_token}&order={asc,desc}&limit={1-200} \|
+ - ARGUMENT - 
 
- - ARGUMENT - REQUIRED - DESCRIPTION - account\_id - required - This account's public key encoded in a base32 string representation. - cursor - optional - A number that points to a specific location in a collection of responses and is pulled from the \`paging\_token\` value of a record. - order - optional - A designation of the order in which records should appear. Options include \`asc\`\(ascending\) or \`desc\` \(descending\). If this argument isn’t set, it defaults to \`asc\`. - limit - optional - The total number of records returned. The limit can range from 1 to 200 - an upper limit that is hardcoded in Horizon for performance reasons. If this argument isn’t designated, it defaults to 10.
+* account\_id `required`
 
- \`\`\`curl curl "https://horizon.stellar.org/accounts/GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE/effects?order=desc&limit=4" \`\`\` \`\`\`js var StellarSdk = require\("stellar-sdk"\); var server = new StellarSdk.Server\("https://horizon.stellar.org"\); server .effects\(\) .forAccount\("GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE"\) .call\(\) .then\(function \(resp\) { console.log\(resp\); }\) .catch\(function \(err\) { console.error\(err\); }\); \`\`\`
+  This account’s public key encoded in a base32 string representation.
 
- \`\`\`json { "\_links": { "self": { "href": "https://horizon.stellar.org/accounts/GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE/effects?cursor=\u0026limit=4\u0026order=desc" }, "next": { "href": "https://horizon.stellar.org/accounts/GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE/effects?cursor=119399833130811393-1\u0026limit=4\u0026order=desc" }, "prev": { "href": "https://horizon.stellar.org/accounts/GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE/effects?cursor=119400713599217665-2\u0026limit=4\u0026order=asc" } }, "\_embedded": { "records": \[ { "\_links": { "operation": { "href": "https://horizon.stellar.org/operations/119400713599217665" }, "succeeds": { "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=119400713599217665-2" }, "precedes": { "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=119400713599217665-2" } }, "id": "0119400713599217665-0000000002", "paging\_token": "119400713599217665-2", "account": "GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE", "type": "account\_debited", "type\_i": 3, "created\_at": "2020-01-17T20:32:38Z", "asset\_type": "credit\_alphanum4", "asset\_code": "USD", "asset\_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX", "amount": "84.9410878" }, { "\_links": { "operation": { "href": "https://horizon.stellar.org/operations/119399833130811394" }, "succeeds": { "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=119399833130811394-3" }, "precedes": { "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=119399833130811394-3" } }, "id": "0119399833130811394-0000000003", "paging\_token": "119399833130811394-3", "account": "GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE", "type": "trade", "type\_i": 33, "created\_at": "2020-01-17T20:13:22Z", "seller": "GBDVKE33GVVMBXX73OHIBRP6RAHKHHW2P4PQVV6UNOKQCOXU7GNUM4QI", "offer\_id": 147618811, "sold\_amount": "854.9537682", "sold\_asset\_type": "native", "bought\_amount": "52.0920258", "bought\_asset\_type": "credit\_alphanum4", "bought\_asset\_code": "USD", "bought\_asset\_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX" }, { "\_links": { "operation": { "href": "https://horizon.stellar.org/operations/119399833130811394" }, "succeeds": { "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=119399833130811394-1" }, "precedes": { "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=119399833130811394-1" } }, "id": "0119399833130811394-0000000001", "paging\_token": "119399833130811394-1", "account": "GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE", "type": "trade", "type\_i": 33, "created\_at": "2020-01-17T20:13:22Z", "seller": "GCM4PT6XDZBWOOENDS6FOU22GJQLJPV2GC7VRVII4TFGZBA3ZXNM55SV", "offer\_id": 147625249, "sold\_amount": "539.0320108", "sold\_asset\_type": "native", "bought\_amount": "32.8490620", "bought\_asset\_type": "credit\_alphanum4", "bought\_asset\_code": "USD", "bought\_asset\_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX" }, { "\_links": { "operation": { "href": "https://horizon.stellar.org/operations/119399833130811393" }, "succeeds": { "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=119399833130811393-1" }, "precedes": { "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=119399833130811393-1" } }, "id": "0119399833130811393-0000000001", "paging\_token": "119399833130811393-1", "account": "GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE", "type": "trustline\_created", "type\_i": 20, "created\_at": "2020-01-17T20:13:22Z", "asset\_type": "credit\_alphanum4", "asset\_code": "USD", "asset\_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX", "limit": "922337203685.4775000" } \] } } \`\`\`
+* cursor `optional`
 
- \`\`\`js var StellarSdk = require\("stellar-sdk"\); var server = new StellarSdk.Server\("https://horizon.stellar.org"\); var callback = function \(resp\) { console.log\(resp\); }; var es = server .effects\(\) .forAccount\("GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE"\) .cursor\("now"\) .stream\({ onmessage: callback }\); \`\`\`
+  A number that points to a specific location in a collection of responses and is pulled from the `paging_token` value of a record.
+
+* order `optional`
+
+  A designation of the order in which records should appear. Options include `asc`\(ascending\) or `desc` \(descending\). If this argument isn’t set, it defaults to `asc`.
+
+* limit `optional`
+
+  The total number of records returned. The limit can range from 1 to 200 - an upper limit that is hardcoded in Horizon for performance reasons. If this argument isn’t designated, it defaults to 10.
+
+{% tabs %}
+{% tab title="JavaScript" %}
+```bash
+var StellarSdk = require("stellar-sdk");
+var server = new StellarSdk.Server("https://expansion-testnet.bantu.network");
+
+server
+  .effects()
+  .forAccount("GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE")
+  .call()
+  .then(function (resp) {
+    console.log(resp);
+  })
+  .catch(function (err) {
+    console.error(err);
+  });
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl "https://expansion-testnet.bantu.network/accounts/GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE/effects?order=desc&limit=4"
+```
+{% endtab %}
+{% endtabs %}
+
+```bash
+{
+  "_links": {
+    "self": {
+      "href": "https://expansion-testnet.bantu.network/accounts/GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE/effects?cursor=\u0026limit=4\u0026order=desc"
+    },
+    "next": {
+      "href": "https://expansion-testnet.bantu.network/accounts/GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE/effects?cursor=119399833130811393-1\u0026limit=4\u0026order=desc"
+    },
+    "prev": {
+      "href": "https://expansion-testnet.bantu.network/accounts/GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE/effects?cursor=119400713599217665-2\u0026limit=4\u0026order=asc"
+    }
+  },
+  "_embedded": {
+    "records": [
+      {
+        "_links": {
+          "operation": {
+            "href": "https://expansion-testnet.bantu.network/operations/119400713599217665"
+          },
+          "succeeds": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=desc\u0026cursor=119400713599217665-2"
+          },
+          "precedes": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=asc\u0026cursor=119400713599217665-2"
+          }
+        },
+        "id": "0119400713599217665-0000000002",
+        "paging_token": "119400713599217665-2",
+        "account": "GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE",
+        "type": "account_debited",
+        "type_i": 3,
+        "created_at": "2020-01-17T20:32:38Z",
+        "asset_type": "credit_alphanum4",
+        "asset_code": "USD",
+        "asset_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX",
+        "amount": "84.9410878"
+      },
+      {
+        "_links": {
+          "operation": {
+            "href": "https://expansion-testnet.bantu.network/operations/119399833130811394"
+          },
+          "succeeds": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=desc\u0026cursor=119399833130811394-3"
+          },
+          "precedes": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=asc\u0026cursor=119399833130811394-3"
+          }
+        },
+        "id": "0119399833130811394-0000000003",
+        "paging_token": "119399833130811394-3",
+        "account": "GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE",
+        "type": "trade",
+        "type_i": 33,
+        "created_at": "2020-01-17T20:13:22Z",
+        "seller": "GBDVKE33GVVMBXX73OHIBRP6RAHKHHW2P4PQVV6UNOKQCOXU7GNUM4QI",
+        "offer_id": 147618811,
+        "sold_amount": "854.9537682",
+        "sold_asset_type": "native",
+        "bought_amount": "52.0920258",
+        "bought_asset_type": "credit_alphanum4",
+        "bought_asset_code": "USD",
+        "bought_asset_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX"
+      },
+      {
+        "_links": {
+          "operation": {
+            "href": "https://expansion-testnet.bantu.network/operations/119399833130811394"
+          },
+          "succeeds": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=desc\u0026cursor=119399833130811394-1"
+          },
+          "precedes": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=asc\u0026cursor=119399833130811394-1"
+          }
+        },
+        "id": "0119399833130811394-0000000001",
+        "paging_token": "119399833130811394-1",
+        "account": "GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE",
+        "type": "trade",
+        "type_i": 33,
+        "created_at": "2020-01-17T20:13:22Z",
+        "seller": "GCM4PT6XDZBWOOENDS6FOU22GJQLJPV2GC7VRVII4TFGZBA3ZXNM55SV",
+        "offer_id": 147625249,
+        "sold_amount": "539.0320108",
+        "sold_asset_type": "native",
+        "bought_amount": "32.8490620",
+        "bought_asset_type": "credit_alphanum4",
+        "bought_asset_code": "USD",
+        "bought_asset_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX"
+      },
+      {
+        "_links": {
+          "operation": {
+            "href": "https://expansion-testnet.bantu.network/operations/119399833130811393"
+          },
+          "succeeds": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=desc\u0026cursor=119399833130811393-1"
+          },
+          "precedes": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=asc\u0026cursor=119399833130811393-1"
+          }
+        },
+        "id": "0119399833130811393-0000000001",
+        "paging_token": "119399833130811393-1",
+        "account": "GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE",
+        "type": "trustline_created",
+        "type_i": 20,
+        "created_at": "2020-01-17T20:13:22Z",
+        "asset_type": "credit_alphanum4",
+        "asset_code": "USD",
+        "asset_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX",
+        "limit": "922337203685.4775000"
+      }
+    ]
+  }
+}
+```
+
+```bash
+var StellarSdk = require("stellar-sdk");
+var server = new StellarSdk.Server("https://expansion-testnet.bantu.network");
+
+var callback = function (resp) {
+  console.log(resp);
+};
+
+var es = server
+  .effects()
+  .forAccount("GCNL55IJTH2HX26HLNIGYD2JIQLTBAQL3SVPNZA6PXK7NAVHU423WOTE")
+  .cursor("now")
+  .stream({ onmessage: callback });
+```
 

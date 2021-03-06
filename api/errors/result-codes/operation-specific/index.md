@@ -3,13 +3,28 @@ title: Operation-Specific Result Codes
 order: 0
 ---
 
-# index
-
-import { MethodTable } from "components/MethodTable";
+# Index
 
 These are Result Codes that communicate success \(200\) or failure \(400\) responses that are specific to each operation type.
 
 Each of Stellar's operations have unique causes of failure, and these result codes will help you diagnose and address the origins of issues.
 
- \| \| \| \| ---------------------------------------------------------------- \| --- \| \| \[Create Account\]\(./create-account.mdx\) \| \| \| \[Payment\]\(./payment.mdx\) \| \| \| \[Path Payment Strict Receive\]\(./path-payment-strict-receive.mdx\) \| \| \| \[Path Payment Strict Send\]\(./path-payment-strict-send.mdx\) \| \| \| \[Manage Sell Offer\]\(./manage-sell-offer.mdx\) \| \| \| \[Manage Buy Offer\]\(./manage-buy-offer.mdx\) \| \| \| \[Create Passive Sell Offer\]\(./create-passive-sell-offer.mdx\) \| \| \| \[Set Options\]\(./set-options.mdx\) \| \| \| \[Change Trust\]\(./change-trust.mdx\) \| \| \| \[Allow Trust\]\(./allow-trust.mdx\) \| \| \| \[Account Merge\]\(./account-merge.mdx\) \| \| \| \[Manage Data\]\(./manage-data.mdx\) \| \| \| \[Bump Sequence\]\(./bump-sequence.mdx\) \| \|
+
+
+Operation-Specific Result Code Types
+
+| [Create Account](https://developers.stellar.org/api/errors/result-codes/operation-specific/create-account/) |  |
+| :--- | :--- |
+| [Payment](https://developers.stellar.org/api/errors/result-codes/operation-specific/payment/) |  |
+| [Path Payment Strict Receive](https://developers.stellar.org/api/errors/result-codes/operation-specific/path-payment-strict-receive/) |  |
+| [Path Payment Strict Send](https://developers.stellar.org/api/errors/result-codes/operation-specific/path-payment-strict-send/) |  |
+| [Manage Sell Offer](https://developers.stellar.org/api/errors/result-codes/operation-specific/manage-sell-offer/) |  |
+| [Manage Buy Offer](https://developers.stellar.org/api/errors/result-codes/operation-specific/manage-buy-offer/) |  |
+| [Create Passive Sell Offer](https://developers.stellar.org/api/errors/result-codes/operation-specific/create-passive-sell-offer/) |  |
+| [Set Options](https://developers.stellar.org/api/errors/result-codes/operation-specific/set-options/) |  |
+| [Change Trust](https://developers.stellar.org/api/errors/result-codes/operation-specific/change-trust/) |  |
+| [Allow Trust](https://developers.stellar.org/api/errors/result-codes/operation-specific/allow-trust/) |  |
+| [Account Merge](https://developers.stellar.org/api/errors/result-codes/operation-specific/account-merge/) |  |
+| [Manage Data](https://developers.stellar.org/api/errors/result-codes/operation-specific/manage-data/) |  |
+| [Bump Sequence](https://developers.stellar.org/api/errors/result-codes/operation-specific/bump-sequence/) |  |
 

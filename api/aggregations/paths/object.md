@@ -3,13 +3,142 @@ title: The Path Object
 order: 10
 ---
 
-# object
+# Object
 
 import { ExampleResponse } from "components/ExampleResponse"; import { AttributeTable } from "components/AttributeTable";
 
 When Horizon returns information about a path, it uses the following format:
 
- - ATTRIBUTE - DATA TYPE - DESCRIPTION - source\_asset\_type - string - The type for the source asset. Either \`native\`, \`credit\_alphanum4\`, or \`credit\_alphanum12\`. - source\_asset\_code - string - The code for the source asset. - source\_asset\_issuer - string - The Stellar address of the source asset’s issuer. - source\_amount - string - An estimated cost for making a payment of destination\_amount on this path. Suitable for use in the \`sendMax\` field of a path payment operation. - destination\_asset\_type - string - The type for the destination asset. Either \`native\`, \`credit\_alphanum4\`, or \`credit\_alphanum12\`. - destination\_asset\_code - string - The code for the destination asset. - destination\_asset\_issuer - string - The Stellar address of the destination asset’s issuer. - destination\_amount - string - The destination amount specified in the search that found this path. - path - array of objects - The intermediary assets that this path hops through. - asset\_code - string - The code for this intermediary asset. - asset\_issuer - string - The Stellar address of the intermediary asset’s issuer. - asset\_type - string - The type for the intermediary asset. Either \`native\`, \`credit\_alphanum4\`, or \`credit\_alphanum12\`.
+ - ATTRIBUTE - 
 
- \`\`\`json { "\_embedded": { "records": \[ { "source\_asset\_type": "credit\_alphanum4", "source\_asset\_code": "USD", "source\_asset\_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX", "source\_amount": "4.1900246", "destination\_asset\_type": "credit\_alphanum4", "destination\_asset\_code": "BB1", "destination\_asset\_issuer": "GD5J6HLF5666X4AZLTFTXLY46J5SW7EXRKBLEYPJP33S33MXZGV6CWFN", "destination\_amount": "5.0000000", "path": \[ { "asset\_type": "credit\_alphanum4", "asset\_code": "NGNT", "asset\_issuer": "GAWODAROMJ33V5YDFY3NPYTHVYQG7MJXVJ2ND3AOGIHYRWINES6ACCPD" }, { "asset\_type": "native" } \] }, { "source\_asset\_type": "native", "source\_amount": "162.0291692", "destination\_asset\_type": "credit\_alphanum4", "destination\_asset\_code": "BB1", "destination\_asset\_issuer": "GD5J6HLF5666X4AZLTFTXLY46J5SW7EXRKBLEYPJP33S33MXZGV6CWFN", "destination\_amount": "5.0000000", "path": \[ { "asset\_type": "credit\_alphanum4", "asset\_code": "EURT", "asset\_issuer": "GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S" } \] }, { "source\_asset\_type": "native", "source\_amount": "162.3284659", "destination\_asset\_type": "credit\_alphanum4", "destination\_asset\_code": "BB1", "destination\_asset\_issuer": "GD5J6HLF5666X4AZLTFTXLY46J5SW7EXRKBLEYPJP33S33MXZGV6CWFN", "destination\_amount": "5.0000000", "path": \[ { "asset\_type": "credit\_alphanum4", "asset\_code": "USD", "asset\_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX" }, { "asset\_type": "credit\_alphanum4", "asset\_code": "EURT", "asset\_issuer": "GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S" } \] }, { "source\_asset\_type": "native", "source\_amount": "367.4324508", "destination\_asset\_type": "credit\_alphanum4", "destination\_asset\_code": "BB1", "destination\_asset\_issuer": "GD5J6HLF5666X4AZLTFTXLY46J5SW7EXRKBLEYPJP33S33MXZGV6CWFN", "destination\_amount": "5.0000000", "path": \[ { "asset\_type": "credit\_alphanum4", "asset\_code": "BTC", "asset\_issuer": "GAUTUYY2THLF7SGITDFMXJVYH3LHDSMGEAKSBU267M2K7A3W543CKUEF" } \] } \] } } \`\`\`
+
+
+* source\_asset\_type `string`
+
+  The type for the source asset. Either `native`, `credit_alphanum4`, or `credit_alphanum12`.
+
+* source\_asset\_code `string`
+
+  The code for the source asset.
+
+* source\_asset\_issuer `string`
+
+  The Stellar address of the source asset’s issuer.
+
+* source\_amount `string`
+
+  An estimated cost for making a payment of destination\_amount on this path. Suitable for use in the `sendMax` field of a path payment operation.
+
+* destination\_asset\_type `string`
+
+  The type for the destination asset. Either `native`, `credit_alphanum4`, or `credit_alphanum12`.
+
+* destination\_asset\_code `string`
+
+  The code for the destination asset.
+
+* destination\_asset\_issuer `string`
+
+  The Stellar address of the destination asset’s issuer.
+
+* destination\_amount `string`
+
+  The destination amount specified in the search that found this path.
+
+* path `array of objects`
+
+  The intermediary assets that this path hops through.Hide child attributes
+
+  * asset\_code `string`
+
+    The code for this intermediary asset.
+
+  * asset\_issuer `string`
+
+    The Stellar address of the intermediary asset’s issuer.
+
+  * asset\_type `string`
+
+    The type for the intermediary asset. Either `native`, `credit_alphanum4`, or `credit_alphanum12`.
+
+{% code title="Example Response" %}
+```bash
+{
+  "_embedded": {
+    "records": [
+      {
+        "source_asset_type": "credit_alphanum4",
+        "source_asset_code": "USD",
+        "source_asset_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX",
+        "source_amount": "4.1900246",
+        "destination_asset_type": "credit_alphanum4",
+        "destination_asset_code": "BB1",
+        "destination_asset_issuer": "GD5J6HLF5666X4AZLTFTXLY46J5SW7EXRKBLEYPJP33S33MXZGV6CWFN",
+        "destination_amount": "5.0000000",
+        "path": [
+          {
+            "asset_type": "credit_alphanum4",
+            "asset_code": "NGNT",
+            "asset_issuer": "GAWODAROMJ33V5YDFY3NPYTHVYQG7MJXVJ2ND3AOGIHYRWINES6ACCPD"
+          },
+          {
+            "asset_type": "native"
+          }
+        ]
+      },
+      {
+        "source_asset_type": "native",
+        "source_amount": "162.0291692",
+        "destination_asset_type": "credit_alphanum4",
+        "destination_asset_code": "BB1",
+        "destination_asset_issuer": "GD5J6HLF5666X4AZLTFTXLY46J5SW7EXRKBLEYPJP33S33MXZGV6CWFN",
+        "destination_amount": "5.0000000",
+        "path": [
+          {
+            "asset_type": "credit_alphanum4",
+            "asset_code": "EURT",
+            "asset_issuer": "GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S"
+          }
+        ]
+      },
+      {
+        "source_asset_type": "native",
+        "source_amount": "162.3284659",
+        "destination_asset_type": "credit_alphanum4",
+        "destination_asset_code": "BB1",
+        "destination_asset_issuer": "GD5J6HLF5666X4AZLTFTXLY46J5SW7EXRKBLEYPJP33S33MXZGV6CWFN",
+        "destination_amount": "5.0000000",
+        "path": [
+          {
+            "asset_type": "credit_alphanum4",
+            "asset_code": "USD",
+            "asset_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX"
+          },
+          {
+            "asset_type": "credit_alphanum4",
+            "asset_code": "EURT",
+            "asset_issuer": "GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S"
+          }
+        ]
+      },
+      {
+        "source_asset_type": "native",
+        "source_amount": "367.4324508",
+        "destination_asset_type": "credit_alphanum4",
+        "destination_asset_code": "BB1",
+        "destination_asset_issuer": "GD5J6HLF5666X4AZLTFTXLY46J5SW7EXRKBLEYPJP33S33MXZGV6CWFN",
+        "destination_amount": "5.0000000",
+        "path": [
+          {
+            "asset_type": "credit_alphanum4",
+            "asset_code": "BTC",
+            "asset_issuer": "GAUTUYY2THLF7SGITDFMXJVYH3LHDSMGEAKSBU267M2K7A3W543CKUEF"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+{% endcode %}
 

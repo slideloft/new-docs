@@ -3,11 +3,19 @@ title: Aggregations
 order: 0
 ---
 
-# index
+# Index
 
 import { MethodTable } from "components/MethodTable";
 
 Endpoints that aggregate data about the ledger.
 
- \| \| \| \| ---------------------------------------------------- \| --- \| \| \[Order Books\]\(./order-books/index.mdx\) \| \| \| \[Paths\]\(./paths/index.mdx\) \| \| \| \[Trade Aggregations\]\(./trade-aggregations/index.mdx\) \| \| \| \[Fee Stats\]\(./fee-stats/index.mdx\) \| \|
+
+
+Resource Types
+
+| [Order Books](https://developers.stellar.org/api/aggregations/order-books/) |  |
+| :--- | :--- |
+| [Paths](https://developers.stellar.org/api/aggregations/paths/) |  |
+| [Trade Aggregations](https://developers.stellar.org/api/aggregations/trade-aggregations/) |  |
+| [Fee Stats](https://developers.stellar.org/api/aggregations/fee-stats/) |  |
 

@@ -3,7 +3,7 @@ title: HTTP Status Codes
 order: 0
 ---
 
-# index
+# Index
 
 import { MethodTable } from "components/MethodTable";
 
@@ -17,5 +17,11 @@ Stellar uses conventional HTTP response codes to indicate the success or failure
 
 There are two types of Status Codes: [Standard Status Codes](standard.md) and [Horizon-Specific Status Codes](https://github.com/slideloft/new-docs/tree/046158a008b14dc6d54bdd6f4c48e078c303a05e/content/api/errors/http-status-codes/horizon-specific.mdx).
 
- \| \| \| \| --- \| --- \| \| \[Standard Status Codes\]\(./standard.mdx\) \| Generic HTTP responses. \| \| \[Horizon-Specific Status Codes\]\(./horizon-specific.mdx\) \| Errors that are unique to Horizon. \|
+
+
+HTTP Status Code Types
+
+| [Standard Status Codes](https://developers.stellar.org/api/errors/http-status-codes/standard/) | Generic HTTP responses. |
+| :--- | :--- |
+| [Horizon-Specific Status Codes](https://developers.stellar.org/api/errors/http-status-codes/horizon-specific/) | Errors that are unique to Horizon. |
 

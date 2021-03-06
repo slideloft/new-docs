@@ -1,2 +1,2 @@
-# claimablebalances
+# Claimable Balances
 

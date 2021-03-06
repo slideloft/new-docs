@@ -3,9 +3,7 @@ title: Timeout
 order: 50
 ---
 
-# timeout
-
-import { ExampleResponse } from "components/ExampleResponse"; import { AttributeTable } from "components/AttributeTable";
+# Timeout
 
 The `timeout` error returns a [`504` error code](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/504) and occurs when either:
 
@@ -17,5 +15,12 @@ The former case may happen because there was no room for your transaction for 3 
 * Keep resubmitting the same transaction \(with the same sequence number\) and wait until it finally is added to a new ledger, or
 * Increase the fee in order to prioritize the transaction.
 
- \`\`\`json { "type": "https://stellar.org/horizon-errors/timeout", "title": "Timeout", "status": 504, "detail": "Your request timed out before completing. Please try your request again. If you are submitting a transaction make sure you are sending exactly the same transaction \(with the same sequence number\)." } \`\`\`
+```bash
+{
+  "type": "https://expansion-testnet.bantu.network/horizon-errors/timeout",
+  "title": "Timeout",
+  "status": 504,
+  "detail": "Your request timed out before completing.  Please try your request again. If you are submitting a transaction make sure you are sending exactly the same transaction (with the same sequence number)."
+}
+```
 

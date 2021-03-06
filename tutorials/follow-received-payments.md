@@ -67,7 +67,7 @@ Before our account can do anything it must be funded. Indeed, before an account 
 
 ## Funding your account
 
-The Bantu test network provides the Friendbot, a tool that developers can use to get testnet lumens for testing purposes. To fund your account, simply execute the following curl command:
+The Bantu test network provides the Friendbot, a tool that developers can use to get testnet spirits for testing purposes. To fund your account, simply execute the following curl command:
 
 ```bash
 $ curl "https://friendbot.bantu.network/?addr=GB7JFK56QXQ4DVJRNPDBXABNG3IVKIXWWJJRJICHRU22Z5R5PI65GAK3"
@@ -206,6 +206,4 @@ Now to send a transaction just use Expansion
 ```bash
 curl -H "Content-Type: application/json" -X POST -d '{"tx":"AAAAAH6Sq76F4cHVMWvGG4AtNtFVIvayUxSgR401rPY9ej3TAAAD6AACiK0AAAABAAAAAAAAAAAAAAABAAAAAAAAAAEAAAAAKc1j3y10+nI+sxuXlmFz71JS35mp/RcPCP45Gw0obdAAAAAAAAAAAAExLQAAAAAAAAAAAT16PdMAAABAsJTBC5N5B9Q/9+ZKS7qkMd/wZHWlP6uCCFLzeD+JWT60/VgGFCpzQhZmMg2k4Vg+AwKJTwko3d7Jt3Y6WhjLCg=="}' "https://expansion-testnet.bantu.network/transactions"
 ```
-
-
 

@@ -1,2 +1,2 @@
-# result-codes
+# Result Codes
 

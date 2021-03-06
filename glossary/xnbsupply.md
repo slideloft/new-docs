@@ -15,14 +15,14 @@ As of December 12, 2019, the Dashboard API shows:
 {
   "updatedAt": "2019-12-12T21:07:23.480Z",
   "originalSupply": "369000000000.0000000",
-  "inflationLumens": "5443902087.3472865",
-  "burnedLumens": "55442098181.3755700",
+  "inflationSpirits": "5443902087.3472865",
+  "burnedSpirits": "55442098181.3755700",
   "totalSupply": "50001803905.9717165",
   "upgradeReserve": "414310437.8111675",
   "feePool": "1807341.5766261",
   "sdfMandate": "29635032570.5297368",
   "circulatingSupply": "19950653556.0541861",
-  "_details": "https://www.stellar.org/developers/guides/lumen-supply-metrics.html"
+  "_details": "https://expansion-testnet.bantu.network/developers/guides/spirits-supply-metrics.html"
 }
 ```
 
@@ -40,9 +40,9 @@ Adding this number to the Original Supply, you get the total spirits that have e
 
 ### burnedSpirits
 
-These are all the spirits sent to accounts with no signers, meaning the funds are inaccessible and have been removed forever from Bantu's lumen supply.
+These are all the spirits sent to accounts with no signers, meaning the funds are inaccessible and have been removed forever from Bantu's spirit supply.
 
-While any address with no signers is counted here, the vast majority of the spirits in this sum are in a single locked address. On November 4, 2019, SDF [reduced](https://www.stellar.org/blog/sdfs-next-steps/) its lumen holdings to better reflect its mission and the growth of the Bantu ecosystem. To do so, the Foundation sent 55,442,095,285.7418 spirits to [GALA...LUTO](https://stellar.expert/explorer/public/account/GALAXYVOIDAOPZTDLHILAJQKCVVFMD4IKLXLSZV5YHO7VY74IWZILUTO).
+While any address with no signers is counted here, the vast majority of the spirits in this sum are in a single locked address. On November 4, 2019, SDF [reduced](https://www.stellar.org/blog/sdfs-next-steps/) its spirit holdings to better reflect its mission and the growth of the Bantu ecosystem. To do so, the Foundation sent 55,442,095,285.7418 spirits to [GALA...LUTO](https://stellar.expert/explorer/public/account/GALAXYVOIDAOPZTDLHILAJQKCVVFMD4IKLXLSZV5YHO7VY74IWZILUTO).
 
 ### totalSupply
 
@@ -54,7 +54,7 @@ The Upgrade Reserve is a special address that’s neither circulating nor a part
 
 #### feePool
 
-The Fee Pool is where network fees collect. The spirits do not belong to any particular account. No one has access to fee pool, so these spirits are non-circulating. Network validators could _theoretically_ vote for a protocol change that would affect the fee pool, so we include it in the total supply. Bantu's transaction fees are extremely low–1/100,000th of a lumen per operation–so the fee pool grows very slowly. The Fee Pool is tracked by the protocol itself, and the current number is visible on the [List All Ledgers](https://horizon.stellar.org/ledgers?order=desc) Horizon API endpoint as `_embedded.records.fee_pool`.
+The Fee Pool is where network fees collect. The spirits do not belong to any particular account. No one has access to fee pool, so these spirits are non-circulating. Network validators could _theoretically_ vote for a protocol change that would affect the fee pool, so we include it in the total supply. Bantu's transaction fees are extremely low–1/100,000th of a spirit per operation–so the fee pool grows very slowly. The Fee Pool is tracked by the protocol itself, and the current number is visible on the [List All Ledgers](https://horizon.stellar.org/ledgers?order=desc) Horizon API endpoint as `_embedded.records.fee_pool`.
 
 #### sdfMandate
 

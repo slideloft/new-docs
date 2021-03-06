@@ -1,2 +1,2 @@
-# aggregations
+# Aggregations
 

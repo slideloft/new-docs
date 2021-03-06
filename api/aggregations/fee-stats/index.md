@@ -3,11 +3,17 @@ title: Fee Stats
 order: 0
 ---
 
-# index
+# Index
 
 import { EndpointsTable } from "components/EndpointsTable";
 
 Fee stats are used to predict what fee to set for a transaction before submitting it to the network.
 
- \| \| \| \| --- \| -------------------------- \| \| GET \| \[/fee-stats\]\(./single.mdx\) \|
+
+
+Endpoints
+
+| GET | [/fee-stats](https://developers.stellar.org/api/aggregations/fee-stats/single/) |
+| :--- | :--- |
+
 

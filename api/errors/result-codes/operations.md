@@ -3,13 +3,74 @@ title: Operation Result Codes
 order: 20
 ---
 
-# operations
-
-import { ExampleResponse } from "components/ExampleResponse"; import { AttributeTable } from "components/AttributeTable";
+# Operations
 
 These are Result Codes that communicate success \(200\) or failure \(400\) at the operation level: no source account, too many subentries, etc.
 
- - RESULT CODE - STELLAR PROTOCOL CODE - DESCRIPTION - op\_inner - opINNER - The inner object result is valid and the operation was a success. - op\_bad\_auth - opBAD\_AUTH - There are too few valid signatures, or the transaction was submitted to the wrong network. - op\_no\_source\_account - opNO\_ACCOUNT - The source account was not found. - op\_not\_supported - opNOT\_SUPPORTED - The operation is not supported at this time. - op\_too\_many\_subentries - opTOO\_MANY\_SUBENTRIES - max number of subentries already reached - op\_exceeded\_work\_limit - opEXCEEDED\_WORK\_LIMIT - operation did too much work
+ - RESULT CODE - 
 
- \`\`\`json { "type": "https://stellar.org/horizon-errors/transaction\_failed", "title": "Transaction Failed", "status": 400, "detail": "The transaction failed when submitted to the stellar network. The \`extras.result\_codes\` field on this response contains further details. Descriptions of each code can be found at: https://www.stellar.org/developers/learn/concepts/list-of-operations.html", "extras": { "envelope\_xdr": "AAAAANPRjCD1iCti3hovsrrz6aSAjmp263grVr6+mI3SQSkcAAAAZAAPRLgAAAADAAAAAAAAAAAAAAABAAAAAQAAAACuSL9OciKkFztj4d3zuadl20HHObu+7qJenBxHPrMayQAAAAUAAAABAAAAANPRjCD1iCti3hovsrrz6aSAjmp263grVr6+mI3SQSkcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtJBKRwAAABA1N0iqDAgqS6+3RIZGoNB9OXrY3wd/nLruXYi+eiTt4jn94fLVLwAw6jJCaK+qxStwO7c4kP6u5k0RPbuYC55CT6zGskAAABAiUGCNCS4pGlfcRmi82kbralzcFlTQAFzLyfUrYGn3RtQ4p/7TUwAqIanVoWGfEqzIJo64ZT+mYtJ72BfI+FiDg==", "result\_codes": { "transaction": "tx\_failed", "operations": \["op\_no\_source\_account"\] }, "result\_xdr": "AAAAAAAAAGT/////AAAAAf////4AAAAA" } } \`\`\`
+* tx\_success `txSUCCESS`
+
+  The transaction succeeded.
+
+* tx\_failed `txFAILED`
+
+  One of the operations failed \(none were applied\).
+
+* tx\_too\_early `txTOO_EARLY`
+
+  The ledger closeTime was before the minTime.
+
+* tx\_too\_late `txTOO_LATE`
+
+  The ledger closeTime was after the maxTime.
+
+* tx\_missing\_operation `txMISSING_OPERATION`
+
+  No operation was specified
+
+* tx\_bad\_seq `txBAD_SEQ`
+
+  sequence number does not match source account
+
+* tx\_bad\_auth `txBAD_AUTH`
+
+  too few valid signatures / wrong network
+
+* tx\_insufficient\_balance `txINSUFFICIENT_BALANCE`
+
+  fee would bring account below reserve
+
+* tx\_no\_source\_account `txNO_ACCOUNT`
+
+  source account not found
+
+* tx\_insufficient\_fee `txINSUFFICIENT_FEE`
+
+  fee is too small
+
+* tx\_bad\_auth\_extra `txBAD_AUTH_EXTRA`
+
+  unused signatures attached to transaction
+
+* tx\_internal\_error `txINTERNAL_ERROR`
+
+  an unknown error occurred
+
+```bash
+{
+  "type": "https://expansion-testnet.bantu.network/horizon-errors/transaction_failed",
+  "title": "Transaction Failed",
+  "status": 400,
+  "detail": "The transaction failed when submitted to the stellar network. The `extras.result_codes` field on this response contains further details.  Descriptions of each code can be found at: https://www.stellar.org/developers/learn/concepts/list-of-operations.html",
+  "extras": {
+    "envelope_xdr": "AAAAANPRjCD1iCti3hovsrrz6aSAjmp263grVr6+mI3SQSkcAAAAZAAPRLgAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAEAAAAArki/TnIipBc7Y+Hd87mnZdtBxzm7vu6iXpwcRz6zGskAAAAAAAAAAAAHoSAAAAAAAAAAAdJBKRwAAABANWeKuRYFmBm1lrMQqMvhbSouwL270SnxcTtv1XI4Y+uVe4yw4Jq7/43EoxwLbRh/pC3V4WfOZRzDqwsTyEztAA==",
+    "result_codes": {
+      "transaction": "tx_bad_seq"
+    },
+    "result_xdr": "AAAAAAAAAAD////7AAAAAA=="
+  }
+}
+
+```
 

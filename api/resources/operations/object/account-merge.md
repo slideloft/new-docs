@@ -5,7 +5,7 @@ order: 110
 
 # Account Merge
 
-Removes the source account from the Stellar and transfers the source account's lumens to another account.
+Removes the source account from the Stellar and transfers the source account's spirits to another account.
 
 See the [`Account Merge` errors](../../../errors/result-codes/operation-specific/account-merge.md).
 
@@ -17,7 +17,7 @@ See the [`Account Merge` errors](../../../errors/result-codes/operation-specific
 
 * into `string`
 
-  The Stellar address receiving the deleted account’s lumens.
+  The Stellar address receiving the deleted account’s spirits.
 
 ```bash
 {

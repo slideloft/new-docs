@@ -3,21 +3,190 @@ title: Retrieve an Account's Operations
 order: 40
 ---
 
-# operations
-
-import { Endpoint } from "components/Endpoint"; import { ExampleResponse } from "components/ExampleResponse"; import { CodeExample } from "components/CodeExample"; import { AttributeTable } from "components/AttributeTable";
+# Operations
 
 This endpoint represents successful operations for a given account and can be used in streaming mode.
 
 Streaming mode allows you to listen for new operations for this account as they are added to the Stellar ledger. If called in streaming mode, Horizon will start at the earliest known operation unless a `cursor` is set, in which case it will start from that `cursor`. By setting the `cursor` value to `now`, you can stream operations created since your request time.
 
- \| \| \| \| --- \| --- \| \| GET \| /accounts/:account\_id/operations?cursor={paging\_token}&order={asc,desc}&limit={1-200}&include\_failed{true,false}&join={transactions} \|
+ - ARGUMENT - 
 
- - ARGUMENT - REQUIRED - DESCRIPTION - account\_id - required - This account's public key encoded in a base32 string representation. - cursor - optional - A number that points to a specific location in a collection of responses and is pulled from the \`paging\_token\` value of a record. - order - optional - A designation of the order in which records should appear. Options include \`asc\`\(ascending\) or \`desc\` \(descending\). If this argument isn’t set, it defaults to \`asc\`. - limit - optional - The total number of records returned. The limit can range from 1 to 200 - an upper limit that is hardcoded in Horizon for performance reasons. If this argument isn’t designated, it defaults to 10. - include\_failed - optional - Set to true to include failed operations in results. Options include \`true\` and \`false\`. - join - optional - Set to \`transactions\` to include the transactions which created each of the operations in the response.
+* account\_id `required`
 
- \`\`\`curl curl "https://horizon.stellar.org/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/operations?limit=3" \`\`\` \`\`\`js var StellarSdk = require\("stellar-sdk"\); var server = new StellarSdk.Server\("https://horizon.stellar.org"\); server .operations\(\) .forAccount\("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA"\) .call\(\) .then\(function \(resp\) { console.log\(resp\); }\) .catch\(function \(err\) { console.error\(err\); }\); \`\`\`
+  This account’s public key encoded in a base32 string representation.
 
- \`\`\`json { "\_links": { "self": { "href": "https://horizon.stellar.org/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/operations?cursor=\u0026limit=3\u0026order=asc" }, "next": { "href": "https://horizon.stellar.org/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/operations?cursor=120192452165550081\u0026limit=3\u0026order=asc" }, "prev": { "href": "https://horizon.stellar.org/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/operations?cursor=120192344791343105\u0026limit=3\u0026order=desc" } }, "\_embedded": { "records": \[ { "\_links": { "self": { "href": "https://horizon.stellar.org/operations/120192344791343105" }, "transaction": { "href": "https://horizon.stellar.org/transactions/ef0fe04ac3c7de7228ca2598886059868ad05c224a041e8b2d9ee2a8a9dd6894" }, "effects": { "href": "https://horizon.stellar.org/operations/120192344791343105/effects" }, "succeeds": { "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=120192344791343105" }, "precedes": { "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=120192344791343105" } }, "id": "120192344791343105", "paging\_token": "120192344791343105", "transaction\_successful": true, "source\_account": "GBVFTZL5HIPT4PFQVTZVIWR77V7LWYCXU4CLYWWHHOEXB64XPG5LDMTU", "type": "create\_account", "type\_i": 0, "created\_at": "2020-01-29T19:43:59Z", "transaction\_hash": "ef0fe04ac3c7de7228ca2598886059868ad05c224a041e8b2d9ee2a8a9dd6894", "starting\_balance": "2.0000000", "funder": "GBVFTZL5HIPT4PFQVTZVIWR77V7LWYCXU4CLYWWHHOEXB64XPG5LDMTU", "account": "GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA" }, { "\_links": { "self": { "href": "https://horizon.stellar.org/operations/120192370561220609" }, "transaction": { "href": "https://horizon.stellar.org/transactions/c1cb850f413e4038c4120bd9badc07bb8ef85a46649a4d5c9c16e578a2d30589" }, "effects": { "href": "https://horizon.stellar.org/operations/120192370561220609/effects" }, "succeeds": { "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=120192370561220609" }, "precedes": { "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=120192370561220609" } }, "id": "120192370561220609", "paging\_token": "120192370561220609", "transaction\_successful": true, "source\_account": "GBVFTZL5HIPT4PFQVTZVIWR77V7LWYCXU4CLYWWHHOEXB64XPG5LDMTU", "type": "payment", "type\_i": 1, "created\_at": "2020-01-29T19:44:36Z", "transaction\_hash": "c1cb850f413e4038c4120bd9badc07bb8ef85a46649a4d5c9c16e578a2d30589", "asset\_type": "native", "from": "GBVFTZL5HIPT4PFQVTZVIWR77V7LWYCXU4CLYWWHHOEXB64XPG5LDMTU", "to": "GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA", "amount": "200.0000000" }, { "\_links": { "self": { "href": "https://horizon.stellar.org/operations/120192452165550081" }, "transaction": { "href": "https://horizon.stellar.org/transactions/0e6bc30f2b2f50ca0ecedef5a527309c74964e7daa6018976cd2c686c5df4be3" }, "effects": { "href": "https://horizon.stellar.org/operations/120192452165550081/effects" }, "succeeds": { "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=120192452165550081" }, "precedes": { "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=120192452165550081" } }, "id": "120192452165550081", "paging\_token": "120192452165550081", "transaction\_successful": true, "source\_account": "GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA", "type": "change\_trust", "type\_i": 6, "created\_at": "2020-01-29T19:46:20Z", "transaction\_hash": "0e6bc30f2b2f50ca0ecedef5a527309c74964e7daa6018976cd2c686c5df4be3", "asset\_type": "credit\_alphanum4", "asset\_code": "USD", "asset\_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX", "limit": "922337203685.4775807", "trustee": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX", "trustor": "GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA" } \] } } \`\`\`
+* cursor `optional`
 
- \`\`\`js var StellarSdk = require\("stellar-sdk"\); var server = new StellarSdk.Server\("https://horizon.stellar.org"\); var callback = function \(resp\) { console.log\(resp\); }; var es = server .operations\(\) .forAccount\("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA"\) .cursor\("now"\) .stream\({ onmessage: callback }\); \`\`\`
+  A number that points to a specific location in a collection of responses and is pulled from the `paging_token` value of a record.
+
+* order `optional`
+
+  A designation of the order in which records should appear. Options include `asc`\(ascending\) or `desc` \(descending\). If this argument isn’t set, it defaults to `asc`.
+
+* limit `optional`
+
+  The total number of records returned. The limit can range from 1 to 200 - an upper limit that is hardcoded in Horizon for performance reasons. If this argument isn’t designated, it defaults to 10.
+
+* include\_failed `optional`
+
+  Set to true to include failed operations in results. Options include `true` and `false`.
+
+* join `optional`
+
+  Set to `transactions` to include the transactions which created each of the operations in the response.
+
+{% tabs %}
+{% tab title="JavaScript" %}
+```javascript
+var StellarSdk = require("stellar-sdk");
+var server = new StellarSdk.Server("https://expansion-testnet.bantu.network");
+
+server
+  .operations()
+  .forAccount("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
+  .call()
+  .then(function (resp) {
+    console.log(resp);
+  })
+  .catch(function (err) {
+    console.error(err);
+  });
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```
+curl "https://expansion-testnet.bantu.network/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/operations?limit=3"
+```
+{% endtab %}
+{% endtabs %}
+
+```bash
+{
+  "_links": {
+    "self": {
+      "href": "https://expansion-testnet.bantu.network/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/operations?cursor=\u0026limit=3\u0026order=asc"
+    },
+    "next": {
+      "href": "https://expansion-testnet.bantu.network/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/operations?cursor=120192452165550081\u0026limit=3\u0026order=asc"
+    },
+    "prev": {
+      "href": "https://expansion-testnet.bantu.network/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/operations?cursor=120192344791343105\u0026limit=3\u0026order=desc"
+    }
+  },
+  "_embedded": {
+    "records": [
+      {
+        "_links": {
+          "self": {
+            "href": "https://expansion-testnet.bantu.network/operations/120192344791343105"
+          },
+          "transaction": {
+            "href": "https://expansion-testnet.bantu.network/transactions/ef0fe04ac3c7de7228ca2598886059868ad05c224a041e8b2d9ee2a8a9dd6894"
+          },
+          "effects": {
+            "href": "https://expansion-testnet.bantu.network/operations/120192344791343105/effects"
+          },
+          "succeeds": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=desc\u0026cursor=120192344791343105"
+          },
+          "precedes": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=asc\u0026cursor=120192344791343105"
+          }
+        },
+        "id": "120192344791343105",
+        "paging_token": "120192344791343105",
+        "transaction_successful": true,
+        "source_account": "GBVFTZL5HIPT4PFQVTZVIWR77V7LWYCXU4CLYWWHHOEXB64XPG5LDMTU",
+        "type": "create_account",
+        "type_i": 0,
+        "created_at": "2020-01-29T19:43:59Z",
+        "transaction_hash": "ef0fe04ac3c7de7228ca2598886059868ad05c224a041e8b2d9ee2a8a9dd6894",
+        "starting_balance": "2.0000000",
+        "funder": "GBVFTZL5HIPT4PFQVTZVIWR77V7LWYCXU4CLYWWHHOEXB64XPG5LDMTU",
+        "account": "GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA"
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "https://expansion-testnet.bantu.network/operations/120192370561220609"
+          },
+          "transaction": {
+            "href": "https://expansion-testnet.bantu.network/transactions/c1cb850f413e4038c4120bd9badc07bb8ef85a46649a4d5c9c16e578a2d30589"
+          },
+          "effects": {
+            "href": "https://expansion-testnet.bantu.network/operations/120192370561220609/effects"
+          },
+          "succeeds": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=desc\u0026cursor=120192370561220609"
+          },
+          "precedes": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=asc\u0026cursor=120192370561220609"
+          }
+        },
+        "id": "120192370561220609",
+        "paging_token": "120192370561220609",
+        "transaction_successful": true,
+        "source_account": "GBVFTZL5HIPT4PFQVTZVIWR77V7LWYCXU4CLYWWHHOEXB64XPG5LDMTU",
+        "type": "payment",
+        "type_i": 1,
+        "created_at": "2020-01-29T19:44:36Z",
+        "transaction_hash": "c1cb850f413e4038c4120bd9badc07bb8ef85a46649a4d5c9c16e578a2d30589",
+        "asset_type": "native",
+        "from": "GBVFTZL5HIPT4PFQVTZVIWR77V7LWYCXU4CLYWWHHOEXB64XPG5LDMTU",
+        "to": "GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA",
+        "amount": "200.0000000"
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "https://expansion-testnet.bantu.network/operations/120192452165550081"
+          },
+          "transaction": {
+            "href": "https://expansion-testnet.bantu.network/transactions/0e6bc30f2b2f50ca0ecedef5a527309c74964e7daa6018976cd2c686c5df4be3"
+          },
+          "effects": {
+            "href": "https://expansion-testnet.bantu.network/operations/120192452165550081/effects"
+          },
+          "succeeds": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=desc\u0026cursor=120192452165550081"
+          },
+          "precedes": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=asc\u0026cursor=120192452165550081"
+          }
+        },
+        "id": "120192452165550081",
+        "paging_token": "120192452165550081",
+        "transaction_successful": true,
+        "source_account": "GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA",
+        "type": "change_trust",
+        "type_i": 6,
+        "created_at": "2020-01-29T19:46:20Z",
+        "transaction_hash": "0e6bc30f2b2f50ca0ecedef5a527309c74964e7daa6018976cd2c686c5df4be3",
+        "asset_type": "credit_alphanum4",
+        "asset_code": "USD",
+        "asset_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX",
+        "limit": "922337203685.4775807",
+        "trustee": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX",
+        "trustor": "GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA"
+      }
+    ]
+  }
+}
+```
+
+```javascript
+var StellarSdk = require("stellar-sdk");
+var server = new StellarSdk.Server("https://expansion-testnet.bantu.network");
+
+var callback = function (resp) {
+  console.log(resp);
+};
+
+var es = server
+  .operations()
+  .forAccount("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
+  .cursor("now")
+  .stream({ onmessage: callback });
+```
 

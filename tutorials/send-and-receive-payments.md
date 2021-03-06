@@ -54,7 +54,7 @@ server
         StellarSdk.Operation.payment({
           destination: destinationId,
           // Because Stellar allows transaction in many currencies, you must
-          // specify the asset type. The special "native" asset represents Lumens.
+          // specify the asset type. The special "native" asset represents Spirit.
           asset: StellarSdk.Asset.native(),
           amount: "10",
         }),

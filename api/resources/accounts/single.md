@@ -3,19 +3,166 @@ title: Retrieve an Account
 order: 20
 ---
 
-# single
-
-import { Endpoint } from "components/Endpoint"; import { ExampleResponse } from "components/ExampleResponse"; import { CodeExample } from "components/CodeExample"; import { AttributeTable } from "components/AttributeTable";
+# Single
 
 The single account endpoint provides information on a specific account.
 
 The balances section in the response will also list all the trustlines this account has established. Note this will only return trustlines that have the necessary authorization to work. If an account `A` trusts another account `B` that has the authorization required flag set, the trustline won’t show up until account `B` allows account `A` to hold its assets.
 
- \| \| \| \| --- \| --------------------- \| \| GET \| /accounts/:account\_id \|
+ - ARGUMENT - 
 
- - ARGUMENT - REQUIRED - DESCRIPTION - account\_id - required - This account's public key encoded in a base32 string representation.
+* account\_id `required`
 
- \`\`\`curl curl "https://horizon.stellar.org/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA" \`\`\` \`\`\`js var StellarSdk = require\("stellar-sdk"\); var server = new StellarSdk.Server\("https://horizon.stellar.org"\); server .loadAccount\("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA"\) .then\(function \(resp\) { console.log\(resp\); }\) .catch\(function \(err\) { console.error\(err\); }\); \`\`\`
+  This account's public key encoded in a base32 string representation.
 
- \`\`\`json { "\_links": { "self": { "href": "https://horizon.stellar.org/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA" }, "transactions": { "href": "https://horizon.stellar.org/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/transactions{?cursor,limit,order}", "templated": true }, "operations": { "href": "https://horizon.stellar.org/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/operations{?cursor,limit,order}", "templated": true }, "payments": { "href": "https://horizon.stellar.org/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/payments{?cursor,limit,order}", "templated": true }, "effects": { "href": "https://horizon.stellar.org/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/effects{?cursor,limit,order}", "templated": true }, "offers": { "href": "https://horizon.stellar.org/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/offers{?cursor,limit,order}", "templated": true }, "trades": { "href": "https://horizon.stellar.org/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/trades{?cursor,limit,order}", "templated": true }, "data": { "href": "https://horizon.stellar.org/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/data/{key}", "templated": true } }, "id": "GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA", "account\_id": "GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA", "sequence": "120192344791187470", "subentry\_count": 5, "last\_modified\_ledger": 28105812, "num\_sponsoring": 0, "num\_sponsored": 0, "thresholds": { "low\_threshold": 0, "med\_threshold": 0, "high\_threshold": 0 }, "flags": { "auth\_required": false, "auth\_revocable": false, "auth\_immutable": false }, "balances": \[ { "balance": "3.0000000", "limit": "922337203685.4775807", "buying\_liabilities": "0.0000000", "selling\_liabilities": "0.0000000", "last\_modified\_ledger": 27984507, "is\_authorized": true, "asset\_type": "credit\_alphanum4", "asset\_code": "EURT", "asset\_issuer": "GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S" }, { "balance": "20.0000000", "limit": "922337203685.4775807", "buying\_liabilities": "0.0000000", "selling\_liabilities": "0.0000000", "last\_modified\_ledger": 27984988, "is\_authorized": true, "asset\_type": "credit\_alphanum4", "asset\_code": "CNY", "asset\_issuer": "GAREELUB43IRHWEASCFBLKHURCGMHE5IF6XSE7EXDLACYHGRHM43RFOX" }, { "balance": "199.9999990", "limit": "922337203685.4775807", "buying\_liabilities": "0.0000000", "selling\_liabilities": "0.0000000", "last\_modified\_ledger": 27984513, "is\_authorized": true, "asset\_type": "credit\_alphanum4", "asset\_code": "NGNT", "asset\_issuer": "GAWODAROMJ33V5YDFY3NPYTHVYQG7MJXVJ2ND3AOGIHYRWINES6ACCPD" }, { "balance": "1.0000000", "limit": "922337203685.4775807", "buying\_liabilities": "0.0000000", "selling\_liabilities": "0.0000000", "last\_modified\_ledger": 27984972, "is\_authorized": true, "asset\_type": "credit\_alphanum4", "asset\_code": "BB1", "asset\_issuer": "GD5J6HLF5666X4AZLTFTXLY46J5SW7EXRKBLEYPJP33S33MXZGV6CWFN" }, { "balance": "4.0000000", "limit": "922337203685.4775807", "buying\_liabilities": "0.0000000", "selling\_liabilities": "0.0000000", "last\_modified\_ledger": 27985131, "is\_authorized": true, "asset\_type": "credit\_alphanum4", "asset\_code": "USD", "asset\_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX" }, { "balance": "72.8563792", "buying\_liabilities": "0.0000000", "selling\_liabilities": "0.0000000", "asset\_type": "native" } \], "signers": \[ { "weight": 1, "key": "GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA", "type": "ed25519\_public\_key" } \], "data": {}, "paging\_token": "" } \`\`\`
+{% tabs %}
+{% tab title="JavaScript" %}
+```javascript
+var StellarSdk = require("stellar-sdk");
+var server = new StellarSdk.Server("https://expansion-testnet.bantu.network");
+
+server
+  .loadAccount("GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA")
+  .then(function (resp) {
+    console.log(resp);
+  })
+  .catch(function (err) {
+    console.error(err);
+  });
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl "https://expansion-testnet.bantu.network/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA"
+```
+{% endtab %}
+{% endtabs %}
+
+```bash
+{
+  "_links": {
+    "self": {
+      "href": "https://expansion-testnet.bantu.network/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA"
+    },
+    "transactions": {
+      "href": "https://expansion-testnet.bantu.network/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/transactions{?cursor,limit,order}",
+      "templated": true
+    },
+    "operations": {
+      "href": "https://expansion-testnet.bantu.network/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/operations{?cursor,limit,order}",
+      "templated": true
+    },
+    "payments": {
+      "href": "https://expansion-testnet.bantu.network/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/payments{?cursor,limit,order}",
+      "templated": true
+    },
+    "effects": {
+      "href": "https://expansion-testnet.bantu.network/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/effects{?cursor,limit,order}",
+      "templated": true
+    },
+    "offers": {
+      "href": "https://expansion-testnet.bantu.network/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/offers{?cursor,limit,order}",
+      "templated": true
+    },
+    "trades": {
+      "href": "https://expansion-testnet.bantu.network/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/trades{?cursor,limit,order}",
+      "templated": true
+    },
+    "data": {
+      "href": "https://expansion-testnet.bantu.network/accounts/GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA/data/{key}",
+      "templated": true
+    }
+  },
+  "id": "GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA",
+  "account_id": "GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA",
+  "sequence": "120192344791187470",
+  "subentry_count": 5,
+  "last_modified_ledger": 28105812,
+  "num_sponsoring": 0,
+  "num_sponsored": 0,
+  "thresholds": {
+    "low_threshold": 0,
+    "med_threshold": 0,
+    "high_threshold": 0
+  },
+  "flags": {
+    "auth_required": false,
+    "auth_revocable": false,
+    "auth_immutable": false
+  },
+  "balances": [
+    {
+      "balance": "3.0000000",
+      "limit": "922337203685.4775807",
+      "buying_liabilities": "0.0000000",
+      "selling_liabilities": "0.0000000",
+      "last_modified_ledger": 27984507,
+      "is_authorized": true,
+      "asset_type": "credit_alphanum4",
+      "asset_code": "EURT",
+      "asset_issuer": "GAP5LETOV6YIE62YAM56STDANPRDO7ZFDBGSNHJQIYGGKSMOZAHOOS2S"
+    },
+    {
+      "balance": "20.0000000",
+      "limit": "922337203685.4775807",
+      "buying_liabilities": "0.0000000",
+      "selling_liabilities": "0.0000000",
+      "last_modified_ledger": 27984988,
+      "is_authorized": true,
+      "asset_type": "credit_alphanum4",
+      "asset_code": "CNY",
+      "asset_issuer": "GAREELUB43IRHWEASCFBLKHURCGMHE5IF6XSE7EXDLACYHGRHM43RFOX"
+    },
+    {
+      "balance": "199.9999990",
+      "limit": "922337203685.4775807",
+      "buying_liabilities": "0.0000000",
+      "selling_liabilities": "0.0000000",
+      "last_modified_ledger": 27984513,
+      "is_authorized": true,
+      "asset_type": "credit_alphanum4",
+      "asset_code": "NGNT",
+      "asset_issuer": "GAWODAROMJ33V5YDFY3NPYTHVYQG7MJXVJ2ND3AOGIHYRWINES6ACCPD"
+    },
+    {
+      "balance": "1.0000000",
+      "limit": "922337203685.4775807",
+      "buying_liabilities": "0.0000000",
+      "selling_liabilities": "0.0000000",
+      "last_modified_ledger": 27984972,
+      "is_authorized": true,
+      "asset_type": "credit_alphanum4",
+      "asset_code": "BB1",
+      "asset_issuer": "GD5J6HLF5666X4AZLTFTXLY46J5SW7EXRKBLEYPJP33S33MXZGV6CWFN"
+    },
+    {
+      "balance": "4.0000000",
+      "limit": "922337203685.4775807",
+      "buying_liabilities": "0.0000000",
+      "selling_liabilities": "0.0000000",
+      "last_modified_ledger": 27985131,
+      "is_authorized": true,
+      "asset_type": "credit_alphanum4",
+      "asset_code": "USD",
+      "asset_issuer": "GDUKMGUGDZQK6YHYA5Z6AY2G4XDSZPSZ3SW5UN3ARVMO6QSRDWP5YLEX"
+    },
+    {
+      "balance": "72.8563792",
+      "buying_liabilities": "0.0000000",
+      "selling_liabilities": "0.0000000",
+      "asset_type": "native"
+    }
+  ],
+  "signers": [
+    {
+      "weight": 1,
+      "key": "GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA",
+      "type": "ed25519_public_key"
+    }
+  ],
+  "data": {},
+  "paging_token": ""
+}
+```
 
