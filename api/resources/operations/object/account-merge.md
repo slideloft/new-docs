@@ -5,7 +5,7 @@ order: 110
 
 # Account Merge
 
-Removes the source account from the Stellar and transfers the source account's spirits to another account.
+Removes the source account from the Bantu and transfers the source account's spirits to another account.
 
 See the [`Account Merge` errors](../../../errors/result-codes/operation-specific/account-merge.md).
 
@@ -13,11 +13,11 @@ See the [`Account Merge` errors](../../../errors/result-codes/operation-specific
 
 * account `string`
 
-  The Stellar address being removed.
+  The Bantu address being removed.
 
 * into `string`
 
-  The Stellar address receiving the deleted account’s spirits.
+  The Bantu address receiving the deleted account’s spirits.
 
 ```bash
 {
