@@ -207,5 +207,4 @@
       * [index](api/aggregations/order-books/index.md)
       * [single](api/aggregations/order-books/single.md)
     * [index](api/aggregations/index.md)
-* [content](content.md)
 

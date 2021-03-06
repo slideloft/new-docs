@@ -5,8 +5,6 @@ order: null
 
 # Sponsored Reserves
 
-
-
 Protocol 15 introduces operations that allow an account to pay the base reserves for another account. This is done by using the [Begin Sponsoring Future Reserves](../start/list-of-operations.md#begin-sponsoring-future-reserves) and [End Sponsoring Future Reserves](../start/list-of-operations.md#end-sponsoring-future-reserves) operations.
 
 The sponsoring account establishes the is-sponsoring-future-reserves-for relationship, and the sponsored account terminates it. While this relationship exists, reserve requirements that would normally accumulate on the sponsored account will now accumulate on the sponsoring account. Both operations must appear in a single transaction, which guarantees that both the sponsoring and sponsored accounts agree to every sponsorship.
