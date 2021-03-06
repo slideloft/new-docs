@@ -3,7 +3,7 @@ title: Expansion API Reference
 order: 0
 ---
 
-# index
+# Index
 
 Expansion is an API for interacting with the Bantu network.
 

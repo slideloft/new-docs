@@ -3,7 +3,7 @@ title: Retrieve an Account's Effects
 order: 60
 ---
 
-# effects
+# Effects
 
 import { Endpoint } from "components/Endpoint"; import { ExampleResponse } from "components/ExampleResponse"; import { CodeExample } from "components/CodeExample"; import { AttributeTable } from "components/AttributeTable";
 

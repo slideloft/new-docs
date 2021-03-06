@@ -3,7 +3,7 @@ title: Response Format
 order: 10
 ---
 
-# response-format
+# Response Format
 
 Horizon delivers responses as JSON objects formatted according to [HAL](https://en.wikipedia.org/wiki/Hypertext_Application_Language). The HAL format makes Horizon more explorable, paginates responses, and connects parent and child resources. Consuming this format is simple using one of the many [open source libraries available](https://github.com/mikekelly/hal_specification/wiki/Libraries) for most major programming languages.
 

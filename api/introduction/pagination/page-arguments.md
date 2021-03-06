@@ -3,7 +3,7 @@ title: Page Arguments
 order: 10
 ---
 
-# page-arguments
+# Page Arguments
 
 ```javascript
 var StellarSdk = require("stellar-sdk");

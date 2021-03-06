@@ -3,7 +3,7 @@ title: Pagination
 order: 0
 ---
 
-# index
+# Index
 
 To make it possible to explore the millions of records for resources like transactions and operations, Horizon paginates the data it returns for collection-based endpoints.
 

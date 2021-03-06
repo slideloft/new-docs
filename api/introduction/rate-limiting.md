@@ -3,7 +3,7 @@ title: Rate Limiting
 order: 40
 ---
 
-# rate-limiting
+# Rate Limiting
 
 Horizon rate limits on a per-IP-address basis. By default, a client is limited to 3600 requests per hour - one request per second on average.
 

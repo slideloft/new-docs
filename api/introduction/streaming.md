@@ -3,7 +3,7 @@ title: Streaming
 order: 30
 ---
 
-# streaming
+# Streaming
 
 import { MethodTable } from "components/MethodTable";
 
