@@ -3,41 +3,193 @@ title: Effect Types
 order: 10
 ---
 
-# types
-
-import { ExampleResponse } from "components/ExampleResponse"; import { AttributeTable } from "components/AttributeTable";
+# Types
 
 There are eight groups of effect types. Each effect type has its own set of attributes.
 
 ## Account Effects
 
- - TYPE - skip - OPERATION\(S\) - Account Created - skip - create\_account - Account Removed - skip - merge\_account - Account Credited - skip - create\_account, payment, path\_payment, merge\_account - Account Debited - skip - create\_account, payment, path\_payment, merge\_account - Account Thresholds Updated - skip - set\_options - Account Home Domain Updated - skip - set\_options - Account Flags Updated - skip - set\_options - Account Inflation Destination Updated - skip - set\_options
+ - TYPE  OPERATION\(S\) - 
 
-## Signer Effects
+* Account Created
 
- - TYPE - skip - OPERATION\(S\) - Signer Created - skip - set\_options - Signer Removed - skip - set\_options - Signer Updated - skip - set\_options
+  create\_account
 
-## Trustline Effects
+* Account Removed
 
- - TYPE - skip - OPERATION\(S\) - Trustline Created - skip - change\_trust - Trustline Removed - skip - change\_trust - Trustline Updated - skip - change\_trust, allow\_trust - Trustline Authorized - skip - allow\_trust - Trustline Deauthorized - skip - allow\_trust
+  merge\_account
 
-## Trading Effects
+* Account Credited
 
- - TYPE - skip - OPERATION\(S\) - Offer Created - skip - manage\_buy\_offer, manage\_sell\_offer, create\_passive\_sell\_offer - Offer Removed - skip - manage\_buy\_offer, manage\_sell\_offer, create\_passive\_sell\_offer, path\_payment - Offer Updated - skip - manage\_buy\_offer, manage\_sell\_offer, create\_passive\_sell\_offer, path\_payment - Trade - skip - manage\_buy\_offer, manage\_sell\_offer, create\_passive\_sell\_offer, path\_payment
+  create\_account, payment, path\_payment, merge\_account
 
-## Data Effects
+* Account Debited
 
- - TYPE - skip - OPERATION\(S\) - Data Created - skip - manage\_data - Data Removed - skip - manage\_data - Data Updated - skip - manage\_data
+  create\_account, payment, path\_payment, merge\_account
 
-## Claimable Balance Effects
+* Account Thresholds Updated
 
- - TYPE - skip - OPERATION\(S\) - Claimable Balance Created - skip - create\_claimable\_balance - Claimable Balance Claimant Created - skip - create\_claimable\_balance - Claimable Balance Claimed - skip - claim\_claimable\_balance
+  set\_options
 
-## Sponsorship Effects
+* Account Home Domain Updated
 
- - TYPE - skip - OPERATION\(S\) - Account Sponsorship Created - skip - create\_account - Account Sponsorship Updated - skip - revoke\_sponsorship - Account Sponsorship Removed - skip - revoke\_sponsorship - Trustline Sponsorship Created - skip - change\_trust - Trustline Sponsorship Updated - skip - revoke\_sponsorship - Trustline Sponsorship Removed - skip - revoke\_sponsorship - Account Data Sponsorship Created - skip - manage\_data - Account Data Sponsorship Updated - skip - revoke\_sponsorship - Account Data Sponsorship Removed - skip - revoke\_sponsorship - Claimable Balance Sponsorship Created - skip - create\_claimable\_balance - Claimable Balance Sponsorship Updated - skip - revoke\_sponsorship - Claimable Balance Sponsorship Removed - skip - revoke\_sponsorship - Account Signer Sponsorship Created - skip - set\_options - Account Signer Sponsorship Updated - skip - revoke\_sponsorship - Account Signer Sponsorship Removed - skip - revoke\_sponsorship
+  set\_options
 
-## Miscellaneous Effects
+* Account Flags Updated
 
- - TYPE - skip - OPERATION\(S\) - Sequence Bumped - skip - bump\_sequence
+  set\_options
+
+* Account Inflation Destination Updated
+
+  set\_options
+
+#### Signer Effects
+
+* Signer Created
+
+  set\_options
+
+* Signer Removed
+
+  set\_options
+
+* Signer Updated
+
+  set\_options
+
+#### Trustline Effects
+
+* Trustline Created
+
+  change\_trust
+
+* Trustline Removed
+
+  change\_trust
+
+* Trustline Updated
+
+  change\_trust, allow\_trust
+
+* Trustline Authorized
+
+  allow\_trust
+
+* Trustline Deauthorized
+
+  allow\_trust
+
+#### Trading Effects
+
+* Offer Created
+
+  manage\_buy\_offer, manage\_sell\_offer, create\_passive\_sell\_offer
+
+* Offer Removed
+
+  manage\_buy\_offer, manage\_sell\_offer, create\_passive\_sell\_offer, path\_payment
+
+* Offer Updated
+
+  manage\_buy\_offer, manage\_sell\_offer, create\_passive\_sell\_offer, path\_payment
+
+* Trade
+
+  manage\_buy\_offer, manage\_sell\_offer, create\_passive\_sell\_offer, path\_payment
+
+#### Data Effects
+
+* Data Created
+
+  manage\_data
+
+* Data Removed
+
+  manage\_data
+
+* Data Updated
+
+  manage\_data
+
+#### Claimable Balance Effects
+
+* Claimable Balance Created
+
+  create\_claimable\_balance
+
+* Claimable Balance Claimant Created
+
+  create\_claimable\_balance
+
+* Claimable Balance Claimed
+
+  claim\_claimable\_balance
+
+#### Sponsorship Effects
+
+* Account Sponsorship Created
+
+  create\_account
+
+* Account Sponsorship Updated
+
+  revoke\_sponsorship
+
+* Account Sponsorship Removed
+
+  revoke\_sponsorship
+
+* Trustline Sponsorship Created
+
+  change\_trust
+
+* Trustline Sponsorship Updated
+
+  revoke\_sponsorship
+
+* Trustline Sponsorship Removed
+
+  revoke\_sponsorship
+
+* Account Data Sponsorship Created
+
+  manage\_data
+
+* Account Data Sponsorship Updated
+
+  revoke\_sponsorship
+
+* Account Data Sponsorship Removed
+
+  revoke\_sponsorship
+
+* Claimable Balance Sponsorship Created
+
+  create\_claimable\_balance
+
+* Claimable Balance Sponsorship Updated
+
+  revoke\_sponsorship
+
+* Claimable Balance Sponsorship Removed
+
+  revoke\_sponsorship
+
+* Account Signer Sponsorship Created
+
+  set\_options
+
+* Account Signer Sponsorship Updated
+
+  revoke\_sponsorship
+
+* Account Signer Sponsorship Removed
+
+  revoke\_sponsorship
+
+#### Miscellaneous Effects
+
+* Sequence Bumped
+
+  bump\_sequence
 

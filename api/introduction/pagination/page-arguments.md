@@ -5,6 +5,25 @@ order: 10
 
 # page-arguments
 
+```javascript
+var StellarSdk = require("stellar-sdk");
+var server = new StellarSdk.Server("https://horizon.bantu.network");
+
+server
+  .operations()
+  .forLedger("26478723")
+  .cursor("113725249324879872")
+  .limit(5)
+  .order("asc")
+  .call()
+  .then(function (resp) {
+    console.log(resp);
+  })
+  .catch(function (err) {
+    console.error(err);
+  });
+```
+
 {% api-method method="get" host="/{endpoint}?cursor={paging\_token}&order={asc,desc}&limit={1-200}" path="" %}
 {% api-method-summary %}
 
@@ -245,4 +264,6 @@ A number that points to a specific location in a collection of responses and is 
 {% endapi-method-response %}
 {% endapi-method-spec %}
 {% endapi-method %}
+
+
 

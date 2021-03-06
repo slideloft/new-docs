@@ -3,19 +3,174 @@ title: List All Operations
 order: 40
 ---
 
-# list
-
-import { Endpoint } from "components/Endpoint"; import { ExampleResponse } from "components/ExampleResponse"; import { CodeExample } from "components/CodeExample"; import { AttributeTable } from "components/AttributeTable";
+# List
 
 This endpoint lists all successful operations and can be used in [streaming](../../introduction/streaming.md) mode. Streaming mode allows you to listen for new operations as they are added to the Stellar ledger. If called in streaming mode, Horizon will start at the earliest known operation unless a `cursor` is set, in which case it will start from that `cursor`. By setting the cursor value to `now`, you can stream operations created since your request time.
 
- \| \| \| \| --- \| --- \| \| GET \| /operations?cursor={paging\_token}&order={asc,desc}&limit={1-200}&include\_failed={true,false}&join={transactions\] \|
+ - ARGUMENT - 
 
- - ARGUMENT - REQUIRED - DESCRIPTION - cursor - optional - A number that points to a specific location in a collection of responses and is pulled from the \`paging\_token\` value of a record. - order - optional - A designation of the order in which records should appear. Options include \`asc\`\(ascending\) or \`desc\` \(descending\). If this argument isn’t set, it defaults to \`asc\`. - limit - optional - The maximum number of records returned. The limit can range from 1 to 200 - an upper limit that is hardcoded in Horizon for performance reasons. If this argument isn’t designated, it defaults to 10. - include\_failed - optional - Set to true to include failed operations in results. Options include \`true\` and \`false\`. - join - optional - Set to \`transactions\` to include the transactions which created each of the operations in the response.
+* cursor `optional`
 
- \`\`\`curl curl "https://horizon.stellar.org/operations?limit=3" \`\`\` \`\`\`js var StellarSdk = require\("stellar-sdk"\); var server = new StellarSdk.Server\("https://horizon.stellar.org"\); server .operations\(\) .call\(\) .then\(function \(resp\) { console.log\(resp\); }\) .catch\(function \(err\) { console.error\(err\); }\); \`\`\`
+  A number that points to a specific location in a collection of responses and is pulled from the `paging_token` value of a record.
 
- \`\`\`json { "\_links": { "self": { "href": "https://horizon.stellar.org/operations?cursor=\u0026limit=3\u0026order=asc" }, "next": { "href": "https://horizon.stellar.org/operations?cursor=12884905987\u0026limit=3\u0026order=asc" }, "prev": { "href": "https://horizon.stellar.org/operations?cursor=12884905985\u0026limit=3\u0026order=desc" } }, "\_embedded": { "records": \[ { "\_links": { "self": { "href": "https://horizon.stellar.org/operations/12884905985" }, "transaction": { "href": "https://horizon.stellar.org/transactions/3389e9f0f1a65f19736cacf544c2e825313e8447f569233bb8db39aa607c8889" }, "effects": { "href": "https://horizon.stellar.org/operations/12884905985/effects" }, "succeeds": { "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=12884905985" }, "precedes": { "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=12884905985" } }, "id": "12884905985", "paging\_token": "12884905985", "transaction\_successful": true, "source\_account": "GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN7", "type": "create\_account", "type\_i": 0, "created\_at": "2015-09-30T17:15:54Z", "transaction\_hash": "3389e9f0f1a65f19736cacf544c2e825313e8447f569233bb8db39aa607c8889", "starting\_balance": "20.0000000", "funder": "GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN7", "account": "GALPCCZN4YXA3YMJHKL6CVIECKPLJJCTVMSNYWBTKJW4K5HQLYLDMZTB" }, { "\_links": { "self": { "href": "https://horizon.stellar.org/operations/12884905986" }, "transaction": { "href": "https://horizon.stellar.org/transactions/3389e9f0f1a65f19736cacf544c2e825313e8447f569233bb8db39aa607c8889" }, "effects": { "href": "https://horizon.stellar.org/operations/12884905986/effects" }, "succeeds": { "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=12884905986" }, "precedes": { "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=12884905986" } }, "id": "12884905986", "paging\_token": "12884905986", "transaction\_successful": true, "source\_account": "GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN7", "type": "payment", "type\_i": 1, "created\_at": "2015-09-30T17:15:54Z", "transaction\_hash": "3389e9f0f1a65f19736cacf544c2e825313e8447f569233bb8db39aa607c8889", "asset\_type": "native", "from": "GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN7", "to": "GALPCCZN4YXA3YMJHKL6CVIECKPLJJCTVMSNYWBTKJW4K5HQLYLDMZTB", "amount": "99999999959.9999700" }, { "\_links": { "self": { "href": "https://horizon.stellar.org/operations/12884905987" }, "transaction": { "href": "https://horizon.stellar.org/transactions/3389e9f0f1a65f19736cacf544c2e825313e8447f569233bb8db39aa607c8889" }, "effects": { "href": "https://horizon.stellar.org/operations/12884905987/effects" }, "succeeds": { "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=12884905987" }, "precedes": { "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=12884905987" } }, "id": "12884905987", "paging\_token": "12884905987", "transaction\_successful": true, "source\_account": "GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN7", "type": "set\_options", "type\_i": 5, "created\_at": "2015-09-30T17:15:54Z", "transaction\_hash": "3389e9f0f1a65f19736cacf544c2e825313e8447f569233bb8db39aa607c8889", "master\_key\_weight": 0 } \] } } \`\`\`
+* order `optional`
 
- \`\`\`js var StellarSdk = require\("stellar-sdk"\); var server = new StellarSdk.Server\("https://horizon.stellar.org"\); var callback = function \(resp\) { console.log\(resp\); }; var es = server.operations\(\).cursor\("now"\).stream\({ onmessage: callback }\); \`\`\`
+  A designation of the order in which records should appear. Options include `asc`\(ascending\) or `desc` \(descending\). If this argument isn’t set, it defaults to `asc`.
+
+* limit `optional`
+
+  The maximum number of records returned. The limit can range from 1 to 200 - an upper limit that is hardcoded in Horizon for performance reasons. If this argument isn’t designated, it defaults to 10.
+
+* include\_failed `optional`
+
+  Set to true to include failed operations in results. Options include `true` and `false`.
+
+* join `optional`
+
+  Set to `transactions` to include the transactions which created each of the operations in the response.
+
+{% tabs %}
+{% tab title="JavaScript" %}
+```javascript
+var StellarSdk = require("stellar-sdk");
+var server = new StellarSdk.Server("https://expansion-testnet.bantu.network");
+
+server
+  .operations()
+  .call()
+  .then(function (resp) {
+    console.log(resp);
+  })
+  .catch(function (err) {
+    console.error(err);
+  });
+```
+{% endtab %}
+
+{% tab title="cURL" %}
+```bash
+curl "https://horizon.stellar.org/operations?limit=3"
+```
+{% endtab %}
+{% endtabs %}
+
+```bash
+{
+  "_links": {
+    "self": {
+      "href": "https://expansion-testnet.bantu.network/operations?cursor=\u0026limit=3\u0026order=asc"
+    },
+    "next": {
+      "href": "https://expansion-testnet.bantu.network/operations?cursor=12884905987\u0026limit=3\u0026order=asc"
+    },
+    "prev": {
+      "href": "https://expansion-testnet.bantu.network/operations?cursor=12884905985\u0026limit=3\u0026order=desc"
+    }
+  },
+  "_embedded": {
+    "records": [
+      {
+        "_links": {
+          "self": {
+            "href": "https://expansion-testnet.bantu.network/operations/12884905985"
+          },
+          "transaction": {
+            "href": "https://expansion-testnet.bantu.network/transactions/3389e9f0f1a65f19736cacf544c2e825313e8447f569233bb8db39aa607c8889"
+          },
+          "effects": {
+            "href": "https://expansion-testnet.bantu.network/operations/12884905985/effects"
+          },
+          "succeeds": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=desc\u0026cursor=12884905985"
+          },
+          "precedes": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=asc\u0026cursor=12884905985"
+          }
+        },
+        "id": "12884905985",
+        "paging_token": "12884905985",
+        "transaction_successful": true,
+        "source_account": "GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN7",
+        "type": "create_account",
+        "type_i": 0,
+        "created_at": "2015-09-30T17:15:54Z",
+        "transaction_hash": "3389e9f0f1a65f19736cacf544c2e825313e8447f569233bb8db39aa607c8889",
+        "starting_balance": "20.0000000",
+        "funder": "GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN7",
+        "account": "GALPCCZN4YXA3YMJHKL6CVIECKPLJJCTVMSNYWBTKJW4K5HQLYLDMZTB"
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "https://expansion-testnet.bantu.network/operations/12884905986"
+          },
+          "transaction": {
+            "href": "https://expansion-testnet.bantu.network/transactions/3389e9f0f1a65f19736cacf544c2e825313e8447f569233bb8db39aa607c8889"
+          },
+          "effects": {
+            "href": "https://expansion-testnet.bantu.network/operations/12884905986/effects"
+          },
+          "succeeds": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=desc\u0026cursor=12884905986"
+          },
+          "precedes": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=asc\u0026cursor=12884905986"
+          }
+        },
+        "id": "12884905986",
+        "paging_token": "12884905986",
+        "transaction_successful": true,
+        "source_account": "GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN7",
+        "type": "payment",
+        "type_i": 1,
+        "created_at": "2015-09-30T17:15:54Z",
+        "transaction_hash": "3389e9f0f1a65f19736cacf544c2e825313e8447f569233bb8db39aa607c8889",
+        "asset_type": "native",
+        "from": "GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN7",
+        "to": "GALPCCZN4YXA3YMJHKL6CVIECKPLJJCTVMSNYWBTKJW4K5HQLYLDMZTB",
+        "amount": "99999999959.9999700"
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "https://expansion-testnet.bantu.network/operations/12884905987"
+          },
+          "transaction": {
+            "href": "https://expansion-testnet.bantu.network/transactions/3389e9f0f1a65f19736cacf544c2e825313e8447f569233bb8db39aa607c8889"
+          },
+          "effects": {
+            "href": "https://expansion-testnet.bantu.network/operations/12884905987/effects"
+          },
+          "succeeds": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=desc\u0026cursor=12884905987"
+          },
+          "precedes": {
+            "href": "https://expansion-testnet.bantu.network/effects?order=asc\u0026cursor=12884905987"
+          }
+        },
+        "id": "12884905987",
+        "paging_token": "12884905987",
+        "transaction_successful": true,
+        "source_account": "GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN7",
+        "type": "set_options",
+        "type_i": 5,
+        "created_at": "2015-09-30T17:15:54Z",
+        "transaction_hash": "3389e9f0f1a65f19736cacf544c2e825313e8447f569233bb8db39aa607c8889",
+        "master_key_weight": 0
+      }
+    ]
+  }
+}
+```
+
+```bash
+var StellarSdk = require("stellar-sdk");
+var server = new StellarSdk.Server("https://horizon.stellar.org");
+
+var callback = function (resp) {
+  console.log(resp);
+};
+
+var es = server.operations().cursor("now").stream({ onmessage: callback });
+```
 

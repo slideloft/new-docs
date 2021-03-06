@@ -77,7 +77,7 @@ By default Bantu-core listens for connections from localhost on port 11626. You 
 * **clearmetrics** `clearmetrics?[domain=DOMAIN]`  Clear metrics for a specified domain. If no domain specified, clear all metrics \(for testing purposes\).
 * **peers?\[&fullkeys=true\]** Returns the list of known peers in JSON format. If `fullkeys` is set, outputs unshortened public keys.
 * **quorum** `quorum?[node=NODE_ID][&compact=true][&fullkeys=true][&transitive=true]`  
-  Returns information about the quorum for `NODE_ID` \(local node by default\). If `transitive` is set, information is for the transitive quorum centered on `NODE_ID`, otherwise only for nodes in the quorum set of `NODE_ID`.
+   Returns information about the quorum for `NODE_ID` \(local node by default\). If `transitive` is set, information is for the transitive quorum centered on `NODE_ID`, otherwise only for nodes in the quorum set of `NODE_ID`.
 
   `NODE_ID` is either a full key \(`GABCD...`\), an alias \(`$name`\) or an abbreviated ID \(`@GABCD`\).
 
@@ -85,7 +85,7 @@ By default Bantu-core listens for connections from localhost on port 11626. You 
 
   If `fullkeys` is set, outputs unshortened public keys.
 
-* **setcursor** `setcursor?id=ID&cursor=N` Sets or creates a cursor identified by `ID` with value `N`. ID is an uppercase AlphaNum, N is an uint32 that represents the last ledger sequence number that the instance ID processed. Cursors are used by dependent services to tell Bantu-core which data can be safely deleted by the instance. The data is historical data stored in the SQL tables such as txhistory or ledgerheaders. When all consumers processed the data for ledger sequence N the data can be safely removed by the instance. The actual deletion is performed by invoking the `maintenance` endpoint or on startup. See also `dropcursor`.
+* **setcursor** `setcursor?id=ID&cursor=N`  Sets or creates a cursor identified by `ID` with value `N`. ID is an uppercase AlphaNum, N is an uint32 that represents the last ledger sequence number that the instance ID processed. Cursors are used by dependent services to tell Bantu-core which data can be safely deleted by the instance. The data is historical data stored in the SQL tables such as txhistory or ledgerheaders. When all consumers processed the data for ledger sequence N the data can be safely removed by the instance. The actual deletion is performed by invoking the `maintenance` endpoint or on startup. See also `dropcursor`.
 * **getcursor** `getcursor?[id=ID]`  Gets the cursor identified by `ID`. If ID is not defined then all cursors will be returned.
 * **scp** `scp?[limit=n][&fullkeys=true]`  Returns a JSON object with the internal state of the SCP engine for the last n \(default 2\) ledgers. Outputs unshortened public keys if fullkeys is set.
 * **tx** `tx?blob=Base64`  Submit a transaction to the network. blob is a base64 encoded XDR serialized 'TransactionEnvelope', and it returns a JSON object with the following properties status:

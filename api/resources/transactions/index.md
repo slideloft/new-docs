@@ -3,7 +3,7 @@ title: Transactions
 order: 0
 ---
 
-# index
+# Index
 
 import { EndpointsTable } from "components/EndpointsTable";
 
@@ -11,5 +11,14 @@ Transactions are commands that modify the ledger state and consist of one or mor
 
 Learn more about [transactions](../../../glossary/transactions.md).
 
- \| \| \| \| ---- \| ------------------------------------------------------------ \| \| GET \| \[/transactions/:transaction\_id\]\(./single.mdx\) \| \| GET \| \[/transactions/:transaction\_id/operations\]\(./operations.mdx\) \| \| GET \| \[/transactions/:transaction\_id/effects\]\(./effects.mdx\) \| \| GET \| \[/transactions\]\(./list.mdx\) \| \| POST \| \[/transactions\]\(./post.mdx\) \|
+
+
+Endpoints
+
+| GET | [/transactions/:transaction\_id](https://developers.stellar.org/api/resources/transactions/single/) |
+| :--- | :--- |
+| GET | [/transactions/:transaction\_id/operations](https://developers.stellar.org/api/resources/transactions/operations/) |
+| GET | [/transactions/:transaction\_id/effects](https://developers.stellar.org/api/resources/transactions/effects/) |
+| GET | [/transactions](https://developers.stellar.org/api/resources/transactions/list/) |
+| POST | [/transactions](https://developers.stellar.org/api/resources/transactions/post/) |
 

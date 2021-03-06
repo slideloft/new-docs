@@ -3,13 +3,51 @@ title: Begin Sponsoring Future Reserves
 order: 160
 ---
 
-# begin-sponsoring-future-reserves
+# Begin Sponsoring Future Reserves
 
-import { ExampleResponse } from "components/ExampleResponse"; import { AttributeTable } from "components/AttributeTable";
+
 
 Initiate a sponsorship.
 
- - ATTRIBUTE - DATA TYPE - DESCRIPTION - sponsored\_id - string - The id of the account which will be sponsored.
+ - ATTRIBUTE - 
 
- \`\`\`json { "\_links": { "self": { "href": "https://horizon.stellar.org/operations/124922916260433921" }, "transaction": { "href": "https://horizon.stellar.org/transactions/f94c338370839a598753221714de0b0193d4fc56ea369db6efe88f18669cc5a1" }, "effects": { "href": "https://horizon.stellar.org/operations/124922916260433921/effects" }, "succeeds": { "href": "https://horizon.stellar.org/effects?order=desc\u0026cursor=124922916260433921" }, "precedes": { "href": "https://horizon.stellar.org/effects?order=asc\u0026cursor=124922916260433921" } }, "id": "124922916260433921", "paging\_token": "124922916260433921", "transaction\_successful": true, "source\_account": "GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA", "type": "begin\_sponsoring\_future\_reserves", "type\_i": 16, "created\_at": "2020-04-09T00:14:11Z", "transaction\_hash": "f94c338370839a598753221714de0b0193d4fc56ea369db6efe88f18669cc5a1", "sponsored\_id": "GC3C4AKRBQLHOJ45U4XG35ESVWRDECWO5XLDGYADO6DPR3L7KIDVUMML" } \`\`\`
+* balance\_id `string`
+
+  The id of the claimable balance.
+
+* claimant `string`
+
+  The id of the account which claimed the balance.
+
+```bash
+{
+  "_links": {
+    "self": {
+      "href": "https://expansion-testnet.bantu.network/operations/124922916260433921"
+    },
+    "transaction": {
+      "href": "https://expansion-testnet.bantu.network/transactions/f94c338370839a598753221714de0b0193d4fc56ea369db6efe88f18669cc5a1"
+    },
+    "effects": {
+      "href": "https://expansion-testnet.bantu.network/operations/124922916260433921/effects"
+    },
+    "succeeds": {
+      "href": "https://expansion-testnet.bantu.network/effects?order=desc\u0026cursor=124922916260433921"
+    },
+    "precedes": {
+      "href": "https://expansion-testnet.bantu.network/effects?order=asc\u0026cursor=124922916260433921"
+    }
+  },
+  "id": "124922916260433921",
+  "paging_token": "124922916260433921",
+  "transaction_successful": true,
+  "source_account": "GAYOLLLUIZE4DZMBB2ZBKGBUBZLIOYU6XFLW37GBP2VZD3ABNXCW4BVA",
+  "type": "claim_claimable_balance",
+  "type_i": 15,
+  "created_at": "2020-04-09T00:14:11Z",
+  "transaction_hash": "f94c338370839a598753221714de0b0193d4fc56ea369db6efe88f18669cc5a1",
+  "id": "000000000102030000000000000000000000000000000000000000000000000000000000",
+  "claimant": "GC3C4AKRBQLHOJ45U4XG35ESVWRDECWO5XLDGYADO6DPR3L7KIDVUMML"
+}
+```
 
