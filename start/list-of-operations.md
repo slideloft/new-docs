@@ -5,7 +5,7 @@ order: 30
 
 # list of Operations
 
-This is the canonical list of Bantu operations, which lists every Bantu operation along with parameters, error codes, and links to relevant documentation for key SDKs.
+This is the canonical list of Bantu operations, which lists every Bantu operation along with parameters, error codes, and links to the relevant documentation for key SDKs.
 
 For a description of how operations work in Bantu, see [Operations](../glossary/operations.md).
 
@@ -432,7 +432,7 @@ Possible errors:
 | ACCOUNT\_MERGE\_IMMUTABLE\_SET | -3 | The source account has `AUTH_IMMUTABLE` flag set. |
 | ACCOUNT\_MERGE\_HAS\_SUB\_ENTRIES | -4 | The source account has trust lines/offers. |
 | ACCOUNT\_MERGE\_SEQNUM\_TOO\_FAR | -5 | Source's account sequence number is too high. It must be less than `(ledgerSeq << 32) = (ledgerSeq * 0x100000000)`. |
-| ACCOUNT\_MERGE\_DEST\_FULL | -6 | The `destination` account cannot receive the balance of the source account and still satisfy its lumen buying liabilities. |
+| ACCOUNT\_MERGE\_DEST\_FULL | -6 | The `destination` account cannot receive the balance of the source account and still satisfy its spirit buying liabilities. |
 | ACCOUNT\_MERGE\_IS\_SPONSOR | -7 | The source account is a sponsor. |
 
 ## Manage Data

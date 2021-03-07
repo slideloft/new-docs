@@ -9,13 +9,13 @@ The goal of these docs is to explain key concepts and offer practical examples s
 
 ## Getting Started
 
-Once you have a high-level understanding of Bantu, you can start building right away, and the subsequent sections of these docs will focus on how to do that. You don't have to run your own Bantu Core node to develop on Bantu — several organizations including the Bantu Development Foundation offer public-access API endpoints that allow you to submit transactions and query the ledger — so you can focus on building your product before committing to setting up network infrastructure.
+Once you have a high-level understanding of Bantu, you can start building right away, and the subsequent sections of these docs will focus on how to do that. You don't have to run your own Bantu Core node to develop on Bantu — several organizations including the Bantu Development Foundation offer public-access API endpoints that allow you to submit transactions and query the ledger — so you can focus on building your product before committing to setting up the network infrastructure.
 
 If you are new, you may want to start with the early [Tutorials](../tutorials/create-account.md) to familiarize yourself with some of the building blocks of Bantu. You should also investigate the [SDKs](../software-and-sdks/index.md) designed to make developing in your language of choice easy, and familiarize yourself with the canonical [List of Operations](list-of-operations.md), which documents everything you can do with Bantu — along with parameters and error codes — and links to the relevant documentation for key SDKs. Finally, you may want to explore the [API Reference](../api/introduction/index.md) documentation, which details every resource, aggregation, and error provided by Horizon, the Bantu API.
 
 ## Developer Channels
 
-Bantu has an active developer community, and it's often helpful to interact with other devs who are working on Bantu-based projects. They're great at answering questions, giving feedback, and sharing information about the best ways to use the network. For general information on our community channels, check out the stellar.org [Community Page](https://bantutalk.org/).
+Bantu has an active developer community, and it's often helpful to interact with other devs who are working on Bantu-based projects. They're great at answering questions, giving feedback, and sharing information about the best ways to use the network. For general information on our community channels, check out the Bantu's [Community Page](https://bantutalk.org/).
 
 You can join our [dedicated developer channel ](https://bantutalk.org/c/bantu-developers/7)to get information on important plans, developments, and events
 

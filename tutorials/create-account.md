@@ -5,13 +5,13 @@ order: 10
 
 # Create Account
 
-Before we get started with working with Bantu in code, consider going through the following examples using the [Bantu Laboratory](https://laboratory.bantu.network/). The lab allows you create accounts, fund accounts on the Bantu test network, build transactions, run any operation, and inspect responses from Expansion via the Endpoint Explorer.
+Before we get started with working with Bantu in code, consider going through the following examples using the [Bantu Laboratory](https://laboratory.bantu.network/). The lab allows you to create accounts, fund accounts on the Bantu test network, build transactions, run any operation, and inspect responses from Expansion via the Endpoint Explorer.
 
-Accounts are a fundamental building block of Bantu: they hold all your balances, allow you to send and receive payments, and let you place offers to buy and sell assets. Since pretty much everything on Bantu is in some way tied to an account, the first thing you generally need to do when you start developing is create one. This beginner-level tutorial will show you how to do that.
+Accounts are a fundamental building block of Bantu: they hold all your balances, allow you to send and receive payments, and let you place offers to buy and sell assets. Since pretty much everything on Bantu is in some way tied to an account, the first thing you generally need to do when you start developing is to create one. This beginner-level tutorial will show you how to do that.
 
 ## Create a Keypair
 
-Bantu uses public key cryptography to ensure that every transaction is secure: every Bantu account has a keypair consisting of a public key and a secret key. The public key is always safe to share — other people need it to identify your account and verify that you authorized a transaction. It's like an email address. The secret key, however, is private information that proves you own — and gives you access to — your account. It's like a password, and you should never share it with anyone.
+Bantu uses public-key cryptography to ensure that every transaction is secure: every Bantu account has a key pair consisting of a public key and a secret key. The public key is always safe to share — other people need it to identify your account and verify that you authorized a transaction. It's like an email address. The secret key, however, is private information that proves you own — and gives you access to — your account. It's like a password, and you should never share it with anyone.
 
 Before creating an account, you need to generate your own keypair:
 
