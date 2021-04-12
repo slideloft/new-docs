@@ -15,9 +15,9 @@ You do not have to run a Bantu Core node or Horizon instance to build on Bantu: 
 
 Bantu Core is the backbone of the Bantu network and does the hard work of validating and agreeing on the status of every transaction with other instances of Core through the Bantu Consensus Protocol. The processes for installing, configuring, and maintaining a Bantu Core node are covered in great detail in the [Run a Core Node](../run-core-node/index.md) section of the docs.
 
-### Horizon
+### Expansion
 
-Horizon is the client-facing API server for the Bantu ecosystem. It acts as the interface between Bantu Core and applications that want to access the Bantu network. If you're running Bantu Core, you will probably also want to run Horizon. For more information on how to set up and operate a Horizon instance, see the [Run an API Server](../run-api-server/index.md) section of the docs.
+Expansion is the client-facing API server for the Bantu ecosystem. It acts as the interface between Bantu Core and applications that want to access the Bantu network. If you're running Bantu Core, you will probably also want to run Horizon. For more information on how to set up and operate a Horizon instance, see the [Run an API Server](../run-api-server/index.md) section of the docs.
 
 ## SDKs
 
@@ -90,23 +90,17 @@ The Go SDK is split up into a few separate packages, all of which you can find i
 
 The Bantu Development Foundation maintains a small suite of tools to make it easier for developers to interact with the network.
 
-### [Laboratory](https://www.stellar.org/laboratory/)
+### [Laboratory](https://laboratory.bantu.network/)
 
-The Bantu laboratory is a GUI that allows you to create accounts, construct and submit transactions, read XDRs, and query all of Horizon's endpoints. It exposes the relevant calls to Horizon, so it's a great way to experiment with and learn more about the Bantu API. The source is available [here](https://github.com/stellar/laboratory).
+The Bantu laboratory is a GUI that allows you to create accounts, construct and submit transactions, read XDRs, and query all of Horizon's endpoints. It exposes the relevant calls to Horizon, so it's a great way to experiment with and learn more about the Bantu API. 
 
-### [Account Viewer](https://www.stellar.org/account-viewer/)
 
-The account viewer is a stripped-down wallet that you can use to check an account's XLM balance and send simple payments. It works on the testnet as well as the public network. The source is available [here](https://github.com/stellar/account-viewer).
 
-### [Dashboard](http://dashboard.stellar.org)
+### [Dashboard](https://dashboard.bantu.network/)
 
-The dashboard shows the current status of the public network and the test network. The source is available [here](https://github.com/stellar/dashboard).
+The dashboard shows the current status of the public network and the test network. 
 
-### [Status Page](https://status.stellar.org/)
 
-The status page tracks network incidents and scheduled maintenance for both the public network and the test network. We recommend subscribing to updates so you're notified about important events including protocol upgrades and testnet resets.
-
-There is also a small [suite of tools](https://github.com/stellar/go/tree/master/tools) built in Go that can be useful for Bantu Core and Horizon operators. It includes things like Bantu Archivist, which is for Bantu Core archive maintenance, and Horizon cmp, which compares the responses of two Horizon servers and shows the diffs.
 
 ## Reference Implementations
 
