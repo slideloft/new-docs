@@ -7,9 +7,9 @@ order: 0
 
 ## Software
 
-There are two key pieces of network software: Bantu Core, which tracks and adds transaction sets to the ledger, and Horizon, an API that allows programmatic access to submit transactions and query network data. To find out more about how they work together, visit the description of the [Bantu Stack](../start/bantu-stack.md).
+There are two key pieces of network software: Bantu Core, which tracks and adds transaction sets to the ledger, and Expansion, an API that allows programmatic access to submit transactions and query network data. To find out more about how they work together, visit the description of the [Bantu Stack](../start/bantu-stack.md).
 
-You do not have to run a Bantu Core node or Horizon instance to build on Bantu: you can start developing in your language of choice by installing one of the [Bantu SDKs](index.md#sdks) below, and interacting with a public Horizon instance. To find out more about how to interact with Horizon, check out the [API Reference](../api/introduction/index.md) section, which chronicles every Horizon endpoint, resource, aggregation, and error.
+You do not have to run a Bantu Core node or Expansion instance to build on Bantu: you can start developing in your language of choice by installing one of the [Bantu SDKs](index.md#sdks) below, and interacting with a public Expansion instance. To find out more about how to interact with Expansion, check out the [API Reference](../api/introduction/index.md) section, which chronicles every Expansion endpoint, resource, aggregation, and error.
 
 ### Bantu Core
 
@@ -17,13 +17,13 @@ Bantu Core is the backbone of the Bantu network and does the hard work of valida
 
 ### Expansion
 
-Expansion is the client-facing API server for the Bantu ecosystem. It acts as the interface between Bantu Core and applications that want to access the Bantu network. If you're running Bantu Core, you will probably also want to run Horizon. For more information on how to set up and operate a Horizon instance, see the [Run an API Server](../run-api-server/index.md) section of the docs.
+Expansion is the client-facing API server for the Bantu ecosystem. It acts as the interface between Bantu Core and applications that want to access the Bantu network. If you're running Bantu Core, you will probably also want to run Expansion. For more information on how to set up and operate a Expansion instance, see the [Run an API Server](../run-api-server/index.md) section of the docs.
 
 ## SDKs
 
-There are a wide variety of Bantu SDKs, which means you can interact with the network in your language of choice. The Javascript, Java, and Go SDKs are maintained by the Bantu Development Foundation; the rest are maintained by dedicated community developers. They're all open source, so if you have a question, suggestion, or contribution to make, you can file a Github issue or pull request in the relevant SDK repository. You can also get in touch with SDK maintainers by joining the [Bantu public Keybase team](https://keybase.io/team/stellar.public), and navigating to the \#sdk-mainteners channel.
+There are a wide variety of Bantu SDKs, which means you can interact with the network in your language of choice. The Javascript, Java, and Go SDKs are maintained by the Bantu Development Foundation; the rest are maintained by dedicated community developers. They're all open source, so if you have a question, suggestion, or contribution to make, you can file a Github issue or pull request in the relevant SDK repository. You can also get in touch with SDK maintainers by joining the [Bantu Forum](https://bantutalk.org/).
 
-Each SDK has its own source code and documentation, and we've linked to both in the list below. Often, the best place to find out how to use a given SDK is to check the documentation specific to it. Most offer practical examples that demonstrate how to construct and submit transactions and interact with Horizon endpoints.
+Each SDK has its own source code and documentation, and we've linked to both in the list below. Often, the best place to find out how to use a given SDK is to check the documentation specific to it. Most offer practical examples that demonstrate how to construct and submit transactions and interact with Expansion endpoints.
 
 ### Javascript
 
@@ -37,12 +37,12 @@ Each SDK has its own source code and documentation, and we've linked to both in 
 
 ### Go
 
-The Go SDK is split up into a few separate packages, all of which you can find in [the Go monorepo README](https://github.com/stellar/go/blob/master/docs/reference/readme.md). The two key libraries for interacting with Horizon are `txnbuild`, which enables the construction, signing, and encoding of Bantu transactions, and `horizonclient`, which provides a web client for interfacing with Horizon server REST endpoints to retrieve ledger information and submit transactions built with `txnbuild`.
+The Go SDK is split up into a few separate packages, all of which you can find in [the Go monorepo README](https://github.com/stellar/go/blob/master/docs/reference/readme.md). The two key libraries for interacting with Expansion are `txnbuild`, which enables the construction, signing, and encoding of Bantu transactions, and `Expansionclient`, which provides a web client for interfacing with Expansion server REST endpoints to retrieve ledger information and submit transactions built with `txnbuild`.
 
 * `txnbuild` [Source](https://github.com/stellar/go/tree/master/txnbuild)
 * `txnbuild` [Docs](https://godoc.org/github.com/stellar/go/txnbuild)
-* `Horizonclient` [Source](https://github.com/stellar/go/tree/master/clients/horizonclient)
-* `Horizonclient`[Docs](https://godoc.org/github.com/stellar/go/clients/horizonclient)
+* `Expansionclient` [Source](https://github.com/stellar/go/tree/master/clients/Expansionclient)
+* `Expansionclient`[Docs](https://godoc.org/github.com/stellar/go/clients/Expansionclient)
 
 ### Python
 
@@ -92,7 +92,7 @@ The Bantu Development Foundation maintains a small suite of tools to make it eas
 
 ### [Laboratory](https://laboratory.bantu.network/)
 
-The Bantu laboratory is a GUI that allows you to create accounts, construct and submit transactions, read XDRs, and query all of Horizon's endpoints. It exposes the relevant calls to Horizon, so it's a great way to experiment with and learn more about the Bantu API. 
+The Bantu laboratory is a GUI that allows you to create accounts, construct and submit transactions, read XDRs, and query all of Expansion's endpoints. It exposes the relevant calls to Expansion, so it's a great way to experiment with and learn more about the Bantu API. 
 
 
 
